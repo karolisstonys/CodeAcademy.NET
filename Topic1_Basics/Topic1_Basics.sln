@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L002 tasks", "L002 tasks\L0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L001 console write read", "L001 console write read\L001 console write read.csproj", "{C8E968C6-9FFB-4B27-933A-28EF9BC7549C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L003 variable types", "L003 variable types\L003 variable types.csproj", "{92CB6CE3-D8F6-47CA-8D9D-B538753C0F21}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{C8E968C6-9FFB-4B27-933A-28EF9BC7549C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8E968C6-9FFB-4B27-933A-28EF9BC7549C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8E968C6-9FFB-4B27-933A-28EF9BC7549C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92CB6CE3-D8F6-47CA-8D9D-B538753C0F21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92CB6CE3-D8F6-47CA-8D9D-B538753C0F21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92CB6CE3-D8F6-47CA-8D9D-B538753C0F21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92CB6CE3-D8F6-47CA-8D9D-B538753C0F21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
