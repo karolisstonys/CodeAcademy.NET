@@ -274,7 +274,7 @@
             // Į 1stulp5eil įdėkite 4 dalių elementą, 2stulp5eil - 3 dalių, 3stulp4eil - 1 dalies, 3stulp5eil - 2 dalių, ir išveskite Tower of Hanoi
 
 
-            //stulp1eil5 = ring4; // jau toks ir yra
+            //stulp1eil5 = ring4;   // stulp1eil5 jau toks ir yra
             stulp2eil5 = ring3;
             stulp3eil4 = ring1;
             stulp3eil5 = ring2;
@@ -352,31 +352,35 @@
             // ================================================================================================
             // pakeiskite visų elementų dizainą iš # į " , išveskite Tower of Hanoi
 
+            stulp3eil1 = stulp3eil1.Replace("#", "\""); 
+            stulp3eil2 = stulp3eil2.Replace("#", "\"");
+            stulp3eil3 = stulp3eil3.Replace("#", "\"");
+            stulp3eil4 = stulp3eil4.Replace("#", "\"");
+            stulp3eil5 = stulp3eil5.Replace("#", "\"");
 
-            Console.WriteLine($"1eil. {stulp1eil1}{stulp2eil1}{stulp3eil1}".Replace("#", "\""));
-            Console.WriteLine($"2eil. {stulp1eil2}{stulp2eil2}{stulp3eil2}".Replace("#", "\""));
-            Console.WriteLine($"3eil. {stulp1eil3}{stulp2eil3}{stulp3eil3}".Replace("#", "\""));
-            Console.WriteLine($"4eil. {stulp1eil4}{stulp2eil4}{stulp3eil4}".Replace("#", "\""));
-            Console.WriteLine($"5eil. {stulp1eil5}{stulp2eil5}{stulp3eil5}".Replace("#", "\""));
+            Console.WriteLine($"1eil. {stulp1eil1}{stulp2eil1}{stulp3eil1}");
+            Console.WriteLine($"2eil. {stulp1eil2}{stulp2eil2}{stulp3eil2}");
+            Console.WriteLine($"3eil. {stulp1eil3}{stulp2eil3}{stulp3eil3}");
+            Console.WriteLine($"4eil. {stulp1eil4}{stulp2eil4}{stulp3eil4}");
+            Console.WriteLine($"5eil. {stulp1eil5}{stulp2eil5}{stulp3eil5}");
             Console.WriteLine($"{paskutineEil}");
 
             Console.WriteLine("\ntesti...\n");
             Console.ReadKey();
-
 
             // ================================================================================================
             // paprašykite naudotojo nupiešti 1 sulpelio 1 eilutę. Išveskite visą Tower of Hanoi su perpiešta pirma eilute
 
             Console.WriteLine();
             Console.WriteLine("nupieskite pirmo stulpelio pirma eilute patys (\"5 simboliai\" + \"|\" + \"5 simboliai\"):");
-            string drawnByUser = Console.ReadLine();
+            string drawnByUser = Console.ReadLine();    //priskiriame naujai vartotojo ivesta string prie string drawnByUser
             Console.WriteLine();
 
-            Console.WriteLine($"1eil. {drawnByUser}{stulp2eil1}{stulp3eil1}".Replace("#", "\""));
-            Console.WriteLine($"2eil. {stulp1eil2}{stulp2eil2}{stulp3eil2}".Replace("#", "\""));
-            Console.WriteLine($"3eil. {stulp1eil3}{stulp2eil3}{stulp3eil3}".Replace("#", "\""));
-            Console.WriteLine($"4eil. {stulp1eil4}{stulp2eil4}{stulp3eil4}".Replace("#", "\""));
-            Console.WriteLine($"5eil. {stulp1eil5}{stulp2eil5}{stulp3eil5}".Replace("#", "\""));
+            Console.WriteLine($"1eil. {drawnByUser}{stulp2eil1}{stulp3eil1}");
+            Console.WriteLine($"2eil. {stulp1eil2}{stulp2eil2}{stulp3eil2}");
+            Console.WriteLine($"3eil. {stulp1eil3}{stulp2eil3}{stulp3eil3}");
+            Console.WriteLine($"4eil. {stulp1eil4}{stulp2eil4}{stulp3eil4}");
+            Console.WriteLine($"5eil. {stulp1eil5}{stulp2eil5}{stulp3eil5}");
             Console.WriteLine($"{paskutineEil}");
 
             Console.WriteLine("\n - PABAIGA - \n");
