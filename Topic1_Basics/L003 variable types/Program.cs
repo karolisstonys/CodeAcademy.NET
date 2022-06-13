@@ -58,7 +58,7 @@
             //====================================================================================================================
             // Char variable
             // NOT-NULLABLE !!!
-            char raide = 'a';   // yra vieno skaitmens tips, nors atrodo, kad talpina raide. CHAR is similar to an INTEGER or USHORT.
+            char raide = 'a';   // yra vieno skaitmens tipas, nors atrodo, kad talpina raide. CHAR is similar to an INTEGER or USHORT.
             char.IsDigit(raide);
             char.IsLetter(raide);
             char.IsLetterOrDigit(raide);
@@ -91,6 +91,7 @@
             Console.WriteLine(raktasIrReiksme.Key);
             Console.WriteLine(raktasIrReiksme.Value);
 
+                             var tupleVar = new Tuple<int, int, string>(20, 1500, "Laptop");
             Tuple<int, int, string> tuple = new Tuple<int, int, string>(20, 1500, "Laptop");
             Console.WriteLine(tuple.Item1);
             Console.WriteLine(tuple.Item2);

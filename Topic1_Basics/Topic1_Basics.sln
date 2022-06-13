@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L002 tasks", "L002 tasks\L0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L001 console write read", "L001 console write read\L001 console write read.csproj", "{C8E968C6-9FFB-4B27-933A-28EF9BC7549C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L003 variable types", "L003 variable types\L003 variable types.csproj", "{92CB6CE3-D8F6-47CA-8D9D-B538753C0F21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L003 variable types", "L003 variable types\L003 variable types.csproj", "{92CB6CE3-D8F6-47CA-8D9D-B538753C0F21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L003 tasks", "L003 tasks\L003 tasks.csproj", "{508E18D0-FA5C-4D31-9E58-7F5BD103360E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L003 tasks", "L003 tasks\L003 tasks.csproj", "{508E18D0-FA5C-4D31-9E58-7F5BD103360E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L004 type conversion", "L004 type conversion\L004 type conversion.csproj", "{8D975B1A-224C-4999-8ABF-27417D2050AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{508E18D0-FA5C-4D31-9E58-7F5BD103360E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{508E18D0-FA5C-4D31-9E58-7F5BD103360E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{508E18D0-FA5C-4D31-9E58-7F5BD103360E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D975B1A-224C-4999-8ABF-27417D2050AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D975B1A-224C-4999-8ABF-27417D2050AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D975B1A-224C-4999-8ABF-27417D2050AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D975B1A-224C-4999-8ABF-27417D2050AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
