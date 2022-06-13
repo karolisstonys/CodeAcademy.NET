@@ -92,7 +92,7 @@
             // PARSING
 
             string numberString = "100";
-            string veryLongNUmberString = "999999999999999999999";
+            string veryLongNumberString = "999999999999999999999";
             string text = "text";
 
             int parsedINTEGER = int.Parse(numberString);

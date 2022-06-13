@@ -15,6 +15,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L003 tasks", "L003 tasks\L0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L004 type conversion", "L004 type conversion\L004 type conversion.csproj", "{8D975B1A-224C-4999-8ABF-27417D2050AA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L004 math operations", "L004 math operations\L004 math operations.csproj", "{72EFA20B-AEB5-4C9A-912D-CCFDB4C88F93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L004 tasks", "L004 tasks\L004 tasks.csproj", "{FD1BE543-C751-4976-A770-810275ED0DBD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{8D975B1A-224C-4999-8ABF-27417D2050AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D975B1A-224C-4999-8ABF-27417D2050AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D975B1A-224C-4999-8ABF-27417D2050AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72EFA20B-AEB5-4C9A-912D-CCFDB4C88F93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72EFA20B-AEB5-4C9A-912D-CCFDB4C88F93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72EFA20B-AEB5-4C9A-912D-CCFDB4C88F93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72EFA20B-AEB5-4C9A-912D-CCFDB4C88F93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD1BE543-C751-4976-A770-810275ED0DBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD1BE543-C751-4976-A770-810275ED0DBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD1BE543-C751-4976-A770-810275ED0DBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD1BE543-C751-4976-A770-810275ED0DBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
