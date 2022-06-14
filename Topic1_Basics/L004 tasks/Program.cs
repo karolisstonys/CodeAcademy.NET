@@ -31,7 +31,8 @@
 
             // ====================================================================================================================
             // PARAŠYTI PROGRAMĄ, 3 SKAIČIUS. PROGRAMA TURI IŠVESTI ŠIŲ SKAIČIŲ VIDURKĮ
-
+            
+            /*
             decimal numb1;
             decimal numb2;
             decimal numb3;
@@ -46,7 +47,7 @@
             numb3 = Convert.ToDecimal(Console.ReadLine());
 
             Console.WriteLine($"Skaiciu vidurkis: {(numb1 + numb2 + numb3)/3}");
-
+            */
 
 
             // ====================================================================================================================
@@ -59,8 +60,24 @@
             */
 
 
-
             // kai dalyba reikia pasicastinti nepamirsti !!! 
+
+
+            long naujasLongKintamasis = long.MaxValue;      // nenaudoju
+            short naujasShortKintamasis = short.MaxValue;   // nenaudoju
+            int maxIntKintamasis = int.MaxValue;            // nenaudoju
+
+            var rezultatas1 = long.MaxValue / (long)short.MaxValue;
+            var rezultatas2 = (long.MaxValue / short.MaxValue) - long.MaxValue;
+            var rezultatas3 = (long.MaxValue / short.MaxValue) - long.MaxValue + int.MaxValue;
+
+            Console.WriteLine($"1. long.MaxValue / short.MaxValue = {rezultatas1}");
+            Console.WriteLine();
+            Console.WriteLine($"2. (long.MaxValue / short.MaxValue) - long.MaxValue = {rezultatas2}");
+            Console.WriteLine();
+            Console.WriteLine($"3. ((long.MaxValue / short.MaxValue) - long.MaxValue) + int.MaxValue = {rezultatas3}");
+            Console.WriteLine();
+
 
 
 
