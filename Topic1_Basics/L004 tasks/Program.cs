@@ -67,7 +67,7 @@
             short naujasShortKintamasis = short.MaxValue;   // nenaudoju
             int maxIntKintamasis = int.MaxValue;            // nenaudoju
 
-            var rezultatas1 = long.MaxValue / (float)short.MaxValue;
+            var rezultatas1 = (double)long.MaxValue / short.MaxValue;
             var rezultatas2 = (long.MaxValue / short.MaxValue) - long.MaxValue;
             var rezultatas3 = (long.MaxValue / short.MaxValue) - long.MaxValue + int.MaxValue;
 
