@@ -54,9 +54,9 @@
             /*
             sukurkite naują kintamajį long ir prskirkite didžiausią reikšmę.
             sukurkite naują kintamajį short ir prskirkite didžiausią reikšmę
-            - padalinkite didesnį skaičių iš mažesnio
-            - iš rezultato atimkite maksimalų long skaičių
-            - ir pridėkite maksimalų int skaičių
+            - 1. padalinkite didesnį skaičių iš mažesnio
+            - 2. iš rezultato atimkite maksimalų long skaičių
+            - 3. ir pridėkite maksimalų int skaičių
             */
 
 
@@ -67,7 +67,7 @@
             short naujasShortKintamasis = short.MaxValue;   // nenaudoju
             int maxIntKintamasis = int.MaxValue;            // nenaudoju
 
-            var rezultatas1 = long.MaxValue / (long)short.MaxValue;
+            var rezultatas1 = long.MaxValue / (float)short.MaxValue;
             var rezultatas2 = (long.MaxValue / short.MaxValue) - long.MaxValue;
             var rezultatas3 = (long.MaxValue / short.MaxValue) - long.MaxValue + int.MaxValue;
 
@@ -75,7 +75,7 @@
             Console.WriteLine();
             Console.WriteLine($"2. (long.MaxValue / short.MaxValue) - long.MaxValue = {rezultatas2}");
             Console.WriteLine();
-            Console.WriteLine($"3. ((long.MaxValue / short.MaxValue) - long.MaxValue) + int.MaxValue = {rezultatas3}");
+            Console.WriteLine($"3. (long.MaxValue / short.MaxValue) - long.MaxValue + int.MaxValue = {rezultatas3}");
             Console.WriteLine();
 
 
