@@ -210,7 +210,7 @@
                                         |        `---'       |
                                         |____________________|
             
-            Celsius to Fahrenheit 	° F = 9/5 ( ° C) + 32
+            Celsius to Fahrenheit 	° F = 9/5 ( ° C) + 32           (°C × 9/5) + 32 
             Kelvin to Fahrenheit 	° F = 9/5 (K - 273) + 32
             Fahrenheit to Celsius 	° C = 5/9 (° F - 32)
             Celsius to Kelvin 	      K = ° C + 273
@@ -219,36 +219,45 @@
             */
 
             // Paprašykite naudotojo įvesti 1 skaičių - temperatūrą pagal Celsijų.
-            Console.Write("Iveskite °C: ");
-            double tempC = Convert.ToDouble(Console.ReadLine());
+            Console.Write("Enter °C: ");
+            int tempC = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine();
 
             // 1. Paskaičiuokite ir išveskite į ekraną temperatūrą pagal farenheitą.
-            double tempF = (double)9 / 5 * tempC + 32;
-            Console.WriteLine($"1. Fahrenheit: {tempF}");
+            // Celsius to Fahrenheit -> °F = 9/5 (°C) + 32
+            //Console.WriteLine($"testing: 9D / 5 = {9D / 5}");
+            //Console.WriteLine($"testing: tempC + 32 = {tempC + 32}");
+            //Console.WriteLine($"testing: 9D / 5 * tempC + 32 = {9D / 5 * tempC + 32}");
+            double tempF = 9D / 5 * tempC + 32;
+            Console.WriteLine($"1. °C to °F = {tempF}");
             Console.WriteLine();
 
             // 2. Paskaičiuokite ir išveskite į ekraną temperatūrą pagal kelviną.
-            double tempK = tempC + 273;
-            Console.WriteLine($"2. Kelvin: {tempK}");
+            // Celsius to Kelvin -> K = °C + 273
+            int tempK = tempC + 273;
+            Console.WriteLine($"2. °C to K = {tempK}");
             Console.WriteLine();
 
             // 3. Gautą temperatūrą pagal farenheitą perskaičiuokite į Celsijų ir patikrinkite ar sutampa su įvestu skaičių (išveskite true/false)
-            double fahrenheitBackToCelsius = (double)5 / 9 * (tempF - 32);
-            Console.WriteLine($"fahrenheitBackToCelsius: {fahrenheitBackToCelsius}");
-            Console.WriteLine($"3. {fahrenheitBackToCelsius == tempC}");
+            // Fahrenheit to Celsius -> °C = 5/9 (°F - 32)
+            double fahrenheitBackToCelsius = 5D * (tempF - 32D)/ 9D;
+            Console.WriteLine($"3. °F back to °C = {fahrenheitBackToCelsius} ({fahrenheitBackToCelsius == tempC})");
             Console.WriteLine();
 
             // 4. Gautą temperatūrą pagal kelviną perskaičiuokite į celsijų ir patikrinkite ar sutampa su įvestu skaičiu (išveskite true/false)
-            double kelvinBackToCelsius = tempK - 273;
-            Console.WriteLine($"kelvinBackToCelsius: {kelvinBackToCelsius}");
-            Console.WriteLine($"4. {kelvinBackToCelsius == tempC}");
+            // Kelvin to Celsius -> °C = K - 273
+            int kelvinBackToCelsius = tempK - 273;
+            Console.WriteLine($"4. K back to °C = {kelvinBackToCelsius} ({kelvinBackToCelsius == tempC})");
             Console.WriteLine();
 
             // 5. Paskaičiuotą temperatūrą pagal farenheita peverskite į kelviną ir patikrinkite ar sutampa su ankstesniais skaičiavimais (išveskite true/false)
-            double farenheitaToKelvin = (double)5 / 9 * (tempF - 32) + 273;
-            Console.WriteLine($"farenheitaToKelvin: {farenheitaToKelvin}");
-            Console.WriteLine($"5. {farenheitaToKelvin == tempK}");
+            // Fahrenheit to Kelvin -> K = 5/9 (°F - 32) + 273
+            double farenheitaToKelvin = 5D / 9D * (tempF - 32) + 273;
+            Console.WriteLine($"5. °F to K = {farenheitaToKelvin} ({farenheitaToKelvin == tempK})");
+            Console.WriteLine();
+
+            Console.WriteLine("Click ENTER to continue...");
+            Console.ReadLine();
             Console.WriteLine();
 
             // 6. Nupieškite termometrą pagal Celsijų 
@@ -258,81 +267,104 @@
             //     <HINT> naudokite.ToString(), palyginimo reliacinius operatorius(==, >, < ir t.t.) ir.Replace().
             Console.WriteLine("6.");
 
-            var cu8 = tempC + 40;
-            var cu7 = tempC + 35;
-            var cu6 = tempC + 30;
-            var cu5 = tempC + 25;
-            var cu4 = tempC + 20;
-            var cu3 = tempC + 15;
-            var cu2 = tempC + 10;
-            var cu1 = tempC + 5;
-            var c00 = tempC;
-            var cd1 = tempC - 5;
-            var cd2 = tempC - 10;
-            var cd3 = tempC - 15;
-            var cd4 = tempC - 20;
-            var cd5 = tempC - 25;
-            var cd6 = tempC - 30;
-            var cd7 = tempC - 35;
-            var cd8 = tempC - 40;
+            // Celsius number column
+            var c17 = tempC + 40;
+            var c16 = tempC + 35;
+            var c15 = tempC + 30;
+            var c14 = tempC + 25;
+            var c13 = tempC + 20;
+            var c12 = tempC + 15;
+            var c11 = tempC + 10;
+            var c10 = tempC + 5;
+            var c09 = tempC;
+            var c08 = tempC - 5;
+            var c07 = tempC - 10;
+            var c06 = tempC - 15;
+            var c05 = tempC - 20;
+            var c04 = tempC - 25;
+            var c03 = tempC - 30;
+            var c02 = tempC - 35;
+            var c01 = tempC - 40;
 
-            var fu8 = (double)9 / 5 * cu8 + 32;
-            var fu7 = (double)9 / 5 * cu7 + 32;
-            var fu6 = (double)9 / 5 * cu6 + 32;
-            var fu5 = (double)9 / 5 * cu5 + 32;
-            var fu4 = (double)9 / 5 * cu4 + 32;
-            var fu3 = (double)9 / 5 * cu3 + 32;
-            var fu2 = (double)9 / 5 * cu2 + 32;
-            var fu1 = (double)9 / 5 * cu1 + 32;
-            var f00 = (double)9 / 5 * c00 + 32;
-            var fd1 = (double)9 / 5 * cd1 + 32;
-            var fd2 = (double)9 / 5 * cd2 + 32;
-            var fd3 = (double)9 / 5 * cd3 + 32;
-            var fd4 = (double)9 / 5 * cd4 + 32;
-            var fd5 = (double)9 / 5 * cd5 + 32;
-            var fd6 = (double)9 / 5 * cd6 + 32;
-            var fd7 = (double)9 / 5 * cd7 + 32;
-            var fd8 = (double)9 / 5 * cd8 + 32;
+            // Fahrenheit number column
+            var f17 = 9D / 5 * c17 + 32;
+            var f16 = 9D / 5 * c16 + 32;
+            var f15 = 9D / 5 * c15 + 32;
+            var f14 = 9D / 5 * c14 + 32;
+            var f13 = 9D / 5 * c13 + 32;
+            var f12 = 9D / 5 * c12 + 32;
+            var f11 = 9D / 5 * c11 + 32;
+            var f10 = 9D / 5 * c10 + 32;
+            var f09 = 9D / 5 * c09 + 32;
+            var f08 = 9D / 5 * c08 + 32;
+            var f07 = 9D / 5 * c07 + 32;
+            var f06 = 9D / 5 * c06 + 32;
+            var f05 = 9D / 5 * c05 + 32;
+            var f04 = 9D / 5 * c04 + 32;
+            var f03 = 9D / 5 * c03 + 32;
+            var f02 = 9D / 5 * c02 + 32;
+            var f01 = 9D / 5 * c01 + 32;
 
-            var t17 = Convert.ToString(tempC >= cu8).Replace("True","*").Replace("False", " ");
-            var t16 = Convert.ToString(tempC >= cu7).Replace("True", "*").Replace("False", " ");
-            var t15 = Convert.ToString(tempC >= cu6).Replace("True", "*").Replace("False", " ");
-            var t14 = Convert.ToString(tempC >= cu5).Replace("True", "*").Replace("False", " ");
-            var t13 = Convert.ToString(tempC >= cu4).Replace("True", "*").Replace("False", " ");
-            var t12 = Convert.ToString(tempC >= cu3).Replace("True", "*").Replace("False", " ");
-            var t11 = Convert.ToString(tempC >= cu2).Replace("True", "*").Replace("False", " ");
-            var t10 = Convert.ToString(tempC >= cu1).Replace("True", "*").Replace("False", " ");
-            var t09 = Convert.ToString(tempC >= c00).Replace("True", "*").Replace("False", " ");
-            var t08 = Convert.ToString(tempC >= cd1).Replace("True", "*").Replace("False", " ");
-            var t07 = Convert.ToString(tempC >= cd2).Replace("True", "*").Replace("False", " ");
-            var t06 = Convert.ToString(tempC >= cd3).Replace("True", "*").Replace("False", " ");
-            var t05 = Convert.ToString(tempC >= cd4).Replace("True", "*").Replace("False", " ");
-            var t04 = Convert.ToString(tempC >= cd5).Replace("True", "*").Replace("False", " ");
-            var t03 = Convert.ToString(tempC >= cd6).Replace("True", "*").Replace("False", " ");
-            var t02 = Convert.ToString(tempC >= cd7).Replace("True", "*").Replace("False", " ");
-            var t01 = Convert.ToString(tempC >= cd8).Replace("True", "*").Replace("False", " ");
+            // Kelvin number column
+            var k17 = c17 + 273;
+            var k16 = c16 + 273;
+            var k15 = c15 + 273;
+            var k14 = c14 + 273;
+            var k13 = c13 + 273;
+            var k12 = c12 + 273;
+            var k11 = c11 + 273;
+            var k10 = c10 + 273;
+            var k09 = c09 + 273;
+            var k08 = c08 + 273;
+            var k07 = c07 + 273;
+            var k06 = c06 + 273;
+            var k05 = c05 + 273;
+            var k04 = c04 + 273;
+            var k03 = c03 + 273;
+            var k02 = c02 + 273;
+            var k01 = c01 + 273;
 
-            Console.WriteLine("\t\t(+)\t");
-            Console.WriteLine($"\t{fu8}\t|{t17}|\t{cu8}");
-            Console.WriteLine($"\t{fu7}\t|{t16}|\t{cu7}");
-            Console.WriteLine($"\t{fu6}\t|{t15}|\t{cu6}");
-            Console.WriteLine($"\t{fu5}\t|{t14}|\t{cu5}");
-            Console.WriteLine($"\t{fu4}\t|{t13}|\t{cu4}");
-            Console.WriteLine($"\t{fu3}\t|{t12}|\t{cu3}");
-            Console.WriteLine($"\t{fu2}\t|{t11}|\t{cu2}");
-            Console.WriteLine($"\t{fu1}\t|{t10}|\t{cu1}");
-            Console.WriteLine($"\t{f00}\t|{t09}|\t{c00}");
-            Console.WriteLine($"\t{fd1}\t|{t08}|\t{cd1}");
-            Console.WriteLine($"\t{fd2}\t|{t07}|\t{cd2}");
-            Console.WriteLine($"\t{fd3}\t|{t06}|\t{cd3}");
-            Console.WriteLine($"\t{fd4}\t|{t05}|\t{cd4}");
-            Console.WriteLine($"\t{fd5}\t|{t04}|\t{cd5}");
-            Console.WriteLine($"\t{fd6}\t|{t03}|\t{cd6}");
-            Console.WriteLine($"\t{fd7}\t|{t02}|\t{cd7}");
-            Console.WriteLine($"\t{fd8}\t|{t01}|\t{cd8}");
-            Console.WriteLine("\t       '***'");
-            Console.WriteLine("\t      (*****) ");
-            Console.WriteLine("\t       '---' ");
+            // Filling termometer with "*" till entered °C value is reached
+            var t17 = Convert.ToString(tempC >= c17).Replace("True", "░").Replace("False", " ");
+            var t16 = Convert.ToString(tempC >= c16).Replace("True", "░").Replace("False", " ");
+            var t15 = Convert.ToString(tempC >= c15).Replace("True", "░").Replace("False", " ");
+            var t14 = Convert.ToString(tempC >= c14).Replace("True", "░").Replace("False", " ");
+            var t13 = Convert.ToString(tempC >= c13).Replace("True", "░").Replace("False", " ");
+            var t12 = Convert.ToString(tempC >= c12).Replace("True", "░").Replace("False", " ");
+            var t11 = Convert.ToString(tempC >= c11).Replace("True", "░").Replace("False", " ");
+            var t10 = Convert.ToString(tempC >= c10).Replace("True", "░").Replace("False", " ");
+            var t09 = Convert.ToString(tempC >= c09).Replace("True", "░").Replace("False", " ");
+            var t08 = Convert.ToString(tempC >= c08).Replace("True", "░").Replace("False", " ");
+            var t07 = Convert.ToString(tempC >= c07).Replace("True", "░").Replace("False", " ");
+            var t06 = Convert.ToString(tempC >= c06).Replace("True", "░").Replace("False", " ");
+            var t05 = Convert.ToString(tempC >= c05).Replace("True", "░").Replace("False", " ");
+            var t04 = Convert.ToString(tempC >= c04).Replace("True", "░").Replace("False", " ");
+            var t03 = Convert.ToString(tempC >= c03).Replace("True", "░").Replace("False", " ");
+            var t02 = Convert.ToString(tempC >= c02).Replace("True", "░").Replace("False", " ");
+            var t01 = Convert.ToString(tempC >= c01).Replace("True", "░").Replace("False", " ");
+
+            // Drawing
+            Console.WriteLine("\t°F\t┌─┐\t°C\t┌─┐\t K");
+            Console.WriteLine($"\t{f17}\t|{t17}|\t{c17}\t|{t17}|\t{k17}");
+            Console.WriteLine($"\t{f16}\t|{t16}|\t{c16}\t|{t16}|\t{k16}");
+            Console.WriteLine($"\t{f15}\t|{t15}|\t{c15}\t|{t15}|\t{k15}");
+            Console.WriteLine($"\t{f14}\t|{t14}|\t{c14}\t|{t14}|\t{k14}");
+            Console.WriteLine($"\t{f13}\t|{t13}|\t{c13}\t|{t13}|\t{k13}");
+            Console.WriteLine($"\t{f12}\t|{t12}|\t{c12}\t|{t12}|\t{k12}");
+            Console.WriteLine($"\t{f11}\t|{t11}|\t{c11}\t|{t11}|\t{k11}");
+            Console.WriteLine($"\t{f10}\t|{t10}|\t{c10}\t|{t10}|\t{k10}");
+            Console.WriteLine($"\t{f09}\t|{t09}|\t{c09}\t|{t09}|\t{k09}");
+            Console.WriteLine($"\t{f08}\t|{t08}|\t{c08}\t|{t08}|\t{k08}");
+            Console.WriteLine($"\t{f07}\t|{t07}|\t{c07}\t|{t07}|\t{k07}");
+            Console.WriteLine($"\t{f06}\t|{t06}|\t{c06}\t|{t06}|\t{k06}");
+            Console.WriteLine($"\t{f05}\t|{t05}|\t{c05}\t|{t05}|\t{k05}");
+            Console.WriteLine($"\t{f04}\t|{t04}|\t{c04}\t|{t04}|\t{k04}");
+            Console.WriteLine($"\t{f03}\t|{t03}|\t{c03}\t|{t03}|\t{k03}");
+            Console.WriteLine($"\t{f02}\t|{t02}|\t{c02}\t|{t02}|\t{k02}");
+            Console.WriteLine($"\t{f01}\t|{t01}|\t{c01}\t|{t01}|\t{k01}");
+            Console.WriteLine("\t     ┌──┘░└─────────────┘░└──┐");
+            Console.WriteLine("\t     │░░░░░░TEMPERATURE░░░░░░│");
+            Console.WriteLine("\t     └───────────────────────┘");
 
 
 
