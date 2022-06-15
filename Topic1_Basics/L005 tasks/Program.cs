@@ -258,7 +258,6 @@
 
             Console.WriteLine("Click ENTER to continue...");
             Console.ReadLine();
-            Console.WriteLine();
 
             // 6. Nupieškite termometrą pagal Celsijų 
             // a - Atvaizduokite skalę, sugraduotą kas 5 laipsnius C priklausomai nuo įvestos temperatūros pridedant ir atimant 40 laipsnių 
