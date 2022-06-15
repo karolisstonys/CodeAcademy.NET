@@ -170,7 +170,7 @@
 
 
             // =====================================================================================================
-            // ==========================================SAVARANKISKAS DARBAS=======================================
+            // ==========================================SAVARANKISKAS DARBAS 1=====================================
             // =====================================================================================================
             /*
              Paprašykite naudotojo įvesti 1 skaičių - temperatūrą pagal Celsijų. 
@@ -218,6 +218,9 @@
             Fahrenheit to Kelvin 	  K = 5/9 (° F - 32) + 273
             */
 
+
+
+            /*
             // Paprašykite naudotojo įvesti 1 skaičių - temperatūrą pagal Celsijų.
             Console.Write("Enter °C: ");
             int tempC = Convert.ToInt32(Console.ReadLine());
@@ -343,27 +346,158 @@
             var t01 = Convert.ToString(tempC >= c01).Replace("True", "░").Replace("False", " ");
 
             // Drawing
-            Console.WriteLine("\t°F\t┌─┐\t°C\t┌─┐\t K");
-            Console.WriteLine($"\t{f17}\t|{t17}|\t{c17}\t|{t17}|\t{k17}");
-            Console.WriteLine($"\t{f16}\t|{t16}|\t{c16}\t|{t16}|\t{k16}");
-            Console.WriteLine($"\t{f15}\t|{t15}|\t{c15}\t|{t15}|\t{k15}");
-            Console.WriteLine($"\t{f14}\t|{t14}|\t{c14}\t|{t14}|\t{k14}");
-            Console.WriteLine($"\t{f13}\t|{t13}|\t{c13}\t|{t13}|\t{k13}");
-            Console.WriteLine($"\t{f12}\t|{t12}|\t{c12}\t|{t12}|\t{k12}");
-            Console.WriteLine($"\t{f11}\t|{t11}|\t{c11}\t|{t11}|\t{k11}");
-            Console.WriteLine($"\t{f10}\t|{t10}|\t{c10}\t|{t10}|\t{k10}");
-            Console.WriteLine($"\t{f09}\t|{t09}|\t{c09}\t|{t09}|\t{k09}");
-            Console.WriteLine($"\t{f08}\t|{t08}|\t{c08}\t|{t08}|\t{k08}");
-            Console.WriteLine($"\t{f07}\t|{t07}|\t{c07}\t|{t07}|\t{k07}");
-            Console.WriteLine($"\t{f06}\t|{t06}|\t{c06}\t|{t06}|\t{k06}");
-            Console.WriteLine($"\t{f05}\t|{t05}|\t{c05}\t|{t05}|\t{k05}");
-            Console.WriteLine($"\t{f04}\t|{t04}|\t{c04}\t|{t04}|\t{k04}");
-            Console.WriteLine($"\t{f03}\t|{t03}|\t{c03}\t|{t03}|\t{k03}");
-            Console.WriteLine($"\t{f02}\t|{t02}|\t{c02}\t|{t02}|\t{k02}");
-            Console.WriteLine($"\t{f01}\t|{t01}|\t{c01}\t|{t01}|\t{k01}");
+            Console.WriteLine("\t  °F\t┌─┐\t  °C\t┌─┐\t   K");
+            Console.WriteLine($"\t{f17,4:0}\t|{t17}|\t{c17,4:0}\t|{t17}|\t{k17,4:0}");
+            Console.WriteLine($"\t{f16,4:0}\t|{t16}|\t{c16,4:0}\t|{t16}|\t{k16,4:0}");
+            Console.WriteLine($"\t{f15,4:0}\t|{t15}|\t{c15,4:0}\t|{t15}|\t{k15,4:0}");
+            Console.WriteLine($"\t{f14,4:0}\t|{t14}|\t{c14,4:0}\t|{t14}|\t{k14,4:0}");
+            Console.WriteLine($"\t{f13,4:0}\t|{t13}|\t{c13,4:0}\t|{t13}|\t{k13,4:0}");
+            Console.WriteLine($"\t{f12,4:0}\t|{t12}|\t{c12,4:0}\t|{t12}|\t{k12,4:0}");
+            Console.WriteLine($"\t{f11,4:0}\t|{t11}|\t{c11,4:0}\t|{t11}|\t{k11,4:0}");
+            Console.WriteLine($"\t{f10,4:0}\t|{t10}|\t{c10,4:0}\t|{t10}|\t{k10,4:0}");
+            Console.WriteLine($"\t{f09,4:0}\t|{t09}|\t{c09,4:0}\t|{t09}|\t{k09,4:0}");
+            Console.WriteLine($"\t{f08,4:0}\t|{t08}|\t{c08,4:0}\t|{t08}|\t{k08,4:0}");
+            Console.WriteLine($"\t{f07,4:0}\t|{t07}|\t{c07,4:0}\t|{t07}|\t{k07,4:0}");
+            Console.WriteLine($"\t{f06,4:0}\t|{t06}|\t{c06,4:0}\t|{t06}|\t{k06,4:0}");
+            Console.WriteLine($"\t{f05,4:0}\t|{t05}|\t{c05,4:0}\t|{t05}|\t{k05,4:0}");
+            Console.WriteLine($"\t{f04,4:0}\t|{t04}|\t{c04,4:0}\t|{t04}|\t{k04,4:0}");
+            Console.WriteLine($"\t{f03,4:0}\t|{t03}|\t{c03,4:0}\t|{t03}|\t{k03,4:0}");
+            Console.WriteLine($"\t{f02,4:0}\t|{t02}|\t{c02,4:0}\t|{t02}|\t{k02,4:0}");
+            Console.WriteLine($"\t{f01,4:0}\t|{t01}|\t{c01,4:0}\t|{t01}|\t{k01,4:0}");
             Console.WriteLine("\t     ┌──┘░└─────────────┘░└──┐");
             Console.WriteLine("\t     │░░░░░░TEMPERATURE░░░░░░│");
             Console.WriteLine("\t     └───────────────────────┘");
+
+
+            */
+
+
+            // =====================================================================================================
+            // ==========================================SAVARANKISKAS DARBAS 2=====================================
+            // =====================================================================================================
+            /*
+             PARAŠYTI PROGRAMĄ KURI PRAŠO ĮVESTI ATSTUMĄ (KILOMENTRAIS) TARP TAŠKŲ A IR B IR DVIEJŲ TRANSPORTO PRIEMONIŲ GREITĮ (KM/H). 
+             VIENA TRANSPORTO PRIEMONĖS PRADEDA VAŽIUOTI IŠ A, KITA IŠ B.STARTUOJA VIENU METU.
+             ! - PASKAIČIUOTI ATSTUMĄ NUO A IKI VIETOS KURIOJE TRASPORTO PRIEMONĖS SUTITIKS METRAIS. 
+             ! - PASKAIČIUOTI LAIKĄ KADA TRASPORTO PRIEMONĖS SUSITIKS SEKUNDĖMIS. 
+             ! - PASKAIČIUOTI LAIKĄ, KADA TRASPORTUO PRIEMONĖS PASIEKS GALIUTINIUS TAŠKUS MINUTĖMIS.
+             ! - PASKAIČIUOTI KIEK GRAMŲ CO2 IŠSKYRĖ ABI TRASPORTO PIEMONĖS KARTU SUDĖJUS. CO2 NORMA YRA 95 g/km.
+              - GRAFIŠKAI PAVAIZDUOTI KELIĄ NUO A IKI B SUSKIRSTYTĄ Į 20 LYGIŲ SEGMENTŲ (TARKIME ĮVESTAS ATSTUMAS YRA 100KM, TUOMENT TURĖSIME 20 SEGMENTU PO 5KM).  
+                A) PARODYTI VISO KELIO ILGĮ KM
+                B) PARODYTI SEGMENTO ILGĮ KM
+                C) PARODYTI KURIAME SEGMENTE TRASPORTO PREMONĖS SUTIKS IR ATSTUMĄ IKI SUSITIKIMO (TAŠKAS V)
+                D) PARODYTI ABIEJŲ TRANSPORTO PRIEMONIŲ VAŽIAVIMO TRUKMĘ
+                REZULTATAS GALI ARTODYTI TAIP:
+               viso 100 km
+
+             |--------------------------------------------------------------------------------------------------------------------------------------------|
+             0      5     10     15     20      25     30     35     40     45     50     55     60     65     70     75     80     85     90     95    100
+             |      |      |      |      |       |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
+            _A______|______|______|______|___V___|______|______|______|______|______|______|______|______|______|______|______|______|______|______|______B_
+             |-------------------------------|       
+            
+               susitikimo vieta 23,1 km
+               susitikimo laikas po 0,87 val.
+
+             | >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   200 min >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>|
+             |<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   60 min <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< |
+            */
+
+            Console.WriteLine("|------------KM--------------|");
+            Console.WriteLine("A----------->  <-------------B");
+            Console.WriteLine();
+            Console.Write("Iveskite atstuma (km): ");
+            int distance = Convert.ToInt32(Console.ReadLine());            
+            Console.Write("Iveskite transporto priemones A greiti (km/h): ");
+            int akmph = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Iveskite transporto priemones B greiti (km/h): ");
+            int bkmph = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine($"Atstumas - {distance}, A - {akmph}km/h, B - {bkmph}km/h.");
+            Console.WriteLine();
+
+            // TIME TILL CARS MEET
+            decimal hoursTillMeet = (decimal)distance / (akmph + bkmph);
+            Console.WriteLine($"Time till meet {hoursTillMeet:0.00} hours.");
+            Console.WriteLine($"Time till meet {(hoursTillMeet * 3600):0} seconds.");
+            Console.WriteLine();
+
+            // DISTANCE FROM A WHEN CARS MEET
+            var fromAtoMeet = akmph * hoursTillMeet;
+            Console.WriteLine($"Car A travels {(akmph * hoursTillMeet):0.00} km till it meets car B.");
+            Console.WriteLine($"Car B travels {(bkmph * hoursTillMeet):0.00} km till it meets car A.");
+            Console.WriteLine($"Distance from A to meeting point is {(akmph * hoursTillMeet * 1000):0} meters.");
+            Console.WriteLine();
+
+            // WHEN BOTH CARS REACH END DESTINATION
+            Console.WriteLine($"Car A will take {((decimal)distance / akmph * 60):0.} minutes to reach the end destination.");
+            Console.WriteLine($"Car B will take {((decimal)distance / bkmph * 60):0.} minutes to reach the end destination.");
+            Console.WriteLine();
+
+            // CO2 EMISSIONS
+            Console.WriteLine($"To travel {distance}km each car will emit {(distance * 95):0.}g of CO2.");
+            Console.WriteLine();
+
+            // VISUALISATION
+            /*
+             - GRAFIŠKAI PAVAIZDUOTI KELIĄ NUO A IKI B SUSKIRSTYTĄ Į 20 LYGIŲ SEGMENTŲ (TARKIME ĮVESTAS ATSTUMAS YRA 100KM, TUOMENT TURĖSIME 20 SEGMENTU PO 5KM).  
+                A) PARODYTI VISO KELIO ILGĮ KM
+                B) PARODYTI SEGMENTO ILGĮ KM
+                C) PARODYTI KURIAME SEGMENTE TRASPORTO PREMONĖS SUTIKS IR ATSTUMĄ IKI SUSITIKIMO (TAŠKAS V)
+                D) PARODYTI ABIEJŲ TRANSPORTO PRIEMONIŲ VAŽIAVIMO TRUKMĘ
+            */
+
+            var segmentLength = (decimal)distance / 20;
+            var marker0 = 0;
+            var marker1 = 1 * segmentLength;
+            var marker2 = 2 * segmentLength;
+            var marker3 = 3 * segmentLength;
+            var marker4 = 4 * segmentLength;
+            var marker5 = 5 * segmentLength;
+            var marker6 = 6 * segmentLength;
+            var marker7 = 7 * segmentLength;
+            var marker8 = 8 * segmentLength;
+            var marker9 = 9 * segmentLength;
+            var marker10 = 10 * segmentLength;
+            var marker11 = 11 * segmentLength;
+            var marker12 = 12 * segmentLength;
+            var marker13 = 13 * segmentLength;
+            var marker14 = 14 * segmentLength;
+            var marker15 = 15 * segmentLength;
+            var marker16 = 16 * segmentLength;
+            var marker17 = 17 * segmentLength;
+            var marker18 = 18 * segmentLength;
+            var marker19 = 19 * segmentLength;
+            var marker20 = 20 * segmentLength;
+
+            string line1 = "|-------------------------------------------------------------------------------------------------------------------------------------------|";
+            string line3 = "|      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |";
+
+            Console.WriteLine(line1);
+            Console.WriteLine($"{marker0}{marker1,7:0}{marker2,7:0}{marker3,7:0}{marker4,7:0}{marker5,7:0}{marker6,7:0}{marker7,7:0}{marker8,7:0}{marker9,7:0}{marker10,7:0}" +
+                $"{marker11,7:0}{marker12,7:0}{marker13,7:0}{marker14,7:0}{marker15,7:0}{marker16,7:0}{marker17,7:0}{marker18,7:0}{marker19,7:0}{marker20,7:0}");
+            Console.WriteLine(line3);
+
+            var segment1 = "A" + Convert.ToString(0 <= fromAtoMeet && fromAtoMeet <= marker1);
+            var segment2 = Convert.ToString(marker1 < fromAtoMeet && fromAtoMeet <= marker2);
+            var segment3 = Convert.ToString(marker2 < fromAtoMeet && fromAtoMeet <= marker3);
+            var segment4 = Convert.ToString(marker3 < fromAtoMeet && fromAtoMeet <= marker4);
+            var segment5 = Convert.ToString(marker4 < fromAtoMeet && fromAtoMeet <= marker5);
+            var segment6 = Convert.ToString(marker5 < fromAtoMeet && fromAtoMeet <= marker6);
+            var segment7 = Convert.ToString(marker6 < fromAtoMeet && fromAtoMeet <= marker7);
+            var segment8 = Convert.ToString(marker7 < fromAtoMeet && fromAtoMeet <= marker8);
+            var segment9 = Convert.ToString(marker8 < fromAtoMeet && fromAtoMeet <= marker9);
+            var segment10 = Convert.ToString(marker9 < fromAtoMeet && fromAtoMeet <= marker10);
+            var segment11 = 11 * segmentLength;
+            var segment12 = 12 * segmentLength;
+            var segment13 = 13 * segmentLength;
+            var segment14 = 14 * segmentLength;
+            var segment15 = 15 * segmentLength;
+            var segment16 = 16 * segmentLength;
+            var segment17 = 17 * segmentLength;
+            var segment18 = 18 * segmentLength;
+            var segment19 = 19 * segmentLength;
+            var segment20 = 20 * segmentLength;
+
 
 
 
