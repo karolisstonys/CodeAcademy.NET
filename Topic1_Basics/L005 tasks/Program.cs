@@ -438,14 +438,7 @@
             Console.WriteLine();
 
             // VISUALISATION
-            /*
-             - GRAFIŠKAI PAVAIZDUOTI KELIĄ NUO A IKI B SUSKIRSTYTĄ Į 20 LYGIŲ SEGMENTŲ (TARKIME ĮVESTAS ATSTUMAS YRA 100KM, TUOMENT TURĖSIME 20 SEGMENTU PO 5KM).  
-                A) PARODYTI VISO KELIO ILGĮ KM
-                B) PARODYTI SEGMENTO ILGĮ KM
-                C) PARODYTI KURIAME SEGMENTE TRASPORTO PREMONĖS SUTIKS IR ATSTUMĄ IKI SUSITIKIMO (TAŠKAS V)
-                D) PARODYTI ABIEJŲ TRANSPORTO PRIEMONIŲ VAŽIAVIMO TRUKMĘ
-            */
-
+            // divides total distance into 20 equal range segments and outputs it to console
             var segmentLength = (decimal)distance / 20;
             var marker0 = 0;
             var marker1 = 1 * segmentLength;
@@ -469,37 +462,96 @@
             var marker19 = 19 * segmentLength;
             var marker20 = 20 * segmentLength;
 
-            string line1 = "|-------------------------------------------------------------------------------------------------------------------------------------------|";
-            string line3 = "|      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |";
+            Console.WriteLine("|-------------------------------------------------------------------------------------------------------------------------------------------|");
+            Console.WriteLine($"{marker0}{marker1,7}{marker2,7}{marker3,7}{marker4,7}{marker5,7}{marker6,7}{marker7,7}{marker8,7}{marker9,7}{marker10,7}" +
+                              $"{marker11,7}{marker12,7}{marker13,7}{marker14,7}{marker15,7}{marker16,7}{marker17,7}{marker18,7}{marker19,7}{marker20,7}");
+            Console.WriteLine("|      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |");
+            
+            // checks if meeting point is further than marker0 and closer or at marker1
+            // sets TRUE for segment only where cars meet 
+            // checking every marker pair         
+            var segment1 = Convert.ToString(0 < fromAtoMeet && fromAtoMeet <= marker1).Replace("False", "A------|").Replace("True", "A--><--|");    // cannot be 0 sadly, cannot divide by 0
+            var segment2 = Convert.ToString(marker1 < fromAtoMeet && fromAtoMeet <= marker2).Replace("False", "------|").Replace("True", "--><--|");
+            var segment3 = Convert.ToString(marker2 < fromAtoMeet && fromAtoMeet <= marker3).Replace("False", "------|").Replace("True", "--><--|");
+            var segment4 = Convert.ToString(marker3 < fromAtoMeet && fromAtoMeet <= marker4).Replace("False", "------|").Replace("True", "--><--|");
+            var segment5 = Convert.ToString(marker4 < fromAtoMeet && fromAtoMeet <= marker5).Replace("False", "------|").Replace("True", "--><--|");
+            var segment6 = Convert.ToString(marker5 < fromAtoMeet && fromAtoMeet <= marker6).Replace("False", "------|").Replace("True", "--><--|");
+            var segment7 = Convert.ToString(marker6 < fromAtoMeet && fromAtoMeet <= marker7).Replace("False", "------|").Replace("True", "--><--|");
+            var segment8 = Convert.ToString(marker7 < fromAtoMeet && fromAtoMeet <= marker8).Replace("False", "------|").Replace("True", "--><--|");
+            var segment9 = Convert.ToString(marker8 < fromAtoMeet && fromAtoMeet <= marker9).Replace("False", "------|").Replace("True", "--><--|");
+            var segment10 = Convert.ToString(marker9 < fromAtoMeet && fromAtoMeet <= marker10).Replace("False", "------|").Replace("True", "--><--|");
+            var segment11 = Convert.ToString(marker10 < fromAtoMeet && fromAtoMeet <= marker11).Replace("False", "------|").Replace("True", "--><--|");
+            var segment12 = Convert.ToString(marker11 < fromAtoMeet && fromAtoMeet <= marker12).Replace("False", "------|").Replace("True", "--><--|");
+            var segment13 = Convert.ToString(marker12 < fromAtoMeet && fromAtoMeet <= marker13).Replace("False", "------|").Replace("True", "--><--|");
+            var segment14 = Convert.ToString(marker13 < fromAtoMeet && fromAtoMeet <= marker14).Replace("False", "------|").Replace("True", "--><--|");
+            var segment15 = Convert.ToString(marker14 < fromAtoMeet && fromAtoMeet <= marker15).Replace("False", "------|").Replace("True", "--><--|");
+            var segment16 = Convert.ToString(marker15 < fromAtoMeet && fromAtoMeet <= marker16).Replace("False", "------|").Replace("True", "--><--|");
+            var segment17 = Convert.ToString(marker16 < fromAtoMeet && fromAtoMeet <= marker17).Replace("False", "------|").Replace("True", "--><--|");
+            var segment18 = Convert.ToString(marker17 < fromAtoMeet && fromAtoMeet <= marker18).Replace("False", "------|").Replace("True", "--><--|");
+            var segment19 = Convert.ToString(marker18 < fromAtoMeet && fromAtoMeet <= marker19).Replace("False", "------|").Replace("True", "--><--|");
+            var segment20 = Convert.ToString(marker19 < fromAtoMeet && fromAtoMeet <= marker20).Replace("False", "------B").Replace("True", "--><--B");
 
-            Console.WriteLine(line1);
-            Console.WriteLine($"{marker0}{marker1,7:0}{marker2,7:0}{marker3,7:0}{marker4,7:0}{marker5,7:0}{marker6,7:0}{marker7,7:0}{marker8,7:0}{marker9,7:0}{marker10,7:0}" +
-                $"{marker11,7:0}{marker12,7:0}{marker13,7:0}{marker14,7:0}{marker15,7:0}{marker16,7:0}{marker17,7:0}{marker18,7:0}{marker19,7:0}{marker20,7:0}");
-            Console.WriteLine(line3);
+            Console.WriteLine($"{segment1}{segment2}{segment3}{segment4}{segment5}{segment6}{segment7}{segment8}{segment9}{segment10}" +
+                              $"{segment11}{segment12}{segment13}{segment14}{segment15}{segment16}{segment17}{segment18}{segment19}{segment20}");
 
-            var segment1 = "A" + Convert.ToString(0 <= fromAtoMeet && fromAtoMeet <= marker1);
-            var segment2 = Convert.ToString(marker1 < fromAtoMeet && fromAtoMeet <= marker2);
-            var segment3 = Convert.ToString(marker2 < fromAtoMeet && fromAtoMeet <= marker3);
-            var segment4 = Convert.ToString(marker3 < fromAtoMeet && fromAtoMeet <= marker4);
-            var segment5 = Convert.ToString(marker4 < fromAtoMeet && fromAtoMeet <= marker5);
-            var segment6 = Convert.ToString(marker5 < fromAtoMeet && fromAtoMeet <= marker6);
-            var segment7 = Convert.ToString(marker6 < fromAtoMeet && fromAtoMeet <= marker7);
-            var segment8 = Convert.ToString(marker7 < fromAtoMeet && fromAtoMeet <= marker8);
-            var segment9 = Convert.ToString(marker8 < fromAtoMeet && fromAtoMeet <= marker9);
-            var segment10 = Convert.ToString(marker9 < fromAtoMeet && fromAtoMeet <= marker10);
-            var segment11 = 11 * segmentLength;
-            var segment12 = 12 * segmentLength;
-            var segment13 = 13 * segmentLength;
-            var segment14 = 14 * segmentLength;
-            var segment15 = 15 * segmentLength;
-            var segment16 = 16 * segmentLength;
-            var segment17 = 17 * segmentLength;
-            var segment18 = 18 * segmentLength;
-            var segment19 = 19 * segmentLength;
-            var segment20 = 20 * segmentLength;
+            // checks if (meeting point is further than marker0 and closer or at marker1) OR (meeting point is further or at marker1)
+            // sets TRUE for all traveling distance for car A till meeting point
+            // checking every marker pair
+            var bar1 = Convert.ToString(0 < fromAtoMeet && fromAtoMeet <= marker1 || fromAtoMeet >= marker1).Replace("False", "        ").Replace("True", "░░░░░░░░");  // cannot be 0 sadly, cannot divide by 0
+            var bar2 = Convert.ToString(marker1 < fromAtoMeet && fromAtoMeet <= marker2 || fromAtoMeet >= marker2).Replace("False", "       ").Replace("True", "░░░░░░░");
+            var bar3 = Convert.ToString(marker2 < fromAtoMeet && fromAtoMeet <= marker3 || fromAtoMeet >= marker3).Replace("False", "       ").Replace("True", "░░░░░░░");
+            var bar4 = Convert.ToString(marker3 < fromAtoMeet && fromAtoMeet <= marker4 || fromAtoMeet >= marker4).Replace("False", "       ").Replace("True", "░░░░░░░");
+            var bar5 = Convert.ToString(marker4 < fromAtoMeet && fromAtoMeet <= marker5 || fromAtoMeet >= marker5).Replace("False", "       ").Replace("True", "░░░░░░░");
+            var bar6 = Convert.ToString(marker5 < fromAtoMeet && fromAtoMeet <= marker6 || fromAtoMeet >= marker6).Replace("False", "       ").Replace("True", "░░░░░░░");
+            var bar7 = Convert.ToString(marker6 < fromAtoMeet && fromAtoMeet <= marker7 || fromAtoMeet >= marker7).Replace("False", "       ").Replace("True", "░░░░░░░");
+            var bar8 = Convert.ToString(marker7 < fromAtoMeet && fromAtoMeet <= marker8 || fromAtoMeet >= marker8).Replace("False", "       ").Replace("True", "░░░░░░░");
+            var bar9 = Convert.ToString(marker8 < fromAtoMeet && fromAtoMeet <= marker9 || fromAtoMeet >= marker9).Replace("False", "       ").Replace("True", "░░░░░░░");
+            var bar10 = Convert.ToString(marker9 < fromAtoMeet && fromAtoMeet <= marker10 || fromAtoMeet >= marker10).Replace("False", "       ").Replace("True", "░░░░░░░");
+            var bar11 = Convert.ToString(marker10 < fromAtoMeet && fromAtoMeet <= marker11 || fromAtoMeet >= marker11).Replace("False", "       ").Replace("True", "░░░░░░░");
+            var bar12 = Convert.ToString(marker11 < fromAtoMeet && fromAtoMeet <= marker12 || fromAtoMeet >= marker12).Replace("False", "       ").Replace("True", "░░░░░░░");
+            var bar13 = Convert.ToString(marker12 < fromAtoMeet && fromAtoMeet <= marker13 || fromAtoMeet >= marker13).Replace("False", "       ").Replace("True", "░░░░░░░");
+            var bar14 = Convert.ToString(marker13 < fromAtoMeet && fromAtoMeet <= marker14 || fromAtoMeet >= marker14).Replace("False", "       ").Replace("True", "░░░░░░░");
+            var bar15 = Convert.ToString(marker14 < fromAtoMeet && fromAtoMeet <= marker15 || fromAtoMeet >= marker15).Replace("False", "       ").Replace("True", "░░░░░░░");
+            var bar16 = Convert.ToString(marker15 < fromAtoMeet && fromAtoMeet <= marker16 || fromAtoMeet >= marker16).Replace("False", "       ").Replace("True", "░░░░░░░");
+            var bar17 = Convert.ToString(marker16 < fromAtoMeet && fromAtoMeet <= marker17 || fromAtoMeet >= marker17).Replace("False", "       ").Replace("True", "░░░░░░░");
+            var bar18 = Convert.ToString(marker17 < fromAtoMeet && fromAtoMeet <= marker18 || fromAtoMeet >= marker18).Replace("False", "       ").Replace("True", "░░░░░░░");
+            var bar19 = Convert.ToString(marker18 < fromAtoMeet && fromAtoMeet <= marker19 || fromAtoMeet >= marker19).Replace("False", "       ").Replace("True", "░░░░░░░");
+            var bar20 = Convert.ToString(marker19 < fromAtoMeet && fromAtoMeet <= marker20 || fromAtoMeet >= marker20).Replace("False", "       ").Replace("True", "░░░░░░░");
 
 
+            // finds exact variable bar where cars meet and modifies it
+            bar1 = (bar1 + Convert.ToString(0 < fromAtoMeet && fromAtoMeet <= marker1)).Replace("False", "").Replace("░░░░░░░░True", "░░>     ");  // cannot be 0 sadly, cannot divide by 0
+            bar2 = (bar2 + Convert.ToString(marker1 < fromAtoMeet && fromAtoMeet <= marker2)).Replace("False", "").Replace("░░░░░░░True", "░░>     ");
+            bar3 = (bar3 + Convert.ToString(marker2 < fromAtoMeet && fromAtoMeet <= marker3)).Replace("False", "").Replace("░░░░░░░True", "░░>     ");
+            bar4 = (bar4 + Convert.ToString(marker3 < fromAtoMeet && fromAtoMeet <= marker4)).Replace("False", "").Replace("░░░░░░░True", "░░>     ");
+            bar5 = (bar5 + Convert.ToString(marker4 < fromAtoMeet && fromAtoMeet <= marker5)).Replace("False", "").Replace("░░░░░░░True", "░░>     ");
+            bar6 = (bar6 + Convert.ToString(marker5 < fromAtoMeet && fromAtoMeet <= marker6)).Replace("False", "").Replace("░░░░░░░True", "░░>     ");
+            bar7 = (bar7 + Convert.ToString(marker6 < fromAtoMeet && fromAtoMeet <= marker7)).Replace("False", "").Replace("░░░░░░░True", "░░>     ");
+            bar8 = (bar8 + Convert.ToString(marker7 < fromAtoMeet && fromAtoMeet <= marker8)).Replace("False", "").Replace("░░░░░░░True", "░░>     ");
+            bar9 = (bar9 + Convert.ToString(marker8 < fromAtoMeet && fromAtoMeet <= marker9)).Replace("False", "").Replace("░░░░░░░True", "░░>     ");
+            bar10 = (bar10 + Convert.ToString(marker9 < fromAtoMeet && fromAtoMeet <= marker10)).Replace("False", "").Replace("░░░░░░░True", "░░>     ");
+            bar11 = (bar11 + Convert.ToString(marker10 < fromAtoMeet && fromAtoMeet <= marker11)).Replace("False", "").Replace("░░░░░░░True", "░░>     ");
+            bar12 = (bar12 + Convert.ToString(marker11 < fromAtoMeet && fromAtoMeet <= marker12)).Replace("False", "").Replace("░░░░░░░True", "░░>     ");
+            bar13 = (bar13 + Convert.ToString(marker12 < fromAtoMeet && fromAtoMeet <= marker13)).Replace("False", "").Replace("░░░░░░░True", "░░>     ");
+            bar14 = (bar14 + Convert.ToString(marker13 < fromAtoMeet && fromAtoMeet <= marker14)).Replace("False", "").Replace("░░░░░░░True", "░░>     ");
+            bar15 = (bar15 + Convert.ToString(marker14 < fromAtoMeet && fromAtoMeet <= marker15)).Replace("False", "").Replace("░░░░░░░True", "░░>     ");
+            bar16 = (bar16 + Convert.ToString(marker15 < fromAtoMeet && fromAtoMeet <= marker16)).Replace("False", "").Replace("░░░░░░░True", "░░>     ");
+            bar17 = (bar17 + Convert.ToString(marker16 < fromAtoMeet && fromAtoMeet <= marker17)).Replace("False", "").Replace("░░░░░░░True", "░░>     ");
+            bar18 = (bar18 + Convert.ToString(marker17 < fromAtoMeet && fromAtoMeet <= marker18)).Replace("False", "").Replace("░░░░░░░True", "░░>     ");
+            bar19 = (bar19 + Convert.ToString(marker18 < fromAtoMeet && fromAtoMeet <= marker19)).Replace("False", "").Replace("░░░░░░░True", "░░>     ");
+            bar20 = (bar20 + Convert.ToString(marker19 < fromAtoMeet && fromAtoMeet <= marker20)).Replace("False", "").Replace("░░░░░░░True", "░░>     ");
 
+
+            Console.WriteLine($"{bar1}{bar2}{bar3}{bar4}{bar5}{bar6}{bar7}{bar8}{bar9}{bar10}" +
+                              $"{bar11}{bar12}{bar13}{bar14}{bar15}{bar16}{bar17}{bar18}{bar19}{bar20}");
+
+            Console.WriteLine();
+            Console.WriteLine($"Susirikimo vieta {fromAtoMeet:0.0} km.");
+            Console.WriteLine($"Susirikimo laikas {hoursTillMeet:0.0} val.");
+
+            Console.WriteLine();
+            Console.WriteLine($"A > > > > > > > > > > > > > > > > > > > > > > > > > > > {((decimal)distance / akmph * 60),4:0.}min > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > |");
+            Console.WriteLine($"| < < < < < < < < < < < < < < < < < < < < < < < < < < < {((decimal)distance / bkmph * 60),4:0.}min < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < B");
 
         }
     }
