@@ -27,9 +27,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L006 Logic", "L006 Logic\L0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L006 tasks", "L006 tasks\L006 tasks.csproj", "{FC177850-BE6A-4584-9614-398E1B48CFA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L007 if statements", "L007 if statements\L007 if statements.csproj", "{9E457B0D-48CF-458C-B8D7-A1146D72BF5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L007 if statements", "L007 if statements\L007 if statements.csproj", "{9E457B0D-48CF-458C-B8D7-A1146D72BF5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L007 tasks", "L007 tasks\L007 tasks.csproj", "{C8D34D91-545C-41D5-BAEB-AC36A969788D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L007 tasks", "L007 tasks\L007 tasks.csproj", "{C8D34D91-545C-41D5-BAEB-AC36A969788D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L008 Switch", "L008 Switch\L008 Switch.csproj", "{78599CD7-FD43-4D1E-AC32-DC987037287B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +95,10 @@ Global
 		{C8D34D91-545C-41D5-BAEB-AC36A969788D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8D34D91-545C-41D5-BAEB-AC36A969788D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8D34D91-545C-41D5-BAEB-AC36A969788D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78599CD7-FD43-4D1E-AC32-DC987037287B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78599CD7-FD43-4D1E-AC32-DC987037287B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78599CD7-FD43-4D1E-AC32-DC987037287B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78599CD7-FD43-4D1E-AC32-DC987037287B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
