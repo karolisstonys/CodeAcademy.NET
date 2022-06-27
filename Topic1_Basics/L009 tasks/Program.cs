@@ -62,22 +62,22 @@ Rezultatas gali atrodyti taip:
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 */
 
-DateTime siandiena = DateTime.Now;
+DateTime today = DateTime.Now;
 Console.Write("iveskite varda ir pavarde: ");
-string vardas = Console.ReadLine();
+string name = Console.ReadLine();
 
 Console.Write("iveskite asmens kodą (11simb.): ");
-string ak = Console.ReadLine();
-string lytis = "";
+string code = Console.ReadLine();
+string gender = "";
 
-string ak0 = Convert.ToString(ak[0]);
-if (ak.Length == 11 && (ak0 == "1" || ak0 == "3" || ak0 == "5"))
+string code0 = Convert.ToString(code.Trim()[0]);
+if (code.Length == 11 && (code0 == "1" || code0 == "3" || code0 == "5"))
 {
-    lytis = "vyras";
+    gender = "vyras";
 }
-else if (ak.Length == 11 && (ak0 == "2" || ak0 == "4" || ak0 == "6"))
+else if (code.Length == 11 && (code0 == "2" || code0 == "4" || code0 == "6"))
 {
-    lytis = "moteris";
+    gender = "moteris";
 }
 else
 {
@@ -85,42 +85,116 @@ else
     Environment.Exit(0);
 }
 
-Console.Write("iveskite savo amžių: ");
-string amzius = Console.ReadLine();
-bool arIntDatoje = int.TryParse(amzius, out _);
+Console.Write("jeigu norite įveskite savo metus ir/ar gimino datą: ");
+string age = Console.ReadLine();
+int ageYears = 0;
+DateTime ageBirthDate = new DateTime();
 
-Console.Write("iveskite gimimo datą: ");
-string ivestaGimimoData = Console.ReadLine();
-bool arGimimoData = DateTime.TryParse(ivestaGimimoData, out var gimimoData);
-bool arDateTimeDatoje = DateTime.TryParse(ivestaGimimoData, out _);
-Console.WriteLine($"arGimimoData {arGimimoData}");
-Console.WriteLine($"arDateTimeDatoje {arDateTimeDatoje}");
+// AR AGE NERA NULL ARBA TUSCIAS ARBA WHITESPACE
+if (!(string.IsNullOrEmpty(age) || string.IsNullOrWhiteSpace(age)))
+{
+    // AR AGE TURI TARPA
+    if (age.Contains(' '))
+    {
+        string[] ageSplit = age.Trim().Split(' ');
+
+        bool isIntAgeSplit0 = int.TryParse(ageSplit[0], out int intAgeSplit0);
+        bool isIntAgeSplit1 = int.TryParse(ageSplit[1], out int intAgeSplit1);
+
+        bool isDateAgeSplit0 = DateTime.TryParse(ageSplit[0], out DateTime dateAgeSplit0);
+        bool isDateAgeSplit1 = DateTime.TryParse(ageSplit[1], out DateTime dateAgeSplit1);
+        
+        // TIKRINAME KURI PERSKIRTA AGE DALIS YRA int IR ATITINKAMAI JA PRISKIRIAME ageYears        
+        if (isIntAgeSplit0) 
+            ageYears = intAgeSplit0;
+        else
+            ageYears = intAgeSplit1;
+
+        // TIKRINAME KURI PERSKIRTA AGE DALIS YRA DateTime IR ATITINKAMAI JA PRISKIRIAME ageBirthDate
+        if (isDateAgeSplit0)
+            ageBirthDate = dateAgeSplit0;
+        else
+            ageBirthDate = dateAgeSplit1;
+    }
+    else
+    {
+        bool isIntAge = int.TryParse(age, out int intAge);
+        bool isDateAge = DateTime.TryParse(age, out DateTime dateAge);
+
+        if (isIntAge)                                                   // isIntAge ? ageYears = intAge : ageBirthDate = dateAge;
+            ageYears = intAge;
+        else if (isDateAge)
+            ageBirthDate = dateAge;
+    }
+}
+//// JEIGU AGE NULL ARBA TUSCIAS ARBA WHITESPACE
+//else
+//{
+//    Console.WriteLine($"AGE yra TUSCIAS");
+//}
+
+string reliability = "";
+
+// IŠ ASMENS KODO IŠSITRAUKIAME TIK GIMIMO METUS
+int birthYearFromCode = Convert.ToInt32(code.Substring(1, 2));
+if (code0 == "1" || code0 == "2")
+    birthYearFromCode = 1800 + birthYearFromCode;
+else if (code0 == "3" || code0 == "4")
+    birthYearFromCode = 1900 + birthYearFromCode;
+else if (code0 == "5" || code0 == "6")
+    birthYearFromCode = 2000 + birthYearFromCode;
+
+// IŠ ASMENS KODO IŠSITRAUKIAME PILNA GIMIMO DATA
+string birthDateFromCode = birthYearFromCode + "-" + code.Substring(3, 2) + "-" + code.Substring(5, 2);
+
+// IŠ PATEIKTO AMŽIAUS PASKAICIUOJAME GIMIMO METUS
+int birthYear = today.AddYears(ageYears*-1).Year;
+
+// JEIGU ĮVESTI TIK METAI
+if (ageYears != 0 && ageBirthDate == new DateTime())
+{
+    if (birthYear == birthYearFromCode)                                 // (birthYear == birthYearFromCode) ? (reliability = "aaaa") : (reliability = "bbbb");
+        reliability = "amžius patikimas";
+    else
+        reliability = "amžius pameluotas";
+}
+// JEIGU ĮVESTA TIK GIMIMO DATA
+else if (ageYears == 0 && ageBirthDate != new DateTime())
+{
+    if (birthDateFromCode == ageBirthDate.ToString("yyyy-mm-dd"))
+        reliability = "amžius patikimas";
+    else
+        reliability = "amžius pameluotas";
+}
+// JEIGU ĮVASTI IR METAI IR GIMIMO DATA
+else if (ageYears != 0 && ageBirthDate != new DateTime())
+{
+    if (birthDateFromCode == ageBirthDate.ToString("yyyy-mm-dd") && birthYearFromCode == birthYear)
+        reliability = "amžius tikras";
+    else if (birthDateFromCode == ageBirthDate.ToString("yyyy-mm-dd") || birthYearFromCode == birthYear)
+        reliability = "amžius nepatikimas";
+    else
+        reliability = "amžius pameluotas";
+}
+// NIEKAS NEĮVESTA
+else if (ageYears == 0 && ageBirthDate == new DateTime())
+{
+    reliability = "patikimumui trūksta duomenų";
+}
+
+
+
 
 Console.WriteLine();
-Console.WriteLine(siandiena.ToString("yyyy-MM-dd"));
-Console.WriteLine($"vardas: {vardas}");
-Console.WriteLine($"lytis: {lytis}");
-Console.WriteLine($"asmens kodas: {ak}");
-Console.WriteLine($"amžius: {amzius}");
-Console.WriteLine($"gimimo datą: {gimimoData.ToString("yyyy-MM-dd")}");
+Console.WriteLine(today.ToString("yyyy-mm-dd"));
+Console.WriteLine($"Vardas: {name}");
+Console.WriteLine($"Lytis: {gender}");
+Console.WriteLine($"Asmens kodas: {code}");
+Console.WriteLine("Amžius: " + ((ageYears != 0) ? ageYears : "NEĮVESTA"));
+Console.WriteLine("Gimimo data: " + ((ageBirthDate != new DateTime()) ? ageBirthDate.ToString("yyyy-mm-dd") : "NEĮVESTA"));
+Console.WriteLine($"Amžiaus patikimumas: {reliability}");
 
 
-
-
-
-
-
-
-
-
-
-
-//if (arDateTimeDatoje)
-//    Console.WriteLine($"DateTime: {gimimoData}");
-//if (arIntDatoje)
-//    Console.WriteLine($"int: {data}");
-//if (!arDateTimeDatoje && !arIntDatoje)
-//    Console.WriteLine("Data neivesta");
 
 
 
