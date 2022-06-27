@@ -1,4 +1,5 @@
-﻿/*
+﻿/*          
+          AMŽIAUS MELAGIS
           Sukurkite programą, kuri pateiktų vartotojo registracijos formą.
           Vartotojas įveda:
             - vardą ir pavardę 
@@ -70,6 +71,7 @@ Console.Write("iveskite asmens kodą (11simb.): ");
 string code = Console.ReadLine();
 string gender = "";
 
+// TIKRINAMAS AR ASMENS KODAS IS 11 SIMBOLIU IR PARENKAMA LYTIS PAGAL PIRMA SKAICIU, JEI JIS ISVESTAS TEISINGAI
 string code0 = Convert.ToString(code.Trim()[0]);
 if (code.Length == 11 && (code0 == "1" || code0 == "3" || code0 == "5"))
 {
@@ -85,6 +87,7 @@ else
     Environment.Exit(0);
 }
 
+// VARTOTOJAS GALI IVESTI METUS IR/AR GIGIMO DATA I VIENA EILUTE ATSKIRIANT TARPU, EILISKUMAS NESVARBU, GALI NEVESTI IR NIEKO
 Console.Write("jeigu norite įveskite savo metus ir/ar gimino datą: ");
 string age = Console.ReadLine();
 int ageYears = 0;
@@ -118,20 +121,17 @@ if (!(string.IsNullOrEmpty(age) || string.IsNullOrWhiteSpace(age)))
     }
     else
     {
+        // JEIGU AGE NETURI TARPU, TAI NUMANOMA, KAD IVESTA TIK VIENAS PARAMETRAS (METAI arba GIMIMO DATA) (TUSCIAS PATIKRINTAS AUKSCIAU)
         bool isIntAge = int.TryParse(age, out int intAge);
         bool isDateAge = DateTime.TryParse(age, out DateTime dateAge);
 
-        if (isIntAge)                                                   // isIntAge ? ageYears = intAge : ageBirthDate = dateAge;
+        // JEI TAI NE MATAI, TAI LIEKA TIK GIMIMO DATA
+        if (isIntAge)
             ageYears = intAge;
         else if (isDateAge)
             ageBirthDate = dateAge;
     }
 }
-//// JEIGU AGE NULL ARBA TUSCIAS ARBA WHITESPACE
-//else
-//{
-//    Console.WriteLine($"AGE yra TUSCIAS");
-//}
 
 string reliability = "";
 
@@ -153,7 +153,7 @@ int birthYear = today.AddYears(ageYears*-1).Year;
 // JEIGU ĮVESTI TIK METAI
 if (ageYears != 0 && ageBirthDate == new DateTime())
 {
-    if (birthYear == birthYearFromCode)                                 // (birthYear == birthYearFromCode) ? (reliability = "aaaa") : (reliability = "bbbb");
+    if (birthYear == birthYearFromCode)
         reliability = "amžius patikimas";
     else
         reliability = "amžius pameluotas";
@@ -182,21 +182,25 @@ else if (ageYears == 0 && ageBirthDate == new DateTime())
     reliability = "patikimumui trūksta duomenų";
 }
 
-
-
-
 Console.WriteLine();
-Console.WriteLine(today.ToString("yyyy-mm-dd"));
-Console.WriteLine($"Vardas: {name}");
-Console.WriteLine($"Lytis: {gender}");
-Console.WriteLine($"Asmens kodas: {code}");
-Console.WriteLine("Amžius: " + ((ageYears != 0) ? ageYears : "NEĮVESTA"));
-Console.WriteLine("Gimimo data: " + ((ageBirthDate != new DateTime()) ? ageBirthDate.ToString("yyyy-mm-dd") : "NEĮVESTA"));
-Console.WriteLine($"Amžiaus patikimumas: {reliability}");
-
-
-
-
+Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
+Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ ATASKAITA APIE ASMENĮ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
+Console.WriteLine($"▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓      {today.ToString("yyyy-mm-dd")}       ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
+Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
+Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
+Console.WriteLine($"▓     Vardas, pavardė ▓ {name,-36}▓");
+Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
+Console.WriteLine($"▓               Lytis ▓ {gender,-36}▓");
+Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
+Console.WriteLine($"▓        Asmens kodas ▓ {code,-36}▓");
+Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
+Console.WriteLine("▓              Amžius ▓ " + ((ageYears != 0) ? ageYears : "NEĮVESTA                            ▓"));
+Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
+Console.WriteLine("▓         Gimimo data ▓ " + ((ageBirthDate != new DateTime()) ? ageBirthDate.ToString("yyyy-mm-dd") : "NEĮVESTA                            ▓"));
+Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
+Console.WriteLine($"▓ Amžiaus patikimumas ▓ {reliability,-36}▓");
+Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
+Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
 
 
 
