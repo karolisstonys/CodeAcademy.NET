@@ -93,9 +93,40 @@
 
             Console.WriteLine("-----------------------");
 
+            Console.WriteLine("-----------------------");
+
+            GautiSkaiciu(out int gautasSkaicius);
+            Console.WriteLine($"gautasSkaicius = {gautasSkaicius}");
+            Console.WriteLine("-----------------------");
+
+
+            int rsk = 2;
+            Console.WriteLine($"rsk = {rsk}");
+            ReferenceSkaicius(ref rsk); //reikšmės perdavimas per reference keičia reikšme kviečiančiame metode
+            Console.WriteLine($"po ReferenceSkaicius rsk = {rsk}");
+            Console.WriteLine("-----------------------");
+
+
+            Console.WriteLine(Add(Convert.ToInt32(Console.ReadLine()), 2));
+            //lokalios funkcijos
+            int Add(int a, int b)
+            {
+                return a + b;
+            }
+
+
 
         }
+        public static void ReferenceSkaicius(ref int skaicius)
+        {
+            skaicius = 900;
+        }
 
+
+        public static void GautiSkaiciu(out int skaicius)
+        {
+            skaicius = 2;
+        }
 
         public static double Vidurkis(params int[] skaiciai)
         {
