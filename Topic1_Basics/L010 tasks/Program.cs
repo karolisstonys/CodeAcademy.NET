@@ -4,6 +4,7 @@
     {
         static void Main(string[] args)
         {
+            #region 1
             // ==============================================================================
             /* 1
             Parašykite programą kurioje yra 2 metodai.
@@ -14,9 +15,9 @@
             sveiki();
             iki();
 
+            #endregion
 
-
-
+            #region 2
             // ==============================================================================
             /* 2
             Parašykite programą kurioje yra 2 metodai.
@@ -26,14 +27,15 @@
             > Iveskite savo Varda:
             _ Petras
             > Labas Petras
-            > Linkiu jums Petras geros dienos*/
+            > Linkiu jums Petras geros dienos
+            */
 
             string name = sveikiSuVardu();
             ikiSuVardu(name);
 
+            #endregion
 
-
-
+            #region 3
             // ==============================================================================
             /* 3
             Parašykite programą kurioje yra vienas metodas priimantis du skaitmeninio tipo argumentus.
@@ -66,9 +68,9 @@
                 Console.WriteLine("Ivesta blogai");
             }
 
+            #endregion
 
-
-
+            #region 4
             // ==============================================================================
             /* 4
             Parašykite programą kurioje yra vienas metodas priimantis vieną argumentą.
@@ -88,7 +90,9 @@
 
             Console.WriteLine($"tekste yra {kiekTarpu} tarpų");
 
+            #endregion
 
+            #region 5
             // ==============================================================================
             /* 5
             Parašykite programą kurioje vienas metodas.
@@ -103,9 +107,9 @@
             int kiekRaidziuBeTarpu = SkaiciuojamTarpus(tekstasSuTarpais, 2);
             Console.WriteLine($"tekstas be tarpų yra {kiekRaidziuBeTarpu} ilgio");
 
+            #endregion
 
-
-
+            #region 6
             // ==============================================================================
             /* 6
             Parašykite programą kurioje yra vienas metodas priimantis vieną argumentą. 
@@ -125,9 +129,9 @@
 
             Console.WriteLine($"tekste yra {kiekZodziu} zodziu");
 
+            #endregion
 
-
-
+            #region 7
             // ==============================================================================
             /* 7
             Parašykite programą kurioje vienas metodas.
@@ -146,9 +150,9 @@
             int kiekGaleTarpu = SkaiciuojamGaloWhitespace(tekstasSuTarpaisGale);
             Console.WriteLine($"Gale yra {kiekGaleTarpu} tarpu");
 
+            #endregion
 
-
-
+            #region 8
             // ==============================================================================
             /* 8
             Parašykite programą kurioje vienas metodas.
@@ -161,16 +165,15 @@
             > Pradžioje yra tarpų: 1
             */
 
-
             Console.WriteLine("įvesti betkokį tekstą su tarpais + daug tarpu priekyje: ");
             string tekstasSuTarpaisPriekyje = Console.ReadLine();
 
             int kiekPriekyjeTarpu = SkaiciuojamPriekyjeWhitespace(tekstasSuTarpaisPriekyje);
             Console.WriteLine($"Gale yra {kiekPriekyjeTarpu} tarpu");
 
+            #endregion
 
-
-
+            #region 9
             // ==============================================================================
             /* 9
             Parašykite programą kurioje vienas metodas.
@@ -185,7 +188,6 @@
             > Gale yra tarpų: 6
             */
 
-
             Console.WriteLine("įvesti betkokį tekstą su tarpais + daug tarpu priekyje IR gale: ");
             string tekstasSuTarpaisPriekyjeIrGale = Console.ReadLine();
 
@@ -193,8 +195,9 @@
 
             Console.WriteLine($"Priekyje yra {tarpaiPriekyje} tarpai, o gale yra {tarpaiGale} tarpai");
 
+            #endregion
 
-
+            #region 10
             // ==============================================================================
             /* 10
             Parašykite programą kurioje yra vienas metodas.
@@ -207,12 +210,83 @@
             > 'a' raidžių kiekis yra: 3
             */
 
-
             Console.WriteLine("įvesti betkokį tekstą su tarpais: ");
             string tekstasSuA = Console.ReadLine();
             int kiekYraRaidziuA = SuskaiciuojamRaidesA(tekstasSuA);
             Console.WriteLine($"Rasta {kiekYraRaidziuA} mazuju a raidziu");
 
+            #endregion
+
+            #region 11A
+            // ==============================================================================
+            /*
+            Parašykite programą kurioje vienas metodas. 
+            - Naudotojo paprašome įvesti betkokį tekstą Main metode. 
+            - Metodas grąžina žodžius Taip arba Ne ar tekste rado žodį 'mokausi'. 
+            Bet tik tuo atveju jei žodis 'mokausi' nesulipęs su kitu žodžiu.
+            N.B. grąžinama string, o ne bool.
+            -  Išvesti rezultatą Main metode.
+            Pvz: 
+            > Iveskite teksta:
+            _ ' as labai mokausi programuoti     '
+            > Ar yra mokausi: Taip
+
+            Pvz: 
+            > Iveskite teksta:
+            _ ' as_labai_mokausi_programuoti     '
+            > Ar yra mokausi: Ne
+            */
+
+            Console.WriteLine("įvesti betkokį tekstą su tarpais: ");
+            string text = Console.ReadLine();
+            string taipArNe = ArYraZodisMokausi(text);
+            Console.WriteLine($"Ar yra mokausi zodis: {taipArNe}");
+
+            #endregion
+
+            #region 12
+            // ==============================================================================
+            /*
+            Parašykite programą kurioje yra vienas metodas.
+            - Main metode Naudotojo paprašome įvesti betkokį tekstą su tarpais
+            - Įvestas teikstas kaip argumentas perduodamas metodui. Metodas grąžina pirmos 'a' raidės vietą tekste.
+            - Main metode į ekraną išveskite metodo darbo rezultatą
+            Pvz:
+            > Iveskite teksta:
+            _ as mokausi programuoti
+            > 'a' raides vieta yra: 0
+            */
+
+            Console.WriteLine("įvesti betkokį tekstą su tarpais: ");
+            string text12 = Console.ReadLine();
+            int raidesAvieta = raidesAVieta(text);
+            Console.WriteLine($"Pirmos raides a vienat tekste: {raidesAvieta}");
+
+            #endregion
+        }
+
+        #region Methods
+        public static int raidesAVieta(string text)
+        {
+            return text.IndexOf("a");
+        }
+
+        public static string ArYraZodisMokausi(string text)
+        {
+            bool isMokausi = text.Contains("mokausi");
+            int indexOfMokausi = text.IndexOf("mokausi");
+            int lengthOfText = text.Length;
+
+            if (isMokausi && indexOfMokausi == 0 && text.Contains("mokausi ") && lengthOfText > 7)
+                return "Taip";
+            else if (isMokausi && indexOfMokausi > 0 && text.Contains(" mokausi ") && lengthOfText > 8)
+                return "Taip";
+            else if (isMokausi && indexOfMokausi > 0 && text.Contains(" mokausi") && lengthOfText - indexOfMokausi == 7)
+                return "Taip";
+            else if (isMokausi && lengthOfText == 7)
+                return "Taip";
+            else
+            return "Ne";
         }
 
         public static int SuskaiciuojamRaidesA(string text)
@@ -282,5 +356,7 @@
         {
             Console.WriteLine("Linkiu jums geros dienos");
         }
+        #endregion
+
     }
 }
