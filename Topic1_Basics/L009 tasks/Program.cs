@@ -169,9 +169,9 @@ else if (ageYears == 0 && ageBirthDate != new DateTime())
 // JEIGU ĮVASTI IR METAI IR GIMIMO DATA
 else if (ageYears != 0 && ageBirthDate != new DateTime())
 {
-    if (birthDateFromCode == ageBirthDate.ToString("yyyy-mm-dd") && birthYearFromCode == birthYear)
+    if (birthDateFromCode == ageBirthDate.ToString("yyyy-MM-dd") && birthYearFromCode == birthYear)
         reliability = "amžius tikras";
-    else if (birthDateFromCode == ageBirthDate.ToString("yyyy-mm-dd") || birthYearFromCode == birthYear)
+    else if (birthDateFromCode == ageBirthDate.ToString("yyyy-MM-dd") || birthYearFromCode == birthYear)
         reliability = "amžius nepatikimas";
     else
         reliability = "amžius pameluotas";
@@ -185,7 +185,7 @@ else if (ageYears == 0 && ageBirthDate == new DateTime())
 Console.WriteLine();
 Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
 Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ ATASKAITA APIE ASMENĮ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
-Console.WriteLine($"▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓      {today.ToString("yyyy-mm-dd")}       ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
+Console.WriteLine($"▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓      {today.ToString("yyyy-MM-dd")}       ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
 Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
 Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
 Console.WriteLine($"▓     Vardas, pavardė ▓ {name,-36}▓");
@@ -196,7 +196,7 @@ Console.WriteLine($"▓        Asmens kodas ▓ {code,-36}▓");
 Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
 Console.WriteLine("▓              Amžius ▓ " + ((ageYears != 0) ? ageYears : "NEĮVESTA                            ▓"));
 Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
-Console.WriteLine("▓         Gimimo data ▓ " + ((ageBirthDate != new DateTime()) ? ageBirthDate.ToString("yyyy-mm-dd") : "NEĮVESTA                            ▓"));
+Console.WriteLine("▓         Gimimo data ▓ " + ((ageBirthDate != new DateTime()) ? ageBirthDate.ToString("yyyy-MM-dd") + "                          ▓" : "NEĮVESTA                            ▓"));
 Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
 Console.WriteLine($"▓ Amžiaus patikimumas ▓ {reliability,-36}▓");
 Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
