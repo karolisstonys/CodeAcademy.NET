@@ -194,7 +194,7 @@ Console.WriteLine($"▓               Lytis ▓ {gender,-36}▓");
 Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
 Console.WriteLine($"▓        Asmens kodas ▓ {code,-36}▓");
 Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
-Console.WriteLine("▓              Amžius ▓ " + ((ageYears != 0) ? ageYears : "NEĮVESTA                            ▓"));
+Console.WriteLine("▓              Amžius ▓ " + ((ageYears != 0) ? ageYears + "                                  ▓" : "NEĮVESTA                            ▓"));
 Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
 Console.WriteLine("▓         Gimimo data ▓ " + ((ageBirthDate != new DateTime()) ? ageBirthDate.ToString("yyyy-MM-dd") + "                          ▓" : "NEĮVESTA                            ▓"));
 Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
