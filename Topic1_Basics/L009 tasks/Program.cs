@@ -106,18 +106,12 @@ if (!(string.IsNullOrEmpty(age) || string.IsNullOrWhiteSpace(age)))
 
         bool isDateAgeSplit0 = DateTime.TryParse(ageSplit[0], out DateTime dateAgeSplit0);
         bool isDateAgeSplit1 = DateTime.TryParse(ageSplit[1], out DateTime dateAgeSplit1);
-        
-        // TIKRINAME KURI PERSKIRTA AGE DALIS YRA int IR ATITINKAMAI JA PRISKIRIAME ageYears        
-        if (isIntAgeSplit0) 
-            ageYears = intAgeSplit0;
-        else
-            ageYears = intAgeSplit1;
+
+        // TIKRINAME KURI PERSKIRTA AGE DALIS YRA int IR ATITINKAMAI JA PRISKIRIAME ageYears
+        ageYears = isIntAgeSplit0 ? intAgeSplit0 : intAgeSplit1;
 
         // TIKRINAME KURI PERSKIRTA AGE DALIS YRA DateTime IR ATITINKAMAI JA PRISKIRIAME ageBirthDate
-        if (isDateAgeSplit0)
-            ageBirthDate = dateAgeSplit0;
-        else
-            ageBirthDate = dateAgeSplit1;
+        ageBirthDate = isDateAgeSplit0 ? dateAgeSplit0 : dateAgeSplit1;
     }
     else
     {
@@ -184,8 +178,8 @@ else if (ageYears == 0 && ageBirthDate == new DateTime())
 
 Console.WriteLine();
 Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
-Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ ATASKAITA APIE ASMENĮ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
-Console.WriteLine($"▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓      {today.ToString("yyyy-MM-dd")}       ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
+Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ ATASKAITA APIE ASMENĮ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓",100);
+Console.WriteLine($"▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓      {today:yyyy-MM-dd}       ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
 Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
 Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
 Console.WriteLine($"▓     Vardas, pavardė ▓ {name,-36}▓");
@@ -194,7 +188,13 @@ Console.WriteLine($"▓               Lytis ▓ {gender,-36}▓");
 Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
 Console.WriteLine($"▓        Asmens kodas ▓ {code,-36}▓");
 Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
-Console.WriteLine("▓              Amžius ▓ " + ((ageYears != 0) ? ageYears + "                                  ▓" : "NEĮVESTA                            ▓"));
+
+//Console.WriteLine("▓              Amžius ▓ " + ((ageYears != 0) ? ageYears + "                                   ▓" : "NEĮVESTA                            ▓"));
+
+if (ageYears != 0)
+    Console.WriteLine($"▓              Amžius ▓ {ageYears,-3}                                 ▓");
+else
+    Console.WriteLine("▓              Amžius ▓ NEĮVESTA                            ▓");
 Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
 Console.WriteLine("▓         Gimimo data ▓ " + ((ageBirthDate != new DateTime()) ? ageBirthDate.ToString("yyyy-MM-dd") + "                          ▓" : "NEĮVESTA                            ▓"));
 Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
