@@ -276,12 +276,27 @@
             bool isMokausi = text.Contains("mokausi");
             int indexOfMokausi = text.IndexOf("mokausi");
             int lengthOfText = text.Length;
+            string zodis = "mokausi";
 
-            if (isMokausi && indexOfMokausi == 0 && text.Contains("mokausi ") && lengthOfText > 7)
+            bool isIeskomasZodisPriekyje = text.Contains("" + zodis + " ") ||
+                                           text.Contains("" + zodis + ", ") ||
+                                           text.Contains("(" + zodis + ") ");
+
+            bool isIeskomasZodisViduryje = text.Contains(" " + zodis + " ") ||
+                                           text.Contains(" " + zodis + ", ") ||
+                                           text.Contains(" (" + zodis + ") ");
+
+            bool isIeskomasZodisGale = text.Contains(" " + zodis + "") ||
+                                       text.Contains(" " + zodis + ".") ||
+                                       text.Contains(" " + zodis + "!") ||
+                                       text.Contains(" " + zodis + "?") ||
+                                       text.Contains(" (" + zodis + ")");
+
+            if (isMokausi && indexOfMokausi == 0 && isIeskomasZodisPriekyje && lengthOfText >= 8)
                 return "Taip";
-            else if (isMokausi && indexOfMokausi > 0 && text.Contains(" mokausi ") && lengthOfText > 8)
+            else if (isMokausi && indexOfMokausi > 0 && isIeskomasZodisViduryje && lengthOfText >= 9)
                 return "Taip";
-            else if (isMokausi && indexOfMokausi > 0 && text.Contains(" mokausi") && lengthOfText - indexOfMokausi == 7)
+            else if (isMokausi && indexOfMokausi > 0 && isIeskomasZodisGale && lengthOfText - indexOfMokausi <= 8)
                 return "Taip";
             else if (isMokausi && lengthOfText == 7)
                 return "Taip";

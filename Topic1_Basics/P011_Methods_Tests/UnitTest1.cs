@@ -93,57 +93,81 @@ namespace P011_Methods_Tests
         }
 
         [TestMethod]
-        public void ArYraZodisMokausi_Test1()
+        public void ArYraZodisMokausi_TestPvz1()
         {
-            var fake = " as labai mokausi programuoti     ";
+            var fake = "as labai mokausi programuoti     ";
             var expected = "Taip";
             var actual = L010_tasks.Program.ArYraZodisMokausi(fake);
             Assert.AreEqual(expected, actual);
         }
+
         [TestMethod]
-        public void ArYraZodisMokausi_Test2()
+        public void ArYraZodisMokausi_TestPvz2()
         {
-            var fake = "_as_labai_mokausi_programuoti_";
+            var fake = "aslabaimokausiprogramuoti";
             var expected = "Ne";
             var actual = L010_tasks.Program.ArYraZodisMokausi(fake);
             Assert.AreEqual(expected, actual);
         }
+
         [TestMethod]
-        public void ArYraZodisMokausi_Test3()
+        public void ArYraZodisMokausi_TestPvz3()
         {
-            var fake = "XasXlabaiXmokausiXprogramuotiX";
-            var expected = "Ne";
-            var actual = L010_tasks.Program.ArYraZodisMokausi(fake);
-            Assert.AreEqual(expected, actual);
-        }
-        [TestMethod]
-        public void ArYraZodisMokausi_Test4()
-        {
-            var fake = " as labai mokausi";
+            var fake = "mokausi programuoti labai    ";
             var expected = "Taip";
             var actual = L010_tasks.Program.ArYraZodisMokausi(fake);
             Assert.AreEqual(expected, actual);
         }
+
         [TestMethod]
-        public void ArYraZodisMokausi_Test5()
+        public void ArYraZodisMokausi_TestPvz4()
         {
-            var fake = "mokausi programuoti     ";
+            var fake = "as mokausi, labai stipriai";
             var expected = "Taip";
             var actual = L010_tasks.Program.ArYraZodisMokausi(fake);
             Assert.AreEqual(expected, actual);
         }
+
         [TestMethod]
-        public void ArYraZodisMokausi_Test6()
+        public void ArYraZodisMokausi_TestPvz5()
         {
-            var fake = "mokausi_programuoti     ";
+            var fake = "as mokausi!";
+            var expected = "Taip";
+            var actual = L010_tasks.Program.ArYraZodisMokausi(fake);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ArYraZodisMokausi_TestPvz6()
+        {
+            var fake = "as mokausi?";
+            var expected = "Taip";
+            var actual = L010_tasks.Program.ArYraZodisMokausi(fake);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ArYraZodisMokausi_TestPvz7()
+        {
+            var fake = "as studijuoju (mokausi)";
+            var expected = "Taip";
+            var actual = L010_tasks.Program.ArYraZodisMokausi(fake);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ArYraZodisMokausi_TestPvz8()
+        {
+            var fake = "as studijuojumokausi)";
             var expected = "Ne";
             var actual = L010_tasks.Program.ArYraZodisMokausi(fake);
             Assert.AreEqual(expected, actual);
         }
+
         [TestMethod]
-        public void ArYraZodisMokausi_Test7()
+        public void ArYraZodisMokausi_Test9()
         {
-            var fake = "mokausi";
+            var fake = "as studijuoju mokausi";
             var expected = "Taip";
             var actual = L010_tasks.Program.ArYraZodisMokausi(fake);
             Assert.AreEqual(expected, actual);
