@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\L010 tasks\L010 tasks.csproj" />
+    <ProjectReference Include="..\L014 debug\L014 debug.csproj" />
   </ItemGroup>
 
 </Project>
