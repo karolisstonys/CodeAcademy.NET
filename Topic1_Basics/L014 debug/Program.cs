@@ -79,15 +79,9 @@ namespace L014_debug
                 5 or 6 or 7 or 8 or 9 or 10 => DaugiakampioSkaiciavimas(krastiniuKiekis, krastinesIlgis),
                 _ => PoligonoVidiniuKampuSuma(krastiniuKiekis)
             };
-
-
-
         }
 
-        private static double PoligonoVidiniuKampuSuma(int krastiniuKiekis)
-        {
-            return 180 * (krastiniuKiekis - 2);
-        }
+        private static double PoligonoVidiniuKampuSuma(int krastiniuKiekis) => 180 * (krastiniuKiekis - 2);
 
         public static double DaugiakampioSkaiciavimas(int krastiniuKiekis, int krastinesIlgis, int r = 8)
         {
@@ -96,10 +90,7 @@ namespace L014_debug
             return (double)krastiniuKiekis/2 * krastinesIlgis * r;
         }
 
-        public static double KeturkampioSkaiciavimas(int krastinesIlgis)
-        {
-            return krastinesIlgis * krastinesIlgis;
-        }
+        public static double KeturkampioSkaiciavimas(int krastinesIlgis) => krastinesIlgis * krastinesIlgis;
 
         public static double TrikampioSkaiciavimas(int krastinesIlgis, int h = 10)
         {
