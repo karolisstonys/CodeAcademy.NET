@@ -1,7 +1,7 @@
-namespace P011_Methods_Tests
+namespace L011_Methods_Tests
 {
     [TestClass]
-    public class P011_Methods_Tests
+    public class L011_Methods_Tests
     {        
         // 4
         [TestMethod]

@@ -35,7 +35,8 @@ namespace L014_debug
             //Console.Write("Iveskite skaiciu: ");
             //int skaicius2 = Convert.ToInt32(Console.ReadLine());
             //Console.Write("Iveskite matematini veiksma (+ - * /): ");
-            //string? veiksmas = Console.ReadLine();          
+            //string? veiksmas = Console.ReadLine();
+
             //Console.WriteLine($"{skaicius1} {veiksmas} {skaicius2} = {Skaiciuotuvas(skaicius1, skaicius2, veiksmas)}");
 
 
@@ -66,42 +67,63 @@ namespace L014_debug
              */
 
 
-            Console.Write("Iveskite taisyklingojo daugiakampio kraštių kiekį: ");
+            Console.Write("Iveskite taisyklingojo daugiakampio kraštių kiekį (3+): ");
             int krastiniuKiekis = Convert.ToInt32(Console.ReadLine());
             Console.Write("Iveskite kraštinės ilgį: ");
             int krastinesIlgis = Convert.ToInt32(Console.ReadLine());
+            int r = 0;
+            int h = 0;
 
-            var isvedamasRezultatas = krastiniuKiekis switch
+            if (krastiniuKiekis >= 3)
             {
-                0 or 1 or 2 => "Blogas pasirinkimas",
-                3 => TrikampioSkaiciavimas(krastinesIlgis),
-                4 => KeturkampioSkaiciavimas(krastinesIlgis),
-                5 or 6 or 7 or 8 or 9 or 10 => DaugiakampioSkaiciavimas(krastiniuKiekis, krastinesIlgis),
-                _ => PoligonoVidiniuKampuSuma(krastiniuKiekis)
-            };
+                if (krastiniuKiekis == 3)
+                {
+                    Console.Write("Iveskite kraštinės ilgį (h): ");
+                    h = Convert.ToInt32(Console.ReadLine());
+                }
+                else if (krastiniuKiekis >= 5)
+                {
+                    Console.Write("Iveskite statmenį (r): ");
+                    r = Convert.ToInt32(Console.ReadLine());
+                }
+
+                var isvedamasRezultatas = krastiniuKiekis switch        // state machine
+                {
+                    3 => TrikampioSkaiciavimas(krastinesIlgis, h),
+                    4 => KeturkampioSkaiciavimas(krastinesIlgis),
+                    _ => DaugiakampioSkaiciavimas(krastiniuKiekis, krastinesIlgis, r)
+                };
+
+                Console.Write($"Atsakymas: {isvedamasRezultatas}");
+                Console.Write($"Poligono vidinių kampų suma: {PoligonoVidiniuKampuSuma(krastiniuKiekis)}");
+                
+            }
+            else
+            {
+                Console.WriteLine("Blogai įvestas kraštių kiekis!");
+                Environment.Exit(0);
+            }
         }
 
-        private static double PoligonoVidiniuKampuSuma(int krastiniuKiekis) => 180 * (krastiniuKiekis - 2);
+        public static double PoligonoVidiniuKampuSuma(int krastiniuKiekis) => 180 * (krastiniuKiekis - 2);
 
-        public static double DaugiakampioSkaiciavimas(int krastiniuKiekis, int krastinesIlgis, int r = 8)
-        {
-            Console.Write("Iveskite statmenį r: ");
-            r = Convert.ToInt32(Console.ReadLine());
-            return (double)krastiniuKiekis/2 * krastinesIlgis * r;
-        }
-
+        public static double DaugiakampioSkaiciavimas(int krastiniuKiekis, int krastinesIlgis, int r) => (double)krastiniuKiekis/2 * krastinesIlgis * r;
+        
         public static double KeturkampioSkaiciavimas(int krastinesIlgis) => krastinesIlgis * krastinesIlgis;
 
-        public static double TrikampioSkaiciavimas(int krastinesIlgis, int h = 10)
-        {
-            Console.Write("Iveskite aukšį h: ");
-            h = Convert.ToInt32(Console.ReadLine());
-            return 0.5D * krastinesIlgis * h;
-        }
+        public static double TrikampioSkaiciavimas(int krastinesIlgis, int h) => 0.5D * krastinesIlgis * h;
+
+
+
+
+
+
+
+
 
         public static double Skaiciuotuvas(int skaicius1, int skaicius2, string? veiksmas)
         {
-            switch (veiksmas)
+            switch (veiksmas)       // state machine
             {
                 case "+":
                     return Suma(skaicius1, skaicius2);
