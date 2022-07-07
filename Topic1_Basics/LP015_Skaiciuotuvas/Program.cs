@@ -12,7 +12,8 @@ namespace LP015_Skaiciuotuvas
             //Console.WriteLine(DecimalHour(Console.ReadLine()));
 
             //DaugiakampioPlotas_Main(null);
-        }
+            MatematikaPapildymas_Main(null);
+        }               
 
         /*
          Įveskite darbo laiką valandomis ir minutėmis hh.mm arba valandomis, minutėmis ir sekundėmis hh.mm.ss 
@@ -103,7 +104,7 @@ namespace LP015_Skaiciuotuvas
         public static int Daugyba(int a, int b) => a * b;
         public static double Dalyba(int a, int b) => (double)a / b;
 
-        public static double? Skaiciuotuvas(int a, int b, string veiksmas)
+        public static double? SkaiciuotuvasDestytojo(int a, int b, string veiksmas)
         {
             switch (veiksmas) //state machine
             {
@@ -266,22 +267,22 @@ namespace LP015_Skaiciuotuvas
             var veiksmas = Console.ReadLine();
 
             double? rezultatas = null;
-            rezultatas = Skaiciuotuvas(a, b, veiksmas);
+            rezultatas = SkaiciuotuvasDestytojo(a, b, veiksmas);
 
             Console.WriteLine($" {a} {veiksmas} {b} = {rezultatas}");
 
         }
 
-        public static double? Skaiciuotuvas(string? a, string? b, string? veiksmas)
+        public static double? SkaiciuotuvasDestytojo(string? a, string? b, string? veiksmas)
         {
             VeksmoNormalizacija(ref veiksmas);
             if (ArSvekiejiSkaiciai(a, b) && !ArNaujasVeiksmas(veiksmas))
             {
-                return Skaiciuotuvas(Convert.ToInt32(a), Convert.ToInt32(b), veiksmas);
+                return SkaiciuotuvasDestytojo(Convert.ToInt32(a), Convert.ToInt32(b), veiksmas);
             }
             else if (ArSkaiciai(a, b))
             {
-                return Skaiciuotuvas(Convert.ToDouble(a), Convert.ToDouble(b), veiksmas);
+                return SkaiciuotuvasDestytojo(Convert.ToDouble(a), Convert.ToDouble(b), veiksmas);
             }
 
             return null;
@@ -309,7 +310,7 @@ namespace LP015_Skaiciuotuvas
         public static double Kvadratu(double a) => a * a;
         public static double Kubu(double a) => a * a * a;
 
-        public static double? Skaiciuotuvas(double a, double b, string veiksmas)
+        public static double? SkaiciuotuvasDestytojo(double a, double b, string veiksmas)
         {
             switch (veiksmas) //state machine
             {
