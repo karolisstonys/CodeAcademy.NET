@@ -10,7 +10,7 @@ namespace LP015_Skaiciuotuvas_Tests
     public class UnitTest1
     {
         [TestMethod]
-        public void Skaiciuotuvas_Test0()
+        public void Skaiciuotuvas_Test()
         {
             var expected = 10 * 10;
             var actual = LP015_Skaiciuotuvas.Program.SkaiciuotuvasDestytojo("10", "10", "^2");
