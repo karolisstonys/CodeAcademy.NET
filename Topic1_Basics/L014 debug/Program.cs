@@ -5,11 +5,6 @@ namespace L014_debug
 {
     public class Program
     {
-        public static bool arNeraTarpuIrVisosDidziosios = false;
-        public static bool arPatikrintosATCG = false;
-        public static string txtDNR = " T CG-TAC- gaC-TAC-CGT-CAG-ACT-TAa-CcA-GTC-cAt-AGA-GCT    ";
-
-
         static void Main(string[] args)
         {
             //Console.WriteLine("Hello, DEBUGING!");
@@ -133,152 +128,58 @@ namespace L014_debug
                 6) a^3
             */
 
-            //int intSkaicius1 = 0;
-            //double doubleSkaicius1 = 0;
-            //int intSkaicius2 = 0;
-            //double doubleSkaicius2 = 0;
+            int intSkaicius1 = 0;
+            double doubleSkaicius1 = 0;
+            int intSkaicius2 = 0;
+            double doubleSkaicius2 = 0;
 
-            //Console.Write("Iveskite pirma skaiciu: ");
-            //string stringSkaicius1 = Console.ReadLine();
+            Console.Write("Iveskite pirma skaiciu: ");
+            string stringSkaicius1 = Console.ReadLine();
 
-            //if (!IsNumber(stringSkaicius1))
-            //{
-            //    Console.WriteLine("Ivestas ne skaicius!");
-            //    Environment.Exit(0);
-            //}
-
-            //if (SkaiciusTuriKableli(stringSkaicius1))
-            //{
-            //    doubleSkaicius1 = Convert.ToDouble(stringSkaicius1);
-            //    Debug.WriteLine("Skaicius 1 yra double");
-            //}
-            //else
-            //{
-            //    intSkaicius1 = Convert.ToInt32(stringSkaicius1);
-            //    Debug.WriteLine("Skaicius 1 yra int");
-            //}
-
-            //Console.Write("Iveskite antra skaiciu: ");
-            //string stringSkaicius2 = Console.ReadLine();
-
-            //if (!IsNumber(stringSkaicius2))
-            //{
-            //    Console.WriteLine("Ivestas ne skaicius!");
-            //    Environment.Exit(0);
-            //}
-
-            //if (SkaiciusTuriKableli(stringSkaicius2))
-            //{
-            //    doubleSkaicius2 = Convert.ToDouble(stringSkaicius2);
-            //    Debug.WriteLine("Skaicius 2 yra double");
-            //}
-            //else
-            //{
-            //    intSkaicius2 = Convert.ToInt32(stringSkaicius2);
-            //    Debug.WriteLine("Skaicius 2 yra int");
-            //}
-
-            //VeiksmuMeniuIrSkaiciavimas(stringSkaicius1, stringSkaicius2, doubleSkaicius1, doubleSkaicius2, intSkaicius1, intSkaicius2);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            //==============================================================================================================================
-            /*
-            Tarkime turime DNR grandinę užkoduotą tekstu var txt =" T CG-TAC- gaC-TAC-CGT-CAG-ACT-TAa-CcA-GTC-cAt-AGA-GCT    ".
-            Galimos bazės: Adenine, Thymine, Cytosine, Guanine
-            Parašykite programą kurioje atsiranda MENIU kuriame naudotojas gali pasirinkti:
-            1. Atlikti DNR grandinės normalizavimo veiksmus:
-            - pašalina tarpus.
-            - visas raides keičia didžiosiomis.
-            2. Atlikti grandinės validaciją
-            - patikrina ar nėra kitų nei ATCG raidžių
-            3. Atlieka veiksmus su DNR grandine (tik tuo atveju jei grandinė yra normalizuota ir validi). Nuspaudus 3 įeinama į sub-meniu
-            - Jeigu grandinė yra validi, tačiau nenormalizuota programa pasiūlo naudotojui
-            1) normalizuoti grandinę
-            2) išeiti iš programos
-            - jei grandinė normalizuota arba kai buvo atlikta normalizacija
-            1) GCT pakeis į AGG
-            2) Išvesti ar yra tekste CAT
-            3) Išvesti trečia ir penktą grandinės segmentus (naudoti Substring()).
-            4) Išvesti raidžių kiekį tekste (naudoti string composition)
-            5) Išvesti ar yra tekste ir kiek kartų pasikartoja iš klaviatūros įvestas segmento kodas
-            6) Prie grandinės galo pridėti iš klaviatūros įvesta segmentą
-            (reikalinga validacija ar nėra kitų kaip ATCG ir 3 raidės)
-            7) Iš grandinės pašalinti pasirinką elementą
-            8) Pakeisti pasirinkti segmentą įvestu iš klaviatūros
-            (reikalinga validacija ar nėra kitų kaip ATCG ir 3 raidės)
-            9) Gryžti į ankstesnį meniu
-            Visoms operacijoms reikalingi testai. 
-            */
-
-            // arNeraTarpuIrVisosDidziosios = false;
-
-            // arPatikrintosATCG = false;
-
-            // string txt = " T CG-TAC- gaC-TAC-CGT-CAG-ACT-TAa-CcA-GTC-cAt-AGA-GCT    ";
-
-            PirmasMeniu();
-
-        }
-
-
-        
-
-        private static void PirmasMeniu()
-        {
-            Console.Clear();
-            Console.WriteLine(txtDNR);
-            Console.WriteLine("Galimi pasirinkimai");
-            if (!arNeraTarpuIrVisosDidziosios)
-                Console.WriteLine("1) Atlikti DNR grandinės normalizavimo veiksmus");
-            else
-                Console.WriteLine("1) Atlikti DNR grandinės normalizavimo veiksmus - ATLIKTA!");
-            if (!arPatikrintosATCG)
-                Console.WriteLine("2) Atlikti grandinės validaciją");
-            else
-                Console.WriteLine("2) Atlikti grandinės validaciją - ATLIKTA!");
-            Console.WriteLine("3) Atlikti veiksmus su DNR grandine");
-
-            string pasirinkimas = Console.ReadLine();
-
-            if (ArPasirinkimasYraSkaicius(pasirinkimas, 3))
+            if (!IsNumber(stringSkaicius1))
             {
-
+                Console.WriteLine("Ivestas ne skaicius!");
+                Environment.Exit(0);
             }
 
-            //string rezultatas = pasirinkimas switch
-            //{
-            //    "1" => "",
-            //    "2" => "",
-            //    "3" => "",
-            //    _ => ""
-            //};
+            if (SkaiciusTuriKableli(stringSkaicius1))
+            {
+                doubleSkaicius1 = Convert.ToDouble(stringSkaicius1);
+                Debug.WriteLine("Skaicius 1 yra double");
+            }
+            else
+            {
+                intSkaicius1 = Convert.ToInt32(stringSkaicius1);
+                Debug.WriteLine("Skaicius 1 yra int");
+            }
+
+            Console.Write("Iveskite antra skaiciu: ");
+            string stringSkaicius2 = Console.ReadLine();
+
+            if (!IsNumber(stringSkaicius2))
+            {
+                Console.WriteLine("Ivestas ne skaicius!");
+                Environment.Exit(0);
+            }
+
+            if (SkaiciusTuriKableli(stringSkaicius2))
+            {
+                doubleSkaicius2 = Convert.ToDouble(stringSkaicius2);
+                Debug.WriteLine("Skaicius 2 yra double");
+            }
+            else
+            {
+                intSkaicius2 = Convert.ToInt32(stringSkaicius2);
+                Debug.WriteLine("Skaicius 2 yra int");
+            }
+
+            VeiksmuMeniuIrSkaiciavimas(stringSkaicius1, stringSkaicius2, doubleSkaicius1, doubleSkaicius2, intSkaicius1, intSkaicius2);
+
+
+
         }
 
-
-
-
-
-
-
-
-
-
-        private static bool ArPasirinkimasYraSkaicius(string text, int max) => int.TryParse(text, out int number) && number > 0 && number <= max;
+        
 
         private static void VeiksmuMeniuIrSkaiciavimas(string stringSkaicius1, string stringSkaicius2, double doubleSkaicius1, double doubleSkaicius2, int intSkaicius1, int intSkaicius2)
         {
@@ -387,8 +288,6 @@ namespace L014_debug
         public static double KeturkampioSkaiciavimas(int krastinesIlgis) => krastinesIlgis * krastinesIlgis;
 
         public static double TrikampioSkaiciavimas(int krastinesIlgis, int h) => 0.5D * krastinesIlgis * h;
-
-
 
 
 
