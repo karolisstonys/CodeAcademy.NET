@@ -1,68 +1,66 @@
 ﻿namespace L014_DNR
 {
-    internal class Program
+    public class Program
     {
-        public static bool arNeraTarpuIrVisosDidziosios = false;
-        public static bool arVisosRaidesTikATCG = false;
-        public static string txtDNR = " T CG-TAC- gaC-TAC-CGT-CAG-ACT-TAa-CcA-GTC-cAt-AGA-GCT    ";
-
         static void Main(string[] args)
         {
-            //==============================================================================================================================
-            /*
-            DNR inžinerija
+        //==============================================================================================================================
+        /*
+        DNR inžinerija
 
-            Tarkime turime DNR grandinę užkoduotą tekstu var txt =" T CG-TAC- gaC-TAC-CGT-CAG-ACT-TAa-CcA-GTC-cAt-AGA-GCT    ".
-            Galimos bazės: Adenine, Thymine, Cytosine, Guanine
+        Tarkime turime DNR grandinę užkoduotą tekstu var txt =" T CG-TAC- gaC-TAC-CGT-CAG-ACT-TAa-CcA-GTC-cAt-AGA-GCT    ".
+        Galimos bazės: Adenine, Thymine, Cytosine, Guanine
             
-            Parašykite programą kurioje atsiranda MENIU kuriame naudotojas gali pasirinkti:
+        Parašykite programą kurioje atsiranda MENIU kuriame naudotojas gali pasirinkti:
             
-            1. Atlikti DNR grandinės normalizavimo veiksmus:
-                - pašalina tarpus.
-                - visas raides keičia didžiosiomis.
+        1. Atlikti DNR grandinės normalizavimo veiksmus:
+            - pašalina tarpus.
+            - visas raides keičia didžiosiomis.
             
-            2. Atlikti grandinės validaciją
-                - patikrina ar nėra kitų nei ATCG raidžių
+        2. Atlikti grandinės validaciją
+            - patikrina ar nėra kitų nei ATCG raidžių
             
-            3. Atlieka veiksmus su DNR grandine (tik tuo atveju jei grandinė yra normalizuota ir validi). Nuspaudus 3 įeinama į sub-meniu
-                - Jeigu grandinė yra validi, tačiau nenormalizuota programa pasiūlo naudotojui
-                    1) normalizuoti grandinę
-                    2) išeiti iš programos
+        3. Atlieka veiksmus su DNR grandine (tik tuo atveju jei grandinė yra normalizuota ir validi). Nuspaudus 3 įeinama į sub-meniu
+            - Jeigu grandinė yra validi, tačiau nenormalizuota programa pasiūlo naudotojui
+                1) normalizuoti grandinę
+                2) išeiti iš programos
             
-                - jei grandinė normalizuota arba kai buvo atlikta normalizacija
-                    1) GCT pakeis į AGG
-                    2) Išvesti ar yra tekste CAT
-                    3) Išvesti trečia ir penktą grandinės segmentus (naudoti Substring()).
-                    4) Išvesti raidžių kiekį tekste (naudoti string composition)
-                    5) Išvesti ar yra tekste ir kiek kartų pasikartoja iš klaviatūros įvestas segmento kodas
-                    6) Prie grandinės galo pridėti iš klaviatūros įvesta segmentą  
-                        (reikalinga validacija ar nėra kitų kaip ATCG ir 3 raidės)
-                    7) Iš grandinės pašalinti pasirinką elementą  
-                    8) Pakeisti pasirinkti segmentą įvestu iš klaviatūros  
-                        (reikalinga validacija ar nėra kitų kaip ATCG ir 3 raidės)
-                    9) Gryžti į ankstesnį meniu
+            - jei grandinė normalizuota arba kai buvo atlikta normalizacija
+                1) GCT pakeis į AGG
+                2) Išvesti ar yra tekste CAT
+                3) Išvesti trečia ir penktą grandinės segmentus (naudoti Substring()).
+                4) Išvesti raidžių kiekį tekste (naudoti string composition)
+                5) Išvesti ar yra tekste ir kiek kartų pasikartoja iš klaviatūros įvestas segmento kodas
+                6) Prie grandinės galo pridėti iš klaviatūros įvesta segmentą  
+                    (reikalinga validacija ar nėra kitų kaip ATCG ir 3 raidės)
+                7) Iš grandinės pašalinti pasirinką elementą  
+                8) Pakeisti pasirinkti segmentą įvestu iš klaviatūros  
+                    (reikalinga validacija ar nėra kitų kaip ATCG ir 3 raidės)
+                9) Gryžti į ankstesnį meniu
             
-            Visoms operacijoms reikalingi testai.
-            */
+        Visoms operacijoms reikalingi testai.
+        */
 
-            PirmasMeniu();
+        string dnr = " T CG-TAC- gaC-TAC-CGT-CAG-ACT-TAa-CcA-GTC-cAt-AGA-GCT    ";
+        PirmasMeniu(ref dnr);
         }
 
-        private static void PirmasMeniu()
+        private static void PirmasMeniu(ref string dnr)
         {
-            ParodytiDNR();
+            ParodytiDNR(dnr);
 
-            if (!arNeraTarpuIrVisosDidziosios)
-                Console.WriteLine("1)   Atlikti DNR grandinės normalizavimo veiksmus");
-            else
-                Console.WriteLine("1) + Atlikti DNR grandinės normalizavimo veiksmus");
+            //if (ArNeraTarpuIrVisosDidziosios(dnr))
+                Console.WriteLine("1) Atlikti DNR grandinės normalizavimo veiksmus");
+            //else
+            //    Console.WriteLine("1) DNR grandinė yra normalizuota");
 
-            if (!arVisosRaidesTikATCG)
-                Console.WriteLine("2)   Atlikti grandinės validaciją");
-            else
-                Console.WriteLine("2) + Atlikti grandinės validaciją");
+            //if (!arVisosRaidesTikATCG)
+                Console.WriteLine("2) Atlikti grandinės validaciją");
+            //else
+            //    Console.WriteLine("2) DNR grandinė yra validi");
 
             Console.WriteLine("3)   Atlikti veiksmus su DNR grandine");
+            Console.WriteLine("- - - - - - -");
             Console.WriteLine("0)   Reset");
 
 
@@ -75,34 +73,34 @@
                 switch (pasirinkimas)
                 {
                     case "0":
-                        arNeraTarpuIrVisosDidziosios = false;
-                        arVisosRaidesTikATCG = false;
-                        txtDNR = " T CG-TAC- gaC-TAC-CGT-CAG-ACT-TAa-CcA-GTC-cAt-AGA-GCT    ";
+                        dnr = " T CG-TAC- gaC-TAC-CGT-CAG-ACT-TAa-CcA-GTC-cAt-AGA-GCT    ";
                         Console.Clear();
-                        PirmasMeniu();
+                        PirmasMeniu(ref dnr);
                         break;
                     case "1":
-                        GrandinesNormalizavimas();
+                        dnr = GrandinesNormalizavimas(dnr);
+                        PirmasMeniu(ref dnr);
                         break;
                     case "2":
-                        GrandinesValidacija();
+                        dnr = GrandinesValidacija(dnr);
+                        PirmasMeniu(ref dnr);
                         break;
                     case "3":
-                        if (arNeraTarpuIrVisosDidziosios && arVisosRaidesTikATCG)
+                        if (ArGrandineNormalizuotaIrValidi(dnr))
                         {
                             Console.Clear();
-                            AntraMeniu();
+                            AntraMeniu(dnr);
                         }
-                        else if (!arNeraTarpuIrVisosDidziosios && arVisosRaidesTikATCG)
+                        else if (ArGrandineTikValidi(dnr))
                         {
                             Console.Clear();
-                            AntraMeniuBeNormalizavimo();
+                            AntraMeniuGrandineTikValidi(dnr);
                         }
                         else 
                         {
                             Console.Clear();
                             Console.WriteLine("Pries atliekant tolimesnius veiksmus reikalinka DNR grandines normalizacija ir validacija.");
-                            PirmasMeniu();
+                            PirmasMeniu(ref dnr);
                         }
                         break;
                     default:
@@ -114,68 +112,55 @@
             {
                 Console.Clear();
                 Console.WriteLine("Blogas pasirinkimas, bandykite dar karta.");
-                PirmasMeniu();
+                PirmasMeniu(ref dnr);
             }
         }
 
-        private static void ParodytiDNR()
+        public static bool ArGrandineTikValidi(string dnr) => dnr.Replace(" ", "").ToUpper().Replace("-", "").Replace("A", "").Replace("T", "").Replace("C", "").Replace("G", "") == "";
+
+        public static bool ArGrandineNormalizuotaIrValidi(string dnr) => dnr.Replace("-", "").Replace("A", "").Replace("T", "").Replace("C", "").Replace("G", "") == "";
+
+        // Neimanoma patikrinti ar DNR grandine yra TIK normalizuota ? Be daug daug kodo...
+        //private static bool ArGrandineTikNormalizuota(string dnr) => dnr.Replace("A", "").Replace("T", "").Replace("C", "").Replace("G", "") == "";
+
+        private static void ParodytiDNR(string dnr)
         {
             Console.WriteLine();
-            Console.WriteLine($"╔{new String('═', txtDNR.Length)}╗");
-            Console.WriteLine("║" + txtDNR + "║");
-            Console.WriteLine($"╚{new String('═', txtDNR.Length)}╝");
+            Console.WriteLine($"╔{new String('═', dnr.Length)}╗");
+            Console.WriteLine("║" + dnr + "║");
+            Console.WriteLine($"╚{new String('═', dnr.Length)}╝");
             Console.WriteLine();
         }
 
-        private static bool ArPasirinkimasYraSkaicius(string text, int max) => int.TryParse(text, out int number) && number >= 0 && number <= max;
+        public static bool ArPasirinkimasYraSkaicius(string text, int max) => int.TryParse(text, out int number) && number >= 0 && number <= max;
 
-        private static void GrandinesNormalizavimas()
+        public static string GrandinesNormalizavimas(string dnr)
         {
-            if (!arNeraTarpuIrVisosDidziosios)
+            dnr = dnr.Trim().Replace(" ", "").ToUpper();
+            Console.Clear();
+            Console.WriteLine("Tarpai panaikinti ir padarytos visos diziosios DNR raides");
+            return dnr;
+        }
+
+        public static string GrandinesValidacija(string dnr)
+        {
+            if (dnr.Trim().Replace(" ", "").ToUpper().Replace("-", "").Replace("A", "").Replace("T", "").Replace("C", "").Replace("G", "") == "")
             {
-                txtDNR = txtDNR.Trim().Replace(" ", "").ToUpper();
-                arNeraTarpuIrVisosDidziosios = true;
                 Console.Clear();
-                Console.WriteLine("Tarpai panaikinti ir padarytos visos diziosios DNR raides");
-                PirmasMeniu();
+                Console.WriteLine("Validacija atlikta.");
             }
             else
             {
                 Console.Clear();
-                Console.WriteLine("Normalizacija jau buvo atlikta, pasirinkite kita veiksma");
-                PirmasMeniu();
+                Console.WriteLine("Validacija nepraejo!");
             }
-        }
-
-        private static void GrandinesValidacija()
-        {
-            if (!arVisosRaidesTikATCG)
-            {
-                if (txtDNR.Trim().Replace(" ", "").ToUpper().Replace("-", "").Replace("A", "").Replace("T", "").Replace("C", "").Replace("G", "") == "")
-                {
-                    arVisosRaidesTikATCG = true;
-                    Console.Clear();
-                    Console.WriteLine("Validacija atlikta.");
-                }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine("Validacija nepraejo!");
-                }
-                PirmasMeniu();
-            }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("Validacija jau buvo atlikta, pasirinkite kita veiksma.");
-                PirmasMeniu();
-            }
+            return dnr;                 // BLOGAS SPRENDIMAS 
         }
         
-        private static void AntraMeniuBeNormalizavimo()
+        private static void AntraMeniuGrandineTikValidi(string dnr)
         {
             Console.WriteLine("DNR grandinė yra validi, tačiau nenormalizuota!");
-            ParodytiDNR();
+            ParodytiDNR(dnr);
 
             Console.WriteLine("1)   Normalizuoti grandinę");
             Console.WriteLine("2)   Išeiti iš programos");
@@ -191,10 +176,10 @@
                 {
                     case "0":
                         Console.Clear();
-                        PirmasMeniu();
+                        PirmasMeniu(ref dnr);
                         break;
                     case "1":
-                        GrandinesNormalizavimas();
+                        GrandinesNormalizavimas(dnr);
                         break;
                     case "2":
                         Environment.Exit(0);
@@ -208,13 +193,13 @@
             {
                 Console.Clear();
                 Console.WriteLine("Blogas pasirinkimas, bandykite dar karta.");
-                PirmasMeniu();
+                PirmasMeniu(ref dnr);
             }
         }
 
-        private static void AntraMeniu()
+        private static void AntraMeniu(string dnr)
         {
-            ParodytiDNR();
+            ParodytiDNR(dnr);
 
             Console.WriteLine("1) GCT pakeis į AGG");
             Console.WriteLine("2) Išvesti ar yra tekste CAT");
@@ -236,10 +221,10 @@
                 {
                     case "0":
                         Console.Clear();
-                        PirmasMeniu();
+                        PirmasMeniu(ref dnr);
                         break;
                     case "1":
-                        GrandinesNormalizavimas();
+                        GrandinesNormalizavimas(dnr);
                         break;
                     case "2":
                         break;
@@ -257,7 +242,7 @@
                         break;
                     case "9":
                         Console.Clear();
-                        PirmasMeniu();
+                        PirmasMeniu(ref dnr);
                         break;
                     default:
                         // do something else
@@ -268,7 +253,7 @@
             {
                 Console.Clear();
                 Console.WriteLine("Blogas pasirinkimas, bandykite dar karta.");
-                PirmasMeniu();
+                PirmasMeniu(ref dnr);
             }
         }
 
