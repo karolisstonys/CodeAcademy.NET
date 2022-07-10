@@ -42,7 +42,7 @@
         */
 
         string dnr = " T CG-TAC- gaC-TAC-CGT-CAG-ACT-TAa-CcA-GTC-cAt-AGA-GCT    ";
-        PirmasMeniu(ref dnr, "");
+        PirmasMeniu(ref dnr, "DNR inžinerija");
         }
 
         private static void PirmasMeniu(ref string dnr, string msg)
@@ -50,7 +50,7 @@
             Console.Clear();
             ParodytiDNR(dnr, msg);
 
-            Console.WriteLine("1) Atlikti DNR grandinės normalizavimo veiksmus");            
+            Console.WriteLine("1) Atlikti DNR grandinės normalizavimo veiksmus");
             Console.WriteLine("2) Atlikti grandinės validaciją");
             Console.WriteLine("3) Atlikti veiksmus su DNR grandine");
             Console.WriteLine();
@@ -60,37 +60,34 @@
             Console.Write("Veiksmas: ");
             string pasirinkimas = Console.ReadLine();
 
-            if (ArPasirinkimasYraSkaicius(pasirinkimas, 3))
-                switch (pasirinkimas)
-                {
-                    case "0":
-                        dnr = " T CG-TAC- gaC-TAC-CGT-CAG-ACT-TAa-CcA-GTC-cAt-AGA-GCT    ";
-                        PirmasMeniu(ref dnr, "Reset");
-                        break;
-                    case "1":
-                        dnr = GrandinesNormalizavimas(dnr, out string msg1);
-                        PirmasMeniu(ref dnr, msg1);
-                        break;
-                    case "2":
-                        if (GrandinesValidacija(ref dnr))
-                            PirmasMeniu(ref dnr, "DNR grandinė yra validi.");
-                        else
-                            PirmasMeniu(ref dnr, "DNR grandinė nera validi.");
-                        break;
-                    case "3":
-                        if (ArGrandineNormalizuotaIrValidi(dnr))
-                            AntrasMeniu(ref dnr, "DNR grandinė yra normalizuota ir validi.");
-                        else if (ArGrandineTikValidi(dnr))
-                            SubMeniu(ref dnr, "DNR grandinė yra validi, tačiau nenormalizuota!");
-                        else 
-                            PirmasMeniu(ref dnr, "Pries atliekant tolimesnius veiksmus reikalinka DNR grandines normalizacija ir validacija.");
-                        break;
-                    default:
-                        // do something else
-                        break;
-                }
-            else
-                PirmasMeniu(ref dnr, "Blogas pasirinkimas, bandykite dar karta.");
+            switch (pasirinkimas)
+            {
+                case "0":
+                    dnr = " T CG-TAC- gaC-TAC-CGT-CAG-ACT-TAa-CcA-GTC-cAt-AGA-GCT    ";
+                    PirmasMeniu(ref dnr, "Reset");
+                    break;
+                case "1":
+                    dnr = GrandinesNormalizavimas(dnr, out string msg1);
+                    PirmasMeniu(ref dnr, msg1);
+                    break;
+                case "2":
+                    if (GrandinesValidacija(ref dnr))
+                        PirmasMeniu(ref dnr, "DNR grandinė yra validi.");
+                    else
+                        PirmasMeniu(ref dnr, "DNR grandinė nera validi.");
+                    break;
+                case "3":
+                    if (ArGrandineNormalizuotaIrValidi(dnr))
+                        AntrasMeniu(ref dnr, "DNR grandinė yra normalizuota ir validi.");
+                    else if (ArGrandineTikValidi(dnr))
+                        SubMeniu(ref dnr, "DNR grandinė yra validi, tačiau nenormalizuota!");
+                    else
+                        PirmasMeniu(ref dnr, "Pries atliekant tolimesnius veiksmus reikalinka DNR grandines normalizacija ir validacija.");
+                    break;
+                default:
+                    PirmasMeniu(ref dnr, "Blogas pasirinkimas, bandykite dar karta.");
+                    break;
+            }
         }
 
         private static void ParodytiDNR(string dnr, string msg)
@@ -103,12 +100,18 @@
             Console.WriteLine();
         }
 
+        public static string GrandinesNormalizavimas(string dnr, out string msg1)
+        {
+            dnr = dnr.Trim().Replace(" ", "").ToUpper();
+            msg1 = "Tarpai panaikinti ir padarytos visos diziosios DNR raides";
+            return dnr;
+        }
+
+        public static bool GrandinesValidacija(ref string dnr) => dnr.Trim().Replace(" ", "").ToUpper().Replace("-", "").Replace("A", "").Replace("T", "").Replace("C", "").Replace("G", "") == "";
+
         public static bool ArGrandineTikValidi(string dnr) => dnr.Replace(" ", "").ToUpper().Replace("-", "").Replace("A", "").Replace("T", "").Replace("C", "").Replace("G", "") == "";
 
         public static bool ArGrandineNormalizuotaIrValidi(string dnr) => dnr.Replace("-", "").Replace("A", "").Replace("T", "").Replace("C", "").Replace("G", "") == "";
-
-        // Neimanoma patikrinti ar DNR grandine yra TIK normalizuota ? Be daug daug kodo...
-        //private static bool ArGrandineTikNormalizuota(string dnr) => dnr.Replace("A", "").Replace("T", "").Replace("C", "").Replace("G", "") == "";
 
         private static void SubMeniu(ref string dnr, string msg)
         {
@@ -124,25 +127,22 @@
             Console.Write("Veiksmas: ");
             string pasirinkimas = Console.ReadLine();
 
-            if (ArPasirinkimasYraSkaicius(pasirinkimas, 2))
-                switch (pasirinkimas)
-                {
-                    case "0":
-                        PirmasMeniu(ref dnr, "");
-                        break;
-                    case "1":
-                        dnr = GrandinesNormalizavimas(dnr, out string msg1);
-                        AntrasMeniu(ref dnr, msg1);
-                        break;
-                    case "2":
-                        Environment.Exit(0);
-                        break;
-                    default:
-                        // do something else
-                        break;
-                }
-            else
-                PirmasMeniu(ref dnr, "Blogas pasirinkimas, bandykite dar karta.");
+            switch (pasirinkimas)
+            {
+                case "0":
+                    PirmasMeniu(ref dnr, "");
+                    break;
+                case "1":
+                    dnr = GrandinesNormalizavimas(dnr, out string msg1);
+                    AntrasMeniu(ref dnr, msg1);
+                    break;
+                case "2":
+                    Environment.Exit(0);
+                    break;
+                default:
+                    PirmasMeniu(ref dnr, "Blogas pasirinkimas, bandykite dar karta.");
+                    break;
+            }
         }
 
         private static void AntrasMeniu(ref string dnr, string msg)
@@ -165,74 +165,89 @@
             Console.Write("Veiksmas: ");
             string pasirinkimas = Console.ReadLine();
 
-            if (ArPasirinkimasYraSkaicius(pasirinkimas, 8))
-                switch (pasirinkimas)
-                {
-                    case "0":
-                        PirmasMeniu(ref dnr, "");
-                        break;
-                    case "1":
-                        dnr = dnr.Replace("GCT", "AGG");
-                        AntrasMeniu(ref dnr, "GCT pakeisti į AGG");
-                        break;
-                    case "2":
-                        AntrasMeniu(ref dnr, dnr.Contains("CAT").ToString().Replace("True", "Teskste YRA CAT.").Replace("False", "Teskste NERA CAT"));
-                        break;
-                    case "3":
-                        AntrasMeniu(ref dnr, "Trecias grandines elementas: " + dnr.Substring(8, 3) + ". Penktas grandines elementas: " + dnr.Substring(16, 3) + ".");
-                        break;
-                    case "4":
-                        string composition = "Raidziu kiekis DNR grandineje yra " + dnr.Replace("-", "").Length;
-                        AntrasMeniu(ref dnr, composition);
-                        break;
-                    case "5":
-                        Console.Write("Ieskoti teksto: ");
-                        string paieska = Console.ReadLine();
-                        var kartai = Convert.ToDouble(dnr.Length -  dnr.Replace(paieska, "").Length) / paieska.Length;
-                        if (kartai == 0)
+            switch (pasirinkimas)
+            {
+                case "0":
+                    PirmasMeniu(ref dnr, "");
+                    break;
+                case "1":
+                    AntrasMeniu(ref dnr, Convert.ToString(PakeistiGCTiAGG(ref dnr)).Replace("True", "GCT pakeista i AGG sekmingai.").Replace("False", "GCT nerasta!"));
+                    break;
+                case "2":
+                    AntrasMeniu(ref dnr, ArYraCAT(dnr).ToString().Replace("True", "Teskste yra CAT.").Replace("False", "Teskste nera CAT"));
+                    break;
+                case "3":
+                    AntrasMeniu(ref dnr, JeiYraParodytiTreciaIrPenktaElementus(dnr));
+                    break;
+                case "4":
+                    AntrasMeniu(ref dnr, KiekYraRaidziuGrandineje(dnr));
+                    break;
+                case "5":
+                    Console.Write("Ieskoti teksto: ");
+                    string paieska = Console.ReadLine();
+                    if (paieska.Length == 3 &&
+                        ArGrandineTikValidi(paieska))
+                    {
+                        if (KiekKartuKartojasiIvestosRaides(dnr, paieska) == 0)
                             AntrasMeniu(ref dnr, "Ivestu raidziu DNR grandineje NERA.");
                         else
-                            AntrasMeniu(ref dnr, "Ivestos raides DNR grandineje YRA. Kartojasi" + kartai);
-                        break;
-                    case "6":
-                        Console.Write("Pridėkite norima (ATCG) triju raidžių seką prie DNR grandinės galo: ");
-                        string pridetiString = Console.ReadLine();
-                        bool arPrideta = PridejimasPrieGrandinesGalo(ref dnr, pridetiString);
-                        AntrasMeniu(ref dnr, arPrideta.ToString().Replace("True", "Pridėta sekmingai").Replace("False", "Teskstas netinkamas!"));
-                        break;
-                    case "7":
-                        Console.Write("Pasirinkite elementa kuri norite pasalinti (galima rasyt elemento numeri arba visas raides): ");
-                        string elementasPasalinimui = Console.ReadLine();
-                        bool arPasalinta = SalinamasElementas(ref dnr, elementasPasalinimui);
-                        AntrasMeniu(ref dnr, arPasalinta.ToString().Replace("True", "Elementas pasalintas sekmingai.").Replace("False", "Toks elementas nerastas!"));
-                        break;
-                    case "8":
-                        Console.Write("Pasirinkite elementa kuri norite keisti (galima rasyt elemento numeri arba visas raides): ");
-                        string elementasKeitimui = Console.ReadLine();
-                        Console.Write("Iveskite raidziu seka kuria norite pakeisti (ATCG): ");
-                        string keiciamas = Console.ReadLine();
-
-                        bool arPakeista = KeiciamasElementas(ref dnr, elementasKeitimui, keiciamas, out string msg1);
-                        AntrasMeniu(ref dnr, msg1);
-                        break;
-                    default:
-                        // do something else
-                        break;
-                }
-            else
-                AntrasMeniu(ref dnr, "Blogas pasirinkimas, bandykite dar karta.");
+                            AntrasMeniu(ref dnr, "Ivestos raides DNR grandineje YRA. Kartojasi: " + KiekKartuKartojasiIvestosRaides(dnr, paieska));
+                    }
+                    else
+                    {
+                        AntrasMeniu(ref dnr, "Neteisingai ivestas segmento kodas!");
+                    }
+                    break;
+                case "6":
+                    Console.Write("Pridėkite norima (ATCG) triju raidžių seką prie DNR grandinės galo: ");
+                    string pridetiString = Console.ReadLine();
+                    bool arPrideta = PridejimasPrieGrandinesGalo(ref dnr, pridetiString);
+                    AntrasMeniu(ref dnr, arPrideta.ToString().Replace("True", "Pridėta sekmingai").Replace("False", "Teskstas netinkamas!"));
+                    break;
+                case "7":
+                    Console.Write("Pasirinkite elementa kuri norite pasalinti (galima rasyt elemento numeri arba visas raides): ");
+                    string elementasPasalinimui = Console.ReadLine();
+                    bool arPasalinta = SalinamasElementas(ref dnr, elementasPasalinimui);
+                    AntrasMeniu(ref dnr, arPasalinta.ToString().Replace("True", "Elementas pasalintas sekmingai.").Replace("False", "Toks elementas nerastas!"));
+                    break;
+                case "8":
+                    Console.Write("Pasirinkite elementa kuri norite keisti (galima rasyt elemento numeri arba visas raides): ");
+                    string elementasKuriKeiciam = Console.ReadLine();
+                    Console.Write("Iveskite raidziu seka kuria norite pakeisti (ATCG): ");
+                    string keiciamITokiElementa = Console.ReadLine().ToUpper();
+                    bool arPakeista = KeiciamasElementas(ref dnr, elementasKuriKeiciam, keiciamITokiElementa, out string msg2);
+                    AntrasMeniu(ref dnr, msg2);
+                    break;
+                default:
+                    AntrasMeniu(ref dnr, "Blogas pasirinkimas, bandykite dar karta.");
+                    break;
+            }
         }
 
-        public static bool ArPasirinkimasYraSkaicius(string text, int max) => int.TryParse(text, out int number) && number >= 0 && number <= max;
-
-        public static string GrandinesNormalizavimas(string dnr, out string msg1)
+        public static bool PakeistiGCTiAGG(ref string dnr)
         {
-            dnr = dnr.Trim().Replace(" ", "").ToUpper();
-            msg1 = "Tarpai panaikinti ir padarytos visos diziosios DNR raides";
-            return dnr;
+            if (dnr.Contains("GCT"))
+            {
+                dnr = dnr.Replace("GCT", "AGG");
+                return true;
+            }
+            else
+                return false;
         }
 
-        public static bool GrandinesValidacija(ref string dnr) => dnr.Trim().Replace(" ", "").ToUpper().Replace("-", "").Replace("A", "").Replace("T", "").Replace("C", "").Replace("G", "") == "";
+        public static bool ArYraCAT(string dnr) => dnr.Contains("CAT");
+
+        public static string JeiYraParodytiTreciaIrPenktaElementus(string dnr)
+        {
+            if (dnr.Length >= 19)
+                return "Trecias grandines elementas: " + dnr.Substring(8, 3) + ". Penktas grandines elementas: " + dnr.Substring(16, 3) + ".";
+            else
+                return "DNR grandines elementu yra per mazai";
+        }
+
+        public static string KiekYraRaidziuGrandineje(string dnr) => "Raidziu kiekis DNR grandineje yra " + dnr.Replace("-", "").Length;
+
+        public static double KiekKartuKartojasiIvestosRaides(string dnr, string? paieska) => ((double)dnr.Length - dnr.Replace(paieska.ToUpper(), "").Length) / paieska.Length;
 
         public static bool PridejimasPrieGrandinesGalo(ref string dnr, string prideti)
         {
@@ -255,7 +270,10 @@
             {
                 if (intElementasSalinimui == 1)
                 {
-                    dnr = dnr.Remove(0, 4);
+                    if (dnr.Length > 3)
+                        dnr = dnr.Remove(0, 4);
+                    else
+                        dnr = dnr.Remove(0, 3);
                     return true;
                 }
                 else if (intElementasSalinimui == dnrElementuKiekis)
@@ -275,7 +293,10 @@
             {
                 if (dnr.IndexOf(elementasPasalinimui.ToUpper()) == 0)
                 {
-                    dnr = dnr.Remove(0, 4);
+                    if (dnr.Length > 3)
+                        dnr = dnr.Remove(0, 4);
+                    else
+                        dnr = dnr.Remove(0, 3);
                     return true;
                 }
                 else if (dnr.IndexOf(elementasPasalinimui.ToUpper()) == dnr.Length - 4)
@@ -293,69 +314,70 @@
             return false;
         }
 
-        private static bool KeiciamasElementas(ref string dnr, string? elementasKeitimui, string? keiciamas, out string msg1)
+        public static bool KeiciamasElementas(ref string dnr, string? elementasKuriKeiciam, string? keiciamITokiElementa, out string msg2)
         {
-            if (keiciamas.Length == 3 &&
-                ArGrandineTikValidi(keiciamas))
+            if (keiciamITokiElementa.Length == 3 &&
+                ArGrandineTikValidi(keiciamITokiElementa))
             {
-
+                int intElementasKuriKeiciam = 0;
                 int dnrElementuKiekis = (dnr.Length + 1) / 4;
-                if ((elementasKeitimui.Length == 1 || elementasKeitimui.Length == 2) &&
-                    int.TryParse(elementasKeitimui, out int intElementasKeitimui) &&
-                    intElementasKeitimui > 0 &&
-                    intElementasKeitimui <= dnrElementuKiekis)
+                if ((elementasKuriKeiciam.Length == 1 || elementasKuriKeiciam.Length == 2) &&
+                    int.TryParse(elementasKuriKeiciam, out intElementasKuriKeiciam) &&
+                    intElementasKuriKeiciam > 0 &&
+                    intElementasKuriKeiciam <= dnrElementuKiekis)
                 {
-                    if (intElementasKeitimui == 1)
+                    if (intElementasKuriKeiciam == 1)
                     {
-                        //dnr = dnr.Remove(0, 4);
-                        msg1 = "Pakeista sekmingai";
+                        dnr = dnr.Remove(0, 3).Insert(0, keiciamITokiElementa);
+                        msg2 = "Pakeista sekmingai";
                         return true;
                     }
-                    else if (intElementasKeitimui == dnrElementuKiekis)
+                    else if (intElementasKuriKeiciam == dnrElementuKiekis)
                     {
-                        //dnr = dnr.Remove(dnr.Length - 5, 4);
-                        msg1 = "Pakeista sekmingai";
+                        dnr = dnr.Remove(dnr.Length - 4, 3).Insert(dnr.Length - 4, keiciamITokiElementa);
+                        msg2 = "Pakeista sekmingai";
                         return true;
                     }
                     else
                     {
-                        //dnr = dnr.Remove(intElementasKeitimui * 4 - 4, 4);
-                        msg1 = "Pakeista sekmingai";
+                        dnr = dnr.Remove(intElementasKuriKeiciam * 4 - 4, 3).Insert(intElementasKuriKeiciam * 4 - 4, keiciamITokiElementa);
+                        msg2 = "Pakeista sekmingai";
                         return true;
                     }
                 }
-                else if (elementasKeitimui.Length == 3 &&
-                         ArGrandineTikValidi(elementasKeitimui.ToUpper()) &&
-                         dnr.Contains(elementasKeitimui.ToUpper()))
+                else if (elementasKuriKeiciam.Length == 3 &&
+                         ArGrandineTikValidi(elementasKuriKeiciam.ToUpper()) &&
+                         dnr.Contains(elementasKuriKeiciam.ToUpper()))
                 {
-                    if (dnr.IndexOf(elementasKeitimui.ToUpper()) == 0)
+                    if (dnr.IndexOf(elementasKuriKeiciam.ToUpper()) == 0)
                     {
-                        //dnr = dnr.Remove(0, 4);
-                        msg1 = "Pakeista sekmingai";
+                        dnr = dnr.Remove(0, 3).Insert(0, keiciamITokiElementa);
+                        msg2 = "Pakeista sekmingai";
                         return true;
                     }
-                    else if (dnr.IndexOf(elementasKeitimui.ToUpper()) == dnr.Length - 4)
+                    else if (dnr.IndexOf(elementasKuriKeiciam.ToUpper()) == dnr.Length - 4)
                     {
-                        //dnr = dnr.Remove(dnr.Length - 5, 4);
-                        msg1 = "Pakeista sekmingai";
+                        dnr = dnr.Remove(dnr.Length - 4, 3).Insert(dnr.Length - 4, keiciamITokiElementa);
+                        msg2 = "Pakeista sekmingai";
                         return true;
                     }
                     else
                     {
-                        //dnr = dnr.Remove(dnr.IndexOf(elementasKeitimui.ToUpper()), 4);
-                        msg1 = "Pakeista sekmingai";
+                        int indexOfElementasKuriKeiciam = dnr.IndexOf(elementasKuriKeiciam.ToUpper());
+                        dnr = dnr.Remove(indexOfElementasKuriKeiciam, 3).Insert(indexOfElementasKuriKeiciam, keiciamITokiElementa);
+                        msg2 = "Pakeista sekmingai";
                         return true;
                     }
                 }
                 else
                 {
-                    msg1 = "Toks elementas nerastas!";
+                    msg2 = "Toks elementas nerastas!";
                     return false;
                 }
             }
             else
             {
-                msg1 = "Keiciamas tekstas neta tinkamas!";
+                msg2 = "Keiciamas tekstas neta tinkamas!";
                 return false;
             }
         }
