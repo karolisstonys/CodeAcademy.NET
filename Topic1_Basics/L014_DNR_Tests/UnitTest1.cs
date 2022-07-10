@@ -31,7 +31,7 @@ namespace L014_DNR_Tests
         public void GrandinesNormalizavimas_Test()
         {
             var expected = "CAG-ACT";
-            var actual = L014_DNR.Program.GrandinesNormalizavimas("CAG-ACT");
+            var actual = L014_DNR.Program.GrandinesNormalizavimas(" CaG-  ACt  ", out string msg);
             Assert.AreEqual(expected, actual);
         }
 
