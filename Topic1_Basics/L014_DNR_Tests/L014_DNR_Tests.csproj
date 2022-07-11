@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\L014_DNR\L014_DNR.csproj" />
+    <ProjectReference Include="..\L017_For\L017_For.csproj" />
   </ItemGroup>
 
 </Project>

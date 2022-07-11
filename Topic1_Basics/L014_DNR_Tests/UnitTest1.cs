@@ -253,7 +253,30 @@ namespace L014_DNR_Tests
 
 
 
-        
+
+
+
+
+        [TestMethod]
+        public void DnrGrandinesValidacija_Replace_Test()
+        {
+            string dnr = "TCG-TAC-TCG-TAC-TCG-TAC-TCG-TAC-TCG-TAC-TCG-TAC";
+            int iteration = 1_000_000;
+            var actual = false;
+
+            for (int i = 0; i < iteration; i++)
+            {
+                actual = L017_For.Program.DnrGrandinesValidacija_Replace(dnr);
+            }
+
+            Assert.IsTrue(actual);
+        }
+
+
+
+
+
+
 
 
 
