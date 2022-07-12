@@ -1,4 +1,6 @@
-﻿namespace L017_For_Tasks
+﻿using System.Text;
+
+namespace L017_For_Tasks
 {
     internal class Program
     {
@@ -35,12 +37,129 @@
             NB! kai skaičius 0 ir laipsnis = 0 gąžinama 0
             NB! kai laipsnis = 1 gąžinamas tas pats skaičius 
             */
-            TreciaUzduotis();
+            //TreciaUzduotis();
+
+            /*
+            Sukurti metodą SkaiciuTrikampis, kuri paprašo vartotojo įvesti skaičių nuo 1 iki 9
+            (jeigu įveda netinkamą skaičių prašo įvesti vėl, kol įves tinkamą).
+            Metodas turi grąžinti atitinkamą statųjį trikampį su tiek eilučių koks skaičius įvestas.
+            5
+            55
+            555
+            5555
+            55555 
+            */
+            //KetvirtaUzduotis();
+
+            /*
+            Sukurti metodą SkaiciuPiramide, kuri paprašo vartotojo įvesti skaičių nuo 1 iki 9
+            jeigu įveda netinkamą skaičių
+            prašo įvesti vėl, kol įves tinkamą Programa turi atspausdinti atitinkamą lygiašonį trikampį.
+            7
+            77
+            777
+            7777
+            77777
+            777777
+            7777777
+            777777
+            77777
+            7777
+            777
+            77
+            7
+            */
+            PenktaUzduotis();
 
 
 
+            /*
+            Sukurti metodą DidejanciuSkaiciuStatusTrikampis, kuri paprašo vartotojo įvesti skaičių nuo 1 iki 9
+            (jeigu įveda netinkamą skaičių prašo įvesti vėl, kol įves tinkamą )).
+            Programa turi grąžinti atitinkamą statųjį trikampį.
+            1
+            22
+            333
+            4444
+            55555
+            */
 
 
+
+            /*
+            Sukurti metodą DidejanciuSkaiciuPiramide, kuri paprašo vartotojo įvesti skaičių nuo 1 iki 9
+            (jeigu įveda netinkamą skaičių prašo įvesti vėl, kol įves tinkamą )).
+            Metodas turi grąžinti atitinkamą lygiašonį trikampį (ivestas skaičius 4).
+            1
+            22
+            333
+            4444
+            333
+            22
+            1 
+            */
+
+        }
+
+        private static void PenktaUzduotis()
+        {
+            int skaicius = 0;
+            while (skaicius < 1 || skaicius > 9)
+            {
+                Console.Write("Iveskite skaiciu: ");
+                skaicius = SkaiciausTikrinimasNuo1Iki9(Console.ReadLine());
+            }
+
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i <= skaicius; i++)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    sb.Append(Convert.ToString(skaicius));
+                }
+                sb.AppendLine("");
+            }
+
+            for (int i = 0; i <= skaicius; i++)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    sb.Remove(0, 1);
+                }
+                sb.AppendLine("");
+            }
+
+            Console.WriteLine(sb.ToString());
+        }
+
+        private static void KetvirtaUzduotis()
+        {
+            int skaicius = 0;
+            while (skaicius < 1 || skaicius > 9)
+            {
+                Console.Write("Iveskite skaiciu: ");
+                skaicius = SkaiciausTikrinimasNuo1Iki9(Console.ReadLine());
+            }
+
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i <= skaicius; i++)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    sb.Append(Convert.ToString(skaicius));
+                }
+                sb.AppendLine("");
+            }
+            Console.WriteLine(sb.ToString());
+
+        }
+
+        private static int SkaiciausTikrinimasNuo1Iki9(string? txt)
+        {
+            if (int.TryParse(txt, out int num) == false)
+                return 0;
+            else
+                return num;
         }
 
         private static void TreciaUzduotis()
