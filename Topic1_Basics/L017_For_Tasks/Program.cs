@@ -51,6 +51,7 @@ namespace L017_For_Tasks
             */
             //KetvirtaUzduotis();
 
+
             /*
             Sukurti metodą SkaiciuPiramide, kuri paprašo vartotojo įvesti skaičių nuo 1 iki 9
             jeigu įveda netinkamą skaičių
@@ -69,7 +70,7 @@ namespace L017_For_Tasks
             77
             7
             */
-            PenktaUzduotis();
+            //PenktaUzduotis();
 
 
 
@@ -83,6 +84,7 @@ namespace L017_For_Tasks
             4444
             55555
             */
+            //SestaUzduotis();
 
 
 
@@ -98,68 +100,45 @@ namespace L017_For_Tasks
             22
             1 
             */
+            //SeptintaUzduotis();
+
+
 
         }
 
-        private static void PenktaUzduotis()
+        private static void PirmaUzduotis()
         {
-            int skaicius = 0;
-            while (skaicius < 1 || skaicius > 9)
+            int skaicius;
+            Console.Write("Sveiki, įveskite skaičiu: ");
+            while (!int.TryParse(Console.ReadLine(), out skaicius))
+            {            
+                Console.Write("Ne! Pabandome dar kartą: ");
+            }
+            Console.WriteLine("Ačių! Jūsų skaičius: {0}", skaicius);
+        }
+
+        private static void AntraUzduotis()
+        {
+            bool arIvestasSkaicius;
+            int skaicius;
+            string binary = "";
+
+            do
             {
                 Console.Write("Iveskite skaiciu: ");
-                skaicius = SkaiciausTikrinimasNuo1Iki9(Console.ReadLine());
-            }
+                arIvestasSkaicius = int.TryParse(Console.ReadLine(), out skaicius);
+            } while (!arIvestasSkaicius);
 
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i <= skaicius; i++)
+            binary = skaicius % 2 + binary;
+            int poDalybosSveikasSkaicius = skaicius / 2;
+            while (poDalybosSveikasSkaicius != 0)
             {
-                for (int j = 0; j < i; j++)
-                {
-                    sb.Append(Convert.ToString(skaicius));
-                }
-                sb.AppendLine("");
+                binary = (poDalybosSveikasSkaicius % 2) + binary;
+                poDalybosSveikasSkaicius = poDalybosSveikasSkaicius / 2;
             }
+            Console.WriteLine(binary);
 
-            for (int i = 0; i <= skaicius; i++)
-            {
-                for (int j = 0; j < i; j++)
-                {
-                    sb.Remove(0, 1);
-                }
-                sb.AppendLine("");
-            }
 
-            Console.WriteLine(sb.ToString());
-        }
-
-        private static void KetvirtaUzduotis()
-        {
-            int skaicius = 0;
-            while (skaicius < 1 || skaicius > 9)
-            {
-                Console.Write("Iveskite skaiciu: ");
-                skaicius = SkaiciausTikrinimasNuo1Iki9(Console.ReadLine());
-            }
-
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i <= skaicius; i++)
-            {
-                for (int j = 0; j < i; j++)
-                {
-                    sb.Append(Convert.ToString(skaicius));
-                }
-                sb.AppendLine("");
-            }
-            Console.WriteLine(sb.ToString());
-
-        }
-
-        private static int SkaiciausTikrinimasNuo1Iki9(string? txt)
-        {
-            if (int.TryParse(txt, out int num) == false)
-                return 0;
-            else
-                return num;
         }
 
         private static void TreciaUzduotis()
@@ -192,41 +171,98 @@ namespace L017_For_Tasks
             Console.WriteLine($"{skaicius} ^{laipsnis} = {ats}");
         }
 
-        private static void AntraUzduotis()
+        private static void KetvirtaUzduotis()
         {
-            bool arIvestasSkaicius;
-            int skaicius;
-            string binary = "";
-
-            do
+            int skaicius = 0;
+            while (skaicius < 1 || skaicius > 9)
             {
                 Console.Write("Iveskite skaiciu: ");
-                arIvestasSkaicius = int.TryParse(Console.ReadLine(), out skaicius);
-            } while (!arIvestasSkaicius);
+                skaicius = SkaiciausTikrinimas(Console.ReadLine());
+            }
 
-            binary = skaicius % 2 + binary;
-            int poDalybosSveikasSkaicius = skaicius / 2;
-            while (poDalybosSveikasSkaicius != 0)
+            StringBuilder sb = new StringBuilder();
+            for (int i = 1; i <= skaicius; i++)
             {
-                binary = (poDalybosSveikasSkaicius % 2) + binary;
-                poDalybosSveikasSkaicius = poDalybosSveikasSkaicius / 2;
+                    sb.Append(skaicius);
+                    Console.WriteLine(sb.ToString());
             }
-            Console.WriteLine(binary);
-
-
         }
 
-        private static void PirmaUzduotis()
+        private static int SkaiciausTikrinimas(string? txt) => int.TryParse(txt, out int num) == false ? 0 : num;
+
+        private static void PenktaUzduotis()
         {
-            int skaicius;
-            Console.Write("Sveiki, įveskite skaičiu: ");
-            while (!int.TryParse(Console.ReadLine(), out skaicius))
-            {            
-                Console.Write("Ne! Pabandome dar kartą: ");
+            int skaicius = 0;
+            while (skaicius < 1 || skaicius > 9)
+            {
+                Console.Write("Iveskite skaiciu: ");
+                skaicius = SkaiciausTikrinimas(Console.ReadLine());
             }
-            Console.WriteLine("Ačių! Jūsų skaičius: {0}", skaicius);
+
+            StringBuilder sb = new StringBuilder();
+            for (int i = 1; i <= skaicius; i++)
+            {
+                sb.Append(skaicius);
+                Console.WriteLine(sb.ToString());
+            }
+
+            for (int i = skaicius; i >= 1; i--)
+            {
+                sb.Remove(0, 1);
+                Console.WriteLine(sb.ToString());
+            }
+
         }
 
+        private static void SestaUzduotis()
+        {
+            int skaicius = 0;
+            while (skaicius < 1 || skaicius > 9)
+            {
+                Console.Write("Iveskite skaiciu: ");
+                skaicius = SkaiciausTikrinimas(Console.ReadLine());
+            }
+
+            for (int i = 1; i <= skaicius; i++)
+            {
+                StringBuilder sb = new StringBuilder();
+                for (int j = 0; j < i; j++)
+                {
+                    sb.Append(i);
+                }
+                Console.WriteLine(sb.ToString());
+            }
+        }
+
+        private static void SeptintaUzduotis()
+        {
+            int skaicius = 0;
+            while (skaicius < 1 || skaicius > 9)
+            {
+                Console.Write("Iveskite skaiciu: ");
+                skaicius = SkaiciausTikrinimas(Console.ReadLine());
+            }
+
+            for (int i = 1; i <= skaicius; i++)
+            {
+                StringBuilder sb = new StringBuilder();
+                for (int j = 0; j < i; j++)
+                {
+                    sb.Append(i);
+                }
+                Console.WriteLine(sb.ToString());
+            }
+
+            for (int i = skaicius - 1; i >= 1; i--)
+            {
+                StringBuilder sb = new StringBuilder();
+                for (int j = 0; j < i; j++)
+                {
+                    sb.Append(i);
+                }
+                Console.WriteLine(sb.ToString());
+            }
+        }
 
 
 
