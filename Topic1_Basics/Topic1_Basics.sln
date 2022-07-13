@@ -61,9 +61,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L014_DNR_Tests", "L014_DNR_
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L017_For", "L017_For\L017_For.csproj", "{35D3B132-FDA1-4548-8F1B-F9B293A61293}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L017_For_Tasks", "L017_For_Tasks\L017_For_Tasks.csproj", "{3DC9B708-AA89-4EF5-96B5-50B0B04840DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L017_For_Tasks", "L017_For_Tasks\L017_For_Tasks.csproj", "{3DC9B708-AA89-4EF5-96B5-50B0B04840DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L017_StringBuilder", "L017_StringBuilder\L017_StringBuilder.csproj", "{853CD7AE-83F6-47C8-9116-5B953ECE37FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L017_StringBuilder", "L017_StringBuilder\L017_StringBuilder.csproj", "{853CD7AE-83F6-47C8-9116-5B953ECE37FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L018_Tasks", "L018_Tasks\L018_Tasks.csproj", "{F8DE6F2C-7AF6-441C-9A46-CB82F999535C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -191,6 +193,10 @@ Global
 		{853CD7AE-83F6-47C8-9116-5B953ECE37FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{853CD7AE-83F6-47C8-9116-5B953ECE37FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{853CD7AE-83F6-47C8-9116-5B953ECE37FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8DE6F2C-7AF6-441C-9A46-CB82F999535C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8DE6F2C-7AF6-441C-9A46-CB82F999535C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8DE6F2C-7AF6-441C-9A46-CB82F999535C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8DE6F2C-7AF6-441C-9A46-CB82F999535C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
