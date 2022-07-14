@@ -188,7 +188,7 @@ namespace L017_For_Tasks
             }
         }
 
-        private static int SkaiciausTikrinimas(string? txt) => int.TryParse(txt, out int num) == false ? 0 : num;
+        private static int SkaiciausTikrinimas(string? tekstas) => int.TryParse(tekstas, out int skaicius) ? skaicius : 0;
 
         private static void PenktaUzduotis()
         {

@@ -31,12 +31,12 @@ namespace L019_Arrays
 
         private static void PirmaUzduotis()
         {
+            Console.Write("Kiek norite eiluciu: ");
+            int eilutes = int.Parse(Console.ReadLine());
+
             StringBuilder sb = new StringBuilder();
-            for (int i = 1; i < 10; i++)
-            {
-                sb.Insert(0, i % 2);
-                Console.WriteLine(sb.ToString());
-            }
+            for (int i = 1; i <= eilutes; i++)
+                Console.WriteLine(sb.Insert(0, i % 2).ToString());
         }
 
         private static void AntraUzduotis()

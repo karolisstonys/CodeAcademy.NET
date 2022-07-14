@@ -214,7 +214,6 @@ namespace L018_Tasks
 
                         while (!VeiksmoPatikrinimas(veiksmas))
                         {
-                            // Galima rinktis 1, 2, 3, 4, 5, 6, 7 arba +, -, *, /, ^2, ^3
                             Console.Write("Netinkamas pasirinkimas. Bandykite dar karta: ");
                             veiksmas = Console.ReadLine();
                         }
@@ -259,17 +258,6 @@ namespace L018_Tasks
                         if (atsakymas != null)
                         {
 
-
-
-
-
-
-
-
-
-
-
-
                             Console.Clear();
                             Console.WriteLine("TESIAME SU REZULTATU");
                             ParodytiSkaiciuotuvoVeiksmus();
@@ -279,7 +267,6 @@ namespace L018_Tasks
 
                             while (!VeiksmoPatikrinimas(veiksmas))
                             {
-                                // Galima rinktis 1, 2, 3, 4, 5, 6, 7 arba +, -, *, /, ^2, ^3
                                 Console.Write("Netinkamas pasirinkimas. Bandykite dar karta: ");
                                 veiksmas = Console.ReadLine();
                             }
