@@ -56,7 +56,7 @@ namespace L018_Tasks
             /// BONUS3: Parasyti unit testus uztikrinant operaciju veikima
             /// BONUS4: Parasyti laipsnio pakelimo ir saknies traukimo operacijas 
             /// </summary>
-            TreciaUzduotis();    
+            TreciaUzduotisSkaiciuotuvas(null);    
 
             /// <summary>
             /// 4. Sukurkite programa, kuri atspausdintu sia forma:
@@ -175,45 +175,173 @@ namespace L018_Tasks
         /// BONUS3: Parasyti unit testus uztikrinant operaciju veikima
         /// BONUS4: Parasyti laipsnio pakelimo ir saknies traukimo operacijas 
         /// </summary>        
-        private static void TreciaUzduotis()
+        private static void TreciaUzduotisSkaiciuotuvas(double? atsakymas)
         {
-            SkaiciuotuvoMenu1();
+            int? skaicius1 = null;
+            int? skaicius2 = null;
+            string veiksmas = string.Empty;
             int? pasirinkimas = null;
-            do
-            {
-                Console.Write("Pasirinkimas: ");
-                pasirinkimas = IntTryParseNullable(Console.ReadLine());
-            } while (pasirinkimas == null || pasirinkimas > 3 || pasirinkimas < 1);
 
-            switch (pasirinkimas)
-            {
-                case 1:
-                    SkaiciuotuvoMenu2();
+            Console.WriteLine("SKAICIUOTUVAS");
 
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
+            while (pasirinkimas != 3)
+            {
+                do
+                {
+                    ParodytiSkaiciuotuvoMenu();
+                    Console.Write("Pasirinkimas: ");
+                    pasirinkimas = IntTryParseNullable(Console.ReadLine());
+                    if (ArBlogasPasinkimas(pasirinkimas))
+                    {
+                        Console.WriteLine("Blogas pasirinkimas, bandykite dar karta.");
+                        Console.WriteLine();
+                    }
+                } while (ArBlogasPasinkimas(pasirinkimas));
+
+                switch (pasirinkimas)
+                {
+                    case 1:
+                        Console.Clear();
+                        Console.WriteLine("NAUJA OPERACIJA");
+                        ParodytiSkaiciuotuvoVeiksmus();
+
+                        Console.Write("Pasirinkimas: ");
+                        veiksmas = Console.ReadLine();
+
+                        while (!VeiksmoPatikrinimas(veiksmas))
+                        {
+                            // Galima rinktis 1, 2, 3, 4, 5, 6, 7 arba +, -, *, /, ^2, ^3
+                            Console.Write("Netinkamas pasirinkimas. Bandykite dar karta: ");
+                            veiksmas = Console.ReadLine();
+                        }
+
+                        VeiksmoNormalizacija(ref veiksmas);
+
+                        Console.Write("Pirmas skaicius: ");
+                        skaicius1 = IntTryParseNullable(Console.ReadLine());
+
+                        while (skaicius1 == null)
+                        {
+                            Console.Write("Netinkamai ivestas pirmas skacius. Bandykite dar karta: ");
+                            skaicius1 = IntTryParseNullable(Console.ReadLine());
+                        }
+
+                        Console.Write("Antras skaicius: ");
+                        skaicius2 = IntTryParseNullable(Console.ReadLine());
+
+                        while (skaicius2 == null)
+                        {
+                            Console.Write("Netinkamai ivestas pirmas skacius. Bandykite dar karta: ");
+                            skaicius2 = IntTryParseNullable(Console.ReadLine());
+                        }
+
+                        atsakymas = Skaiciuotuvas(skaicius1.Value, skaicius2.Value, veiksmas);
+
+                        Console.Clear();
+                        Console.WriteLine($"{skaicius1} {veiksmas} {skaicius2} = {atsakymas}");
+
+                        break;
+                    case 2:
+                        if (atsakymas != null)
+                        {
+                            ParodytiSkaiciuotuvoVeiksmus();
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Atmintyje nera jokio skaiciaus!");
+                        }
+                        break;
+                }
             }
-
-
-            Console.WriteLine("saunu!");
-
         }
 
-        private static void SkaiciuotuvoMenu1()
+        private static bool VeiksmoPatikrinimas(string veiksmas) => 
+            veiksmas == "1"     ||
+            veiksmas == "2"     ||
+            veiksmas == "3"     ||
+            veiksmas == "4"     ||
+            veiksmas == "5"     ||
+            veiksmas == "6"     ||
+            veiksmas == "7"     ||
+            veiksmas == "+"     ||
+            veiksmas == "-"     ||
+            veiksmas == "*"     ||
+            veiksmas == "/"     ||
+            veiksmas == "^2"    ||
+            veiksmas == "^3"    ||
+            veiksmas == "√";
+
+        private static void VeiksmoNormalizacija(ref string veiksmas)
         {
+            veiksmas = veiksmas.Replace("7", "√");
+            veiksmas = veiksmas.Replace("6", "^3");
+            veiksmas = veiksmas.Replace("5", "^2");
+            veiksmas = veiksmas.Replace("4", "/");
+            if (veiksmas == "3")
+                veiksmas = veiksmas.Replace("3", "*");
+            if (veiksmas == "2")
+                veiksmas = veiksmas.Replace("2", "-");
+            veiksmas = veiksmas.Replace("1", "+");
+        }
+
+        private static bool ArBlogasPasinkimas(int? pasirinkimas) => pasirinkimas == null || pasirinkimas > 3 || pasirinkimas < 1;
+
+        private static void ParodytiSkaiciuotuvoMenu()
+        {
+            Console.WriteLine();
             Console.WriteLine("1. Nauja operacija");
             Console.WriteLine("2. Testi su rezultatu");
             Console.WriteLine("3. Iseiti");
+            Console.WriteLine();
         }
-        private static void SkaiciuotuvoMenu2()
+
+        private static void ParodytiSkaiciuotuvoVeiksmus()
         {
-            Console.WriteLine("1. Sudetis");
-            Console.WriteLine("2. Atimtis");
-            Console.WriteLine("3. Daugyba");
-            Console.WriteLine("3. Dalyba");
+            Console.WriteLine();
+            Console.WriteLine("1. Sudetis (+)");
+            Console.WriteLine("2. Atimtis (-)");
+            Console.WriteLine("3. Daugyba (*)");
+            Console.WriteLine("4. Dalyba  (/)");
+            Console.WriteLine("5. Kelima kvadratu (^2)");
+            Console.WriteLine("6. Kelimas kubu    (^3)");
+            Console.WriteLine("7. Saknies traukimas");
+            Console.WriteLine();
         }
+
+        public static double Skaiciuotuvas(int skaicius1, int skaicius2, string? veiksmas)
+        {
+            switch (veiksmas)       // state machine
+            {
+                case "+":
+                    return Suma(skaicius1, skaicius2);
+                case "-":
+                    return Atimtis(skaicius1, skaicius2);
+                case "*":
+                    return Daugyba(skaicius1, skaicius2);
+                case "/":
+                    return Dalyba(skaicius1, skaicius2);
+                //case "^2":
+                //    return KelimasKvadratu(skaicius1);
+                //case "^3":
+                //    return KelimasKubuu(skaicius1);
+                //case "√":
+                //    return SakniesTraukimas(skaicius1);
+                default:
+                    return 0;
+            }
+        }
+
+        public static int Suma(int skaicius1, int skaicius2) => skaicius1 + skaicius2;
+
+        public static int Atimtis(int skaicius1, int skaicius2) => skaicius1 - skaicius2;
+
+        public static int Daugyba(int skaicius1, int skaicius2) => skaicius1 * skaicius2;
+
+        public static double Dalyba(int skaicius1, int skaicius2) => (double)skaicius1 / skaicius2;
+
+
+
+
     }
 }
