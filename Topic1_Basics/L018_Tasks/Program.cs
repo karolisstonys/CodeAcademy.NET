@@ -56,7 +56,7 @@ namespace L018_Tasks
             /// BONUS3: Parasyti unit testus uztikrinant operaciju veikima
             /// BONUS4: Parasyti laipsnio pakelimo ir saknies traukimo operacijas 
             /// </summary>
-            TreciaUzduotisSkaiciuotuvas(null);    
+            TreciaUzduotisSkaiciuotuvas();    
 
             /// <summary>
             /// 4. Sukurkite programa, kuri atspausdintu sia forma:
@@ -89,6 +89,9 @@ namespace L018_Tasks
         }
 
         public static int? IntTryParseNullable(string? txt) => int.TryParse(txt, out int output) ? (int?)output : null;
+
+        public static double? DoubleTryParseNullable(string? txt) => double.TryParse(txt, out double output) ? (double?)output : null;
+
 
         /// <summary>
         /// 1.Parašykite metodą SkaiciuEile kuri išvestu vienoje eilutėje skaičių grupes tokiu principu: -> 1-> 11-> 111-> 1111-> 11111-> .......
@@ -175,10 +178,11 @@ namespace L018_Tasks
         /// BONUS3: Parasyti unit testus uztikrinant operaciju veikima
         /// BONUS4: Parasyti laipsnio pakelimo ir saknies traukimo operacijas 
         /// </summary>        
-        private static void TreciaUzduotisSkaiciuotuvas(double? atsakymas)
+        private static void TreciaUzduotisSkaiciuotuvas()
         {
-            int? skaicius1 = null;
-            int? skaicius2 = null;
+            double? skaicius1 = null;
+            double? skaicius2 = null;
+            double? atsakymas = null;
             string veiksmas = string.Empty;
             int? pasirinkimas = null;
 
@@ -218,33 +222,118 @@ namespace L018_Tasks
                         VeiksmoNormalizacija(ref veiksmas);
 
                         Console.Write("Pirmas skaicius: ");
-                        skaicius1 = IntTryParseNullable(Console.ReadLine());
+                        skaicius1 = DoubleTryParseNullable(Console.ReadLine());
 
                         while (skaicius1 == null)
                         {
                             Console.Write("Netinkamai ivestas pirmas skacius. Bandykite dar karta: ");
-                            skaicius1 = IntTryParseNullable(Console.ReadLine());
+                            skaicius1 = DoubleTryParseNullable(Console.ReadLine());
                         }
 
-                        Console.Write("Antras skaicius: ");
-                        skaicius2 = IntTryParseNullable(Console.ReadLine());
-
-                        while (skaicius2 == null)
+                        if (veiksmas != "^2" && veiksmas != "^3" && veiksmas != "√")
                         {
-                            Console.Write("Netinkamai ivestas pirmas skacius. Bandykite dar karta: ");
-                            skaicius2 = IntTryParseNullable(Console.ReadLine());
+                            Console.Write("Antras skaicius: ");
+                            skaicius2 = DoubleTryParseNullable(Console.ReadLine());
+
+                            while (skaicius2 == null)
+                            {
+                                Console.Write("Netinkamai ivestas pirmas skacius. Bandykite dar karta: ");
+                                skaicius2 = DoubleTryParseNullable(Console.ReadLine());
+                            }
+
+                            atsakymas = Skaiciuotuvas(skaicius1.Value, skaicius2.Value, veiksmas);
+                            Console.Clear();
+                            Console.WriteLine($"{skaicius1} {veiksmas} {skaicius2} = {atsakymas}");
                         }
-
-                        atsakymas = Skaiciuotuvas(skaicius1.Value, skaicius2.Value, veiksmas);
-
-                        Console.Clear();
-                        Console.WriteLine($"{skaicius1} {veiksmas} {skaicius2} = {atsakymas}");
-
+                        else
+                        {
+                            atsakymas = Skaiciuotuvas(skaicius1.Value, 0, veiksmas);
+                            Console.Clear();
+                            if (veiksmas == "√")
+                                Console.WriteLine($"{veiksmas}{skaicius1} = {atsakymas}");
+                            else
+                                Console.WriteLine($"{skaicius1} {veiksmas} = {atsakymas}");
+                        }
                         break;
                     case 2:
                         if (atsakymas != null)
                         {
+
+
+
+
+
+
+
+
+
+
+
+
+                            Console.Clear();
+                            Console.WriteLine("TESIAME SU REZULTATU");
                             ParodytiSkaiciuotuvoVeiksmus();
+
+                            Console.Write("Pasirinkimas: ");
+                            veiksmas = Console.ReadLine();
+
+                            while (!VeiksmoPatikrinimas(veiksmas))
+                            {
+                                // Galima rinktis 1, 2, 3, 4, 5, 6, 7 arba +, -, *, /, ^2, ^3
+                                Console.Write("Netinkamas pasirinkimas. Bandykite dar karta: ");
+                                veiksmas = Console.ReadLine();
+                            }
+
+                            VeiksmoNormalizacija(ref veiksmas);
+
+                            Console.WriteLine($"Pirmas skaicius: {atsakymas}");
+                            skaicius1 = atsakymas;
+
+                            while (skaicius1 == null)
+                            {
+                                Console.Write("Netinkamai ivestas pirmas skacius. Bandykite dar karta: ");
+                                skaicius1 = DoubleTryParseNullable(Console.ReadLine());
+                            }
+
+                            if (veiksmas != "^2" && veiksmas != "^3" && veiksmas != "√")
+                            {
+                                Console.Write("Antras skaicius: ");
+                                skaicius2 = DoubleTryParseNullable(Console.ReadLine());
+
+                                while (skaicius2 == null)
+                                {
+                                    Console.Write("Netinkamai ivestas pirmas skacius. Bandykite dar karta: ");
+                                    skaicius2 = DoubleTryParseNullable(Console.ReadLine());
+                                }
+
+                                atsakymas = Skaiciuotuvas(skaicius1.Value, skaicius2.Value, veiksmas);
+                                Console.Clear();
+                                Console.WriteLine($"{skaicius1} {veiksmas} {skaicius2} = {atsakymas}");
+                            }
+                            else
+                            {
+                                atsakymas = Skaiciuotuvas(skaicius1.Value, 0, veiksmas);
+                                Console.Clear();
+                                if (veiksmas == "√")
+                                    Console.WriteLine($"{veiksmas}{skaicius1} = {atsakymas}");
+                                else
+                                    Console.WriteLine($"{skaicius1} {veiksmas} = {atsakymas}");
+                            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         }
                         else
                         {
@@ -309,7 +398,7 @@ namespace L018_Tasks
             Console.WriteLine();
         }
 
-        public static double Skaiciuotuvas(int skaicius1, int skaicius2, string? veiksmas)
+        public static double Skaiciuotuvas(double skaicius1, double skaicius2, string? veiksmas)
         {
             switch (veiksmas)       // state machine
             {
@@ -321,27 +410,28 @@ namespace L018_Tasks
                     return Daugyba(skaicius1, skaicius2);
                 case "/":
                     return Dalyba(skaicius1, skaicius2);
-                //case "^2":
-                //    return KelimasKvadratu(skaicius1);
-                //case "^3":
-                //    return KelimasKubuu(skaicius1);
-                //case "√":
-                //    return SakniesTraukimas(skaicius1);
-                default:
-                    return 0;
+                case "^2":
+                    return KelimasKvadratu(skaicius1);
+                case "^3":
+                    return KelimasKubu(skaicius1);
+                case "√":
+                    return SakniesTraukimas(skaicius1);
             }
+            return 0;
         }
 
-        public static int Suma(int skaicius1, int skaicius2) => skaicius1 + skaicius2;
+        public static double Suma(double skaicius1, double skaicius2) => skaicius1 + skaicius2;
 
-        public static int Atimtis(int skaicius1, int skaicius2) => skaicius1 - skaicius2;
+        public static double Atimtis(double skaicius1, double skaicius2) => skaicius1 - skaicius2;
 
-        public static int Daugyba(int skaicius1, int skaicius2) => skaicius1 * skaicius2;
+        public static double Daugyba(double skaicius1, double skaicius2) => skaicius1 * skaicius2;
 
-        public static double Dalyba(int skaicius1, int skaicius2) => (double)skaicius1 / skaicius2;
+        public static double Dalyba(double skaicius1, double skaicius2) => skaicius1 / skaicius2;
 
+        public static double KelimasKvadratu(double skaicius1) => skaicius1 * skaicius1;
 
+        public static double KelimasKubu(double skaicius1) => skaicius1 * skaicius1 * skaicius1;
 
-
+        public static double SakniesTraukimas(double skaicius1) => Math.Sqrt(skaicius1);
     }
 }
