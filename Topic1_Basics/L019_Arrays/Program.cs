@@ -79,12 +79,12 @@ namespace L019_Arrays
             /// 7.Parasykite programa, kuri rastu visus pasikartojancius skaicius duotame dvimaciame masyve ir juos atvaizduotu ekrane
             /// </summary>
             /// 
-            Task7();
+            //Task7();
 
             /// <summary>
             /// 8. Parasykite programa, kuri rastu visus pasikartojancius vardus duotame dvimaciame masyve ir juos atvaizduotu ekrane
             /// </summary>
-
+            Task8();
 
         }
 
@@ -373,8 +373,37 @@ namespace L019_Arrays
             }
         }
 
+        private static void Task8()
+        {
+            string[,] intArray = new string[,]
+                {
+                  { "Lukas", "Benas", "Lėja", "Markas", "Luknė" },
+                  { "Nojus", "Luknė", "Lukas", "Liepa", "Herkus" },
+                  { "Liepa", "Jokūbas", "Amelija", "Emilija", "Lėja" }     // kartojasi "Lukas", "Luknė", "Lėja", "Liepa"
+                };
 
+            int arrayLength1Remaining = intArray.Length;
+            int arrayLength2Remaining = intArray.Length;
 
+            Console.WriteLine("Pasikartojantys vardai: ");
+            for (int i = 0; i < intArray.GetLength(0); i++)
+            {
+                for (int j = 0; j < intArray.GetLength(1); j++)
+                {
+                    arrayLength2Remaining = intArray.Length;                // nuresetinam, nes pirma ciklu dalis pereina i nauja elementa             
+                    for (int k = 0; k < intArray.GetLength(0); k++)         // einame per visa masyva is naujo
+                    {
+                        for (int l = 0; l < intArray.GetLength(1); l++)
+                        {
+                            if (intArray[i, j] == intArray[k, l] && i != k && j != l  && arrayLength1Remaining < arrayLength2Remaining)
+                                Console.Write(intArray[i, j] + " ");
+                            arrayLength2Remaining--;
+                        }
+                    }
+                    arrayLength1Remaining--;
+                }
+            }
+        }
 
 
 
