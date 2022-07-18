@@ -7,83 +7,13 @@ namespace L019_Arrays
         static void Main(string[] args)
         {
 
-            /// <summary>
-            /// 1.Parasykite programa, kuri atspausdintu sia figura pvz:
-            ///     1
-            ///     01
-            ///     101
-            ///     0101
-            ///     10101
-            /// </summary>
             //Task1();
-
-            /// <summary>
-            /// 2. Parasykite programa, kuri paprasytu ivesti skaiciu ir ivesta skaiciu atspausdintu atvirkstine seka. 
-            /// Naudoti tik ciklus ir matematines operacijas.Visi kintamieji yra integer tipo. 
-            ///     Pvz:            
-            ///     Ivedam- 12345 (int)            
-            ///     Rezultatas-54321 (int)
-            /// </summary>
             //Task2();
-
-            /// <summary>
-            /// 3. Parasykite programa, kuri leistu ivesti kiek zmoniu siandiena atejo i pamoka. 
-            /// Ivedus skaiciu programa prasytu ivesti visu atejusiu zmoniu vardus. 
-            /// Kada visi vardai buna ivesti programa turetu atspausdinti visu vardus atvirkstine seka.
-            ///     Pvz:
-            ///     3
-            ///     Edvinas
-            ///     Jonas
-            ///     Petras
-            ///     ----------
-            ///     Petras
-            ///     Jonas
-            ///     Edvinas
-            /// </summary>
             //Task3();
-
-            /// <summary>
-            /// 4. Parasykite programa, kuri leistu ivesti kiek zmoniu siandiena atejo i pamoka. 
-            /// Ivedus skaiciu programa prasytu ivesti visu atejusiu zmoniu vardus. 
-            /// Kada visi vardai buna ivesti programa turetu atspausdinti ilgiausia varda ekrane. 
-            /// Jei vardai yra vienodo ilgio turetu atspausdinti abu vardus.
-            ///     Pvz:             
-            ///     3            
-            ///     Edvinas            
-            ///     Jonas            
-            ///     Petras
-            ///     ---------------------            
-            ///     Edvinas
-            /// </summary>
             //Task4();
-
-            /// <summary>
-            /// 5. Parasykite programa, kuri rastu visus pasikartojancius skaicius duotame masyve ir juos atvaizduotu ekrane
-            ///     PVZ: 1,2,2,4,2,7,6,1         
-            ///     Pasikartojantys skaiciai: 1, 2
-            /// </summary>
             //Task5();
-
-            /// <summary>
-            /// 6. Programa praso ivesti eiluciu ir stulpeliu kieki. 
-            /// Ivedus turetu sukurti masyva duoto dydzio, paprasyti ivesti kiekvieno elemento skaiciu/reiksme ir 
-            /// atspausdintu matrica is pateiktu skaiciu            
-            /// PVZ: Ivedame 2 2. Suvedame 1, 2, 2, 3                 
-            ///     1 2                 
-            ///     2 3
-            /// </summary>
             //Task6();
-
-
-            /// <summary>
-            /// 7.Parasykite programa, kuri rastu visus pasikartojancius skaicius duotame dvimaciame masyve ir juos atvaizduotu ekrane
-            /// </summary>
-            /// 
             //Task7();
-
-            /// <summary>
-            /// 8. Parasykite programa, kuri rastu visus pasikartojancius vardus duotame dvimaciame masyve ir juos atvaizduotu ekrane
-            /// </summary>
             Task8();
 
         }
@@ -190,6 +120,14 @@ namespace L019_Arrays
             }
         }
 
+        /// <summary>
+        /// 1.Parasykite programa, kuri atspausdintu sia figura pvz:
+        ///     1
+        ///     01
+        ///     101
+        ///     0101
+        ///     10101
+        /// </summary>
         private static void Task1()
         {
             Console.Write("Kiek norite eiluciu: ");
@@ -200,6 +138,13 @@ namespace L019_Arrays
                 Console.WriteLine(sb.Insert(0, i % 2).ToString());
         }
 
+        /// <summary>
+        /// 2. Parasykite programa, kuri paprasytu ivesti skaiciu ir ivesta skaiciu atspausdintu atvirkstine seka. 
+        /// Naudoti tik ciklus ir matematines operacijas.Visi kintamieji yra integer tipo. 
+        ///     Pvz:            
+        ///     Ivedam- 12345 (int)            
+        ///     Rezultatas-54321 (int)
+        /// </summary>
         private static void Task2()
         {
             int a = 0;
@@ -218,32 +163,60 @@ namespace L019_Arrays
             Console.Write("Reversed Number: " + reverse);
         }
 
+        /// <summary>
+        /// 3. Parasykite programa, kuri leistu ivesti kiek zmoniu siandiena atejo i pamoka. 
+        /// Ivedus skaiciu programa prasytu ivesti visu atejusiu zmoniu vardus. 
+        /// Kada visi vardai buna ivesti programa turetu atspausdinti visu vardus atvirkstine seka.
+        ///     Pvz:
+        ///     3
+        ///     Edvinas
+        ///     Jonas
+        ///     Petras
+        ///     ----------
+        ///     Petras
+        ///     Jonas
+        ///     Edvinas
+        /// </summary>
         private static void Task3()
         {
             int? people = null;
+            Console.Write("Kiek zmoniu atejo: ");
+
             while (people == null)
             {
-                Console.Write("Kiek zmoniu atejo: ");
                 people = TRTL.Reusable.IntTryParseOutNull(Console.ReadLine());
             }
 
-            string[] PeopleInRoom = new string[people.Value];
+            string[] peopleInRoom = new string[people.Value];
             Console.WriteLine();
             Console.WriteLine("Iveskite zmoniu vardus.");
-            for (int i = 0; i < PeopleInRoom.Length; i++)
+            for (int i = 0; i < peopleInRoom.Length; i++)
             {
                 Console.Write($"{i + 1} zmogaus vardas: ");
-                PeopleInRoom[i] = Console.ReadLine();
+                peopleInRoom[i] = Console.ReadLine();
             }
 
             Console.WriteLine();
             Console.Write("Visi zmones atbuline tvarka: ");
-            for (int i = PeopleInRoom.Length - 1; i > 0; i--)
+            for (int i = peopleInRoom.Length - 1; i > 0; i--)
             {
-                Console.Write(PeopleInRoom[i] + " ");
+                Console.Write(peopleInRoom[i] + " ");
             }
         }
 
+        /// <summary>
+        /// 4. Parasykite programa, kuri leistu ivesti kiek zmoniu siandiena atejo i pamoka. 
+        /// Ivedus skaiciu programa prasytu ivesti visu atejusiu zmoniu vardus. 
+        /// Kada visi vardai buna ivesti programa turetu atspausdinti ilgiausia varda ekrane. 
+        /// Jei vardai yra vienodo ilgio turetu atspausdinti abu vardus.
+        ///     Pvz:             
+        ///     3            
+        ///     Edvinas            
+        ///     Jonas            
+        ///     Petras
+        ///     ---------------------            
+        ///     Edvinas
+        /// </summary>
         private static void Task4()
         {
             int? people = null;
@@ -254,35 +227,56 @@ namespace L019_Arrays
             }
 
             Console.WriteLine();
-            string[] PeopleInRoom = new string[people.Value];
+            string[] peopleInRoom = new string[people.Value];
             Console.WriteLine("Iveskite zmoniu vardus.");
-            for (int i = 0; i < PeopleInRoom.Length; i++)
+            for (int i = 0; i < peopleInRoom.Length; i++)
             {
                 Console.Write($"{i + 1} zmogaus vardas: ");
-                PeopleInRoom[i] = Console.ReadLine();
+                peopleInRoom[i] = Console.ReadLine();
             }
 
             int longestNameLength = 0;
-            for (int i = 0; i < PeopleInRoom.Length; i++)
-            {
-                if (longestNameLength < PeopleInRoom[i].Length)
-                    longestNameLength = PeopleInRoom[i].Length;
-            }
+            Task4LongestLength(peopleInRoom, ref longestNameLength);
 
             Console.WriteLine();
             Console.WriteLine("Ilgiausias(i) vardas(ai): ");
-            for (int i = 0; i < PeopleInRoom.Length; i++)
+            Task4LongestName(peopleInRoom, longestNameLength);
+        }
+
+        private static void Task4LongestLength(string[] peopleInRoom, ref int longestNameLength)
+        {
+            for (int i = 0; i < peopleInRoom.Length; i++)
             {
-                if (longestNameLength == PeopleInRoom[i].Length) 
-                    Console.WriteLine(PeopleInRoom[i]);
+                if (longestNameLength < peopleInRoom[i].Length)
+                    longestNameLength = peopleInRoom[i].Length;
             }
         }
 
+        private static void Task4LongestName(string[] peopleInRoom, int longestNameLength)
+        {
+            for (int i = 0; i < peopleInRoom.Length; i++)
+            {
+                if (longestNameLength == peopleInRoom[i].Length)
+                    Console.WriteLine(peopleInRoom[i]);
+            }
+        }
+        
+        /// <summary>
+        /// 5. Parasykite programa, kuri rastu visus pasikartojancius skaicius duotame masyve ir juos atvaizduotu ekrane
+        ///     PVZ: 1,2,2,4,2,7,6,1         
+        ///     Pasikartojantys skaiciai: 1, 2
+        /// </summary>
         private static void Task5()
         {
             int[] intArray = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2 ,3 };
 
             Console.WriteLine("Pasikartojantys skaiciai: ");
+
+            Task5RepeatingNumbers(intArray);
+        }
+
+        private static void Task5RepeatingNumbers(int[] intArray)
+        {
             for (int i = 0; i < intArray.Length; i++)
             {
                 for (int j = i; j < intArray.Length; j++)
@@ -292,7 +286,15 @@ namespace L019_Arrays
                 }
             }
         }
-        
+
+        /// <summary>
+        /// 6. Programa praso ivesti eiluciu ir stulpeliu kieki. 
+        /// Ivedus turetu sukurti masyva duoto dydzio, paprasyti ivesti kiekvieno elemento skaiciu/reiksme ir 
+        /// atspausdintu matrica is pateiktu skaiciu            
+        /// PVZ: Ivedame 2 2. Suvedame 1, 2, 2, 3                 
+        ///     1 2                 
+        ///     2 3
+        /// </summary>
         private static void Task6()
         {
             int? lines = null;
@@ -310,7 +312,6 @@ namespace L019_Arrays
                 columns = TRTL.Reusable.IntTryParseOutNull(Console.ReadLine());
             }
 
-            Console.WriteLine();
             int[,] array = new int[lines.Value, columns.Value];
             int arrayLengthRemaining = array.Length;
 
@@ -329,63 +330,77 @@ namespace L019_Arrays
                 }
             }
 
-            Console.WriteLine();
-            Console.WriteLine("Jusu masyvas: ");
+            Console.WriteLine("\nJusu masyvas: ");
             for (int i = 0; i < array.GetLength(0); i++)
             {
                 for (int j = 0; j < array.GetLength(1); j++)
                 {
-                    Console.Write($"{array[i, j]} ");
+                    Console.Write($"({i},{j}) {array[i, j]} ");
                 }
                 Console.WriteLine();
             }
         }
 
+        /// <summary>
+        /// 7.Parasykite programa, kuri rastu visus pasikartojancius skaicius duotame dvimaciame masyve ir juos atvaizduotu ekrane
+        /// </summary>
+        /// 
         private static void Task7()
         {
             int[,] intArray = new int[,]
                 {
-                  { 1, 2, 3, 4, 5 },
-                  { 6, 7, 8, 9, 10 },
-                  { 2, 4, 6, 8, 10 }     // kartojasi 2 4 6 8 10
+                  { 2, 2, 2 },
+                  { 2, 2, 2 },
+                  { 2, 2, 3 }
                 };
 
-            int arrayLength1Remaining = intArray.Length;
-            int arrayLength2Remaining = intArray.Length;
+            string repeatingNumbers = Task7RepeatingNumbers(intArray);
+            Console.WriteLine($"Pasikartojantys skaiciai: {repeatingNumbers}");
 
-            Console.WriteLine("Pasikartojantys skaiciai: ");
+        }
+
+        private static string Task7RepeatingNumbers(int[,] intArray)
+        {
+            string txt = "";
             for (int i = 0; i < intArray.GetLength(0); i++)
             {
                 for (int j = 0; j < intArray.GetLength(1); j++)
-                {
-                    arrayLength2Remaining = intArray.Length;                // nuresetinam, nes pirma ciklu dalis pereina i nauja elementa             
+                {           
                     for (int k = 0; k < intArray.GetLength(0); k++)         // einame per visa masyva is naujo
                     {
                         for (int l = 0; l < intArray.GetLength(1); l++)
                         {
-                            if (intArray[i, j] == intArray[k, l] && i != k && j != l && arrayLength1Remaining < arrayLength2Remaining)
-                                Console.Write(intArray[i, j] + " ");
-                            arrayLength2Remaining--;
+                            if (intArray[i, j] == intArray[k, l] && txt.Contains(intArray[i, j].ToString()) == false)
+                                txt = txt + intArray[i, j].ToString() + " ";
                         }
                     }
-                    arrayLength1Remaining--;
                 }
             }
+            return txt;
         }
 
+        /// <summary>
+        /// 8. Parasykite programa, kuri rastu visus pasikartojancius vardus duotame dvimaciame masyve ir juos atvaizduotu ekrane
+        /// </summary>
         private static void Task8()
         {
             string[,] intArray = new string[,]
                 {
-                  { "Lukas", "Benas", "Lėja", "Markas", "Luknė" },
+                  { "Lukas", "Lukas", "Lėja", "Lukas", "Luknė" },
                   { "Nojus", "Luknė", "Lukas", "Liepa", "Herkus" },
                   { "Liepa", "Jokūbas", "Amelija", "Emilija", "Lėja" }     // kartojasi "Lukas", "Luknė", "Lėja", "Liepa"
                 };
 
+            string repeatingNames = Task8RepeatingNames(intArray);
+            Console.WriteLine($"Pasikartojantys vardai: {repeatingNames}");
+        }
+
+        private static string Task8RepeatingNames(string[,] intArray)
+        {
+            string txt = "";
             int arrayLength1Remaining = intArray.Length;
             int arrayLength2Remaining = intArray.Length;
 
-            Console.WriteLine("Pasikartojantys vardai: ");
             for (int i = 0; i < intArray.GetLength(0); i++)
             {
                 for (int j = 0; j < intArray.GetLength(1); j++)
@@ -395,24 +410,18 @@ namespace L019_Arrays
                     {
                         for (int l = 0; l < intArray.GetLength(1); l++)
                         {
-                            if (intArray[i, j] == intArray[k, l] && i != k && j != l  && arrayLength1Remaining < arrayLength2Remaining)
-                                Console.Write(intArray[i, j] + " ");
+                            if (intArray[i, j] == intArray[k, l] 
+                                && i != k && j != l 
+                                && arrayLength1Remaining > arrayLength2Remaining
+                                && txt.Contains(intArray[i, j].ToString()) == false)
+                                txt = txt + intArray[i, j].ToString() + " ";
                             arrayLength2Remaining--;
                         }
                     }
                     arrayLength1Remaining--;
                 }
             }
+            return txt;
         }
-
-
-
-
-
-
-
-
-
-
     }
 }
