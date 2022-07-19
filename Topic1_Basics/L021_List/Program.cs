@@ -5,8 +5,9 @@
         static void Main(string[] args)
         {
 
-            
-            //Task1(new List<int> { 5, 1, 6, 8, 7 });
+
+            //Task1A(new List<int> { 5, 1, 6, 8, 7 });
+            Task2B(new List<int> { 5, 1, 6, 8, 7 });
 
 
 
@@ -102,13 +103,13 @@
             List<int> skaiciai = intMasyvas.ToList();
         }
 
-        /* DIDŽIAUSIAS SĄRAŠE
+        /* 1. DIDŽIAUSIAS SĄRAŠE
         Duotas vienmatis sveikų skaičių sąrašas.
         Parašykite programą, kuri suranda didžiausią skaičių saraše
         { 5, 1, 6, 8, 7 }
         rezultatas:  8
         */
-        public static int Task1(List<int> list)
+        public static int Task1A(List<int> list)
         {
             int largest = list[0];
 
@@ -120,5 +121,54 @@
 
             return largest;
         }
+
+        public static int Task1B(List<int> list)
+        {
+            list.Sort();
+            int max = list[list.Count - 1];
+            return max;
+        }
+
+        /* 2. DIDESNIS UŽ DIDŽIAUSIĄ
+        Duotas vienmatis sveikų skaičių sąrašas. 
+        Parašykite programą, kuri į sąrašo galą prideda vienetu didesnį skaičių už patį didžiausią
+
+        pvz:
+        { 5, 1, 6, 8, 7 }
+        rezultatas:  5, 1, 6, 8, 7, 9
+        */
+        public static int[] Task2A(List<int> li)
+        {
+            int[] arr = new int[li.Count + 1];
+            li.CopyTo(arr);
+            li.Sort();
+            arr[arr.Length - 1] = li[li.Count - 1] + 1;
+            return arr;
+        }
+
+        public static List<int> Task2B(List<int> li)
+        {
+            int largest = li[0];
+            for (int i = 1; i < li.Count; i++)
+            {
+                if (largest < li[i])
+                    largest = li[i];
+            }
+            li.Add(largest + 1);
+            return li;
+        }
+
+        /* 
+         
+         */
+
+
+
+
+
+
+
+
+
     }
 }
