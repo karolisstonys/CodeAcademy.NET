@@ -71,9 +71,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L019_Arrays", "L019_Arrays\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TRTL", "TRTL\TRTL.csproj", "{BBA396DA-C44A-4A25-8F53-EC6E47C78D84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L020_Repeating_arrays", "L020_Repeating_arrays\L020_Repeating_arrays.csproj", "{96F48D71-7F83-4242-AEF4-D818A837FA83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L020_Repeating_arrays", "L020_Repeating_arrays\L020_Repeating_arrays.csproj", "{96F48D71-7F83-4242-AEF4-D818A837FA83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L020_Repeating_arrays_Tests", "L020_Repeating_arrays_Tests\L020_Repeating_arrays_Tests.csproj", "{48B02BC9-C58D-49D4-BCCE-75A1D155992A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L020_Repeating_arrays_Tests", "L020_Repeating_arrays_Tests\L020_Repeating_arrays_Tests.csproj", "{48B02BC9-C58D-49D4-BCCE-75A1D155992A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L021_List", "L021_List\L021_List.csproj", "{D954C99F-F624-4BCD-ADFF-85150158348F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -221,6 +223,10 @@ Global
 		{48B02BC9-C58D-49D4-BCCE-75A1D155992A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48B02BC9-C58D-49D4-BCCE-75A1D155992A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48B02BC9-C58D-49D4-BCCE-75A1D155992A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D954C99F-F624-4BCD-ADFF-85150158348F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D954C99F-F624-4BCD-ADFF-85150158348F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D954C99F-F624-4BCD-ADFF-85150158348F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D954C99F-F624-4BCD-ADFF-85150158348F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
