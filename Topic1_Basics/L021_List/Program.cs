@@ -1,11 +1,12 @@
 ﻿namespace L021_List
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
 
-
+            
+            //Task1(new List<int> { 5, 1, 6, 8, 7 });
 
 
 
@@ -93,11 +94,31 @@
             intSarasas.Sort((x, y) => y - x);
             Console.WriteLine(string.Join(", ", intSarasas));
 
+            /// /// /// /// ///
+
             string[] automobiliuMasyvas = automobiliai.ToArray();
 
             int[] intMasyvas = new int[] { 1, 2, 3, 4, 5 };
             List<int> skaiciai = intMasyvas.ToList();
         }
 
+        /* DIDŽIAUSIAS SĄRAŠE
+        Duotas vienmatis sveikų skaičių sąrašas.
+        Parašykite programą, kuri suranda didžiausią skaičių saraše
+        { 5, 1, 6, 8, 7 }
+        rezultatas:  8
+        */
+        public static int Task1(List<int> list)
+        {
+            int largest = list[0];
+
+            for (int i = 1; i < list.Count; i++)
+            {
+                if (largest < list[i])
+                    largest = list[i];
+            }
+
+            return largest;
+        }
     }
 }
