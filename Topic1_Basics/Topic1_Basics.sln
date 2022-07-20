@@ -71,9 +71,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L020_Repeating_arrays", "L0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L020_Repeating_arrays_Tests", "L020_Repeating_arrays_Tests\L020_Repeating_arrays_Tests.csproj", "{48B02BC9-C58D-49D4-BCCE-75A1D155992A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L021_List", "L021_List\L021_List.csproj", "{D954C99F-F624-4BCD-ADFF-85150158348F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L021_List", "L021_List\L021_List.csproj", "{D954C99F-F624-4BCD-ADFF-85150158348F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L021_List_Tests", "L021_List_Tests\L021_List_Tests.csproj", "{1DCF413E-3011-46CB-8120-5C5B2D322A4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L021_List_Tests", "L021_List_Tests\L021_List_Tests.csproj", "{1DCF413E-3011-46CB-8120-5C5B2D322A4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L022_ForEach", "L022_ForEach\L022_ForEach.csproj", "{C68C5899-BBD3-476A-92B3-A27EE60FFCFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -221,6 +223,10 @@ Global
 		{1DCF413E-3011-46CB-8120-5C5B2D322A4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DCF413E-3011-46CB-8120-5C5B2D322A4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DCF413E-3011-46CB-8120-5C5B2D322A4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C68C5899-BBD3-476A-92B3-A27EE60FFCFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C68C5899-BBD3-476A-92B3-A27EE60FFCFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C68C5899-BBD3-476A-92B3-A27EE60FFCFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C68C5899-BBD3-476A-92B3-A27EE60FFCFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
