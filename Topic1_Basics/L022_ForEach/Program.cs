@@ -4,8 +4,12 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Labas as esu Kodelskis ir labai megstu programuoti"); 
-            Console.WriteLine(Task5Split("Labas as esu Kodelskis ir labai megstu programuoti"));
+
+            List<string> cardTypes = new List<string> { "Sirdziu", "Bugnu", "Vynu", "Kryziu" };
+            List<string> cards = new List<string> { "Tuzas", "Dviake", "Triake", "Keturake", "Penkake", "Sesake", "Septynake", 
+                                                    "Astuonake", "Devynakės", "Desimtake", "Valetas", "Dama", "Karalius" };
+
+            Console.WriteLine(string.Join(" ", Task6DeckSort(Task6BuildDeck(cardTypes, cards))));
         }
 
         private static void EXAMPLES()
@@ -130,20 +134,79 @@
         PRIMINIMAS: Kad isskirti string i atskirus zodzius naudokite pavyzdinis String.Split(' ')        
                                                                                       .sort()
         
-                             PVZ: Ivedame: "Labas as esu Kodelskis ir labai megstu programuoti".
+                              PVZ: Ivedame: Labas as esu Kodelskis ir labai megstu programuoti
         Programa be rusiavimo grazina mums: as esu ir Labas Kodelskis labai megstu programuoti
         Programa su rusiavimu grazina mums: as esu ir Kodelskis labai Labas megstu programuoti */
+        public static string[] Task5Split(string text) => text.Split(" ");
 
-        public static string Task5Split(string text)
+        public static string Task5JoinAndSort(string[] text, out string notSorted)
         {
+            List<string> newListBelow5 = new List<string>();
+            List<string> newListAbove5 = new List<string>();
 
-            return "";
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (text[i].ToString().Length >= 5)
+                    newListAbove5.Add(text[i].ToString());
+                else
+                    newListBelow5.Add(text[i].ToString());
+            }
+
+            notSorted = string.Join(" ", newListBelow5) + " " + string.Join(" ", newListAbove5);
+            newListAbove5.Sort();
+            return string.Join(" ", newListBelow5) + " " + string.Join(" ", newListAbove5);
         }
 
+        /* 6. Parašyti metodą SukonstruotiKalade(rusis, kortos). Sis metodas turi sukonstruoti kalade is duotu 2 string sarasu.        
+              Po to parasyti metoda, kuris surikiuoja jusu kalade pagal abeceles tvarka.         <summary>
+              Po to parasyti metoda, kuris surikiuoja jusu kalade pagal abeceles tvarka.  
 
+              Ir galiausiai parasyti, kad jusu visas kortas atspausdintu ekrane.        
+              PRIMINIMAS: 
+        
+        "Sirdziu",
+        "Bugnu",
+        "Vynu",
+        "Kryziu"
+        
+        "Tuzas",
+        "Dviake",
+        "Triake",
+        "Keturake",
+        "Penkake",
+        "Sesake",
+        "Septynake",
+        "Astuonake",
+        "Devynakės",
+        "Desimtake",
+        "Valetas",
+        "Dama",
+        "Karalius"
 
+        PVZ: Isvedimas - Bugnu Tuzas, Bugnu Dviake...Bugnu Dama, Bugnu Karalius... Kryziu Karalius
+        */
+        public static List<string> Task6BuildDeck(List<string> cardTypes, List<string> cards)
+        {
+            List<string> deck = new List<string>();
 
+            foreach (string cardType in cardTypes)
+            {
+                foreach (var card in cards)
+                {
+                    deck.Add(cardType + " " + card);
+                }
+            }
 
+            return deck;
+        }
+
+        public static List<string> Task6DeckSort(List<string> deck)
+        {
+            List<string> deckSorted = new List<string>();
+            deckSorted.AddRange(deck);
+            deckSorted.Sort();
+            return deckSorted;
+        }
 
 
 

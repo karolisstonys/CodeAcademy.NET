@@ -55,5 +55,44 @@ namespace L022_ForEach.Tests
             var actual = L022_ForEach.Program.Task4Ascending(fake);
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod()]
+        public void Task5Split_Test()
+        {
+            var fake = "Labas as esu Kodelskis ir labai megstu programuoti";
+            var expected = new string[] { "Labas", "as", "esu", "Kodelskis", "ir", "labai", "megstu", "programuoti" };
+            var actual = L022_ForEach.Program.Task5Split(fake);
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void Task5JoinAndSort_Test()
+        {
+            var fake = new string[] { "Labas", "as", "esu", "Kodelskis", "ir", "labai", "megstu", "programuoti" };
+            var expectedSorted = "as esu ir Kodelskis labai Labas megstu programuoti";
+            var expectedNotSorted = "as esu ir Labas Kodelskis labai megstu programuoti";
+            var actual = L022_ForEach.Program.Task5JoinAndSort(fake, out string notSorted);
+            Assert.AreEqual(expectedSorted, actual);
+            Assert.AreEqual(expectedNotSorted, notSorted);
+        }
+
+        [TestMethod()]
+        public void Task6BuildDeck_Test()
+        {
+            var fake1 = new List<string> { "a", "b" };
+            var fake2 = new List<string> { "7", "4" };
+            var expected = new string[] { "a 7", "a 4", "b 7", "b 4" };
+            var actual = L022_ForEach.Program.Task6BuildDeck(fake1, fake2);
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void Task6DeckSort_Test()
+        {
+            var fake = new List<string> { "a 7", "a 4", "b 7", "b 4" };
+            var expected = new string[] { "a 4", "a 7", "b 4", "b 7" };
+            var actual = L022_ForEach.Program.Task6DeckSort(fake);
+            CollectionAssert.AreEqual(expected, actual);
+        }
     }
 }
