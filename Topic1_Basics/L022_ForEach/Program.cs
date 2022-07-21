@@ -9,7 +9,7 @@
             List<string> cards = new List<string> { "Tuzas", "Dviake", "Triake", "Keturake", "Penkake", "Sesake", "Septynake", 
                                                     "Astuonake", "Devynakės", "Desimtake", "Valetas", "Dama", "Karalius" };
 
-            Console.WriteLine(string.Join(" ", Task6DeckSort(Task6BuildDeck(cardTypes, cards))));
+            Console.WriteLine(string.Join("\n", Task6DeckSort(Task6BuildDeck(cardTypes, cards))));
         }
 
         private static void EXAMPLES()
