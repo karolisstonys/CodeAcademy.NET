@@ -97,9 +97,7 @@
                 if (ivedimas == "1")
                     stage = 3;
                 else
-                {
                     stage = 9;
-                }
             }
             else if (stage == 2) // 2 - select MENU (with previous result)
             {
@@ -110,12 +108,7 @@
                 else if (ivedimas == "2")
                     stage = 4;
                 else
-                {
                     stage = 9;
-                    action = "";
-                    number1 = null;
-                    number2 = null;
-                }
             }
             else if (stage == 3) // 3 - pick MATHEMATICAL action
             {
@@ -326,7 +319,7 @@
             stage = 2;
             action = "";
             number1 = null;
-            number2 = null;            
+            number2 = null;
         }
 
 
