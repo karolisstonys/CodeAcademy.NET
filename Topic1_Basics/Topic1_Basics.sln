@@ -83,9 +83,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L023_Dictionaries", "L023_D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tasks", "Tasks", "{A07F24A1-872E-43A7-9856-8CC7E3DA4A07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E020_SuperSkaiciuotuvas", "E020_SuperSkaiciuotuvas\E020_SuperSkaiciuotuvas.csproj", "{DFFD6C23-A945-4727-B771-C23B30461B8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E020_SuperSkaiciuotuvas", "E020_SuperSkaiciuotuvas\E020_SuperSkaiciuotuvas.csproj", "{DFFD6C23-A945-4727-B771-C23B30461B8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E020_SuperSkaiciuotuvas_Tests", "E020_SuperSkaiciuotuvas_Tests\E020_SuperSkaiciuotuvas_Tests.csproj", "{89BD0BF4-C0CF-46FF-8747-8868C1B63A4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E020_SuperSkaiciuotuvas_Tests", "E020_SuperSkaiciuotuvas_Tests\E020_SuperSkaiciuotuvas_Tests.csproj", "{89BD0BF4-C0CF-46FF-8747-8868C1B63A4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L024_Random", "L024_Random\L024_Random.csproj", "{382416E9-4A03-4759-B241-6767ADAEDC49}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -253,6 +255,10 @@ Global
 		{89BD0BF4-C0CF-46FF-8747-8868C1B63A4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89BD0BF4-C0CF-46FF-8747-8868C1B63A4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89BD0BF4-C0CF-46FF-8747-8868C1B63A4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{382416E9-4A03-4759-B241-6767ADAEDC49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{382416E9-4A03-4759-B241-6767ADAEDC49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{382416E9-4A03-4759-B241-6767ADAEDC49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{382416E9-4A03-4759-B241-6767ADAEDC49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
