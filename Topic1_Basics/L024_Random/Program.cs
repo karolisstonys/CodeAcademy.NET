@@ -51,7 +51,6 @@ namespace L024_Random
                 { "Klaipeda", 152008 },
                 { "Šiauliai", 100653 }
             };
-
             List<string> miestaiKeys = new List<string>(miestai.Keys);
             int miestasIndex = rnd.Next(miestaiKeys.Count);
             string miestasKey = miestaiKeys[miestasIndex];
@@ -128,6 +127,73 @@ namespace L024_Random
             skaiciai1.Sort((a, b) => rnd.Next(10) - rnd.Next(10));
             Console.WriteLine(String.Join(", ", skaiciai1));
             #endregion
+
+
+            #region **** SEED ****
+            Console.WriteLine("-----------------------------------");
+            Console.WriteLine("SEED");
+            Random rnd1 = new Random(10);
+            Random rnd2 = new Random(10);
+            for (int i = 0; i < 5; i++)
+            {
+                Console.Write(rnd1.Next(100) + " ");
+            }
+            Console.WriteLine();
+            for (int i = 0; i < 5; i++)
+            {
+                Console.Write(rnd2.Next(100) + " ");
+            }
+            Console.WriteLine();
+
+
+            #endregion
+
+            #region **** Geresnis random generavimas  (System.Security.Cryptography.RandomNumberGenerator) ****
+            Console.WriteLine("-----------------------------------");
+            Console.WriteLine("Geresnis random generavimas  (System.Security.Cryptography.RandomNumberGenerator)");
+            for (int i = 0; i < 20; i++)
+            {
+                var randNumber = System.Security.Cryptography.RandomNumberGenerator.GetInt32(0, 10);
+                Console.Write(" " + randNumber);
+            }
+            Console.WriteLine();
+
+
+            #endregion
+
+            #region #### GUID ######
+            Console.WriteLine("-----------------------------------");
+            Console.WriteLine("GUID");
+
+            Guid uid = Guid.NewGuid();
+            Console.WriteLine(uid);
+
+            updateGuid(uid);
+            Console.WriteLine(uid);
+
+
+            void updateGuid(Guid tmpGuid)
+            {
+                tmpGuid = Guid.NewGuid();
+            }
+
+            var guid1 = Guid.Parse("fc072692-d322-448b-9b1b-ba3443943579");
+            Console.WriteLine("Guid1: " + guid1);
+
+            bool isGuidParsed = Guid.TryParse("fc072692-d322-448b-9b1b-ba3443943579", out var guid2);
+            Console.WriteLine("Guid2: " + guid2);
+
+            #region **** Geresnis Atsitiktinis rikiavimas ****
+            Console.WriteLine("-----------------------------------");
+            Console.WriteLine("Geresnis Atsitiktinis rikiavimas");
+            List<string> skaiciai2 = new List<string> { "1", "2 ", "3 ", "4 ", "5 ", "6 ", "7 ", "8 " };
+            skaiciai2.Sort((a, b) => Guid.NewGuid().CompareTo(Guid.NewGuid()));
+            Console.WriteLine(string.Join(", ", skaiciai2));
+            #endregion
+
+            #endregion
+
+
 
         }
 
