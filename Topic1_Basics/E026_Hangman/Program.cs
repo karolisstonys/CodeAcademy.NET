@@ -45,11 +45,6 @@
 
         private static void PlayHangman()
         {
-            Testing();
-
-            //DrawHangman(hangmanProgress);
-            //Console.WriteLine();
-
             GiveTopics();
 
             selectedTopic = IntTryParseOutNull(Console.ReadLine());
@@ -59,13 +54,9 @@
                 selectedTopic = IntTryParseOutNull(Console.ReadLine());
             }
 
-            // JEIGU selectedTopic JAU YRA TUSCIAS - ISPETI IR PRASYTI RINKTIS IS NAUJO
-
-
             Random rand = new Random();
             selectedWord = PickRandomWordFromSelectedTopicAndRemoveIt(rand);
             guessedCorrectLetters = FormGuessList(selectedWord);
-
 
             while (hangmanProgress != 7 && !victory)
             {
@@ -92,39 +83,6 @@
                 Console.Clear();
                 PlayHangman();
             }
-        }
-
-        private static void Reset()
-        {
-            hangmanProgress = 0;
-            selectedTopic = null;
-            selectedWord = "";
-            guessedWrongLetters = new List<string>();
-            guessedCorrectLetters = new List<string>();
-            victory = false;
-        }
-
-        private static List<string> FormGuessList(string word)
-        {
-            List<string> list = new List<string>();
-            foreach (char w in word)
-            {
-                list.Add("_");
-            }
-            return list;
-        }
-
-        private static void Testing()
-        {
-            Console.WriteLine($"          Topics: {string.Join(", ", topics)}");
-            Console.WriteLine($"           Names: {string.Join(", ", names)}");
-            Console.WriteLine($"          Cities: {string.Join(", ", cities)}");
-            Console.WriteLine($"       Countries: {string.Join(", ", countries)}");
-            Console.WriteLine($"      Car brands: {string.Join(", ", carBrands)}");
-            Console.WriteLine($"  Selected topic: {selectedTopic}");
-            Console.WriteLine($"   Selected word: {selectedWord}");
-            Console.WriteLine();
-            Console.WriteLine();
         }
 
         private static void GiveTopics()
@@ -214,6 +172,16 @@
             int randomIndex = rand.Next(dictionaryKeys.Count);
             string randomKey = dictionaryKeys[randomIndex];
             return randomKey;
+        }
+
+        private static List<string> FormGuessList(string word)
+        {
+            List<string> list = new List<string>();
+            foreach (char w in word)
+            {
+                list.Add("_");
+            }
+            return list;
         }
 
         public static void DrawHangman(int duh)
@@ -310,7 +278,6 @@
         private static void GuessLetter()
         {
             Console.Clear();
-            Testing();
             DrawHangman(hangmanProgress);
 
             Console.WriteLine($"Neteisingai spetos raides: {string.Join(" ", guessedWrongLetters)}");
@@ -360,6 +327,15 @@
                 Console.WriteLine("Neivedete nei raides, nei zodzio!");
         }
 
+        private static void Reset()
+        {
+            hangmanProgress = 0;
+            selectedTopic = null;
+            selectedWord = "";
+            guessedWrongLetters = new List<string>();
+            guessedCorrectLetters = new List<string>();
+            victory = false;
+        }
 
 
 
