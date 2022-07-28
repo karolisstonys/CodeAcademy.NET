@@ -1,12 +1,15 @@
-﻿namespace E026_Hangman
+﻿using System.Text;
+
+//Encoding.GetEncoding(1257);
+
+namespace E026_Hangman
 {
     public class Program
     {
-        public static int hangmanProgress = 0; // 7 is max
-        public static string[] topics = new string[] { "Vardai", "Lietuvos miestai", "Salys", "Automobiliu gamintojai" };
+        public static string[] topics = new string[] { "Vardai", "Lietuvos miestai", "Šalys", "Spalvos" };
         public static Dictionary<string, int> names = new Dictionary<string, int>
             {
-                { "Jonas", 1 },
+                { "Rūta", 1 },
                 { "Petras", 2 },
                 { "Antanas", 3 },
                 { "Saulius", 4 }
@@ -15,8 +18,8 @@
             {
                 { "Vilnius", 1 },
                 { "Kaunas", 2 },
-                { "Klaipeda", 3 },
-                { "Siauliai", 4 }
+                { "Klaipėda", 3 },
+                { "Šiauliai", 4 }
             };
         public static Dictionary<string, int> countries = new Dictionary<string, int>
             {
@@ -25,15 +28,19 @@
                 { "Estija", 3 },
                 { "Lenkinja", 4 }
             };
-        public static Dictionary<string, int> carBrands = new Dictionary<string, int>
+        public static Dictionary<string, int> colors = new Dictionary<string, int>
             {
                 { "Volkswagen", 1 },
                 { "Toyota", 2 },
                 { "Porsche", 3 },
                 { "BMW", 4 }
             };
-        public static int? selectedTopic = null;
+
+        public static int hangmanProgress = 0;      // 7 is max
+        public static int? selectedTopic = null;    // 4 is max
+        public static string stringTopic = "";
         public static string selectedWord = "";
+        public static string message = "";
         public static List<string> guessedWrongLetters = new List<string>();
         public static List<string> guessedCorrectLetters = new List<string>();
         public static bool victory = false;
@@ -41,6 +48,19 @@
         static void Main(string[] args)
         {
             PlayHangman();
+        }
+
+        private static void Testing()
+        {
+            Console.WriteLine($"          Topics: {string.Join(", ", topics)}");
+            Console.WriteLine($"           Names: {string.Join(", ", names)}");
+            Console.WriteLine($"          Cities: {string.Join(", ", cities)}");
+            Console.WriteLine($"       Countries: {string.Join(", ", countries)}");
+            Console.WriteLine($"      Car brands: {string.Join(", ", colors)}");
+            Console.WriteLine($"  Selected topic: {selectedTopic}");
+            Console.WriteLine($"   Selected word: {selectedWord}");
+            Console.WriteLine();
+            Console.WriteLine();
         }
 
         private static void PlayHangman()
@@ -60,27 +80,46 @@
 
             while (hangmanProgress != 7 && !victory)
             {
-                GuessLetter();
+
+                Console.Clear();
+                Testing();
+                Console.WriteLine();
+
+                ShowTopicSelected();
+
+                DrawHangman(hangmanProgress);
+
+                //ShowMessage();
+
+
+                Console.Write("Spekite raidę arba visą žodį: ");
+
+                string letterOrWord = EnterLetterOrWord();
+                Guessing(letterOrWord);
             }
 
             if (hangmanProgress == 7)
-                Console.WriteLine("JUS PRALAIMEJOTE!");
+               message = "JŪS PRALAIMEJOTE! :(";
 
             if (victory)
-                Console.WriteLine("JUS LAIMEJOTE!");
+                message = "JŪS LAIMEJOTE! :)";
 
-            string choise = "";
+
+            ShowTopicSelected();
+            DrawHangman(hangmanProgress);
+
+
+            string choice = "";
             do
             {
-                Console.WriteLine("Bandyti dar karta? (T/N)");
-                choise = Console.ReadLine().ToUpper();
+                Console.Write("\nŽaisti dar kartą (T/N)? ");
+                choice = Console.ReadLine().ToUpper();
             }
-            while (!(choise == "T" || choise == "N"));
+            while (!(choice == "T" || choice == "N"));
 
-            if (choise == "T")
+            if (choice == "T")
             {
                 Reset();
-                Console.Clear();
                 PlayHangman();
             }
         }
@@ -102,65 +141,35 @@
         {
             string removedWord = "";
 
-            if (selectedTopic == 1)
+            if (selectedTopic == 1 && names.Count() != 0)
             {
-                if (names.Count() != 0)
-                {
-                    removedWord = RandomKeyInDictionary(rand, names);
-                    names.Remove(removedWord);
-                }
-                else
-                {
-                    Reset();
-                    Console.Clear();
-                    Console.WriteLine($"Pasirinta tema yra tuscia!");
-                    PlayHangman();
-                }
+                stringTopic = "Vardai";
+                removedWord = RandomKeyInDictionary(rand, names);
+                names.Remove(removedWord);
             }
-            else if (selectedTopic == 2)
+            else if (selectedTopic == 2 && cities.Count() != 0)
             {
-                if (cities.Count() != 0)
-                {
-                    removedWord = RandomKeyInDictionary(rand, cities);
-                    cities.Remove(removedWord);
-                }
-                else
-                {
-                    Reset();
-                    Console.Clear();
-                    Console.WriteLine($"Pasirinta tema yra tuscia!");
-                    PlayHangman();
-                }
+                stringTopic = "Lietuvos miestai";
+                removedWord = RandomKeyInDictionary(rand, cities);
+                cities.Remove(removedWord);
             }
-            else if (selectedTopic == 3)
+            else if (selectedTopic == 3 && countries.Count() != 0)
             {
-                if (countries.Count() != 0)
-                {
-                    removedWord = RandomKeyInDictionary(rand, countries);
-                    countries.Remove(removedWord);
-                }
-                else
-                {
-                    Reset();
-                    Console.Clear();
-                    Console.WriteLine($"Pasirinta tema yra tuscia!");
-                    PlayHangman();
-                }
+                stringTopic = "Salys";
+                removedWord = RandomKeyInDictionary(rand, countries);
+                countries.Remove(removedWord);
             }
-            else if (selectedTopic == 4)
+            else if (selectedTopic == 4 && colors.Count() != 0)
             {
-                if (carBrands.Count() != 0)
-                {
-                    removedWord = RandomKeyInDictionary(rand, carBrands);
-                    carBrands.Remove(removedWord);
-                }
-                else
-                {
-                    Reset();
-                    Console.Clear();
-                    Console.WriteLine($"Pasirinta tema yra tuscia!");
-                    PlayHangman();
-                }
+                stringTopic = "Spalvos";
+                removedWord = RandomKeyInDictionary(rand, colors);
+                colors.Remove(removedWord);
+            }
+            else
+            {
+                Reset();
+                Console.WriteLine($"Pasirinta tema yra tuscia!");
+                PlayHangman();
             }
 
             return removedWord;
@@ -184,108 +193,120 @@
             return list;
         }
 
-        public static void DrawHangman(int duh)
+        private static void ShowTopicSelected()
         {
-            if (duh == 0)
-            {
-                Console.WriteLine(" ╔════╕   ");
-                Console.WriteLine(" ║        ");
-                Console.WriteLine(" ║        ");
-                Console.WriteLine(" ║        ");
-                Console.WriteLine(" ║        ");
-                Console.WriteLine(" ║        ");
-                Console.WriteLine("═╩════════");
-            }
-            else if (duh == 1)
-            {
-                Console.WriteLine(" ╔════╕   ");
-                Console.WriteLine(" ║    |   ");
-                Console.WriteLine(" ║        ");
-                Console.WriteLine(" ║        ");
-                Console.WriteLine(" ║        ");
-                Console.WriteLine(" ║        ");
-                Console.WriteLine("═╩════════");
-            }
-            else if (duh == 2)
-            {
-                Console.WriteLine(" ╔════╕   ");
-                Console.WriteLine(" ║    |   ");
-                Console.WriteLine(" ║    ☺   ");
-                Console.WriteLine(" ║        ");
-                Console.WriteLine(" ║        ");
-                Console.WriteLine(" ║        ");
-                Console.WriteLine("═╩════════");
-            }
-            else if (duh == 3)
-            {
-                Console.WriteLine(" ╔════╕   ");
-                Console.WriteLine(" ║    |   ");
-                Console.WriteLine(" ║    ☺   ");
-                Console.WriteLine(" ║    O   ");
-                Console.WriteLine(" ║        ");
-                Console.WriteLine(" ║        ");
-                Console.WriteLine("═╩════════");
-            }
-            else if (duh == 4)
-            {
-                Console.WriteLine(" ╔════╕   ");
-                Console.WriteLine(" ║    |   ");
-                Console.WriteLine(" ║    ☺   ");
-                Console.WriteLine(" ║   /O   ");
-                Console.WriteLine(" ║        ");
-                Console.WriteLine(" ║        ");
-                Console.WriteLine("═╩════════");
-            }
-            else if (duh == 5)
-            {
-                Console.WriteLine(" ╔════╕   ");
-                Console.WriteLine(" ║    |   ");
-                Console.WriteLine(" ║    ☺   ");
-                Console.WriteLine(" ║   /O\\  ");
-                Console.WriteLine(" ║        ");
-                Console.WriteLine(" ║        ");
-                Console.WriteLine("═╩════════");
-            }
-            else if (duh == 6)
-            {
-                Console.WriteLine(" ╔════╕   ");
-                Console.WriteLine(" ║    |   ");
-                Console.WriteLine(" ║    ☺   ");
-                Console.WriteLine(" ║   /O\\  ");
-                Console.WriteLine(" ║   /    ");
-                Console.WriteLine(" ║        ");
-                Console.WriteLine("═╩════════");
-            }
-            else if (duh == 7)
-            {
-                Console.WriteLine(" ╔════╕   ");
-                Console.WriteLine(" ║    |   ");
-                Console.WriteLine(" ║    ☻   ");
-                Console.WriteLine(" ║   /O\\  ");
-                Console.WriteLine(" ║   / \\  ");
-                Console.WriteLine(" ║        ");
-                Console.WriteLine("═╩════════");
-            }
-
-
-
-
-
-
-
+            Console.WriteLine(" ┌─────────────────────────────────────────────────────┐");
+            Console.WriteLine(" │                     “Kartuves”                      │");
+            Console.WriteLine($" │                  Tema:{stringTopic,-30}│");
+            Console.WriteLine(" ╞═════════════════════════════════════════════════════╡");
         }
 
-        private static void GuessLetter()
+        public static void DrawHangman(int hangmanProgress)
         {
-            Console.Clear();
-            DrawHangman(hangmanProgress);
+            //    │    ├ ┤    ─    ┌ ┐ └ ┘           ┴ ┬ ┼
 
-            Console.WriteLine($"Neteisingai spetos raides: {string.Join(" ", guessedWrongLetters)}");
-            Console.WriteLine($"Zodis - {string.Join(" ", guessedCorrectLetters)}.");
+            string wrongLetters = $"Neteisingos raides: {string.Join(" ", guessedWrongLetters)}";
+            string correctLetters = $"Atspek zodi: {string.Join(" ", guessedCorrectLetters)}";
 
-            Console.Write("Spekite raide arba visa zodi: ");
+            Console.WriteLine(" │                                          ╔════╕     │");
+            switch (hangmanProgress)
+            {
+                case 0:
+                    Console.WriteLine(" │                                          ║          │");
+                    Console.WriteLine($" │  {wrongLetters,-37}   ║          │");
+                    Console.WriteLine($" │  {correctLetters,-37}   ║          │");
+                    Console.WriteLine(" │                                          ║          │");
+                    break;
+                case 1:
+                    Console.WriteLine(" │                                          ║    |     │");
+                    Console.WriteLine($" │  { wrongLetters,-37}   ║          │");
+                    Console.WriteLine($" │  {correctLetters,-37}   ║          │");
+                    Console.WriteLine(" │                                          ║          │");
+                    break;
+                case 2:
+                    Console.WriteLine(" │                                          ║    |     │");
+                    Console.WriteLine($" │  {wrongLetters,-37}   ║    ☺     │");
+                    Console.WriteLine($" │  {correctLetters,-37}   ║          │");
+                    Console.WriteLine(" │                                          ║          │");
+                    break;
+                case 3:
+                    Console.WriteLine(" │                                          ║    |     │");
+                    Console.WriteLine($" │  { wrongLetters,-37}   ║    ☺     │");
+                    Console.WriteLine($" │  {correctLetters,-37}   ║    O     │");
+                    Console.WriteLine(" │                                          ║          │");
+                    break;
+                case 4:
+                    Console.WriteLine(" │                                          ║    |     │");
+                    Console.WriteLine($" │  {wrongLetters,-37}   ║    ☺     │");
+                    Console.WriteLine($" │  {correctLetters,-37}   ║   /O     │");
+                    Console.WriteLine(" │                                          ║          │");
+                    break;
+                case 5:
+                    Console.WriteLine(" │                                          ║    |     │");
+                    Console.WriteLine($" │  {wrongLetters,-37}   ║    ☺     │");
+                    Console.WriteLine($" │  {correctLetters,-37}   ║   /O\\    │");
+                    Console.WriteLine(" │                                          ║          │");
+                    break;
+                case 6:
+                    Console.WriteLine(" │                                          ║    |     │");
+                    Console.WriteLine($" │  {wrongLetters,-37}   ║    ☺     │");
+                    Console.WriteLine($" │  {correctLetters,-37}   ║   /O\\    │");
+                    Console.WriteLine(" │                                          ║   /      │");
+                    break;
+                case 7:
+                    Console.WriteLine(" │                                          ║    |     │");
+                    Console.WriteLine($" │  {wrongLetters,-37}   ║    ☻     │");
+                    Console.WriteLine($" │  {correctLetters,-37}   ║   /O\\    │");
+                    Console.WriteLine(" │                                          ║   / \\    │");
+                    break;
+            }
+            Console.WriteLine(" │                                          ║          │");
+            Console.WriteLine(" ╞══════════════════════════════════════════╩══════════╡");
+        }
 
-            string letterOrWord = Console.ReadLine().ToLower();
+        public static string EnterLetterOrWord()
+        {
+            Console.Write("Spekite raide arba visa zodi is karto: ");
+            string letterOrWord = Console.ReadLine();
+            
+            while (!isAllowedGuess(letterOrWord))   
+            {
+                Console.Write("Speti galima tik lietuviska raide arba zodi tik is lietuvisku raidziu: ");
+                letterOrWord = Console.ReadLine();
+            }
+
+            return letterOrWord;
+        }
+
+        public static bool isAllowedGuess(string? letterOrWord)
+        {
+            string allowedLetters = "AaĄąBbCcČčDdEeĘęĖėFfGgHhIiĮįYyJjKkLlMmNnOoPpRrSsŠšTtUuŲųŪūVvZzŽž";
+            if (letterOrWord.Length == 1 && allowedLetters.Contains(letterOrWord))
+            {
+                return true;
+            }
+            else if (letterOrWord.Length > 1)
+            {
+                bool isAllLettersAllowed = true;
+                foreach (var letter in letterOrWord)
+                {
+                    if (!allowedLetters.Contains(letter))
+                    {
+                        isAllLettersAllowed = false;
+                    }
+                }
+                if (isAllLettersAllowed)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private static void Guessing(string letterOrWord)
+        {
+            //Console.WriteLine($"Neteisingai spetos raides: {string.Join(" ", guessedWrongLetters)}");
+            //Console.WriteLine($"Zodis - {string.Join(" ", guessedCorrectLetters)}.");
 
             if (letterOrWord.Length == 1)
             {
@@ -329,9 +350,12 @@
 
         private static void Reset()
         {
+            Console.Clear();
             hangmanProgress = 0;
             selectedTopic = null;
+            stringTopic = "";
             selectedWord = "";
+            message = "";
             guessedWrongLetters = new List<string>();
             guessedCorrectLetters = new List<string>();
             victory = false;
