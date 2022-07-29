@@ -4,39 +4,62 @@ namespace E026_Hangman
 {
     public class Program
     {
-        public static string[] topics = new string[] { "Vardai", "Lietuvos miestai", "Šalys", "Spalvos" };
+        public static string[] topics = new string[] { "Vardai", "Lietuvos miestai", "Šalys", "Šunų veislės" };
         public static Dictionary<string, int> names = new Dictionary<string, int>
             {
-                { "Rūta", 1 }
-            //               ,
-            //    { "Petras", 2 },
-            //    { "Antanas", 3 },
-            //    { "Saulius", 4 }
+                { "Jonas", 1 },
+                { "Ona", 2 },
+                { "Vytautas", 3 },
+                { "Irena", 4 },
+                { "Antanas", 5 },
+                { "Janina", 6 },
+                { "Tomas", 7 },
+                { "Kristina", 8 },
+                { "Juozas", 9 },
+                { "Danute", 10 }
             };
         public static Dictionary<string, int> cities = new Dictionary<string, int>
             {
                 { "Vilnius", 1 },
                 { "Kaunas", 2 },
                 { "Klaipėda", 3 },
-                { "Šiauliai", 4 }
+                { "Šiauliai", 4 },
+                { "Panevėžys", 5 },
+                { "Alytus", 6 },
+                { "Marijampolė", 7 },
+                { "Mažeikiai", 8 },
+                { "Jonava", 9 },
+                { "Utena", 10 }
             };
         public static Dictionary<string, int> countries = new Dictionary<string, int>
             {
                 { "Lietuva", 1 },
                 { "Latvija", 2 },
                 { "Estija", 3 },
-                { "Lenkija", 4 }
+                { "Lenkija", 4 },
+                { "Danija", 5 },
+                { "Graikija", 6 },
+                { "Italija", 7 },
+                { "Kanada", 8 },
+                { "Norvegija", 9 },
+                { "Suomija", 10 }
             };
-        public static Dictionary<string, int> colors = new Dictionary<string, int>
+        public static Dictionary<string, int> dogBreads = new Dictionary<string, int>
             {
-                { "Volkswagen", 1 },
-                { "Toyota", 2 },
-                { "Porsche", 3 },
-                { "BMW", 4 }
+                { "Biglis", 1 },
+                { "Buldogas", 2 },
+                { "Pudelis", 3 },
+                { "Taksas", 4 },
+                { "Rotveileris", 5 },
+                { "Mopsas", 6 },
+                { "Senbernaras", 7 },
+                { "Dobermanas", 8 },
+                { "Dalmantinas", 9 },
+                { "Čihuahua", 10 }
             };
 
-        public static int hangmanProgress = 0;      // 7 is max
-        public static int? selectedTopic = null;    // 4 is max
+        public static int hangmanProgress = 0;
+        public static int? selectedTopic = null;
         public static string stringTopic = "";
         public static string selectedWord = "";
         public static string message1 = "";
@@ -57,7 +80,7 @@ namespace E026_Hangman
             Console.WriteLine($"           Names: {string.Join(", ", names)}");
             Console.WriteLine($"          Cities: {string.Join(", ", cities)}");
             Console.WriteLine($"       Countries: {string.Join(", ", countries)}");
-            Console.WriteLine($"      Car brands: {string.Join(", ", colors)}");
+            Console.WriteLine($"      Car brands: {string.Join(", ", dogBreads)}");
             Console.WriteLine($"  Selected topic: {selectedTopic}");
             Console.WriteLine($"   Selected word: {selectedWord}");
         }
@@ -74,6 +97,7 @@ namespace E026_Hangman
                 selectedTopic = IntTryParseOutNull(Console.ReadLine());
             }
 
+            stringTopic = topics[selectedTopic.Value - 1];
             Random rand = new Random();
             selectedWord = PickRandomWordFromSelectedTopicAndRemoveIt(rand);
             guessedCorrectLetters = FormGuessList(selectedWord, false);
@@ -109,27 +133,23 @@ namespace E026_Hangman
 
             if (selectedTopic == 1 && names.Count() != 0)
             {
-                stringTopic = "Vardai";
                 removedWord = RandomKeyInDictionary(rand, names);
                 names.Remove(removedWord);
             }
             else if (selectedTopic == 2 && cities.Count() != 0)
             {
-                stringTopic = "Lietuvos miestai";
                 removedWord = RandomKeyInDictionary(rand, cities);
                 cities.Remove(removedWord);
             }
             else if (selectedTopic == 3 && countries.Count() != 0)
             {
-                stringTopic = "Šalys";
                 removedWord = RandomKeyInDictionary(rand, countries);
                 countries.Remove(removedWord);
             }
-            else if (selectedTopic == 4 && colors.Count() != 0)
+            else if (selectedTopic == 4 && dogBreads.Count() != 0)
             {
-                stringTopic = "Spalvos";
-                removedWord = RandomKeyInDictionary(rand, colors);
-                colors.Remove(removedWord);
+                removedWord = RandomKeyInDictionary(rand, dogBreads);
+                dogBreads.Remove(removedWord);
             }
             else
             {
@@ -350,7 +370,6 @@ namespace E026_Hangman
                 message1 = "Neįvedėte nei raidės, nei žodžio!";
         }
 
-
         private static void PlayAgain()
         {
             string choice = "";
@@ -377,6 +396,7 @@ namespace E026_Hangman
                 Console.WriteLine(" └─────────────────────────────────────────────────────┘");
             }
         }
+
         private static void Reset()
         {
             Console.Clear();
