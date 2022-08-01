@@ -59,8 +59,8 @@ namespace E026_Hangman
             };
 
         public static int hangmanProgress = 0;
-        public static int? selectedTopic = null;
-        public static string stringTopic = "";
+        public static int? intSelectedTopic = null;
+        public static string selectedTopic = "";
         public static string selectedWord = "";
         public static string message1 = "";
         public static string message2 = "";
@@ -73,83 +73,40 @@ namespace E026_Hangman
             PlayHangman();
         }
 
-        private static void Testing()
-        {
-            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            Console.WriteLine($"          Topics: {string.Join(", ", topics)}");
-            Console.WriteLine($"           Names: {string.Join(", ", names)}");
-            Console.WriteLine($"          Cities: {string.Join(", ", cities)}");
-            Console.WriteLine($"       Countries: {string.Join(", ", countries)}");
-            Console.WriteLine($"      Car brands: {string.Join(", ", dogBreads)}");
-            Console.WriteLine($"  Selected topic: {selectedTopic}");
-            Console.WriteLine($"   Selected word: {selectedWord}");
-        }
-
         private static void PlayHangman()
         {
             GiveTopics();
 
-            selectedTopic = IntTryParseOutNull(Console.ReadLine());
-            while (selectedTopic == null || selectedTopic < 1 || selectedTopic > 4)
+            // Topic selection
+            if (intSelectedTopic == null)
+            intSelectedTopic = IntTryParseOutNull(Console.ReadLine());
+            while (intSelectedTopic == null || intSelectedTopic < 1 || intSelectedTopic > 4)
             {
                 Console.OutputEncoding = Encoding.GetEncoding(1200);
                 Console.Write("Blogas pasirinkimas, bandykite dar kartą: ");
-                selectedTopic = IntTryParseOutNull(Console.ReadLine());
+                intSelectedTopic = IntTryParseOutNull(Console.ReadLine());
             }
 
-            stringTopic = topics[selectedTopic.Value - 1];
-            Random rand = new Random();
-            selectedWord = PickRandomWordFromSelectedTopicAndRemoveIt(rand);
-            guessedCorrectLetters = FormGuessList(selectedWord, false);
-
-            while (hangmanProgress != 7 && !victory)
+            // Picking & removing random word from selected topic if that topic is not empty
+            if (intSelectedTopic == 1 && names.Count() != 0)
             {
-                DrawHangman(hangmanProgress);
-                string letterOrWord = EnterLetterOrWord();
-                IsGuessCorrect(letterOrWord);
+                selectedWord = RandomKeyInDictionary(names);
+                names.Remove(selectedWord);
             }
-
-            DrawHangman(hangmanProgress);
-            PlayAgain();            
-        }
-
-        private static void GiveTopics()
-        {
-            Console.OutputEncoding = Encoding.GetEncoding(1200);
-            Console.WriteLine("Pasirinkite temą: ");
-            int counter = 1;
-            foreach (string topic in topics)
+            else if (intSelectedTopic == 2 && cities.Count() != 0)
             {
-                Console.WriteLine($"{counter}. {topic}");
-                counter++;
+                selectedWord = RandomKeyInDictionary(cities);
+                cities.Remove(selectedWord);
             }
-        }
-
-        private static int? IntTryParseOutNull(string? txt) => int.TryParse(txt, out int output) ? (int?)output : null;
-
-        public static string PickRandomWordFromSelectedTopicAndRemoveIt(Random rand)
-        {
-            string removedWord = "";
-
-            if (selectedTopic == 1 && names.Count() != 0)
+            else if (intSelectedTopic == 3 && countries.Count() != 0)
             {
-                removedWord = RandomKeyInDictionary(rand, names);
-                names.Remove(removedWord);
+                selectedWord = RandomKeyInDictionary(countries);
+                countries.Remove(selectedWord);
             }
-            else if (selectedTopic == 2 && cities.Count() != 0)
+            else if (intSelectedTopic == 4 && dogBreads.Count() != 0)
             {
-                removedWord = RandomKeyInDictionary(rand, cities);
-                cities.Remove(removedWord);
-            }
-            else if (selectedTopic == 3 && countries.Count() != 0)
-            {
-                removedWord = RandomKeyInDictionary(rand, countries);
-                countries.Remove(removedWord);
-            }
-            else if (selectedTopic == 4 && dogBreads.Count() != 0)
-            {
-                removedWord = RandomKeyInDictionary(rand, dogBreads);
-                dogBreads.Remove(removedWord);
+                selectedWord = RandomKeyInDictionary(dogBreads);
+                dogBreads.Remove(selectedWord);
             }
             else
             {
@@ -159,23 +116,64 @@ namespace E026_Hangman
                 PlayHangman();
             }
 
-            return removedWord;
+            // Some display information
+            selectedTopic = topics[intSelectedTopic.Value - 1];
+            guessedCorrectLetters = FormGuessList(selectedWord);
+
+            // Guessing letter or word
+            while (hangmanProgress != 7 && !victory)
+            {
+                DrawHangman(hangmanProgress);
+                string letterOrWord = EnterLetterOrWord();
+                IsGuessCorrect(letterOrWord.ToLower());
+            }
+
+            // Result & play again option
+            DrawHangman(hangmanProgress);
+            PlayAgain();            
         }
 
-        public static string RandomKeyInDictionary(Random rand, Dictionary<string, int> Dict)
+        private static void Testing()
         {
+            Console.WriteLine($"          Topics: {string.Join(", ", topics)}");
+            Console.WriteLine($"           Names: {string.Join(", ", names)}");
+            Console.WriteLine($"          Cities: {string.Join(", ", cities)}");
+            Console.WriteLine($"       Countries: {string.Join(", ", countries)}");
+            Console.WriteLine($"      Car brands: {string.Join(", ", dogBreads)}");
+            Console.WriteLine($"  Selected topic: ({intSelectedTopic}) {selectedTopic}");
+            Console.WriteLine($"   Selected word: {selectedWord}");
+        }
+
+        private static void GiveTopics()
+        {
+            Console.OutputEncoding = Encoding.GetEncoding(1200);
+            Console.WriteLine("Temos");
+            int counter = 1;
+            foreach (string topic in topics)
+            {
+                Console.WriteLine($"{counter}. {topic}");
+                counter++;
+            }
+            Console.Write("Pasirinkite temą: ");
+        }
+
+        private static int? IntTryParseOutNull(string? txt) => int.TryParse(txt, out int output) ? (int?)output : null;
+
+        public static string RandomKeyInDictionary(Dictionary<string, int> Dict)
+        {
+            Random rand = new Random();
             List<string> dictionaryKeys = new List<string>(Dict.Keys);
             int randomIndex = rand.Next(dictionaryKeys.Count);
             string randomKey = dictionaryKeys[randomIndex];
             return randomKey;
         }
 
-        public static List<string> FormGuessList(string word, bool isVictory)
+        public static List<string> FormGuessList(string word)
         {
             List<string> list = new List<string>();
             foreach (char w in word)
             {
-                if (isVictory)
+                if (victory)
                     list.Add(w.ToString());
                 else
                     list.Add("_");
@@ -189,7 +187,7 @@ namespace E026_Hangman
             Console.OutputEncoding = Encoding.GetEncoding(1200);
             Console.WriteLine(" ┌─────────────────────────────────────────────────────┐");
             Console.WriteLine(" │                     “Kartuvės”                      │");
-            Console.WriteLine($" │                  Tema:{stringTopic,-30}│");
+            Console.WriteLine($" │                  Tema:{selectedTopic,-30}│");
             Console.WriteLine(" ╞═════════════════════════════════════════════════════╡");
 
             string wrongLetters = $"Neteisingos raidės: {string.Join(" ", guessedWrongLetters)}";
@@ -340,7 +338,7 @@ namespace E026_Hangman
                         hangmanProgress++;
                         if (hangmanProgress == 7)
                         {
-                            message1 = "Pralaimejote! Spėjimai baigėsi.";
+                            message1 = "Pralaimėjote! Spėjimai baigėsi.";
                             message2 = $"Žodis buvo - {selectedWord}";
                         }
                     }
@@ -353,12 +351,12 @@ namespace E026_Hangman
                     victory = true;
                     message1 = "Sveikiname!";
                     message1 = "Atspėjote visą žodį iš karto.";
-                    guessedCorrectLetters = FormGuessList(selectedWord, true);
+                    guessedCorrectLetters = FormGuessList(selectedWord);
                 }
                 else
                 {
                     hangmanProgress = 7;
-                    message1 = "Pralaimejote! Atspėti žodžio nepyko.";
+                    message1 = "Pralaimejėte! Atspėti žodžio nepyko.";
                     message2 = $"Žodis buvo - {selectedWord}";
                 }
             }
@@ -373,7 +371,7 @@ namespace E026_Hangman
             {
                 Console.SetCursorPosition(0, 11);
                 Console.OutputEncoding = Encoding.GetEncoding(1200);
-                Console.WriteLine(" │  Žaisti dar kartą (T/N) ?                           |");
+                Console.WriteLine(" │  Žaisti dar kartą (T/N) ?                           │");
                 Console.WriteLine(" └─────────────────────────────────────────────────────┘");
                 Console.SetCursorPosition(29, 11);
                 choice = Console.ReadLine().ToUpper();
@@ -388,7 +386,7 @@ namespace E026_Hangman
             else
             {
                 Console.SetCursorPosition(0, 11);
-                Console.WriteLine(" │                                                ATE  |");
+                Console.WriteLine(" │                                                ATE  │");
                 Console.WriteLine(" └─────────────────────────────────────────────────────┘");
             }
         }
@@ -397,8 +395,8 @@ namespace E026_Hangman
         {
             Console.Clear();
             hangmanProgress = 0;
-            selectedTopic = null;
-            stringTopic = "";
+            intSelectedTopic = null;
+            selectedTopic = "";
             selectedWord = "";
             message1 = "";
             message2 = "";
