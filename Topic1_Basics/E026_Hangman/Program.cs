@@ -73,7 +73,7 @@ namespace E026_Hangman
             PlayHangman();
         }
 
-        public static void Testing()
+        private static void Testing()
         {
             Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             Console.WriteLine($"          Topics: {string.Join(", ", topics)}");
@@ -85,7 +85,7 @@ namespace E026_Hangman
             Console.WriteLine($"   Selected word: {selectedWord}");
         }
 
-        public static void PlayHangman()
+        private static void PlayHangman()
         {
             GiveTopics();
 
@@ -113,7 +113,7 @@ namespace E026_Hangman
             PlayAgain();            
         }
 
-        public static void GiveTopics()
+        private static void GiveTopics()
         {
             Console.OutputEncoding = Encoding.GetEncoding(1200);
             Console.WriteLine("Pasirinkite temą: ");
@@ -125,7 +125,7 @@ namespace E026_Hangman
             }
         }
 
-        public static int? IntTryParseOutNull(string? txt) => int.TryParse(txt, out int output) ? (int?)output : null;
+        private static int? IntTryParseOutNull(string? txt) => int.TryParse(txt, out int output) ? (int?)output : null;
 
         public static string PickRandomWordFromSelectedTopicAndRemoveIt(Random rand)
         {
@@ -173,7 +173,6 @@ namespace E026_Hangman
         public static List<string> FormGuessList(string word, bool isVictory)
         {
             List<string> list = new List<string>();
-
             foreach (char w in word)
             {
                 if (isVictory)
@@ -184,7 +183,7 @@ namespace E026_Hangman
             return list;
         }
 
-        public static void DrawHangman(int hangmanProgress)
+        private static void DrawHangman(int hangmanProgress)
         {
             Console.Clear();
             Console.OutputEncoding = Encoding.GetEncoding(1200);
@@ -262,7 +261,7 @@ namespace E026_Hangman
             Console.WriteLine(" ╞══════════════════════════════════════════╩══════════╡");
         }
 
-        public static string EnterLetterOrWord()
+        private static string EnterLetterOrWord()
         {
             Console.OutputEncoding = Encoding.GetEncoding(1200);
             Console.InputEncoding = Encoding.GetEncoding(1200);
@@ -271,7 +270,7 @@ namespace E026_Hangman
             Console.SetCursorPosition(43,11);
             string letterOrWord = Console.ReadLine();
             
-            while (!isAllowedGuess(letterOrWord))
+            while (!IsAllowedGuess(letterOrWord))
             {
                 Console.SetCursorPosition(0, 11);
                 Console.WriteLine(" │  Spėkite raidę arba visą žodį iš karto:             │");
@@ -284,7 +283,7 @@ namespace E026_Hangman
             return letterOrWord;
         }
 
-        public static bool isAllowedGuess(string? letterOrWord)
+        public static bool IsAllowedGuess(string? letterOrWord)
         {
             string allowedLetters = "AaĄąBbCcČčDdEeĘęĖėFfGgHhIiĮįYyJjKkLlMmNnOoPpRrSsŠšTtUuŲųŪūVvZzŽž";
             if (letterOrWord.Length == 1 && allowedLetters.Contains(letterOrWord))
@@ -311,9 +310,6 @@ namespace E026_Hangman
 
         public static void IsGuessCorrect(string letterOrWord)
         {
-            //Console.WriteLine($"Neteisingai spetos raides: {string.Join(" ", guessedWrongLetters)}");
-            //Console.WriteLine($"Zodis - {string.Join(" ", guessedCorrectLetters)}.");
-
             if (letterOrWord.Length == 1)
             {
                 if (!guessedWrongLetters.Contains(letterOrWord))
