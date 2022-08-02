@@ -16,7 +16,7 @@ namespace E026_Hangman
                 { "Tomas", 7 },
                 { "Kristina", 8 },
                 { "Juozas", 9 },
-                { "Danute", 10 }
+                { "Danutė", 10 }
             };
         public static Dictionary<string, int> cities = new Dictionary<string, int>
             {
@@ -90,22 +90,24 @@ namespace E026_Hangman
             // Picking & removing random word from selected topic if that topic is not empty
             if (intSelectedTopic == 1 && names.Count() != 0)
             {
-                selectedWord = RandomKeyInDictionary(names);
+                int maxIndexInSelectedTopic = GetMaxIndexInDictonary(names);
+                int randomIndex = GiveRandomNumberUpToGiven(maxIndexInSelectedTopic);
+                selectedWord = SelectKeyInDictionary(names, randomIndex);
                 names.Remove(selectedWord);
             }
             else if (intSelectedTopic == 2 && cities.Count() != 0)
             {
-                selectedWord = RandomKeyInDictionary(cities);
+                selectedWord = SelectKeyInDictionary(cities, GiveRandomNumberUpToGiven(GetMaxIndexInDictonary(names)));
                 cities.Remove(selectedWord);
             }
             else if (intSelectedTopic == 3 && countries.Count() != 0)
             {
-                selectedWord = RandomKeyInDictionary(countries);
+                selectedWord = SelectKeyInDictionary(countries, GiveRandomNumberUpToGiven(GetMaxIndexInDictonary(names)));
                 countries.Remove(selectedWord);
             }
             else if (intSelectedTopic == 4 && dogBreads.Count() != 0)
             {
-                selectedWord = RandomKeyInDictionary(dogBreads);
+                selectedWord = SelectKeyInDictionary(dogBreads, GiveRandomNumberUpToGiven(GetMaxIndexInDictonary(names)));
                 dogBreads.Remove(selectedWord);
             }
             else
@@ -125,13 +127,14 @@ namespace E026_Hangman
             {
                 DrawHangman(hangmanProgress);
                 string letterOrWord = EnterLetterOrWord();
-                IsGuessCorrect(letterOrWord.ToLower());
+                CheckIfGuessIsCorrect(letterOrWord.ToLower());
             }
 
             // Result & play again option
             DrawHangman(hangmanProgress);
             PlayAgain();            
         }
+
 
         private static void Testing()
         {
@@ -159,13 +162,18 @@ namespace E026_Hangman
 
         private static int? IntTryParseOutNull(string? txt) => int.TryParse(txt, out int output) ? (int?)output : null;
 
-        public static string RandomKeyInDictionary(Dictionary<string, int> Dict)
+        public static int GetMaxIndexInDictonary(Dictionary<string, int> dict) => dict.Count;
+
+        public static int GiveRandomNumberUpToGiven(int max)
         {
-            Random rand = new Random();
-            List<string> dictionaryKeys = new List<string>(Dict.Keys);
-            int randomIndex = rand.Next(dictionaryKeys.Count);
-            string randomKey = dictionaryKeys[randomIndex];
-            return randomKey;
+            Random rnd = new Random();
+            return rnd.Next(max);
+        }
+
+        public static string SelectKeyInDictionary(Dictionary<string, int> dict, int randomIndex)
+        {
+            List<string> dictionaryKeys = new List<string>(dict.Keys);
+            return dictionaryKeys[randomIndex];
         }
 
         public static List<string> FormGuessList(string word)
@@ -306,7 +314,7 @@ namespace E026_Hangman
             return false;
         }
 
-        public static void IsGuessCorrect(string letterOrWord)
+        public static void CheckIfGuessIsCorrect(string letterOrWord)
         {
             if (letterOrWord.Length == 1)
             {

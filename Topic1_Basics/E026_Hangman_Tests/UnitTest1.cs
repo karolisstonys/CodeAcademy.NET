@@ -4,12 +4,24 @@ namespace E026_Hangman_Tests
     public class UnitTest1
     {
         [TestMethod]
-        public void RandomKeyInDictionary_Test()
+        public void GetMaxIndexInDictonary_Test()
         {
-            E026_Hangman.Program.intSelectedTopic = 1;
-            E026_Hangman.Program.names = new Dictionary<string, int> { { "Jonas", 1 } };
-            string actualSelectedWord = E026_Hangman.Program.RandomKeyInDictionary(E026_Hangman.Program.names);
-            Assert.AreEqual(actualSelectedWord, "Jonas");
+            int maxIndex = E026_Hangman.Program.GetMaxIndexInDictonary(E026_Hangman.Program.names);
+            Assert.AreEqual(maxIndex, 10);
+        }
+
+        [TestMethod]
+        public void GiveRandomNumberUpToGiven_Test()
+        {
+            int randomLowerThanFive = E026_Hangman.Program.GiveRandomNumberUpToGiven(5);
+            Assert.IsTrue(randomLowerThanFive < 5, "The randomLowerThanFive was not lower than five");
+        }
+
+        [TestMethod]
+        public void SelectKeyInDictionary_Test()
+        {
+            string SelectedWord = E026_Hangman.Program.SelectKeyInDictionary(E026_Hangman.Program.names, 2);
+            Assert.AreEqual(SelectedWord, "Vytautas");
         }
 
         [TestMethod]
@@ -43,21 +55,21 @@ namespace E026_Hangman_Tests
         public void IsAllowedGuess_Test3() => Assert.AreEqual(E026_Hangman.Program.IsAllowedGuess("Jonas123"), false);
 
         [TestMethod]
-        public void IsGuessCorrect_Test()
+        public void CheckIfGuessIsCorrect_Test()
         {
             E026_Hangman.Program.selectedWord = "Jonas";
             E026_Hangman.Program.guessedWrongLetters = new List<string> { "z", "c", "b" };
             E026_Hangman.Program.guessedCorrectLetters = new List<string> { "J", "o", "_", "a", "s" };
-            E026_Hangman.Program.IsGuessCorrect("n");
+            E026_Hangman.Program.CheckIfGuessIsCorrect("n");
             Assert.AreEqual(E026_Hangman.Program.victory, true);
         }
 
         [TestMethod]
-        public void IsGuessCorrect_Test1()
+        public void CheckIfGuessIsCorrect_Test1()
         {
             E026_Hangman.Program.selectedWord = "Jonas";
             E026_Hangman.Program.guessedWrongLetters = new List<string> { "z", "c", "b" };
-            E026_Hangman.Program.IsGuessCorrect("v");
+            E026_Hangman.Program.CheckIfGuessIsCorrect("v");
             CollectionAssert.AreEqual(E026_Hangman.Program.guessedWrongLetters, new List<string> { "z", "c", "b", "v" });
         }
     }
