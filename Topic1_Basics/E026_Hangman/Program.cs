@@ -138,13 +138,13 @@ namespace E026_Hangman
 
         private static void Testing()
         {
-            Console.WriteLine($"          Topics: {string.Join(", ", topics)}");
+            Console.WriteLine($"\n\n          Topics: {string.Join(", ", topics)}");
             Console.WriteLine($"           Names: {string.Join(", ", names)}");
             Console.WriteLine($"          Cities: {string.Join(", ", cities)}");
             Console.WriteLine($"       Countries: {string.Join(", ", countries)}");
             Console.WriteLine($"      Car brands: {string.Join(", ", dogBreads)}");
             Console.WriteLine($"  Selected topic: ({intSelectedTopic}) {selectedTopic}");
-            Console.WriteLine($"   Selected word: {selectedWord}");
+            Console.WriteLine($"   Selected word: {selectedWord}\n\n");
         }
 
         private static void GiveTopics()
@@ -214,43 +214,43 @@ namespace E026_Hangman
                     line4 = "   "; 
                     break;
                 case 1:
-                    line1 =  "|";
+                    line1 =  "│";
                     line2 =  " ";
                     line3 = "   ";
                     line4 = "   ";  
                     break;
                 case 2:
-                    line1 =  "|";
+                    line1 =  "│";
                     line2 =  "☻";
                     line3 = "   ";
                     line4 = "   "; 
                     break;
                 case 3:
-                    line1 =  "|";
+                    line1 =  "│";
                     line2 =  "☻";
                     line3 = " O ";
                     line4 = "   ";
                     break;
                 case 4:
-                    line1 =  "|";
+                    line1 =  "│";
                     line2 =  "☻";
                     line3 = "/O ";
                     line4 = "   ";
                     break;
                 case 5:
-                    line1 =  "|";
+                    line1 =  "│";
                     line2 =  "☻";
                     line3 = "/O\\";
                     line4 = "   "; 
                     break;
                 case 6:
-                    line1 =  "|";
+                    line1 =  "│";
                     line2 =  "☻";
                     line3 = "/O\\";
                     line4 = "/  ";
                     break;
                 case 7:
-                    line1 =  "|";
+                    line1 =  "│";
                     line2 =  "☺";
                     line3 = "/O\\";
                     line4 = "/ \\";
@@ -271,8 +271,9 @@ namespace E026_Hangman
         {
             Console.OutputEncoding = Encoding.GetEncoding(1200);
             Console.InputEncoding = Encoding.GetEncoding(1200);
-            Console.WriteLine(" │  Spėkite raidę arba visą žodį iš karto:             |");
+            Console.WriteLine(" │  Spėkite raidę arba visą žodį iš karto:             │");
             Console.WriteLine(" └─────────────────────────────────────────────────────┘");
+            //Testing();
             Console.SetCursorPosition(43,11);
             string letterOrWord = Console.ReadLine();
             
@@ -282,6 +283,7 @@ namespace E026_Hangman
                 Console.WriteLine(" │  Spėkite raidę arba visą žodį iš karto:             │");
                 Console.WriteLine(" │  Spėjimui galima naudoti TIK lietuviškas raides!    │");
                 Console.WriteLine(" └─────────────────────────────────────────────────────┘");
+
                 Console.SetCursorPosition(43, 11);
                 letterOrWord = Console.ReadLine();
             }
