@@ -14,7 +14,7 @@ namespace E026_Hangman_Tests
         public void GiveRandomNumberUpToGiven_Test()
         {
             int randomLowerThanFive = E026_Hangman.Program.GiveRandomNumberUpToGiven(5);
-            Assert.IsTrue(randomLowerThanFive < 5, "The randomLowerThanFive was not lower than five");
+            Assert.IsTrue(randomLowerThanFive < 5);
         }
 
         [TestMethod]

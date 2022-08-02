@@ -97,17 +97,17 @@ namespace E026_Hangman
             }
             else if (intSelectedTopic == 2 && cities.Count() != 0)
             {
-                selectedWord = SelectKeyInDictionary(cities, GiveRandomNumberUpToGiven(GetMaxIndexInDictonary(names)));
+                selectedWord = SelectKeyInDictionary(cities, GiveRandomNumberUpToGiven(GetMaxIndexInDictonary(cities)));
                 cities.Remove(selectedWord);
             }
             else if (intSelectedTopic == 3 && countries.Count() != 0)
             {
-                selectedWord = SelectKeyInDictionary(countries, GiveRandomNumberUpToGiven(GetMaxIndexInDictonary(names)));
+                selectedWord = SelectKeyInDictionary(countries, GiveRandomNumberUpToGiven(GetMaxIndexInDictonary(countries)));
                 countries.Remove(selectedWord);
             }
             else if (intSelectedTopic == 4 && dogBreads.Count() != 0)
             {
-                selectedWord = SelectKeyInDictionary(dogBreads, GiveRandomNumberUpToGiven(GetMaxIndexInDictonary(names)));
+                selectedWord = SelectKeyInDictionary(dogBreads, GiveRandomNumberUpToGiven(GetMaxIndexInDictonary(dogBreads)));
                 dogBreads.Remove(selectedWord);
             }
             else
@@ -134,7 +134,6 @@ namespace E026_Hangman
             DrawHangman(hangmanProgress);
             PlayAgain();            
         }
-
 
         private static void Testing()
         {
