@@ -105,7 +105,7 @@ namespace E026_Hangman2
             guessedCorrectLetters = FormGuessList(selectedWord);
 
             // Guessing letter or word
-            while (hangmanProgress != 7 && !victory)
+            while (!IsGameOver() && !victory)
             {
                 DrawHangman(hangmanProgress);
                 string letterOrWord = EnterLetterOrWord();
@@ -273,19 +273,17 @@ namespace E026_Hangman2
         public static bool IsAllowedGuess(string? letterOrWord)
         {
             string allowedLetters = "AaĄąBbCcČčDdEeĘęĖėFfGgHhIiĮįYyJjKkLlMmNnOoPpRrSsŠšTtUuŲųŪūVvZzŽž";
-            if (letterOrWord.Length == 1 && allowedLetters.Contains(letterOrWord))
+            if (IsOneLetter(letterOrWord) && allowedLetters.Contains(letterOrWord))
             {
                 return true;
             }
-            else if (letterOrWord.Length > 1)
+            else if (IsWord(letterOrWord))
             {
                 bool isAllLettersAllowed = true;
                 foreach (var letter in letterOrWord)
                 {
                     if (!allowedLetters.Contains(letter))
-                    {
                         isAllLettersAllowed = false;
-                    }
                 }
                 if (isAllLettersAllowed)
                 {
@@ -297,45 +295,53 @@ namespace E026_Hangman2
 
         public static void CheckIfGuessIsCorrect(string letterOrWord)
         {
-            if (letterOrWord.Length == 1)
+            if (IsOneLetter(letterOrWord))
                 CheckIfGuessedLetterIsCorrect(letterOrWord);
-            else if (letterOrWord.Length > 1)
+            else if (IsWord(letterOrWord))
                 CheckIfGuessedWordIsCorrect(letterOrWord);
             else
                 SetMessage(false, "Neįvedėte nei raidės, nei žodžio!", "");
         }
-        
+
+        private static bool IsOneLetter(string letterOrWord) => letterOrWord.Length == 1;
+
+        private static bool IsWord(string letterOrWord) => letterOrWord.Length > 1;
+
         private static void CheckIfGuessedLetterIsCorrect(string letterOrWord)
         {
-            if (!guessedWrongLetters.Contains(letterOrWord))
+            if (IsLetterAlreadyGuessed(letterOrWord))
             {
-                if (selectedWord.ToLower().Contains(letterOrWord))
-                {
-                    for (int i = 0; i < selectedWord.Length; i++)
-                    {
-                        if (selectedWord[i].ToString().ToLower() == letterOrWord)
-                        {
-                            if (i != 0)
-                                guessedCorrectLetters[i] = letterOrWord;
-                            else
-                                guessedCorrectLetters[i] = letterOrWord.ToUpper();
+                SetMessage(false, "Tokia raidė jau buvo spėta", "");
+                return;
+            }
 
-                            if (!guessedCorrectLetters.Contains("_"))
-                                SetMessage(true, "Sveikiname!!!", "Jūs atspėjote žodį.");
-                        }
-                    }
-                }
-                else
+            if (!IsLetterInSelectedWord(letterOrWord))
+            {
+                guessedWrongLetters.Add(letterOrWord);
+                hangmanProgress++;
+                if (IsGameOver())
+                    SetMessage(false, "Pralaimėjote! Spėjimai baigėsi.", $"Žodis buvo - {selectedWord}");
+                return;
+            }
+
+            for (int i = 0; i < selectedWord.Length; i++)
+            {
+                if (selectedWord[i].ToString().ToLower() == letterOrWord)
                 {
-                    guessedWrongLetters.Add(letterOrWord);
-                    hangmanProgress++;
-                    if (hangmanProgress == 7)
-                        SetMessage(false, "Pralaimėjote! Spėjimai baigėsi.", $"Žodis buvo - {selectedWord}");
+                    if (i != 0)
+                        guessedCorrectLetters[i] = letterOrWord;
+                    else
+                        guessedCorrectLetters[i] = letterOrWord.ToUpper();
+
+                    if (!guessedCorrectLetters.Contains("_"))
+                        SetMessage(true, "Sveikiname!!!", "Jūs atspėjote žodį.");
                 }
             }
-            else
-                SetMessage(false, "Tokia raidė jau buvo spėta", "");
         }
+
+        private static bool IsLetterAlreadyGuessed(string letter) => guessedWrongLetters.Contains(letter);
+
+        private static bool IsLetterInSelectedWord(string letter) => selectedWord.ToLower().Contains(letter);
 
         private static void CheckIfGuessedWordIsCorrect(string word)
         {
@@ -357,6 +363,8 @@ namespace E026_Hangman2
             message1 = msg1;
             message2 = msg2;
         }
+
+        private static bool IsGameOver() => hangmanProgress == 7;
 
         private static void PlayAgain()
         {
