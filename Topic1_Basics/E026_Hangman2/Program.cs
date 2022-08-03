@@ -298,49 +298,57 @@ namespace E026_Hangman2
         public static void CheckIfGuessIsCorrect(string letterOrWord)
         {
             if (letterOrWord.Length == 1)
+                CheckIfGuessedLetterIsCorrect(letterOrWord);
+            else if (letterOrWord.Length > 1)
+                CheckIfGuessedWordIsCorrect(letterOrWord);
+            else
+                SetMessage(false, "Neįvedėte nei raidės, nei žodžio!", "");
+        }
+        
+        private static void CheckIfGuessedLetterIsCorrect(string letterOrWord)
+        {
+            if (!guessedWrongLetters.Contains(letterOrWord))
             {
-                if (!guessedWrongLetters.Contains(letterOrWord))
+                if (selectedWord.ToLower().Contains(letterOrWord))
                 {
-                    if (selectedWord.ToLower().Contains(letterOrWord))
+                    for (int i = 0; i < selectedWord.Length; i++)
                     {
-                        for (int i = 0; i < selectedWord.Length; i++)
+                        if (selectedWord[i].ToString().ToLower() == letterOrWord)
                         {
-                            if (selectedWord[i].ToString().ToLower() == letterOrWord)
-                            {
-                                if (i != 0)
-                                    guessedCorrectLetters[i] = letterOrWord;
-                                else
-                                    guessedCorrectLetters[i] = letterOrWord.ToUpper();
+                            if (i != 0)
+                                guessedCorrectLetters[i] = letterOrWord;
+                            else
+                                guessedCorrectLetters[i] = letterOrWord.ToUpper();
 
-                                if (!guessedCorrectLetters.Contains("_"))
-                                    SetMessage(true, "Sveikiname!!!", "Jūs atspėjote žodį.");
-                            }
+                            if (!guessedCorrectLetters.Contains("_"))
+                                SetMessage(true, "Sveikiname!!!", "Jūs atspėjote žodį.");
                         }
                     }
-                    else
-                    {
-                        guessedWrongLetters.Add(letterOrWord);
-                        hangmanProgress++;
-                        if (hangmanProgress == 7)
-                            SetMessage(false, "Pralaimėjote! Spėjimai baigėsi.", $"Žodis buvo - {selectedWord}");
-                    }
-                }
-            }
-            else if (letterOrWord.Length > 1)
-            {
-                if (selectedWord.ToLower() == letterOrWord)
-                {
-                    SetMessage(true, "Sveikiname!", "Atspėjote visą žodį iš karto.");
-                    guessedCorrectLetters = FormGuessList(selectedWord);
                 }
                 else
                 {
-                    hangmanProgress = 7;
-                    SetMessage(false, "Pralaimejėte! Atspėti žodžio nepyko.", $"Žodis buvo - {selectedWord}");
+                    guessedWrongLetters.Add(letterOrWord);
+                    hangmanProgress++;
+                    if (hangmanProgress == 7)
+                        SetMessage(false, "Pralaimėjote! Spėjimai baigėsi.", $"Žodis buvo - {selectedWord}");
                 }
             }
             else
-                SetMessage(false, "Neįvedėte nei raidės, nei žodžio!", "");
+                SetMessage(false, "Tokia raidė jau buvo spėta", "");
+        }
+
+        private static void CheckIfGuessedWordIsCorrect(string word)
+        {
+            if (selectedWord.ToLower() == word)
+            {
+                SetMessage(true, "Sveikiname!", "Atspėjote visą žodį iš karto.");
+                guessedCorrectLetters = FormGuessList(selectedWord);
+            }
+            else
+            {
+                hangmanProgress = 7;
+                SetMessage(false, "Pralaimejėte! Atspėti žodžio nepyko.", $"Žodis buvo - {selectedWord}");
+            }
         }
 
         private static void SetMessage(bool isVictory, string msg1, string msg2)
