@@ -30,10 +30,10 @@
         public static void DogOOP()
         {
             var pilkius = new Dog("Pilkius", 5);
-            var owner = new Owner()
-            {
-                Name = "Jonas";
-            }
+            //var owner = new Owner()
+            //{
+            //    Name = "Jonas";
+            //}
         }
 
 

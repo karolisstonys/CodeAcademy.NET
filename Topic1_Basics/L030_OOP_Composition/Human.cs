@@ -16,5 +16,7 @@ namespace L030_OOP_Composition
         public List<string> Language { get; set; }
         public int Height { get; set; }
         public int Weight { get; set; }
+
+        public Animal Animal;
     }
 }
