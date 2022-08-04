@@ -8,9 +8,9 @@ namespace L030_OOP_Composition
         {
             Console.WriteLine("Hello, OOP (DE)Composition!");
 
-            House();
+            //House();
             //Country();
-            //Book();
+            Book();
         }
 
         /*
@@ -28,6 +28,15 @@ namespace L030_OOP_Composition
         (Naujas atributas turetu buti naujai sukurta klase su bent 3 naujais atributais). 
         Kompozicijos atributas yra atributas su kitos klases duomenu tipu kintamuosiuose. 
         Pvz: Zmogus gali tureti augintini
+        */
+
+        /*
+        
+        Namų darbas savaitgaliui.
+
+        Susikurti “Kambarys” klasę ir aprašyti bent 10 objektų esančių jūsų kambaryje arba objektų kurie galėtų egzistuoti kambaryje kaip klases. 
+        Visos naujais aprašytos klasės turėtų turėti bent po 5 atributus (Kontraktas/interfeisas) ir turėtų būti priskirtos kaip properties (savybe) “Kambarys” klasei. 
+        Bent 2 iš aprašytų klasių turėtų turėti kompoziciją su kitomis klasėmis pvz: ”Kambarys” turi “Spinta”, kuri gali turėti List<Drabuzis>
         */
 
         public static void Human()
@@ -84,14 +93,26 @@ namespace L030_OOP_Composition
 
         public static void Book()
         {
-            Book book1 = new Book();
-            book1.Name = "Do Androids Dream of Electric Sheep?";
-            book1.Author = "Philip K. Dick";
-            book1.Genre = "Science fiction";
-            book1.PageCount = 210;
+            var books = new Dictionary<int, Book>();
+
+            var book1 = new Book()
+            {
+                Name = "Do Androids Dream of Electric Sheep?",
+                Author = "Philip K. Dick",
+                Genre = "Science fiction",
+                PageCount = 210,
+                Release = new Release()
+            };
+
             book1.Release.Date = new DateOnly(1982, 1, 1);
             book1.Release.Publisher = "Sundown Publish";
             book1.Release.CoverType = "Hardcover";
+
+            books.Add(1, book1);
+
+            Console.WriteLine(books[1].Release.Date);
+            Console.WriteLine(books[1].Release.Publisher);
+            Console.WriteLine(books[1].Release.CoverType);
 
         }
 
