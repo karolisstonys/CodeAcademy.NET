@@ -10,7 +10,7 @@ namespace L031_OOP_Constructor
     {
         public Country()
         {
-            Name = "Lietuva";
+            Name = "Lithuania";
         }
 
         public Country(string name, long population, decimal areaInSqrKm, FriendlyCountry friendlyCountry)

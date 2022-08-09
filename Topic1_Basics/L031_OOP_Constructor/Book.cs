@@ -17,6 +17,14 @@ namespace L031_OOP_Constructor
             Genre = "unknown genre";
         }
 
+        public Book(string name) : this()
+        {
+            Name = name;
+        }
+        public Book(string name, string author) : this(name)
+        {
+            Author = author;
+        }
 
         public Book(string name, string author, string genre,int pageCount, Release release)
         {
@@ -27,13 +35,9 @@ namespace L031_OOP_Constructor
             Release = release;
         }
 
-        public Book(Book book) 
+        public Book(Book book) : this(book.Name, book.Author)
         { 
-            Name = book.Name;
-            Author = book.Author;
-            Genre = book.Genre;
-            PageCount = book.PageCount;
-            Release = book.Release;
+            // does nothing for now =)
         }
 
         private string name;
