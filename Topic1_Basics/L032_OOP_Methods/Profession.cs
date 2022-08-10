@@ -11,20 +11,20 @@ namespace L032_OOP_Methods
         public Profession()
         {
             Id = 0;
-            TekstasLietuviskai = "";
-            Tekstas = "";
+            TextLT = "-";
+            Text = "-";
         }
 
-        public Profession(int id, string tekstasLietuviskai, string tekstas)
+        public Profession(int id, string textLT, string text)
         {
             Id = id;
-            TekstasLietuviskai = tekstasLietuviskai;
-            Tekstas = tekstas;
+            TextLT = textLT;
+            Text = text;
         }
 
         public int Id { get; private set; }
-        public string TekstasLietuviskai { get; private set; }
-        public string Tekstas { get; set; }
+        public string TextLT { get; private set; }
+        public string Text { get; set; }
 
 
 

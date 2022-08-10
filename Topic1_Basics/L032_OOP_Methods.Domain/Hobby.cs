@@ -11,19 +11,19 @@ namespace L032_OOP_Methods.Domain
         public Hobby() 
         {
             Id = 0;
-            TekstasLietuviskai = "nėra teksto lietuviškai";
-            Tekstas = "nėra teksto";
+            TextLT = "nėra teksto lietuviškai";
+            Text = "nėra teksto";
         }
 
-        public Hobby(int id, string tekstasLietuviskai, string tekstas)
+        public Hobby(int id, string textLT, string text)
         {
             Id = id;
-            TekstasLietuviskai = tekstasLietuviskai;
-            Tekstas = tekstas;
+            TextLT = textLT;
+            Text = text;
         }
 
         public int Id { get; set; }
-        public string TekstasLietuviskai { get; private set; }
-        public string Tekstas { get; private set; }
+        public string TextLT { get; private set; }
+        public string Text { get; private set; }
     }
 }
