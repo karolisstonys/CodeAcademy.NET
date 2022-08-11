@@ -15,7 +15,8 @@ namespace L032_OOP_Methods
             //}
 
             //Task5();
-            Task6();
+            //Task6();
+            Task7();
 
         }
 
@@ -82,7 +83,6 @@ namespace L032_OOP_Methods
         public static void Task6()
         {
             bool isAppRunning = true;
-
             while (isAppRunning)
             {
                 Console.Write("\n\n1. Prideti bendrabuti.\n2. Prideti zmogu.\n3. Parodyti visus bendrabucius.\n4. Parodyti visus zmones.\n5. Parodyti viska.\n6. Iseiti.\n\nPasirinkite: ");
@@ -169,7 +169,7 @@ namespace L032_OOP_Methods
             var sb = new StringBuilder();
             sb.AppendLine("Person\t\tDormatory ID");
             foreach (var person in allPersons)
-            {   
+            {
                 sb.AppendLine($"{person.Name,-16}{person.DormitoryId,-8}");
             }
             Console.WriteLine(sb.ToString());
@@ -192,20 +192,106 @@ namespace L032_OOP_Methods
 
         /* Uzduotis 7: 
         Sukurkite 5 klases – Studentas, Mokykla, Mokytojas, PazymiuKnygele, Pamoka ir juos sukomponuokite (Sudekite rysius tarp ju).
-            Kiekviena mokykla turi nuo 1 iki begalybes mokytoju.
-            Kiekvienas mokytojas turi nuo 1 iki begalybes studentu.
-            Kiekvienas studentas turi 1 pažymių knygelę.
-            Kiekviena pažymių knygelė turi nuo 1 iki begalybės pamokų, kurios turi buti saugomos su studentu pazymiais.
-            Pamoka turi tik pavadinimą ir nuo 1 iki begalybės priskirtų mokytojų.
-        Inicializuokite klases su duomenimis (turi buti maziausiai uzpildytos 2 mokyklos) ir sukurkite 3 metodus, kurie atspausdinkite ekrane(Šie metodai turetu priimti tik 1 objekta. Objektai gali buti skirtingi tarp metodu):       
+            + Kiekviena mokykla turi nuo 1 iki begalybes mokytoju.
+            + Kiekvienas mokytojas turi nuo 1 iki begalybes studentu.
+            + Kiekvienas studentas turi 1 pažymių knygelę.
+            + Kiekviena pažymių knygelė turi nuo 1 iki begalybės pamokų, kurios turi buti saugomos su studentu pazymiais.
+            + Pamoka turi tik pavadinimą ir nuo 1 iki begalybės priskirtų mokytojų.
+        Inicializuokite klases su duomenimis (turi buti maziausiai uzpildytos 2 mokyklos) ir sukurkite 3 metodus, kurie atspausdinkite ekrane
+        (Šie metodai turetu priimti tik 1 objekta. Objektai gali buti skirtingi tarp metodu):       
         Mokyklos pavadinima + Kiekviena mokytoja kartu su jo mokiniu vardais
         (Savarankiskai)Kiekviena mokini kartu su kiekvieno is ju pazymiais 
         (Savarankiskai)Kiekvieno studento kiekvienos pamokos pazymiu vidurki */
 
 
+        public static List<Mokykla> visosMokyklos = new List<Mokykla>();
+        public static List<Mokytojas> visiMokytojai = new List<Mokytojas>();
+        public static List<Studentas> visiStudentai = new List<Studentas>();
+        public static List<Pamoka> visosPamokos = new List<Pamoka>();
+
+        private static void Task7()
+        {
+            Random rnd = new Random();
+            int mokykluSkaicius = rnd.Next(1, 3);
+            int mokytojuSkaicius = rnd.Next(3, 5);
+            int studentuSkaicius = rnd.Next(5, 8);
+            int pamokuSkaicius = rnd.Next(1, 4);
+            int pazymiuSkaicius = rnd.Next(4, 10);
+
+
+            for (int i = 0; i < mokykluSkaicius; i++)
+            {
+                var mokykla = new Mokykla();
+                visosMokyklos.Add(mokykla);
+
+                for (int j = 0; j < mokytojuSkaicius; j++)
+                {
+                    var mokytojas = new Mokytojas(mokykla);
+                    visiMokytojai.Add(mokytojas);
+
+                    for (int k = 0; k < studentuSkaicius; k++)
+                    {
+                        var studentas = new Studentas(mokytojas);
+                        mokytojas.Studentai.Add(studentas);
+                        visiStudentai.Add(studentas);
+                    }                  
+                }
+            }
 
 
 
+            var sb = new StringBuilder();
+            foreach (var mokykla in visosMokyklos)
+            {
+                sb.AppendLine($"Mokykla: {mokykla.Id} {mokykla.Pavadinimas}");
 
+                foreach (var mokytojas in mokykla.Mokytojai)
+                {
+                    sb.AppendLine($"\tMokytojas: {mokytojas.Id} {mokytojas.Vardas}");
+
+                    foreach (var studentas in mokytojas.Studentai)
+                    {
+                        sb.AppendLine($"\t\tStudentas: {studentas.Id} {studentas.Vardas}");
+                    }
+                }
+            }
+            Console.WriteLine(sb.ToString());
+
+            Console.WriteLine("----------------------------------------------------");
+
+
+            var sb1 = new StringBuilder();
+            Dictionary<Pamoka, List<int>> pazymiai = new Dictionary<Pamoka, List<int>>();
+            foreach (var studentas in visiStudentai)
+            {
+
+                for (int i = 0; i < pamokuSkaicius; i++)
+                {
+                    var pamoka = new Pamoka();
+                    List<int> pazymiuList = new List<int>();
+                    for (int j = 0; j < pazymiuSkaicius; j++)
+                    {
+                        pazymiuList.Add(rnd.Next(1, 10));
+                    }
+                    pazymiai.Add(pamoka, pazymiuList);
+                }
+
+                foreach (var key in pazymiai.Keys)
+                {
+                    sb1.Append($"{key} ");
+                    foreach (var list in pazymiai.Values)
+                    {
+                        foreach (var item in list)
+                        {
+                            sb1.Append($"{item} ");
+                        }
+                    }
+                }
+            }
+            Console.WriteLine(sb1.ToString());
+
+
+
+        }
     }
 }
