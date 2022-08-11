@@ -2,19 +2,30 @@
 {
     public class Person
     {
-        public Person()
-        {
-            Name = "nežinomas";
-            DormId = 0;
-        }
-
-        public Person(string name, int dormId)
+        public Person(string name)
         {
             Name = name;
-            DormId = dormId;
+            Dormitory = new Dormitory(this);
+            DormitoryId = Dormitory.DormitoryId;
+        }
+
+        public Person(string name, Dormitory dorm)
+        {
+            Name = name;
+            Dormitory = dorm; 
+            Dormitory.Persons.Add(this);
+            DormitoryId = Dormitory.DormitoryId;
+        }
+        public Dormitory GetDorm()
+        {
+            return Dormitory;
         }
 
         public string Name { get; set; }
-        public int DormId { get; set; }
+
+        internal Dormitory Dormitory { get; set; }
+
+        public int DormitoryId { get; set; }
+
     }
 }

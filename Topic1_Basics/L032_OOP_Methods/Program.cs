@@ -1,4 +1,5 @@
 ﻿using L032_OOP_Methods.Domain;
+using System.Text;
 
 namespace L032_OOP_Methods
 {
@@ -6,14 +7,14 @@ namespace L032_OOP_Methods
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello OOP Metodai!");
+            //Console.WriteLine("Hello OOP Metodai!");
             //var house1 = new House();
             //foreach (var pplNameInHose in house1.PeopleNames)
             //{
             //    Console.WriteLine($"Namo gyventojo vardas: {pplNameInHose}");
             //}
 
-            Task5();
+            //Task5();
             Task6();
 
         }
@@ -75,23 +76,119 @@ namespace L032_OOP_Methods
         kad kiekviename bendrabutyje galėtų gyventi daug žmonių, 
         tačiau vienas žmogus galėtų gyventi tik viename bendrabutyje. */
 
+        public static List<Dormitory> allDormitories = new List<Dormitory>();
+        public static List<Person> allPersons = new List<Person>();
+
         public static void Task6()
         {
-            var dorm1 = new Dormitory(5, 69.90m) { };
+            bool isAppRunning = true;
 
-            var persons = new List<Person>();
-            persons.Add(new Person("Joniukas", dorm1.DormitoryId));
-            persons.Add(new Person("Pepė", dorm1.DormitoryId));
-            persons.Add(new Person("Petriukas", dorm1.DormitoryId));
-            dorm1.Persons = persons;
-
-            foreach (var person in dorm1.Persons)
+            while (isAppRunning)
             {
-                Console.WriteLine($"{person.DormId} {person.Name} ");
+                Console.Write("\n\n1. Prideti bendrabuti.\n2. Prideti zmogu.\n3. Parodyti visus bendrabucius.\n4. Parodyti visus zmones.\n5. Parodyti viska.\n6. Iseiti.\n\nPasirinkite: ");
+                switch (Console.ReadLine())
+                {
+                    case "1":
+                        Console.Clear();
+                        AddDorm();
+                        break;
+                    case "2":
+                        Console.Clear();
+                        AddPerson();
+                        break;
+                    case "3":
+                        Console.Clear();
+                        ShowDorms();
+                        break;
+                    case "4":
+                        Console.Clear();
+                        ShowPersons();
+                        break;
+                    case "5":
+                        Console.Clear();
+                        ShowEverything();
+                        break;
+                    case "6":
+                        Console.Clear();
+                        isAppRunning = false;
+                        break;
+                    default:
+                        Console.Clear();
+                        Console.WriteLine("Blogas pasirinkimas");
+                        break;
+                }
             }
         }
 
+        private static void AddDorm()
+        {
+            Console.Write("Dormatory name: ");
+            var dormName = Console.ReadLine();
+            var dorm = new Dormitory(dormName);
+            allDormitories.Add(dorm);
+        }
 
+        private static void ShowDorms()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine("ID\tDormatory\tRooms\tPrice\tPersons");
+            foreach (var dorm in allDormitories)
+            {
+                var personCount = 0;
+                if (dorm.Persons != null)
+                    personCount = dorm.Persons.Count;
+                sb.AppendLine($"{dorm.DormitoryId,-8}{dorm.Name,-16}{dorm.RoomCount,-8}{dorm.Price+"€",-8}{personCount,-8}");
+            }
+            Console.WriteLine(sb.ToString());
+        }
+
+        private static void AddPerson()
+        {
+            Console.Write("Person name: ");
+            var personName = Console.ReadLine();
+            Console.Write("Dormatory ID (can leave blank): ");
+            var stringDormId = Console.ReadLine();
+            if (string.IsNullOrEmpty(stringDormId))
+            {
+                var person = new Person(personName);
+                var dorm = person.GetDorm();
+                allDormitories.Add(dorm);
+                allPersons.Add(person);
+            }
+            else
+            {
+                var dorm = allDormitories.Where(x => x.DormitoryId == Convert.ToInt32(stringDormId)).FirstOrDefault();
+                var person = new Person(personName, dorm);
+                allPersons.Add(person);
+            }
+
+        }
+
+        private static void ShowPersons()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine("Person\t\tDormatory ID");
+            foreach (var person in allPersons)
+            {   
+                sb.AppendLine($"{person.Name,-16}{person.DormitoryId,-8}");
+            }
+            Console.WriteLine(sb.ToString());
+        }
+
+        private static void ShowEverything()
+        {
+            var sb = new StringBuilder();
+            foreach (var dorm in allDormitories)
+            {
+                sb.Append($"{dorm.Name} (id:{dorm.DormitoryId}, rooms:{dorm.RoomCount}, price:{dorm.Price}€) persons living:");
+                foreach (var person in dorm.Persons)
+                {
+                    sb.Append($" {person.Name}");
+                }
+                sb.AppendLine();
+            }
+            Console.WriteLine(sb.ToString());
+        }
 
         /* Uzduotis 7: 
         Sukurkite 5 klases – Studentas, Mokykla, Mokytojas, PazymiuKnygele, Pamoka ir juos sukomponuokite (Sudekite rysius tarp ju).
