@@ -16,7 +16,8 @@ namespace L032_OOP_Methods
 
             //Task5();
             //Task6();
-            Task7();
+            //Task7();
+            Task2();
 
         }
 
@@ -293,5 +294,46 @@ namespace L032_OOP_Methods
 
 
         }
+
+
+
+
+
+        /* 2. Parasykite klase „Skaiciuoklis“, 
+        kuris turetu 1 private property pavadinimu Skaicius ir 3 metodus: 
+        Didinti (Padidina Skaicius 1), 
+        Mazinti(Sumazina Skaicius 1), 
+        Atspausdinti()       
+        Padarykite, kad Mazinti() metodas negaletu sumazinti Skaicius maziau 0
+        Sukurkite metoda Perkrauti(), kuris turetu grazinti Skaicius i pradine busena 
+        */
+
+        public static void Task2()
+        {
+            var skaicius = new Skaiciuoklis(5);
+            skaicius.Atspausdinti();
+            skaicius.Didinti();
+            skaicius.Didinti();
+            skaicius.Atspausdinti();
+            skaicius.Mazinti();
+            skaicius.Mazinti();
+            skaicius.Mazinti();
+            skaicius.Mazinti();
+            skaicius.Atspausdinti();
+            skaicius.Perkrauti();
+            skaicius.Atspausdinti();
+
+        }
+
+
+
+
+
+
+
+
+
+
+
     }
 }
