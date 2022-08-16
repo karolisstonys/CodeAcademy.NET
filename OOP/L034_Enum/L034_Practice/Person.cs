@@ -35,7 +35,7 @@ namespace L034_Practice
 
         public string FullName => FirstName + " " + LastName;
 
-        public EGender Gender { get; private set; }
+        public EGender Gender { get; set; }
 
         public DateTime? BirthDate { get; set; }
 
