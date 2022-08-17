@@ -68,9 +68,8 @@ namespace L034_Practice
             test.FillPeople();
             test.FillMen();
             test.FillWomen();
-
             test.SortByAge();
-
+            test.SortByFirstName(Society.ESortType.Asc);
 
 
             Console.WriteLine();

@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L034_Enum", "L034_Enum\L034_Enum.csproj", "{4C0D4CA5-68C2-471D-952B-3B29F1F4927C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L034_Enum", "L034_Enum\L034_Enum.csproj", "{4C0D4CA5-68C2-471D-952B-3B29F1F4927C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L034_Practice", "L034_Practice\L034_Practice.csproj", "{7EDC9FF5-2455-4DF1-9829-DF4A79E9FD49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L034_Practice", "L034_Practice\L034_Practice.csproj", "{7EDC9FF5-2455-4DF1-9829-DF4A79E9FD49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L034_Practice_Tests", "L034_Practice_Tests\L034_Practice_Tests.csproj", "{635DBA3E-35FF-4B28-8772-A8121EEE2ED6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{7EDC9FF5-2455-4DF1-9829-DF4A79E9FD49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EDC9FF5-2455-4DF1-9829-DF4A79E9FD49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EDC9FF5-2455-4DF1-9829-DF4A79E9FD49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{635DBA3E-35FF-4B28-8772-A8121EEE2ED6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{635DBA3E-35FF-4B28-8772-A8121EEE2ED6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{635DBA3E-35FF-4B28-8772-A8121EEE2ED6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{635DBA3E-35FF-4B28-8772-A8121EEE2ED6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

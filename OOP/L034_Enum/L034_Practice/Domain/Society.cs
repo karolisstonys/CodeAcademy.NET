@@ -8,7 +8,7 @@ namespace L034_Practice.Domain
 {
     public class Society
     {
-        public List<Person> People { get; set; }
+        public List<Person> People { get; set; } = new List<Person>();
 
         public void FillPeople()
         {
@@ -104,9 +104,55 @@ namespace L034_Practice.Domain
             }
         }
 
-        public void SortByFirstName()
+        public void SortByFirstName(ESortType sortType)
         {
-
+            SortByFirstName(People, sortType);
+            SortByFirstName(Men, sortType);
+            SortByFirstName(Women, sortType);
         }
+
+        public void SortByLastName(ESortType sortType)
+        {
+            SortByLastName(People, sortType);
+            SortByLastName(Men, sortType);
+            SortByLastName(Women, sortType);
+        }
+
+        public void SortByFirstName(List<Person> list, ESortType sortType)
+        {
+            Person tempPerson;
+            for (int j = 0; j <= list.Count; j++)
+            {
+                for (int i = 0; i < list.Count - 1; i++)
+                {
+                    if (list[i].FirstName[0] > list[i + 1].FirstName[0])
+                    {
+                        tempPerson = list[i + 1];
+                        list[i + 1] = list[i];
+                        list[i] = tempPerson;
+                    }
+                }
+            }
+        }
+
+        private void SortByLastName(List<Person> list, ESortType sortType)
+        {
+            Person tempPerson;
+            for (int j = 0; j <= list.Count; j++)
+            {
+                for (int i = 0; i < list.Count - 1; i++)
+                {
+                    if (list[i].LastName[0] > list[i + 1].LastName[0])
+                    {
+                        tempPerson = list[i + 1];
+                        list[i + 1] = list[i];
+                        list[i] = tempPerson;
+                    }
+                }
+            }
+        }
+
+        public enum ESortType { Asc, Desc }
+
     }
 }
