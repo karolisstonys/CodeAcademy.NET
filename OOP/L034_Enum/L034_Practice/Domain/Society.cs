@@ -32,9 +32,9 @@ namespace L034_Practice.Domain
         {
             get
             {
-                if (People == null) {
+                if (People == null)
                     return null;
-                }
+
                 var oldPeople = new List<Person>();
                 foreach (var person in People)
                 {
@@ -52,31 +52,21 @@ namespace L034_Practice.Domain
         public void FillMen()
         {
             Men = new List<Person>();
-            var dataSeed = PersonInitialData.DataSeed;
-            foreach (var data in dataSeed)
-            {
-                if (data.Gender == EGender.MALE)
-                {
-                    var person = new Person();
-                    person.Id = data.Id;
-                    person.FirstName = data.FirstName;
-                    person.LastName = data.LastName;
-                    person.Gender = data.Gender;
-                    person.Height = data.Height;
-                    person.Weight = data.Weight;
-                    person.BirthDate = data.BirthDate;
-                    Men.Add(person);
-                }
-            }
+            FillFromDataSeed(Men, EGender.MALE);
         }
 
         public void FillWomen()
         {
             Women = new List<Person>();
+            FillFromDataSeed(Women, EGender.FEMALE);
+        }
+
+        public void FillFromDataSeed(List<Person> list, EGender gender)
+        {
             var dataSeed = PersonInitialData.DataSeed;
             foreach (var data in dataSeed)
             {
-                if (data.Gender == EGender.FEMALE)
+                if (data.Gender == gender)
                 {
                     var person = new Person();
                     person.Id = data.Id;
@@ -86,27 +76,36 @@ namespace L034_Practice.Domain
                     person.Height = data.Height;
                     person.Weight = data.Weight;
                     person.BirthDate = data.BirthDate;
-                    Women.Add(person);
+                    list.Add(person);
                 }
             }
         }
 
         public void SortByAge()
         {
+            SortByAge(Men);
+            SortByAge(Women);
+        }
+
+        public void SortByAge(List<Person> list)
+        {
             Person tempPerson;
-            for (int j = 0; j <= Men.Count; j++)
+            for (int j = 0; j <= list.Count; j++)
             {
-                for (int i = 0; i <= Men.Count; i++)
+                for (int i = 0; i < list.Count - 1; i++)
                 {
-                    if (Men[i].Age > Men[i + 1].Age)
+                    if (list[i].BirthDate < list[i + 1].BirthDate)
                     {
-                        tempPerson= Men[i + 1];
-                        Men[i + 1] = Men[i];
-                        Men[i] = tempPerson;
+                        tempPerson = list[i + 1];
+                        list[i + 1] = list[i];
+                        list[i] = tempPerson;
                     }
                 }
-
             }
+        }
+
+        public void SortByFirstName()
+        {
 
         }
     }

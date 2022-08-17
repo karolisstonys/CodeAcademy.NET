@@ -69,6 +69,11 @@ namespace L034_Practice
             test.FillMen();
             test.FillWomen();
 
+            test.SortByAge();
+
+
+
+            Console.WriteLine();
         }
 
 
