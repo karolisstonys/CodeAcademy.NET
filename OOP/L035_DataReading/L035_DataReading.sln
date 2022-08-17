@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32519.379
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L035_DataReading", "L035_DataReading\L035_DataReading.csproj", "{203EEF6F-4DEC-477C-9E7F-2039002C8C81}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{203EEF6F-4DEC-477C-9E7F-2039002C8C81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{203EEF6F-4DEC-477C-9E7F-2039002C8C81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{203EEF6F-4DEC-477C-9E7F-2039002C8C81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{203EEF6F-4DEC-477C-9E7F-2039002C8C81}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4FCA8DDF-0C1B-4815-8FE9-BAC07A21B6C8}
+	EndGlobalSection
+EndGlobal
