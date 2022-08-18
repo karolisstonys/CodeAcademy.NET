@@ -48,6 +48,28 @@ namespace L035_DataReading.Services
             return animals;
         }
 
+        public List<User> FetchBasicUserCsvRecords()
+        {
+            int userColumnCount = 2;
+            List<User> users = new List<User>();
+
+            using StreamReader sr = new StreamReader(_filePath);
+
+            string userLine;
+
+            while ((userLine = sr.ReadLine()) != null)
+            {
+                string[] userData = userLine.Split(',');
+
+                if (userData.Length != userColumnCount) break;
+
+                User newUser = new User(userData);
+                users.Add(newUser);
+            }
+
+            return users;
+        }
+
         public void ReadStreamSymbolsFromFile()
         {
             FileStream fileStream = File.OpenRead(_filePath);   // LEGACY failu atidarinejimas !
