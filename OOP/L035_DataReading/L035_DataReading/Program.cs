@@ -123,6 +123,7 @@ namespace L035_DataReading
             }
         }
 
+        //
         public static void SkaitymasIsTxtFailoEilutemisAtskirai()
         {
             int animalColCount = 2;
@@ -133,24 +134,25 @@ namespace L035_DataReading
             // Gali uztrukti neaisku kiek laiko, del begales priezasciu!
             StreamReader sr = new StreamReader(path);
 
-            string line = sr.ReadLine();
-            Console.WriteLine(line);
-            string line2 = sr.ReadLine();
-            Console.WriteLine(line2);
+            string animalLine;
+
+            while ((animalLine = sr.ReadLine()) != null)
+            {
+                string[] animalData = animalLine.Split(',');
+
+                if (animalData.Length != animalColCount) break;
+
+                Animal newAnimal = new Animal(animalData);
+                animals.Add(newAnimal);
+            }
 
             // su .Close() mes pasakome GarbageCollector, kad reikia isvalyti duomenis priklausiancius siam objetrui
-            sr.Close(); 
+            sr.Close();
 
-            //while ((line = sr.ReadLine()) != null)
-            //{
-
-            //}
-
-
-            //foreach (Animal animal in animals)
-            //{
-            //    Console.Write($"Gyvunas: {animal.Name}");
-            //}
+            foreach (Animal animal in animals)
+            {
+                Console.WriteLine($"Gyvunas: ({animal.Id}) {animal.Name}");
+            }
 
         }
 
