@@ -26,7 +26,7 @@ namespace L035_DataReading.Services
             return File.ReadAllLines(_filePath);
         }
 
-        public List<Animal> FetchAnimals()
+        public List<Animal> FetchAnimalTxtRecords()
         {
             int animalColCount = 2;
             List<Animal> animals = new List<Animal>();
@@ -48,6 +48,24 @@ namespace L035_DataReading.Services
             return animals;
         }
 
+        public void ReadStreamSymbolsFromFile()
+        {
+            FileStream fileStream = File.OpenRead(_filePath);   // LEGACY failu atidarinejimas !
+
+            using StreamReader sr = new StreamReader(_filePath);
+
+            char nextChar = (char)sr.Read();
+
+            char[] bufferToPutStuffIn = new char[2];
+            sr.Read(bufferToPutStuffIn, 0, 2);
+
+            string whatWasRed = new string(bufferToPutStuffIn);
+
+            Console.WriteLine($"nextChar: {nextChar}");
+            Console.WriteLine($"whatWasRed: {whatWasRed}");
+
+            //sr.Close(); // Nebereikia nes naudojame 'using StreamReader'
+        }
 
     }
 }

@@ -14,9 +14,11 @@ namespace L035_DataReading
             //SkaitymasIsIvesties();
             //SkaitymasIsTxtFailo();
             //SkaitymasIsTxtFailoEilutemisAtskirai();
-            SkaitymasIsTxtFailoEilutemisAtskiraiSuUsing();
+            //SkaitymasIsTxtFailoEilutemisAtskiraiSuUsing();
 
             FileServices animalFileServices = new FileServices(Environment.CurrentDirectory + "\\Data\\AnimaData.txt");
+
+            animalFileServices.ReadStreamSymbolsFromFile();
         }
 
         public static void SakninioFolderioSuradimas(string path)
