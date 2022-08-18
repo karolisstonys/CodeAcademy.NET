@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace L035_DataReading.Models
 {
-    internal class User
+    public class User
     {
         private string[] userData;
 
@@ -30,14 +30,14 @@ namespace L035_DataReading.Models
 
         public User(string[] userData)
         {
-            Id= Convert.ToInt32(userData[0]);
-            FirstName=userData[1];
-            LastName=userData[2];
-            Email=userData[3];
-            Gender=userData[4];
-            Salery= Convert.ToInt64(userData[5]);
-            FavoriteColor=userData[6];
-            BirthDate= Convert.ToDateTime(userData[7]);
+            Id = Convert.ToInt32(userData[0]);
+            FirstName = userData[1];
+            LastName = userData[2];
+            Email = userData[3];
+            Gender = userData[4];
+            Salery = Convert.ToInt64(userData[5]);
+            FavoriteColor = userData[6];
+            BirthDate = Convert.ToDateTime(userData[7]);
         }
     }
 }

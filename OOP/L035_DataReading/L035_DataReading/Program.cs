@@ -19,20 +19,13 @@ namespace L035_DataReading
             //FileServices animalFileServices = new FileServices(Environment.CurrentDirectory + "\\Data\\AnimaData.txt");
             //animalFileServices.ReadStreamSymbolsFromFile();
 
-            FileServices basicUserFileService = new FileServices(Environment.CurrentDirectory + "\\Data\\UserFirstNameBaseData1.csv");
-            Console.WriteLine(basicUserFileService.ExtractBasicUserCsvHeaders());
-            PrintAllBasicUsers(basicUserFileService.FetchBasicUserCsvRecords());
+            //FileServices basicUserFileService = new FileServices(Environment.CurrentDirectory + "\\Data\\UserFirstNameBaseData1.csv");
+            //Console.WriteLine(basicUserFileService.ExtractCsvHeaders());
+            //PrintAllBasicUsers(basicUserFileService.FetchBasicUserCsvRecords());
 
-
+            Task1();
         }
 
-        public static void PrintAllBasicUsers(List<BasicUser> basicUsers)
-        {
-            foreach (BasicUser basicUser in basicUsers)
-            {
-                Console.WriteLine($"{basicUser.Id} {basicUser.Name}");
-            }
-        }
 
 
         public static void SakninioFolderioSuradimas(string path)
@@ -205,31 +198,59 @@ namespace L035_DataReading
 
         }
 
+        public static void PrintAllBasicUsers(List<BasicUser> basicUsers)
+        {
+            foreach (BasicUser basicUser in basicUsers)
+            {
+                Console.WriteLine($"{basicUser.Id} {basicUser.Name}");
+            }
+        }
+
+
+        public static void PrintAllUsers(List<User> users)
+        {
+            foreach (User user in users)
+            {
+                //55. Petras Petraitis (Vyras) – petras@petramail.lt
+                Console.WriteLine($"{user.Id}. {user.FirstName} {user.LastName} ({user.Gender}) - {user.Email}");
+            }
+        }
+
+        /*
+        1. Uzduotis 1
+        – Sukurkite programa, kuri moketu nuskaityti UserData1.csv failą. UserData1.csv galite pasiimti iš Teams pamokos Files sekcijos. 
+        Atvaizduokite kiekvieno naudotojo duomenis tokiu formatu:”55. Petras Petraitis (Vyras) – petras@petramail.lt”.
+        Headeri turetu atspausdinti pirmoje eiluteje.
+        */
+
+
+        /*
+        2. Uzduotis 2 
+        – Sukurkite nauja <Hotel> klase, kuri savyje gali laikyti sarasa <User> (Hoteliu data importuokite is HotelData1.csv). 
+        Sukurkite nauja <HotelManager> klase, kuri savyje laiko sarasa hoteliu. 
+        Naujai sukurtai klasei <HotelManager> sukurkite metoda [AllocateUsersToHotels(users)], kuris priskirs kiekviena vartotoja atsitiktiniam (Random) hoteliui. 
+        Sukurkite atskleidziama <Hotel> property, AverageClientSalary, kuris grazintu besilankanciu klientu vidutine sumuota alga. Turi buti Unit Test Coverage.
+        */
+
+
+        /*
+        3. Uzduotis 3
+        - Sukurkite isskleista property <HotelManager> AverageRating, kuris grazintu vidutini hoteliu ivertinima + unit test.
+        Sukurkite <HotelManager> klasei isskleidziama property NewHotels, kuris grazintu sarasa visu hoteliu, kurie buvo pastatyti veliau nei 2010-01-01.
+        Sukurkite <HotelManager> klasei metoda [AllocateUsersToLuxHotels(users)], kuris turetu naudotojus priskirti tik i hotelius, 
+            kuriu ivertinimas yra auksciau 3 ir yra NewHotels sarase.
+        Sukurkite <Hotel> klasei [MenVisitors] ir [WomenVisitors] isskleidziamus property, kurie turetu grazinti besilankancius vyrus ir moteris individualiai.
+        */
+
+        public static void Task1()
+        {
+
+            FileServices userFileService = new FileServices(Environment.CurrentDirectory + "\\Data\\UserData1.csv");
+            Console.WriteLine(userFileService.ExtractCsvHeaders());
+            PrintAllUsers(userFileService.FetchUserData1CsvRecords());
+        }
+
     }
 
-    /*
-    1. Uzduotis 1
-    – Sukurkite programa, kuri moketu nuskaityti UserData1.csv failą. UserData1.csv galite pasiimti iš Teams pamokos Files sekcijos. 
-    Atvaizduokite kiekvieno naudotojo duomenis tokiu formatu:”55. Petras Petraitis (Vyras) – petras@petramail.lt”.
-    Headeri turetu atspausdinti pirmoje eiluteje.
-    */
 
-
-    /*
-    2. Uzduotis 2 
-    – Sukurkite nauja <Hotel> klase, kuri savyje gali laikyti sarasa <User> (Hoteliu data importuokite is HotelData1.csv). 
-    Sukurkite nauja <HotelManager> klase, kuri savyje laiko sarasa hoteliu. 
-    Naujai sukurtai klasei <HotelManager> sukurkite metoda [AllocateUsersToHotels(users)], kuris priskirs kiekviena vartotoja atsitiktiniam (Random) hoteliui. 
-    Sukurkite atskleidziama <Hotel> property, AverageClientSalary, kuris grazintu besilankanciu klientu vidutine sumuota alga. Turi buti Unit Test Coverage.
-    */
-
-
-    /*
-    3. Uzduotis 3
-    - Sukurkite isskleista property <HotelManager> AverageRating, kuris grazintu vidutini hoteliu ivertinima + unit test.
-    Sukurkite <HotelManager> klasei isskleidziama property NewHotels, kuris grazintu sarasa visu hoteliu, kurie buvo pastatyti veliau nei 2010-01-01.
-    Sukurkite <HotelManager> klasei metoda [AllocateUsersToLuxHotels(users)], kuris turetu naudotojus priskirti tik i hotelius, 
-        kuriu ivertinimas yra auksciau 3 ir yra NewHotels sarase.
-    Sukurkite <Hotel> klasei [MenVisitors] ir [WomenVisitors] isskleidziamus property, kurie turetu grazinti besilankancius vyrus ir moteris individualiai.
-    */
 }

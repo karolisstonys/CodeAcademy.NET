@@ -48,7 +48,7 @@ namespace L035_DataReading.Services
             return animals;
         }
 
-        public string ExtractBasicUserCsvHeaders()
+        public string ExtractCsvHeaders()
         {
             using StreamReader sr = new StreamReader(_filePath);
             return sr.ReadLine();
@@ -57,7 +57,7 @@ namespace L035_DataReading.Services
         public List<BasicUser> FetchBasicUserCsvRecords()
         {
             int userColumnCount = 2;
-            List<BasicUser> users = new List<BasicUser>();
+            List<BasicUser> basicUsers = new List<BasicUser>();
 
             using StreamReader sr = new StreamReader(_filePath);
 
@@ -71,10 +71,10 @@ namespace L035_DataReading.Services
                 if (userData.Length != userColumnCount) break;
 
                 BasicUser newUser = new BasicUser(userData);
-                users.Add(newUser);
+                basicUsers.Add(newUser);
             }
 
-            return users;
+            return basicUsers;
         }
 
         public void ReadStreamSymbolsFromFile()
