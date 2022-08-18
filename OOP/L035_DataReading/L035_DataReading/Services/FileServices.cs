@@ -48,14 +48,21 @@ namespace L035_DataReading.Services
             return animals;
         }
 
-        public List<User> FetchBasicUserCsvRecords()
+        public string ExtractBasicUserCsvHeaders()
+        {
+            using StreamReader sr = new StreamReader(_filePath);
+            return sr.ReadLine();
+        }
+
+        public List<BasicUser> FetchBasicUserCsvRecords()
         {
             int userColumnCount = 2;
-            List<User> users = new List<User>();
+            List<BasicUser> users = new List<BasicUser>();
 
             using StreamReader sr = new StreamReader(_filePath);
 
             string userLine;
+            string skippingFirstLineHeader = sr.ReadLine();
 
             while ((userLine = sr.ReadLine()) != null)
             {
@@ -63,7 +70,7 @@ namespace L035_DataReading.Services
 
                 if (userData.Length != userColumnCount) break;
 
-                User newUser = new User(userData);
+                BasicUser newUser = new BasicUser(userData);
                 users.Add(newUser);
             }
 
@@ -88,6 +95,31 @@ namespace L035_DataReading.Services
 
             //sr.Close(); // Nebereikia nes naudojame 'using StreamReader'
         }
+
+        public List<User> FetchUserData1CsvRecords()
+        {
+            int userColumnCount = 8;
+            List<User> users = new List<User>();
+
+            using StreamReader sr = new StreamReader(_filePath);
+
+            string userLine;
+            string skippingFirstLineHeader = sr.ReadLine();
+
+            while ((userLine = sr.ReadLine()) != null)
+            {
+                string[] userData = userLine.Split(',');
+
+                if (userData.Length != userColumnCount) break;
+
+                User newUser = new User(userData);
+                users.Add(newUser);
+            }
+
+            return users;
+        }
+
+
 
     }
 }

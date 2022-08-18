@@ -16,10 +16,24 @@ namespace L035_DataReading
             //SkaitymasIsTxtFailoEilutemisAtskirai();
             //SkaitymasIsTxtFailoEilutemisAtskiraiSuUsing();
 
-            FileServices animalFileServices = new FileServices(Environment.CurrentDirectory + "\\Data\\AnimaData.txt");
+            //FileServices animalFileServices = new FileServices(Environment.CurrentDirectory + "\\Data\\AnimaData.txt");
+            //animalFileServices.ReadStreamSymbolsFromFile();
 
-            animalFileServices.ReadStreamSymbolsFromFile();
+            FileServices basicUserFileService = new FileServices(Environment.CurrentDirectory + "\\Data\\UserFirstNameBaseData1.csv");
+            Console.WriteLine(basicUserFileService.ExtractBasicUserCsvHeaders());
+            PrintAllBasicUsers(basicUserFileService.FetchBasicUserCsvRecords());
+
+
         }
+
+        public static void PrintAllBasicUsers(List<BasicUser> basicUsers)
+        {
+            foreach (BasicUser basicUser in basicUsers)
+            {
+                Console.WriteLine($"{basicUser.Id} {basicUser.Name}");
+            }
+        }
+
 
         public static void SakninioFolderioSuradimas(string path)
         {
@@ -33,21 +47,21 @@ namespace L035_DataReading
 
             string[] usersInText = Console.ReadLine().Replace(" ", "").Split(';');
 
-            List<User> users = new List<User>();
+            List<BasicUser> basicUsers = new List<BasicUser>();
 
             foreach (string user in usersInText)
             {
                 string[] userData = user.Split(',');
                 if (user.Length < 2) break;
 
-                User newUser = new User(Convert.ToInt32(userData[0]), userData[1]);
-                users.Add(newUser);
+                BasicUser newUser = new BasicUser(Convert.ToInt32(userData[0]), userData[1]);
+                basicUsers.Add(newUser);
             }
 
             Console.WriteLine("Aplikacijoje turime siuos vartotojus: ");
-            foreach (User user in users)
+            foreach (BasicUser basicUser in basicUsers)
             {
-                Console.Write($"ID: {user.Id} Vardas: {user.Name}");
+                Console.Write($"ID: {basicUser.Id} Vardas: {basicUser.Name}");
                 Console.WriteLine();
             }
         }
@@ -192,4 +206,30 @@ namespace L035_DataReading
         }
 
     }
+
+    /*
+    1. Uzduotis 1
+    – Sukurkite programa, kuri moketu nuskaityti UserData1.csv failą. UserData1.csv galite pasiimti iš Teams pamokos Files sekcijos. 
+    Atvaizduokite kiekvieno naudotojo duomenis tokiu formatu:”55. Petras Petraitis (Vyras) – petras@petramail.lt”.
+    Headeri turetu atspausdinti pirmoje eiluteje.
+    */
+
+
+    /*
+    2. Uzduotis 2 
+    – Sukurkite nauja <Hotel> klase, kuri savyje gali laikyti sarasa <User> (Hoteliu data importuokite is HotelData1.csv). 
+    Sukurkite nauja <HotelManager> klase, kuri savyje laiko sarasa hoteliu. 
+    Naujai sukurtai klasei <HotelManager> sukurkite metoda [AllocateUsersToHotels(users)], kuris priskirs kiekviena vartotoja atsitiktiniam (Random) hoteliui. 
+    Sukurkite atskleidziama <Hotel> property, AverageClientSalary, kuris grazintu besilankanciu klientu vidutine sumuota alga. Turi buti Unit Test Coverage.
+    */
+
+
+    /*
+    3. Uzduotis 3
+    - Sukurkite isskleista property <HotelManager> AverageRating, kuris grazintu vidutini hoteliu ivertinima + unit test.
+    Sukurkite <HotelManager> klasei isskleidziama property NewHotels, kuris grazintu sarasa visu hoteliu, kurie buvo pastatyti veliau nei 2010-01-01.
+    Sukurkite <HotelManager> klasei metoda [AllocateUsersToLuxHotels(users)], kuris turetu naudotojus priskirti tik i hotelius, 
+        kuriu ivertinimas yra auksciau 3 ir yra NewHotels sarase.
+    Sukurkite <Hotel> klasei [MenVisitors] ir [WomenVisitors] isskleidziamus property, kurie turetu grazinti besilankancius vyrus ir moteris individualiai.
+    */
 }
