@@ -1,4 +1,5 @@
 ﻿using L035_DataReading.Models;
+using L035_DataReading.Services;
 
 namespace L035_DataReading
 {
@@ -11,10 +12,11 @@ namespace L035_DataReading
             //SakninioFolderioSuradimas(path);
 
             //SkaitymasIsIvesties();
-
             //SkaitymasIsTxtFailo();
+            //SkaitymasIsTxtFailoEilutemisAtskirai();
+            SkaitymasIsTxtFailoEilutemisAtskiraiSuUsing();
 
-            SkaitymasIsTxtFailoEilutemisAtskirai();
+            FileServices animalFileServices = new FileServices(Environment.CurrentDirectory + "\\Data\\AnimaData.txt");
         }
 
         public static void SakninioFolderioSuradimas(string path)
@@ -123,7 +125,7 @@ namespace L035_DataReading
             }
         }
 
-        //
+        // dingsta minusai bet ir pliusai irgi dingsta
         public static void SkaitymasIsTxtFailoEilutemisAtskirai()
         {
             int animalColCount = 2;
@@ -157,6 +159,35 @@ namespace L035_DataReading
         }
 
 
+        public static void SkaitymasIsTxtFailoEilutemisAtskiraiSuUsing()
+        {
+            int animalColCount = 2;
+            List<Animal> animals = new List<Animal>();
+            string path = new DirectoryInfo(Environment.CurrentDirectory) + "\\Data\\AnimaData.txt";
+
+            //using StreamReader sr = new StreamReader(path) { }        // Senesnis variantas, jei dirbama su senesne .NET versija
+
+            using StreamReader sr = new StreamReader(path);
+
+            string animalLine;
+
+            while ((animalLine = sr.ReadLine()) != null)
+            {
+                string[] animalData = animalLine.Split(',');
+
+                if (animalData.Length != animalColCount) break;
+
+                Animal newAnimal = new Animal(animalData);
+                animals.Add(newAnimal);
+            }
+
+
+            foreach (Animal animal in animals)
+            {
+                Console.WriteLine($"Gyvunas: ({animal.Id}) {animal.Name}");
+            }
+
+        }
 
     }
 }
