@@ -12,7 +12,7 @@ namespace L038_Practice
 
 
 
-
+            Task2();
 
 
 
@@ -52,5 +52,53 @@ namespace L038_Practice
 
 
         }
+
+        /* Task2  
+        sukurite klasę UniversityPerson paveldėtą iš Person klasės. Pridėkite properčius.
+        - Profession (Profession)
+        - Hobbies (List of Hobby)
+        
+        1- Padarykite metodą kuris atsitiktinai asmeniui pariks nuo 0 iki 4 hobių iš HobbyInitialData.DataSeedCsv. 
+            Užtikrinkite,kad tas pat hobis nepasikartotu 2 kartus
+        
+        2- Naudodami method overload padarykite metodus kurie atsitiktinai asmeniui pariks 1 profesiją iš  
+            ProfessionInitialData.DataSeed arba 
+            ProfessionInitialData.DataSeedCsvComma arba
+            ProfessionInitialData.DataSeedCsvSemicolon.
+        
+        3- Padarykite metodą GetCsv() kuris grąžina string t.y.
+            Iš užpildytos klasės UniversityPerson duomenų sukurs CSV formato DataSeed. Taip, kad galėtume naudoti jį vėliau. (unit-test) */
+
+        public static void Task2()
+        {
+            var univercityPerson = new UniversityPerson()
+
+            {
+                Id = 1,
+                FirstName = "aaa",
+                LastName = "bbb",
+                Gender = EGender.MALE
+            };
+            univercityPerson.SetUpto4Hobies();
+
+
+            foreach (var item in univercityPerson.Hobbies)
+            {
+                Console.WriteLine(univercityPerson.Hobbies);
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

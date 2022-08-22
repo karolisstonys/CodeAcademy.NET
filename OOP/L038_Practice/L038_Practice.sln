@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L038_PracticeTests", "L038_
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{ED90D1CD-6D0D-445E-BBE2-1A096E5DF5CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L038_Inheritance", "L038_Inheritance\L038_Inheritance.csproj", "{1CFED78B-EE59-4071-91CA-D102E26507CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{47CB63FA-D09D-4AFC-BA9E-69BC1E0E1082}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47CB63FA-D09D-4AFC-BA9E-69BC1E0E1082}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47CB63FA-D09D-4AFC-BA9E-69BC1E0E1082}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CFED78B-EE59-4071-91CA-D102E26507CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CFED78B-EE59-4071-91CA-D102E26507CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CFED78B-EE59-4071-91CA-D102E26507CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CFED78B-EE59-4071-91CA-D102E26507CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

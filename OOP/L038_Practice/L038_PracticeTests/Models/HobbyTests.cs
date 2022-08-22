@@ -16,9 +16,13 @@ namespace L038_Practice.Models_Tests
         {
             var fake = "19,Computer games,Kompiuteriniai žaidimai";
 
+            var hobby = new Hobby();
+            hobby.HobbyExtractor(fake);
 
+            var expected = new Hobby(19, "Computer games", "Kompiuteriniai žaidimai");
 
-            Assert.Fail();
+            Assert.AreEqual(expected.Text, hobby.Text);
+            Assert.AreEqual(expected.TextLt, hobby.TextLt);
         }
     }
 }
