@@ -8,15 +8,7 @@ namespace L038_Practice
         {
             Console.WriteLine("Hello, Practice!");
 
-
-
-
-
             Task2();
-
-
-
-
         }
 
         /* Task1  
@@ -53,13 +45,13 @@ namespace L038_Practice
 
         }
 
-        /* Task2  
+        /*
         sukurite klasę UniversityPerson paveldėtą iš Person klasės. Pridėkite properčius.
         - Profession (Profession)
         - Hobbies (List of Hobby)
         
         1- Padarykite metodą kuris atsitiktinai asmeniui pariks nuo 0 iki 4 hobių iš HobbyInitialData.DataSeedCsv. 
-            Užtikrinkite,kad tas pat hobis nepasikartotu 2 kartus
+            Užtikrinkite,kad tas pat hobis nepasikartotu 2 kartus (unit-test)
         
         2- Naudodami method overload padarykite metodus kurie atsitiktinai asmeniui pariks 1 profesiją iš  
             ProfessionInitialData.DataSeed arba 
@@ -81,10 +73,11 @@ namespace L038_Practice
             };
             univercityPerson.SetUpto4Hobies();
 
-
+            int index = 0;
             foreach (var item in univercityPerson.Hobbies)
             {
-                Console.WriteLine(univercityPerson.Hobbies);
+                Console.WriteLine(univercityPerson.Hobbies[index].Text);
+                index++;
             }
 
         }
