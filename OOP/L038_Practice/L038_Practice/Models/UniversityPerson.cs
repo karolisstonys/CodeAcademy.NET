@@ -19,9 +19,9 @@ namespace L038_Practice.Models
             _random = random;
         }
 
-        public Profession Profession { get; set; }
+        public virtual Profession Profession { get; set; }
 
-        private Random _random;
+        protected Random _random;
 
         public List<Hobby> Hobbies { get; set; }
 
@@ -30,8 +30,8 @@ namespace L038_Practice.Models
             Hobbies = new List<Hobby>();
             var hobbyData = HobbyInitialData.DataSeedCsv.ToList();
 
-            int a = _random.Next(0, 5);
-            for (int i = 0; i < a; i++)
+            int max = _random.Next(0, 5);
+            for (int i = 0; i < max; i++)
             {
                 var hobby = new Hobby();
 
@@ -65,7 +65,7 @@ namespace L038_Practice.Models
             Profession.TextLt = arr[2];
         }
 
-        public string GetCsv()
+        public virtual string GetCsv()
         {
             var universityPerson = this;
             string csv = "";
@@ -86,6 +86,7 @@ namespace L038_Practice.Models
                 else
                     csv += ",";
             }
+
             return csv.Remove(csv.Length-1);
         }
     }
