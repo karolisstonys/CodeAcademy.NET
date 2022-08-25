@@ -415,25 +415,6 @@
         Irodyti veikima parasant testus kiekvienam metodui.*/
 
 
-        /* Uzduotis 3.
-        Sukurkite interface <IPayable>. Sis interface bus naudojamas apskaitos departamento sistemose rasant israsus. 
-        <IPayable> turetu tureti sias tris kontrakto funkcines dalis:
-            1.    Isgauti dabartine alga
-            2.    Padidinti esama alga
-            3.    Isgauti uzmokescio adresa (Fizinis siunciamas laisku)
-        Sukurkite klase <Employee> ir paveldekite ja <Person> klaseje (Snippet pasiimkit is apacios)
-        internal class SD_Person
-            {
-                public int Id { get; set; }
-                public string Name { get; set; }
-                public string LastName { get; set; }
-            }
-        <Employee> turetu tureti siuos properties:
-        1.    Salary
-        2.    Mailing address
-        <Employee> turetu paveldeti is <IPayable> interface. Kiekviena kontrakto dali uzpildykite logiskais sprendimais pvz: Mailing address funkcionalumas greiciausiai turetu grazinti zmogaus esama registruota adresa.
-        Irodyti veikima parasant testus kiekvienam metodui. */
-
 
         /* Uzduotis 4.
         Sukurti <Movie> klase (Id, CreationDate)
@@ -614,6 +595,79 @@
         public double Perimetras() => 2 * _spindulys * Math.PI;
 
     }
+
+
+
+
+    /* Uzduotis 3.
+    Sukurkite interface <IPayable>. Sis interface bus naudojamas apskaitos departamento sistemose rasant israsus. 
+    <IPayable> turetu tureti sias tris kontrakto funkcines dalis:
+        1.    Isgauti dabartine alga
+        2.    Padidinti esama alga
+        3.    Isgauti uzmokescio adresa (Fizinis siunciamas laisku)
+    Sukurkite klase <Employee> ir paveldekite ja <Person> klaseje (Snippet pasiimkit is apacios)
+    internal class SD_Person
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public string LastName { get; set; }
+        }
+    <Employee> turetu tureti siuos properties:
+    1.    Salary { get; private set; }
+    2.    Mailing address { get; private set; }
+    <Employee> turetu paveldeti is <IPayable> interface. Kiekviena kontrakto dali uzpildykite logiskais sprendimais pvz: Mailing address funkcionalumas greiciausiai turetu grazinti zmogaus esama registruota adresa.
+    Irodyti veikima parasant testus kiekvienam metodui. */
+
+
+    public interface IPayable
+    {
+        double GetSalary();
+        void IncreaseSalary(double amount);
+        string GetMailingAddress();
+    }
+    public class SD_Person
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string LastName { get; set; }
+    }
+
+    public class Employee : SD_Person
+    {
+        public Employee(double salary, string mailingAddress)
+        {
+            Salary = salary;
+            MailingAddress = mailingAddress;
+        }
+
+        public double Salary { get; private set; }
+        public string MailingAddress { get; private set; }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
