@@ -138,11 +138,12 @@ namespace L042_Practice.Services
                     res.Add(new BookHtml());
                 }
                 
-                book.SetDataTo(res[res.Count - 1]);
+                //book.SetDataTo(res[res.Count - 1]);
                 lastTitle = book.Title;
             }
 
-            return res.ToHtml();
+            //return res.ToHtml();
+            return "";
         }
 
     }
