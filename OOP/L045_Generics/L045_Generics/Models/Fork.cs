@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace L045_Generics.Models
 {
-    public class Fork : ITool
+    public class Fork : Tool, ITool
     {
         public int Id { get; set; }
         public string Name { get; set; }

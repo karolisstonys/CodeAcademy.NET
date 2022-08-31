@@ -9,11 +9,11 @@ namespace L045_Generics
         static void Main(string[] args)
         {
             Console.WriteLine("Hello Generics!");
-            FirstExample();
+            BasicGenericExamples();
         }
 
         #region PIRMI_PAVYZDZIAI
-        public static void FirstExample()
+        public static void BasicGenericExamples()
         {
             // Pirmas generic pavyzdys
             List<int> genericNumberList = new List<int>();
@@ -59,6 +59,9 @@ namespace L045_Generics
             toolNodeList.Add(keyboard1);
             toolNodeList.ProcessAllNodes();
 
+            ICustomList<int> number2List = new NodeList<int>();
+
+
         }
 
         #endregion
@@ -78,5 +81,57 @@ namespace L045_Generics
         Testai turetu patikrinti abu metodus ir bent 3 skirtingais duomenu tipais inicializuotas reiksmes 
         (Siem testam pasitelkite GetCordinate metoda) */
 
+
+        public class Cordinate<T>
+        {
+
+        }
+
+
+        #region BASIC_PAVYZDZIAI
+
+        public static void GenericConstraintsAndFilters()
+        {
+            // struct   →   filtras skirtas atskirti ar perduodama yra value dalis
+            // class    →   filtras skirtas atskirti ar perduoma dalis yra refference tipo
+            // new()    →   filtras skirtas atskirti ar perduodama klase su tusciu konstruktoriu
+            // <BETKOKIA_KLASE>     →   filtas skirtas atskirti ar perduodama nurodyta klase
+            // <BETKOKS_INTERFACE>  →   filtras skirtas ar perduodama nurodyta interfaceklase
+            // U    →   filtras skirtas patikrinti paveldimuma
+
+            NodeListFilterStruct<int> structNodeList1 = new NodeListFilterStruct<int>();
+            NodeListFilterStruct<DateTime> structNodeList2 = new NodeListFilterStruct<DateTime>();
+            // NodeListFilterStruct veikia tik su value tipais
+            //NodeListFilterStruct<ITool> structNodeList3 = new NodeListFilterStruct<ITool>();
+
+            NodeListFilterClass<ITool> classNodeList1 = new NodeListFilterClass<ITool>();
+            NodeListFilterClass<string> classNodeList2 = new NodeListFilterClass<string>();
+            // NodeListFilterClass veikia tik su refference tipais
+            // NodeListFilterClass<int> classNodeList3 = new NodeListFilterClass<int>();
+
+            NodeListFilterClassNew<Fork> classNewNoteList = new NodeListFilterClassNew<Fork>();
+            // NodeListFilterClassNew priima tik klases tipo duomenu tipus, kurie turi tuscia konstruktoriu
+            // NodeListFilterClassNew<ITool> classNewNoteList = new NodeListFilterClassNew<ITool>();
+
+            NodeListFilterSpecifiedClass<Tool> specifiedClassNodeList1 = new NodeListFilterSpecifiedClass<Tool>();
+            NodeListFilterSpecifiedClass<Fork> specifiedClassNodeList2 = new NodeListFilterSpecifiedClass<Fork>();
+            // NodeListFilterSpecifiedClass priima tik klase, kuri buvo nurodyta, arba klases kurios paveldeja is pateiktos klases
+            // NodeListFilterSpecifiedClass<ITool> specifiedClassNodeList3 = new NodeListFilterSpecifiedClass<ITool>();
+
+            NodeListFilterSpecifiedInterface<ITool> toolSpecifiedInterfaceNodeList1 = new NodeListFilterSpecifiedInterface<ITool>();
+            NodeListFilterSpecifiedInterface<Fork> toolSpecifiedInterfaceNodeList2 = new NodeListFilterSpecifiedInterface<Fork>();
+            // NodeListFilterSpecifiedInterface priima tik intercafe ar klases, kurios paveldeja nurodyta interface
+            // NodeListFilterSpecifiedInterface<int> toolSpecifiedInterfaceNodeList3 = new NodeListFilterSpecifiedInterface<int>();
+
+
+
+
+
+
+        }
+
+
+
+        #endregion
     }
 }
