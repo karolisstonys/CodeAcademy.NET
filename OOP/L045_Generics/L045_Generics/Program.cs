@@ -1,5 +1,4 @@
-﻿
-using L045_Generics.Interfaces;
+﻿using L045_Generics.Interfaces;
 using L045_Generics.Models;
 
 namespace L045_Generics
@@ -9,8 +8,11 @@ namespace L045_Generics
         static void Main(string[] args)
         {
             Console.WriteLine("Hello Generics!");
-            BasicGenericExamples();
+            //BasicGenericExamples();
+
+            Task2();
         }
+
 
         #region PIRMI_PAVYZDZIAI
         public static void BasicGenericExamples()
@@ -81,12 +83,10 @@ namespace L045_Generics
         Testai turetu patikrinti abu metodus ir bent 3 skirtingais duomenu tipais inicializuotas reiksmes 
         (Siem testam pasitelkite GetCordinate metoda) */
 
-
         public class Cordinate<T>
         {
 
         }
-
 
         #region BASIC_PAVYZDZIAI
 
@@ -126,6 +126,16 @@ namespace L045_Generics
 
 
 
+            // -------------------------------------------------------------------------------------------------------
+
+
+
+
+            Fork fork3 = new Fork();
+            GenericMethodBaseClass methodBaseClass = new GenericMethodBaseClass();
+            methodBaseClass.Print("Hello");
+            methodBaseClass.Print(fork3);
+
 
 
         }
@@ -133,5 +143,57 @@ namespace L045_Generics
 
 
         #endregion
+
+        /* Uzduotis 2
+        + Pries uzduotis susikurti 3 klases: PrivateClient, Administrator, BusinessClient. 
+        + Visos jos paveldeja is interface IUser (int Id get set, string Name get set, )
+        + Sukurti generic <EntityRepository> klase, kuri priimtu klases su tusciu konstruktoriumi duomenu tipa ir turetu metodus: 
+        +     Add, 
+        +     Remove, 
+        +     Print(), 
+        +     Fetch(). 
+        + Repository savyje turi tureti generic sarasa, kuris priimtu sias 3 klases: 
+        +     PrivateClient, 
+        +     Administrator, 
+        +     BusinessClient. 
+        Tam, kad igyvendintumete salyga naudokite interface kaip duomenu tipa savo repository objektui. 
+        Veikima irodykite testu pagalba (Isskyrus print) ir Main() metode idekite naujai sukurtus 3 objektus (Kiekvienai klasei po viena) */
+
+
+        public static void Task2()
+        {
+            IUser user1 = new PrivateClient()
+            {
+                Id = 1,
+                Name = "Private"
+            };
+
+            IUser user2 = new Administrator()
+            {
+                Id = 2,
+                Name = "Admin"
+            };
+
+            IUser user3 = new BusinessClient()
+            {
+                Id = 3,
+                Name = "Business"
+            };
+
+            EntityRepository<IUser> entity = new EntityRepository<IUser>();
+
+
+
+
+
+
+
+
+
+
+        }
+
+
+
     }
 }
