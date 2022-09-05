@@ -6,20 +6,49 @@ namespace Tower_of_Hanoi
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, Tower of Hanoi!");
-
-            var gameDateTime = DateTime.Now;
-
-            Console.WriteLine(gameDateTime);
-
+            Console.WriteLine("Hello, Tower of Hanoi!\n");
             var tower = new Tower();
+            bool gameContinues = true;
 
-            var towerStringBuilder = tower.BuildTower();
+            while (gameContinues)
+            {
+                var towerStringBuilder = tower.BuildTower();
+                Console.WriteLine(tower.DateAndTime);
+                Console.WriteLine();
+                Console.WriteLine($"Diskas rankoje: {tower.InHand}");
+                Console.WriteLine(towerStringBuilder.ToString());
 
-
-            Console.WriteLine(towerStringBuilder.ToString());
-
-
+                char input = Console.ReadKey().KeyChar;
+                switch (input)
+                {
+                    case '\u001b':  // ESC
+                        gameContinues = false;
+                        break;
+                    case '1':
+                        Console.Clear();
+                        Console.WriteLine("1:\n");
+                        tower.Move(tower.Peg1, 1);
+                        break;
+                    case '2':
+                        Console.Clear();
+                        Console.WriteLine("2:\n");
+                        tower.Move(tower.Peg2, 2);
+                        break;
+                    case '3':
+                        Console.Clear();
+                        Console.WriteLine("3:\n");
+                        tower.Move(tower.Peg3, 3);
+                        break;
+                    case 'h' or 'H':
+                        Console.Clear();
+                        Console.WriteLine("Pagalba:\n");
+                        break;
+                    default:
+                        Console.Clear();
+                        Console.WriteLine("Blogas pasirinkimas, bandykite iš naujo.\n");
+                        break;
+                }
+            }
 
 
 

@@ -6,18 +6,23 @@ using System.Threading.Tasks;
 
 namespace TowerOfHanoi.Domain.Enums
 {
-    public class EDisks {
 
-        public static string Empty { get; } = "     |     ";
+    public enum EDisks  { Empty, Disk1, Disk2, Disk3, Disk4 }
 
-        public static string Disk1 { get; } = "    #|#    ";
 
-        public static string Disk2 { get; } = "   ##|##   ";
 
-        public static string Disk3 { get; } = "  ###|###  ";
+    //public class EDisks {
 
-        public static string Disk4 { get; } = " ####|#### ";
-    
-    }
+    //    public static string Empty { get; } = "    |    ";
+
+    //    public static string Disk1 { get; } = "   #|#   ";
+
+    //    public static string Disk2 { get; } = "  ##|##  ";
+
+    //    public static string Disk3 { get; } = " ###|### ";
+
+    //    public static string Disk4 { get; } = "####|####";
+
+    //}
 
 }
