@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tower of Hanoi", "Tower of Hanoi\Tower of Hanoi.csproj", "{51A1FCBD-F390-412B-A9C0-E4DC4F16E761}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TowerOfHanoi", "Tower of Hanoi\TowerOfHanoi.csproj", "{51A1FCBD-F390-412B-A9C0-E4DC4F16E761}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TowerOfHanoi.Domain", "TowerOfHanoi.Domain\TowerOfHanoi.Domain.csproj", "{BA2A70F2-9C1A-4CFE-AF66-6A56A87C2B7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{51A1FCBD-F390-412B-A9C0-E4DC4F16E761}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51A1FCBD-F390-412B-A9C0-E4DC4F16E761}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51A1FCBD-F390-412B-A9C0-E4DC4F16E761}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA2A70F2-9C1A-4CFE-AF66-6A56A87C2B7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA2A70F2-9C1A-4CFE-AF66-6A56A87C2B7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA2A70F2-9C1A-4CFE-AF66-6A56A87C2B7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA2A70F2-9C1A-4CFE-AF66-6A56A87C2B7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
