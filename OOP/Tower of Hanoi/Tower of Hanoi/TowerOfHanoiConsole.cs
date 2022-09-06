@@ -1,4 +1,5 @@
-﻿using TowerOfHanoi.Domain.Models;
+﻿using TowerOfHanoi.Domain.Enums;
+using TowerOfHanoi.Domain.Models;
 
 namespace Tower_of_Hanoi
 {
@@ -12,6 +13,9 @@ namespace Tower_of_Hanoi
 
             while (gameContinues)
             {
+
+                var peg1 = new Peg(EDisks.Disk1, EDisks.Disk2, EDisks.Disk3, EDisks.Disk4);
+                var peg2 = new Peg();
                 var towerStringBuilder = tower.BuildTower();
                 Console.WriteLine(tower.DateAndTime);
                 Console.WriteLine();

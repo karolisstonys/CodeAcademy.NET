@@ -6,14 +6,12 @@ namespace TowerOfHanoi.Domain.Models
     public class Tower
     {
         public DateTime DateAndTime { get; } = DateTime.Now;
-        public int Disk1Peg { get; set; } = 1;
-        public int Disk2Peg { get; set; } = 1;
-        public int Disk3Peg { get; set; } = 1;
-        public int Disk4Peg { get; set; } = 1;
 
-        public EDisks[] Peg1 { get; set; } = { EDisks.Disk1, EDisks.Disk2, EDisks.Disk3, EDisks.Disk4 };
-        public EDisks[] Peg2 { get; set; } = { EDisks.Empty, EDisks.Empty, EDisks.Empty, EDisks.Empty };
-        public EDisks[] Peg3 { get; set; } = { EDisks.Empty, EDisks.Empty, EDisks.Empty, EDisks.Empty };
+        //public int Disk1Peg { get; set; } = 1;
+        //public int Disk2Peg { get; set; } = 1;
+        //public int Disk3Peg { get; set; } = 1;
+        //public int Disk4Peg { get; set; } = 1;
+
 
         public EDisks? InHand { get; set; } = null;
 
@@ -31,17 +29,17 @@ namespace TowerOfHanoi.Domain.Models
             return sb;
         }
 
-        public void Move(EDisks[] peg, int num)
+        public void Move(Peg peg, int num)
         {
             int i = 0;
             if (InHand == null)                 // take out
             {
-                foreach (var s in peg)
+                foreach (var s in peg.Rows)
                 {
                     if (s != null) 
                     { 
                         InHand = s;
-                        peg[i] = EDisks.Empty;
+                        peg.Rows[i] = EDisks.Empty;
                         break;
                     }
                     i++;
@@ -49,11 +47,11 @@ namespace TowerOfHanoi.Domain.Models
             }
             else                                // put in
             {
-                foreach (var s in peg)
+                foreach (var s in peg.Rows)
                 {
                     if (s != EDisks.Empty && i < 4)
                     {
-                        peg[i-1] = InHand.Value;
+                        peg.Rows[i-1] = InHand.Value;
                         InHand = null;
                         break;
                     }
