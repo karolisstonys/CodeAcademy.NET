@@ -15,49 +15,70 @@ namespace TowerOfHanoi.Domain.Models
 
         public EDisks? InHand { get; set; } = null;
 
-        public StringBuilder BuildTower()
+        public StringBuilder BuildTower(Peg peg1, Peg peg2, Peg peg3)
         {
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine("1eil.       |            |            |       ");
-            sb.AppendLine($"2eil.   {Peg1[0]}    {Peg2[0]}    {Peg3[0]}   ");
-            sb.AppendLine($"3eil.   {Peg1[1]}    {Peg2[1]}    {Peg3[1]}   ");
-            sb.AppendLine($"4eil.   {Peg1[2]}    {Peg2[2]}    {Peg3[2]}   ");
-            sb.AppendLine($"5eil.   {Peg1[3]}    {Peg2[3]}    {Peg3[3]}   ");
+            sb.AppendLine($"2eil.   {peg1.Levels[0]}    {peg2.Levels[0]}    {peg3.Levels[0]}   ");
+            sb.AppendLine($"3eil.   {peg1.Levels[1]}    {peg2.Levels[1]}    {peg3.Levels[1]}   ");
+            sb.AppendLine($"4eil.   {peg1.Levels[2]}    {peg2.Levels[2]}    {peg3.Levels[2]}   ");
+            sb.AppendLine($"5eil.   {peg1.Levels[3]}    {peg2.Levels[3]}    {peg3.Levels[3]}   ");
             sb.AppendLine("-----------[1]----------[2]----------[3]------");
-            
+
+            sb.Replace("NoDisk", "    |    ")
+               .Replace("Disk1", "   #|#   ")
+               .Replace("Disk2", "  ##|##  ")
+               .Replace("Disk3", " ###|### ")
+               .Replace("Disk4", "####|####");
+
             return sb;
         }
 
-        public void Move(Peg peg, int num)
+        public bool Move(Peg peg)
         {
             int i = 0;
             if (InHand == null)                 // take out
             {
-                foreach (var s in peg.Rows)
+                foreach (var level in peg.Levels)
                 {
-                    if (s != null) 
+                    if (level != EDisks.NoDisk) 
                     { 
-                        InHand = s;
-                        peg.Rows[i] = EDisks.Empty;
-                        break;
+                        InHand = level;
+                        peg.Levels[i] = EDisks.NoDisk;
+                        return true;
+                    }
+
+                    if (level == EDisks.NoDisk && i == 3)
+                    {
+                        return false;
                     }
                     i++;
                 }
             }
             else                                // put in
             {
-                foreach (var s in peg.Rows)
+                foreach (var level in peg.Levels)
                 {
-                    if (s != EDisks.Empty && i < 4)
+                    if (level != EDisks.NoDisk && i <= 3)
                     {
-                        peg.Rows[i-1] = InHand.Value;
+                        if (InHand > level)
+                            return false;
+                        peg.Levels[i-1] = InHand.Value;
                         InHand = null;
-                        break;
+                        return true;
+                    }
+
+                    if (level == EDisks.NoDisk && i == 3)
+                    {
+                        peg.Levels[i] = InHand.Value;
+                        InHand = null;
+                        return true;
                     }
                     i++;
                 }
             }
+            return false;
         }
 
     }

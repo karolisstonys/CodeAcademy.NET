@@ -11,15 +11,18 @@ namespace Tower_of_Hanoi
             var tower = new Tower();
             bool gameContinues = true;
 
+            var peg1 = new Peg(EDisks.Disk1, EDisks.Disk2, EDisks.Disk3, EDisks.Disk4);
+            var peg2 = new Peg();
+            var peg3 = new Peg();
+
             while (gameContinues)
             {
+                var towerStringBuilder = tower.BuildTower(peg1, peg2, peg3);
 
-                var peg1 = new Peg(EDisks.Disk1, EDisks.Disk2, EDisks.Disk3, EDisks.Disk4);
-                var peg2 = new Peg();
-                var towerStringBuilder = tower.BuildTower();
                 Console.WriteLine(tower.DateAndTime);
                 Console.WriteLine();
                 Console.WriteLine($"Diskas rankoje: {tower.InHand}");
+                Console.WriteLine();
                 Console.WriteLine(towerStringBuilder.ToString());
 
                 char input = Console.ReadKey().KeyChar;
@@ -28,25 +31,39 @@ namespace Tower_of_Hanoi
                     case '\u001b':  // ESC
                         gameContinues = false;
                         break;
+
                     case '1':
                         Console.Clear();
-                        Console.WriteLine("1:\n");
-                        tower.Move(tower.Peg1, 1);
+                        Console.WriteLine("1");
+                        if (tower.Move(peg1))
+                            Console.WriteLine("Veiksmas atlikas\n");
+                        else
+                            Console.WriteLine("Veiksmas negalimas\n");
                         break;
+
                     case '2':
                         Console.Clear();
-                        Console.WriteLine("2:\n");
-                        tower.Move(tower.Peg2, 2);
+                        Console.WriteLine("2");
+                        if (tower.Move(peg2))
+                            Console.WriteLine("Veiksmas atlikas\n");
+                        else
+                            Console.WriteLine("Veiksmas negalimas\n");
                         break;
+
                     case '3':
                         Console.Clear();
-                        Console.WriteLine("3:\n");
-                        tower.Move(tower.Peg3, 3);
+                        Console.WriteLine("3");
+                        if (tower.Move(peg3))
+                            Console.WriteLine("Veiksmas atlikas\n");
+                        else
+                            Console.WriteLine("Veiksmas negalimas\n");
                         break;
+
                     case 'h' or 'H':
                         Console.Clear();
                         Console.WriteLine("Pagalba:\n");
                         break;
+
                     default:
                         Console.Clear();
                         Console.WriteLine("Blogas pasirinkimas, bandykite iš naujo.\n");
@@ -70,7 +87,7 @@ namespace Tower_of_Hanoi
             3eil.     ##|##          |            |      
             4eil.    ###|###         |            |      
             5eil.   ####|####        |            |      
-                -----[1]----------[2]----------[3]------
+                  -----[1]----------[2]----------[3]------
 
             Norėdami išeiti paspauskite 'Esc' 
             Pagalbai paspauskite 'H' 

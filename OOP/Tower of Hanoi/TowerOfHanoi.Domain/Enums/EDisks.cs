@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace TowerOfHanoi.Domain.Enums
 {
 
-    public enum EDisks  { Empty, Disk1, Disk2, Disk3, Disk4 }
+    public enum EDisks  { NoDisk, Disk1, Disk2, Disk3, Disk4 }
 
 
 
