@@ -7,6 +7,8 @@ namespace Tower_of_Hanoi
     {
         static void Main(string[] args)
         {
+
+
             Console.WriteLine("Hello, Tower of Hanoi!\n");
             var tower = new Tower();
             bool gameContinues = true;
