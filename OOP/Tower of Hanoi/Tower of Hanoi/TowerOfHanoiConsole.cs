@@ -7,19 +7,31 @@ namespace Tower_of_Hanoi
     {
         static void Main(string[] args)
         {
+            bool logToCSV = true;
+            bool logToHTML = true;
+            bool logToTXT = true;
 
-
-            Console.WriteLine("Hello, Tower of Hanoi!\n");
-            var tower = new Tower();
             bool gameContinues = true;
 
-            var peg1 = new Peg(EDisks.Disk1, EDisks.Disk2, EDisks.Disk3, EDisks.Disk4);
+            var disk1 = EDisks.Disk1;
+            var disk2 = EDisks.Disk2;
+            var disk3 = EDisks.Disk3;
+            var disk4 = EDisks.Disk4;
+
+            var level1 = new Level(disk1);
+            var level2 = new Level(disk2);
+            var level3 = new Level(disk3);
+            var level4 = new Level(disk4);
+
+            var peg1 = new Peg(level1, level2, level3, level4);
             var peg2 = new Peg();
             var peg3 = new Peg();
 
+            var tower = new Tower(peg1, peg2, peg3);
+
             while (gameContinues)
             {
-                var towerStringBuilder = tower.BuildTower(peg1, peg2, peg3);
+                var towerStringBuilder = tower.StringBuildTower(peg1, peg2, peg3);
 
                 Console.WriteLine(tower.DateAndTime);
                 Console.WriteLine();

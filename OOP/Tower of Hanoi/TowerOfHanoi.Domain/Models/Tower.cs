@@ -1,9 +1,11 @@
 ﻿using System.Text;
 using TowerOfHanoi.Domain.Enums;
+using TowerOfHanoi.Domain.Interfaces;
+using TowerOfHanoi.Domain.Helpers;
 
 namespace TowerOfHanoi.Domain.Models
 {
-    public class Tower
+    public class Tower : ITower
     {
         public DateTime DateAndTime { get; } = DateTime.Now;
 
@@ -15,15 +17,27 @@ namespace TowerOfHanoi.Domain.Models
 
         public EDisks? InHand { get; set; } = null;
 
-        public StringBuilder BuildTower(Peg peg1, Peg peg2, Peg peg3)
+
+        public Peg[] Pegs { get; set; } = new Peg[3];
+
+
+        public Tower(Peg peg1, Peg peg2, Peg peg3)
+        {
+            Pegs[0] = peg1;
+            Pegs[1] = peg2;
+            Pegs[2] = peg3;
+        }
+
+
+        public StringBuilder StringBuildTower(Peg peg1, Peg peg2, Peg peg3)
         {
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine("1eil.       |            |            |       ");
-            sb.AppendLine($"2eil.   {peg1.Levels[0]}    {peg2.Levels[0]}    {peg3.Levels[0]}   ");
-            sb.AppendLine($"3eil.   {peg1.Levels[1]}    {peg2.Levels[1]}    {peg3.Levels[1]}   ");
-            sb.AppendLine($"4eil.   {peg1.Levels[2]}    {peg2.Levels[2]}    {peg3.Levels[2]}   ");
-            sb.AppendLine($"5eil.   {peg1.Levels[3]}    {peg2.Levels[3]}    {peg3.Levels[3]}   ");
+            sb.AppendLine($"2eil.   {peg1.Levels[0].Disk}    {peg2.Levels[0].Disk}    {peg3.Levels[0].Disk}   ");
+            sb.AppendLine($"3eil.   {peg1.Levels[1].Disk}    {peg2.Levels[1].Disk}    {peg3.Levels[1].Disk}   ");
+            sb.AppendLine($"4eil.   {peg1.Levels[2].Disk}    {peg2.Levels[2].Disk}    {peg3.Levels[2].Disk}   ");
+            sb.AppendLine($"5eil.   {peg1.Levels[3].Disk}    {peg2.Levels[3].Disk}    {peg3.Levels[3].Disk}   ");
             sb.AppendLine("-----------[1]----------[2]----------[3]------");
 
             sb.Replace("NoDisk", "    |    ")
@@ -38,48 +52,32 @@ namespace TowerOfHanoi.Domain.Models
         public bool Move(Peg peg)
         {
             int i = 0;
-            if (InHand == null)                 // take out
+            if (InHand == null)     // pick up
             {
-                foreach (var level in peg.Levels)
-                {
-                    if (level != EDisks.NoDisk) 
-                    { 
-                        InHand = level;
-                        peg.Levels[i] = EDisks.NoDisk;
-                        return true;
-                    }
+                int diskIndex = peg.GetTopNonEmptyLevelIndex();
+                if (diskIndex > 3) return false;     // out of bounds - nothing valid to pick up
 
-                    if (level == EDisks.NoDisk && i == 3)
-                    {
-                        return false;
-                    }
-                    i++;
-                }
+                InHand = peg.Levels[diskIndex].Disk;
+                peg.Levels[diskIndex].Disk = EDisks.NoDisk;
+                return true;
             }
-            else                                // put in
+            else    // put down
             {
-                foreach (var level in peg.Levels)
-                {
-                    if (level != EDisks.NoDisk && i <= 3)
-                    {
-                        if (InHand > level)
-                            return false;
-                        peg.Levels[i-1] = InHand.Value;
-                        InHand = null;
-                        return true;
-                    }
+                int emptyIndex = peg.GetBottomEmptyLevelIndex();
+                if (!MovementValidator.IsDiskBelowLarger(emptyIndex, peg)) return false;   // cannot put larger disk on smaller disk
 
-                    if (level == EDisks.NoDisk && i == 3)
-                    {
-                        peg.Levels[i] = InHand.Value;
-                        InHand = null;
-                        return true;
-                    }
-                    i++;
-                }
+                //if (emptyIndex < 3 && peg.Levels[emptyIndex].Disk < peg.Levels[emptyIndex + 1].Disk) return false;   // cannot put larger disk on smaller disk
+
+
+                peg.Levels[emptyIndex].Disk = InHand.Value;
+                InHand = null;
+                return true;
+
             }
             return false;
         }
+
+
 
     }
 }
