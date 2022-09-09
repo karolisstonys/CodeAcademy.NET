@@ -2,6 +2,7 @@
 using TowerOfHanoi.Domain.Enums;
 using TowerOfHanoi.Domain.Interfaces;
 using TowerOfHanoi.Domain.Helpers;
+using TowerOfHanoi.Domain.Services;
 
 namespace TowerOfHanoi.Domain.Models
 {
@@ -9,17 +10,18 @@ namespace TowerOfHanoi.Domain.Models
     {
         public DateTime DateAndTime { get; } = DateTime.Now;
 
-        //public int Disk1Peg { get; set; } = 1;
-        //public int Disk2Peg { get; set; } = 1;
-        //public int Disk3Peg { get; set; } = 1;
-        //public int Disk4Peg { get; set; } = 1;
+        public int MoveCounter { get; set; } = 0;
 
+        public bool LogInCsvFile { get; set; }
+
+        public bool LogInHtmlFile { get; set; }
+
+        public bool LogInTxtFile { get; set; }
 
         public EDisks? InHand { get; set; } = null;
-
+        public int DiskInHandFromPeg { get; set; }
 
         public Peg[] Pegs { get; set; } = new Peg[3];
-
 
         public Tower(Peg peg1, Peg peg2, Peg peg3)
         {
@@ -49,7 +51,7 @@ namespace TowerOfHanoi.Domain.Models
             return sb;
         }
 
-        public bool Move(Peg peg)
+        public bool Move(Peg peg, int pegNo)
         {
             if (InHand == null)     // pick up
             {
@@ -58,6 +60,7 @@ namespace TowerOfHanoi.Domain.Models
 
                 InHand = peg.Levels[diskIndex].Disk;
                 peg.Levels[diskIndex].Disk = EDisks.NoDisk;
+                DiskInHandFromPeg = pegNo;
             }
             else        // put down
             {
@@ -66,8 +69,24 @@ namespace TowerOfHanoi.Domain.Models
 
                 peg.Levels[emptyIndex].Disk = InHand.Value;
                 InHand = null;
+                MoveCounter++;
+                Logger.Log(this);
             }
             return true;
+        }
+
+        public int FindDisk(EDisks disk)
+        {
+            int pegNo = 0;
+            foreach (var peg in this.Pegs)
+            {
+                pegNo++;
+                foreach (var level in peg.Levels)
+                {
+                    if (level.Disk == disk) return pegNo;
+                }
+            }
+            return pegNo;
         }
 
 

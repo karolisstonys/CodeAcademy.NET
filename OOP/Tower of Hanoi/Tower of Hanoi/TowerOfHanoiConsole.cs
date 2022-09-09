@@ -1,5 +1,6 @@
 ﻿using TowerOfHanoi.Domain.Enums;
 using TowerOfHanoi.Domain.Models;
+using TowerOfHanoi.Domain.Services;
 
 namespace Tower_of_Hanoi
 {
@@ -11,25 +12,28 @@ namespace Tower_of_Hanoi
             bool logToHTML = true;
             bool logToTXT = true;
 
-            bool gameContinues = true;
+            var fileReader = new FileRead();
+            var isCSVFileEmpty = fileReader.CheckIfFileIsEmpty("TowerOfHanoiLogs.csv");
+            var isHTMLFileEmpty = fileReader.CheckIfFileIsEmpty("TowerOfHanoiLogs.html");
+            var isTXTFileEmpty = fileReader.CheckIfFileIsEmpty("TowerOfHanoiLogs.txt");
 
-            var disk1 = EDisks.Disk1;
-            var disk2 = EDisks.Disk2;
-            var disk3 = EDisks.Disk3;
-            var disk4 = EDisks.Disk4;
+            bool play = true;
 
-            var level1 = new Level(disk1);
-            var level2 = new Level(disk2);
-            var level3 = new Level(disk3);
-            var level4 = new Level(disk4);
+            var level1 = new Level(EDisks.Disk1);
+            var level2 = new Level(EDisks.Disk2);
+            var level3 = new Level(EDisks.Disk3);
+            var level4 = new Level(EDisks.Disk4);
 
             var peg1 = new Peg(level1, level2, level3, level4);
             var peg2 = new Peg();
             var peg3 = new Peg();
 
             var tower = new Tower(peg1, peg2, peg3);
+            tower.LogInCsvFile = logToCSV;
+            tower.LogInHtmlFile = logToHTML;
+            tower.LogInTxtFile = logToTXT;
 
-            while (gameContinues)
+            while (play)
             {
                 var towerStringBuilder = tower.StringBuildTower(peg1, peg2, peg3);
 
@@ -43,16 +47,12 @@ namespace Tower_of_Hanoi
                 switch (input)
                 {
                     case '\u001b':  // ESC
-                        gameContinues = false;
+                        play = false;
                         break;
 
                     case '1':
                         Console.Clear();
-                        Console.WriteLine("1");
-
-
-
-                        if (tower.Move(peg1))
+                        if (tower.Move(peg1, 1))
                             Console.WriteLine("Veiksmas atlikas\n");
                         else
                             Console.WriteLine("Veiksmas negalimas\n");
@@ -60,8 +60,7 @@ namespace Tower_of_Hanoi
 
                     case '2':
                         Console.Clear();
-                        Console.WriteLine("2");
-                        if (tower.Move(peg2))
+                        if (tower.Move(peg2, 2))
                             Console.WriteLine("Veiksmas atlikas\n");
                         else
                             Console.WriteLine("Veiksmas negalimas\n");
@@ -69,8 +68,7 @@ namespace Tower_of_Hanoi
 
                     case '3':
                         Console.Clear();
-                        Console.WriteLine("3");
-                        if (tower.Move(peg3))
+                        if (tower.Move(peg3, 3))
                             Console.WriteLine("Veiksmas atlikas\n");
                         else
                             Console.WriteLine("Veiksmas negalimas\n");

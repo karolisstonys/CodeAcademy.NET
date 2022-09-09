@@ -5,6 +5,6 @@ namespace TowerOfHanoi.Domain.Interfaces
 {
 	public interface ITower
 	{
-		public bool Move(Peg Peg);
+		public bool Move(Peg Peg, int pegNo);
 	}
 }
