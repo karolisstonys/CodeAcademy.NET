@@ -49,6 +49,9 @@ namespace Tower_of_Hanoi
                     case '1':
                         Console.Clear();
                         Console.WriteLine("1");
+
+
+
                         if (tower.Move(peg1))
                             Console.WriteLine("Veiksmas atlikas\n");
                         else

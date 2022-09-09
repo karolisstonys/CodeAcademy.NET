@@ -1,10 +1,17 @@
-﻿using TowerOfHanoi.Domain.Models;
+﻿using TowerOfHanoi.Domain.Enums;
+using TowerOfHanoi.Domain.Models;
 
 namespace TowerOfHanoi.Domain.Helpers
 {
     public class MovementValidator
     {
-        public static bool IsDiskBelowLarger(int emptyIndex, Peg peg) => emptyIndex < 3 && peg.Levels[emptyIndex].Disk < peg.Levels[emptyIndex + 1].Disk;
+        public static bool IsDiskBelowLarger(int emptyIndex, Peg peg, EDisks? inHand)
+        {
+            if (emptyIndex == 3) 
+                return true;
+            bool result = emptyIndex < 3 && inHand.Value < peg.Levels[emptyIndex + 1].Disk;
+            return result;
+        }
         
     }
 }

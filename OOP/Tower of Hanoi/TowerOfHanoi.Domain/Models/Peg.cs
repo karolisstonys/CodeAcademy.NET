@@ -42,7 +42,6 @@ namespace TowerOfHanoi.Domain.Models
 				if (Levels[i].Disk != EDisks.NoDisk) 
 					return i;
 			}
-
 			return 4;
 		}
 

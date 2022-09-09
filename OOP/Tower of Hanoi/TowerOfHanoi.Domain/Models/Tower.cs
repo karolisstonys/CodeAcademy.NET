@@ -51,7 +51,6 @@ namespace TowerOfHanoi.Domain.Models
 
         public bool Move(Peg peg)
         {
-            int i = 0;
             if (InHand == null)     // pick up
             {
                 int diskIndex = peg.GetTopNonEmptyLevelIndex();
@@ -59,22 +58,16 @@ namespace TowerOfHanoi.Domain.Models
 
                 InHand = peg.Levels[diskIndex].Disk;
                 peg.Levels[diskIndex].Disk = EDisks.NoDisk;
-                return true;
             }
-            else    // put down
+            else        // put down
             {
                 int emptyIndex = peg.GetBottomEmptyLevelIndex();
-                if (!MovementValidator.IsDiskBelowLarger(emptyIndex, peg)) return false;   // cannot put larger disk on smaller disk
-
-                //if (emptyIndex < 3 && peg.Levels[emptyIndex].Disk < peg.Levels[emptyIndex + 1].Disk) return false;   // cannot put larger disk on smaller disk
-
+                if (!MovementValidator.IsDiskBelowLarger(emptyIndex, peg, InHand)) return false;   // cannot put larger disk on smaller disk
 
                 peg.Levels[emptyIndex].Disk = InHand.Value;
                 InHand = null;
-                return true;
-
             }
-            return false;
+            return true;
         }
 
 
