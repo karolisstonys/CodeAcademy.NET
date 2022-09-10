@@ -2,7 +2,7 @@
 
 namespace TowerOfHanoi.Domain.Services
 {
-    public class FileReader : IFileReader
+    public class FileReader
     {
         public bool CheckIfFileIsEmpty(string fileName)
         {

@@ -63,6 +63,12 @@ namespace Tower_of_Hanoi
                         Console.WriteLine("Pagalba:\n");
                         break;
 
+                    case 's' or 'S':
+                        Console.Clear();
+                        Console.WriteLine("Statistika:\n");
+                        Dictionary<DateTime, string[]> dictionary = Statistics.ShowStatistics(tower);
+                        break;
+
                     case '\u001b':  // ESC
                         play = false;
                         break;
