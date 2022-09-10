@@ -35,7 +35,7 @@ namespace TowerOfHanoi.Domain.Services
             }
         }
 
-        private static string[] GetLogData(Tower tower)
+        public static string[] GetLogData(Tower tower)
         {
             var startDate = tower.DateAndTime.ToString("yyyy-MM-dd HH:mm:ss");
             var moveCount = tower.MoveCounter.ToString();

@@ -11,8 +11,13 @@ namespace Tower_of_Hanoi
             bool logToCSV = true;
             bool logToHTML = true;
             bool logToTXT = true;
-
             bool play = true;
+
+            if (!(logToCSV || logToHTML || logToTXT))
+            {
+                Console.WriteLine("Turi buti pasirinktas bent vienas istorijos kaupimo budas");
+                play = false;
+            }
 
             var tower = new Tower(logToCSV, logToHTML, logToTXT);
 
@@ -29,10 +34,6 @@ namespace Tower_of_Hanoi
                 char input = Console.ReadKey().KeyChar;
                 switch (input)
                 {
-                    case '\u001b':  // ESC
-                        play = false;
-                        break;
-
                     case '1':
                         Console.Clear();
                         if (tower.Move(tower.Pegs[0], 1))
@@ -60,6 +61,10 @@ namespace Tower_of_Hanoi
                     case 'h' or 'H':
                         Console.Clear();
                         Console.WriteLine("Pagalba:\n");
+                        break;
+
+                    case '\u001b':  // ESC
+                        play = false;
                         break;
 
                     default:
