@@ -12,7 +12,7 @@ namespace Tower_of_Hanoi
             bool logToHTML = true;
             bool logToTXT = true;
 
-            var fileReader = new FileRead();
+            var fileReader = new FileReader();
             var isCSVFileEmpty = fileReader.CheckIfFileIsEmpty("TowerOfHanoiLogs.csv");
             var isHTMLFileEmpty = fileReader.CheckIfFileIsEmpty("TowerOfHanoiLogs.html");
             var isTXTFileEmpty = fileReader.CheckIfFileIsEmpty("TowerOfHanoiLogs.txt");

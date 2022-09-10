@@ -1,111 +1,90 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TowerOfHanoi.Domain.Models;
-using System.IO;
+﻿using TowerOfHanoi.Domain.Models;
 using TowerOfHanoi.Domain.Enums;
+using System.Text;
 
 namespace TowerOfHanoi.Domain.Services
 {
     public class Logger
     {
-        public static void Log(Tower tower)
+        public static void Log(Tower tower, int movedToPegNo)
         {
-            if (tower.LogInCsvFile) LogInCsvFile(tower);
-            if (tower.LogInHtmlFile) LogInHtmlFile(tower);
-            //if (tower.LogInTxtFile) LogInTxtFile(tower);
+            string[] logData = new string[6];
+            logData = GetLogData(tower);
+
+            if (tower.LogInCsvFile) LogInCsvFile(logData);
+            if (tower.LogInHtmlFile) LogInHtmlFile(logData);
+            if (tower.LogInTxtFile) LogInTxtFile(logData, tower.InHand.ToString(), tower.DiskInHandFromPeg, movedToPegNo);
         }
 
-        // https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/file-system/how-to-write-to-a-text-file
-
-        public static void LogInCsvFile(Tower tower)
+        private static string[] GetLogData(Tower tower)
         {
-            /* CSV KONTRAKTAS
-            zaidimo_pradzios_data, ejimo_nr, disko_1_vieta, disko_2_vieta, disko_3_vieta, disko_4_vieta
-            PVZ:
-            2022-01-01 12:00,1,2,1,1,1
-            2022-01-01 12:00,2,2,3,1,1 */
-
-            var startDate = tower.DateAndTime.ToString("yyyy-MM-dd HH:mm");
+            var startDate = tower.DateAndTime.ToString("yyyy-MM-dd HH:mm:ss");
             var moveCount = tower.MoveCounter.ToString();
             var disk1Position = tower.FindDisk(EDisks.Disk1).ToString();
             var disk2Position = tower.FindDisk(EDisks.Disk2).ToString();
             var disk3Position = tower.FindDisk(EDisks.Disk3).ToString();
             var disk4Position = tower.FindDisk(EDisks.Disk4).ToString();
+            return new string[] { startDate, moveCount, disk1Position, disk2Position, disk3Position, disk4Position };
+        }
 
-            string line = startDate + "," + moveCount + "," + disk1Position + "," + disk2Position + "," + disk3Position + "," + disk4Position;
-            string path = new DirectoryInfo(Environment.CurrentDirectory) + "\\Logs\\TowerOfHanoiLogs.csv";
+        public static void LogInCsvFile(string[] logData)
+        {
+            var fileReader = new FileReader();
+            string path = fileReader.GetFilePath("TowerOfHanoiLogs.csv");
 
+            string line = logData[0] + "," + logData[1] + "," + logData[2] + "," + logData[3] + "," + logData[4] + "," + logData[5];
             using StreamWriter file = new(path, append: true);
             file.WriteLine(line);
-
-
         }
 
-        public static void LogInHtmlFile(Tower tower)
+        public static void LogInHtmlFile(string[] logData)
         {
-            string path = new DirectoryInfo(Environment.CurrentDirectory) + "\\Logs\\TowerOfHanoiLogs.html";
-
-            var startDate = tower.DateAndTime.ToString("yyyy-MM-dd HH:mm");
-            var moveCount = tower.MoveCounter.ToString();
-            var disk1Position = tower.FindDisk(EDisks.Disk1).ToString();
-            var disk2Position = tower.FindDisk(EDisks.Disk2).ToString();
-            var disk3Position = tower.FindDisk(EDisks.Disk3).ToString();
-            var disk4Position = tower.FindDisk(EDisks.Disk4).ToString();
-
+            var fileReader = new FileReader();
+            string path = fileReader.GetFilePath("TowerOfHanoiLogs.html");
             StringBuilder buildHtml = new StringBuilder();
 
-            var fileReader = new FileRead();
             if (fileReader.CheckIfFileIsEmpty("TowerOfHanoiLogs.html"))
             {            
-                string tableHeader = @"<table border>
-<tr>
-<th>ŽAIDIMO PRADŽIOS DATA</th>
-<th>ĖJIMO NR</td>
-<th>DISKO 1 VIETA</th>
-<th>DISKO 2 VIETA</th>
-<th>DISKO 3 VIETA</th>
-<th>DISKO 4 VIETA</th>
-</tr>";
+                string tableHeader = "<table border>\n<tr>\n<th>ŽAIDIMO PRADŽIOS DATA</th>\n<th>ĖJIMO NR</td>\n<th>DISKO 1 VIETA</th>\n<th>DISKO 2 VIETA</th>\n<th>DISKO 3 VIETA</th>\n<th>DISKO 4 VIETA</th>\n</tr>";
                 buildHtml.Append(tableHeader);
             }
             else
             {
-                // reikia pasiimti html faila nuskaityti, split per </table> ir pirma index prideti i pradzia (antra kaip ir ismetant), toliau testi su standartiniu buildHTML kodu apacioje
+                string oldHtmlFile = File.ReadAllText(path);
+                string[] oldHtmlText = oldHtmlFile.Split("</table>");
+                buildHtml.Append(oldHtmlText[0]);
             }
 
-
             buildHtml.AppendLine("<tr>");
-            buildHtml.AppendLine("<td>" + startDate + "</td>");
-            buildHtml.AppendLine("<td>" + moveCount + "</td>");
-            buildHtml.AppendLine("<td>" + disk1Position + "</td>");
-            buildHtml.AppendLine("<td>" + disk2Position + "</td>");
-            buildHtml.AppendLine("<td>" + disk3Position + "</td>");
-            buildHtml.AppendLine("<td>" + disk4Position + "</td>");
+            buildHtml.AppendLine("<td>" + logData[0] + "</td>");
+            buildHtml.AppendLine("<td>" + logData[1] + "</td>");
+            buildHtml.AppendLine("<td>" + logData[2] + "</td>");
+            buildHtml.AppendLine("<td>" + logData[3] + "</td>");
+            buildHtml.AppendLine("<td>" + logData[4] + "</td>");
+            buildHtml.AppendLine("<td>" + logData[5] + "</td>");
             buildHtml.AppendLine("</tr>");
             buildHtml.AppendLine("</table>");
 
-
-
-            string stringHtml = buildHtml.ToString();
-
-
-
-
-
-            using StreamWriter file = new(path, append: true);
-            file.WriteLine(stringHtml);
-
-
-
-
+            using StreamWriter file = new(path, append: false);
+            file.WriteLine(buildHtml.ToString());
         }
 
-        public static void LogInTxtFile(Tower tower)
+        public static void LogInTxtFile(string[] logData, string inHand, int movedFromPegNo, int movedToPegNo)
         {
+            var fileReader = new FileReader();
+            string path = fileReader.GetFilePath("TowerOfHanoiLogs.txt");
 
+            // "žaidime kuris pradėtas {zaidimo_pradzios_data}, ėjimu nr {ejimo_nr} {disko_dydis} dalių diskas buvo paimtas iš {is_stulpelio_nr_zodziu} sulpelio ir padėtas į {i_stulpelio_nr_zodziu}"
+
+            var converter = new Converter();
+            string line = $"žaidime kuris pradėtas {logData[0]}, ";
+            line += $"ėjimu nr {logData[1]}, ";
+            line += $"{inHand} dalių diskas ";
+            line += $"buvo paimtas iš {converter.FromPegNumberInWords(movedFromPegNo)} sulpelio ";
+            line += $"ir padėtas į {converter.ToPegNumberInWords(movedToPegNo)}";
+
+            using StreamWriter file = new(path, append: true);
+            file.WriteLine(line);
         }
     }
 }

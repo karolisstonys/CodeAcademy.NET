@@ -70,7 +70,7 @@ namespace TowerOfHanoi.Domain.Models
                 peg.Levels[emptyIndex].Disk = InHand.Value;
                 InHand = null;
                 MoveCounter++;
-                Logger.Log(this);
+                Logger.Log(this, pegNo);
             }
             return true;
         }

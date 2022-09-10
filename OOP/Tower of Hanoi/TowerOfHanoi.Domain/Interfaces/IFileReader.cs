@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TowerOfHanoi.Domain.Interfaces
 {
-    public interface IFileRead
+    public interface IFileReader
     {
         public bool CheckIfFileIsEmpty(string fileAddress);
     }
