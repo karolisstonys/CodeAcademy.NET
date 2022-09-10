@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TowerOfHanoi", "Tower of Hanoi\TowerOfHanoi.csproj", "{51A1FCBD-F390-412B-A9C0-E4DC4F16E761}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TowerOfHanoi", "Tower of Hanoi\TowerOfHanoi.csproj", "{51A1FCBD-F390-412B-A9C0-E4DC4F16E761}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TowerOfHanoi.Domain", "TowerOfHanoi.Domain\TowerOfHanoi.Domain.csproj", "{BA2A70F2-9C1A-4CFE-AF66-6A56A87C2B7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TowerOfHanoi.Domain", "TowerOfHanoi.Domain\TowerOfHanoi.Domain.csproj", "{BA2A70F2-9C1A-4CFE-AF66-6A56A87C2B7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TowerOfHanoi.Domain_Tests", "TowerOfHanoi.Domain_Tests\TowerOfHanoi.Domain_Tests.csproj", "{6AE65FD9-5BEF-4EF1-95D9-950706D407C0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{15303B98-E6F1-490C-9D35-13B951155339}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +25,16 @@ Global
 		{BA2A70F2-9C1A-4CFE-AF66-6A56A87C2B7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA2A70F2-9C1A-4CFE-AF66-6A56A87C2B7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA2A70F2-9C1A-4CFE-AF66-6A56A87C2B7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AE65FD9-5BEF-4EF1-95D9-950706D407C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AE65FD9-5BEF-4EF1-95D9-950706D407C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AE65FD9-5BEF-4EF1-95D9-950706D407C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AE65FD9-5BEF-4EF1-95D9-950706D407C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6AE65FD9-5BEF-4EF1-95D9-950706D407C0} = {15303B98-E6F1-490C-9D35-13B951155339}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4E48ADDB-0223-4B7B-8E59-86322A0EC534}

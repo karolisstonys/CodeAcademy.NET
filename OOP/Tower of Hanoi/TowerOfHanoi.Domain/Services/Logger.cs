@@ -8,12 +8,31 @@ namespace TowerOfHanoi.Domain.Services
     {
         public static void Log(Tower tower, int movedToPegNo)
         {
-            string[] logData = new string[6];
-            logData = GetLogData(tower);
+            string[] logData = GetLogData(tower);
 
-            if (tower.LogInCsvFile) LogInCsvFile(logData);
-            if (tower.LogInHtmlFile) LogInHtmlFile(logData);
-            if (tower.LogInTxtFile) LogInTxtFile(logData, tower.InHand.ToString(), tower.DiskInHandFromPeg, movedToPegNo);
+            var fileReader = new FileReader();
+
+            if (tower.LogInCsvFile) 
+            {
+                string path = fileReader.GetFilePath("TowerOfHanoiLogs.csv");
+                string line = CreateStringForCsv(logData);
+                using StreamWriter file = new(path, append: true);
+                file.WriteLine(line);
+            }
+            if (tower.LogInHtmlFile)
+            {
+                string path = fileReader.GetFilePath("TowerOfHanoiLogs.html");
+                string buildHtml = CreateStringForHtml(logData, fileReader, path);
+                using StreamWriter file = new(path, append: false);
+                file.WriteLine(buildHtml);
+            }
+            if (tower.LogInTxtFile)
+            {
+                string path = fileReader.GetFilePath("TowerOfHanoiLogs.txt");
+                string line = CreateStringForTxt(logData, tower.InHand.ToString(), tower.DiskInHandFromPeg, movedToPegNo);
+                using StreamWriter file = new(path, append: true);
+                file.WriteLine(line);
+            }
         }
 
         private static string[] GetLogData(Tower tower)
@@ -27,20 +46,13 @@ namespace TowerOfHanoi.Domain.Services
             return new string[] { startDate, moveCount, disk1Position, disk2Position, disk3Position, disk4Position };
         }
 
-        public static void LogInCsvFile(string[] logData)
-        {
-            var fileReader = new FileReader();
-            string path = fileReader.GetFilePath("TowerOfHanoiLogs.csv");
-
-            string line = logData[0] + "," + logData[1] + "," + logData[2] + "," + logData[3] + "," + logData[4] + "," + logData[5];
-            using StreamWriter file = new(path, append: true);
-            file.WriteLine(line);
+        public static string CreateStringForCsv(string[] logData)
+        {         
+            return logData[0] + "," + logData[1] + "," + logData[2] + "," + logData[3] + "," + logData[4] + "," + logData[5];
         }
 
-        public static void LogInHtmlFile(string[] logData)
+        public static string CreateStringForHtml(string[] logData, FileReader fileReader, string path)
         {
-            var fileReader = new FileReader();
-            string path = fileReader.GetFilePath("TowerOfHanoiLogs.html");
             StringBuilder buildHtml = new StringBuilder();
 
             if (fileReader.CheckIfFileIsEmpty("TowerOfHanoiLogs.html"))
@@ -65,26 +77,18 @@ namespace TowerOfHanoi.Domain.Services
             buildHtml.AppendLine("</tr>");
             buildHtml.AppendLine("</table>");
 
-            using StreamWriter file = new(path, append: false);
-            file.WriteLine(buildHtml.ToString());
+            return buildHtml.ToString();
         }
 
-        public static void LogInTxtFile(string[] logData, string inHand, int movedFromPegNo, int movedToPegNo)
+        public static string CreateStringForTxt(string[] logData, string inHand, int movedFromPegNo, int movedToPegNo)
         {
-            var fileReader = new FileReader();
-            string path = fileReader.GetFilePath("TowerOfHanoiLogs.txt");
-
-            // "žaidime kuris pradėtas {zaidimo_pradzios_data}, ėjimu nr {ejimo_nr} {disko_dydis} dalių diskas buvo paimtas iš {is_stulpelio_nr_zodziu} sulpelio ir padėtas į {i_stulpelio_nr_zodziu}"
-
             var converter = new Converter();
             string line = $"žaidime kuris pradėtas {logData[0]}, ";
             line += $"ėjimu nr {logData[1]}, ";
-            line += $"{inHand} dalių diskas ";
+            line += $"{inHand.Substring(4,1)} dalių diskas ";
             line += $"buvo paimtas iš {converter.FromPegNumberInWords(movedFromPegNo)} sulpelio ";
             line += $"ir padėtas į {converter.ToPegNumberInWords(movedToPegNo)}";
-
-            using StreamWriter file = new(path, append: true);
-            file.WriteLine(line);
+            return line;
         }
     }
 }

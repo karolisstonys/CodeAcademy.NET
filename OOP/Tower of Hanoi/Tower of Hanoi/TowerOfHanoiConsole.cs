@@ -12,30 +12,13 @@ namespace Tower_of_Hanoi
             bool logToHTML = true;
             bool logToTXT = true;
 
-            var fileReader = new FileReader();
-            var isCSVFileEmpty = fileReader.CheckIfFileIsEmpty("TowerOfHanoiLogs.csv");
-            var isHTMLFileEmpty = fileReader.CheckIfFileIsEmpty("TowerOfHanoiLogs.html");
-            var isTXTFileEmpty = fileReader.CheckIfFileIsEmpty("TowerOfHanoiLogs.txt");
-
             bool play = true;
 
-            var level1 = new Level(EDisks.Disk1);
-            var level2 = new Level(EDisks.Disk2);
-            var level3 = new Level(EDisks.Disk3);
-            var level4 = new Level(EDisks.Disk4);
-
-            var peg1 = new Peg(level1, level2, level3, level4);
-            var peg2 = new Peg();
-            var peg3 = new Peg();
-
-            var tower = new Tower(peg1, peg2, peg3);
-            tower.LogInCsvFile = logToCSV;
-            tower.LogInHtmlFile = logToHTML;
-            tower.LogInTxtFile = logToTXT;
+            var tower = new Tower(logToCSV, logToHTML, logToTXT);
 
             while (play)
             {
-                var towerStringBuilder = tower.StringBuildTower(peg1, peg2, peg3);
+                var towerStringBuilder = tower.StringBuildTower(tower.Pegs[0], tower.Pegs[1], tower.Pegs[2]);
 
                 Console.WriteLine(tower.DateAndTime);
                 Console.WriteLine();
@@ -52,7 +35,7 @@ namespace Tower_of_Hanoi
 
                     case '1':
                         Console.Clear();
-                        if (tower.Move(peg1, 1))
+                        if (tower.Move(tower.Pegs[0], 1))
                             Console.WriteLine("Veiksmas atlikas\n");
                         else
                             Console.WriteLine("Veiksmas negalimas\n");
@@ -60,7 +43,7 @@ namespace Tower_of_Hanoi
 
                     case '2':
                         Console.Clear();
-                        if (tower.Move(peg2, 2))
+                        if (tower.Move(tower.Pegs[1], 2))
                             Console.WriteLine("Veiksmas atlikas\n");
                         else
                             Console.WriteLine("Veiksmas negalimas\n");
@@ -68,7 +51,7 @@ namespace Tower_of_Hanoi
 
                     case '3':
                         Console.Clear();
-                        if (tower.Move(peg3, 3))
+                        if (tower.Move(tower.Pegs[2], 3))
                             Console.WriteLine("Veiksmas atlikas\n");
                         else
                             Console.WriteLine("Veiksmas negalimas\n");

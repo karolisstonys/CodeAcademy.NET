@@ -8,6 +8,30 @@ namespace TowerOfHanoi.Domain.Models
 {
     public class Tower : ITower
     {
+        public Tower() : this(true, true, true) { }
+
+        public Tower(bool logToCSV, bool logToHTML, bool logToTXT)
+        {
+            var level1 = new Level(EDisks.Disk1);
+            var level2 = new Level(EDisks.Disk2);
+            var level3 = new Level(EDisks.Disk3);
+            var level4 = new Level(EDisks.Disk4);
+
+            Pegs[0] = new Peg(level1, level2, level3, level4);
+            Pegs[1] = new Peg();
+            Pegs[2] = new Peg();
+
+            LogInCsvFile = logToCSV;
+            LogInHtmlFile = logToHTML;
+            LogInTxtFile = logToTXT;
+        }
+        //public Tower(Peg peg1, Peg peg2, Peg peg3)
+        //{
+        //    Pegs[0] = peg1;
+        //    Pegs[1] = peg2;
+        //    Pegs[2] = peg3;
+        //}
+
         public DateTime DateAndTime { get; } = DateTime.Now;
 
         public int MoveCounter { get; set; } = 0;
@@ -23,12 +47,6 @@ namespace TowerOfHanoi.Domain.Models
 
         public Peg[] Pegs { get; set; } = new Peg[3];
 
-        public Tower(Peg peg1, Peg peg2, Peg peg3)
-        {
-            Pegs[0] = peg1;
-            Pegs[1] = peg2;
-            Pegs[2] = peg3;
-        }
 
 
         public StringBuilder StringBuildTower(Peg peg1, Peg peg2, Peg peg3)
@@ -68,9 +86,9 @@ namespace TowerOfHanoi.Domain.Models
                 if (!MovementValidator.IsDiskBelowLarger(emptyIndex, peg, InHand)) return false;   // cannot put larger disk on smaller disk
 
                 peg.Levels[emptyIndex].Disk = InHand.Value;
-                InHand = null;
                 MoveCounter++;
                 Logger.Log(this, pegNo);
+                InHand = null;
             }
             return true;
         }
