@@ -60,18 +60,18 @@ namespace TowerOfHanoi.Domain.Helpers
 
             for (int i = 0; i < gameStatisticList.AllGamesStatistics.Count; i++)
             {
-                string gameDateTime = gameStatisticList.AllGamesStatistics[i].GameDateTime.ToString();
+                string selectedDateTime = gameStatisticList.AllGamesStatistics[i].GameDateTime.ToString();
 
                 // Going through log files in order (TXT -> HTML -> CSV) to find specific game
                 // Checking if game was won and marking accordingly 
                 var victoryValidator = new VictoryValidator();
-                if (FindGameInLogFileLines.TxtLog(allTxtFileLines, gameDateTime))
+                if (FindGameInLogFileLines.TxtLog(allTxtFileLines, selectedDateTime))
                 {
                     // Extracting specific game DateTime lines from allTxtFileLines
                     List<string> gameLines = new List<string>();
                     foreach (string line in allTxtFileLines)
                     {
-                        if (line.Contains(gameDateTime))
+                        if (line.Contains(selectedDateTime))
                             gameLines.Add(line);
                     }
 
@@ -91,7 +91,7 @@ namespace TowerOfHanoi.Domain.Helpers
                         gameStatisticList.AllGamesStatistics[i].MovesUntilVictory = "N/B";
                     }
                 }
-                else if (allHtmlFileLines.Contains(gameDateTime))
+                else if (FindGameInLogFileLines.HtmlLog(allTxtFileLines, selectedDateTime))
                 {
 
                 }

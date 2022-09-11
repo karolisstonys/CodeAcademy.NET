@@ -17,5 +17,15 @@ namespace TowerOfHanoi.Domain.Helpers
             } 
             return false;
         }
+
+        public static bool HtmlLog(string[] allTxtFileLines, string gameDateTime)
+        {
+            foreach (var line in allTxtFileLines)
+            {
+                if (line.Contains(gameDateTime))
+                    return true;
+            }
+            return false;
+        }
     }
 }
