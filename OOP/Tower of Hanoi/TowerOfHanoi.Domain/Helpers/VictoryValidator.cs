@@ -13,7 +13,9 @@ namespace TowerOfHanoi.Domain.Helpers
         internal int _disk3 = 0;
         internal int _disk4 = 0;
 
-        public bool IsAllDisksLastMovesFound(string line)
+        public string MovesUntilVictory { get; internal set; } = "";
+
+        public bool IsAllDisksLastMovesFoundInTxtLog(string line)
         {
             // žaidime kuris pradėtas 2022-09-11 12:13:28, ėjimu nr 11, 2 dalių diskas buvo paimtas iš trečio sulpelio ir padėtas į pirmą
             // žaidime kuris pradėtas 2022-09-11 12:13:28, ėjimu nr 13, 4 dalių diskas buvo paimtas iš pirmo sulpelio ir padėtas į antrą
@@ -37,7 +39,27 @@ namespace TowerOfHanoi.Domain.Helpers
             return IsAllDisksFound();
         }
 
+        public bool IsAllDisksLastMovesFoundInHtmlLog(List<string> lines)
+        {
+            //<td>2022-09-10 16:35:02</td>
+            //<td>4</td>
+            //<td>2</td>
+            //<td>2</td>
+            //<td>1</td>
+            //<td>1</td>
+
+            for (int i = 0; i < lines.Count(); i++) lines[i] = lines[i].Replace("<td>", "").Replace("</td>", "");
+            MovesUntilVictory = lines[1];
+            _disk1 =  Convert.ToInt32(lines[2]);
+            _disk2 =  Convert.ToInt32(lines[3]);
+            _disk3 =  Convert.ToInt32(lines[4]);
+            _disk4 =  Convert.ToInt32(lines[5]);
+
+            return IsAllDisksFound();
+        }
+
+
         internal bool IsAllDisksFound() => _disk1 != 0 && _disk2 != 0 && _disk3 != 0 && _disk4 != 0;
-        internal bool IsWon() => _disk1 == 3 && _disk2 == 3 && _disk3 == 3 && _disk4 == 3;
+        internal bool IsGameWon() => _disk1 == 3 && _disk2 == 3 && _disk3 == 3 && _disk4 == 3;
     }
 }

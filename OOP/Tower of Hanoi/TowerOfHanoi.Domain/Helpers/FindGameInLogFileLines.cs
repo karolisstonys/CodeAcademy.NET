@@ -8,24 +8,15 @@ namespace TowerOfHanoi.Domain.Helpers
 {
     public class FindGameInLogFileLines
     {
-        public static bool TxtLog(string[] allTxtFileLines, string gameDateTime)
+        public static bool IsDateTimeFound(IEnumerable<string> allFileLines, string gameDateTime)
         {
-            foreach (var line in allTxtFileLines)
-            {
-                if (line.Contains(gameDateTime))
-                    return true;
-            } 
-            return false;
-        }
-
-        public static bool HtmlLog(string[] allTxtFileLines, string gameDateTime)
-        {
-            foreach (var line in allTxtFileLines)
+            foreach (var line in allFileLines)
             {
                 if (line.Contains(gameDateTime))
                     return true;
             }
             return false;
         }
+        
     }
 }
