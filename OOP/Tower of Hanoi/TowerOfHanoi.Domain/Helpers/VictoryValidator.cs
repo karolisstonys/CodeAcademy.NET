@@ -58,6 +58,19 @@ namespace TowerOfHanoi.Domain.Helpers
             return IsAllDisksFound();
         }
 
+        public bool IsAllDisksLastMovesFoundInCsvLog(string line)
+        {
+            //2022-09-10 16:33:56,21,1,1,3,3
+
+            var lineSplit = line.Split(',');
+            MovesUntilVictory = lineSplit[1];
+            _disk1 =  Convert.ToInt32(lineSplit[2]);
+            _disk2 =  Convert.ToInt32(lineSplit[3]);
+            _disk3 =  Convert.ToInt32(lineSplit[4]);
+            _disk4 =  Convert.ToInt32(lineSplit[5]);
+
+            return IsAllDisksFound();
+        }
 
         internal bool IsAllDisksFound() => _disk1 != 0 && _disk2 != 0 && _disk3 != 0 && _disk4 != 0;
         internal bool IsGameWon() => _disk1 == 3 && _disk2 == 3 && _disk3 == 3 && _disk4 == 3;

@@ -8,8 +8,8 @@ namespace Tower_of_Hanoi
     {
         static void Main(string[] args)
         {
-            bool logToCSV = false;
-            bool logToHTML = true;
+            bool logToCSV = true;
+            bool logToHTML = false;
             bool logToTXT = false;
             bool play = true;
 

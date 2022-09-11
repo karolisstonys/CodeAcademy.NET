@@ -12,18 +12,15 @@ namespace TowerOfHanoi.Domain.Helpers
         public static GameStatisticList ShowStatistics(Tower tower)
         {
             var gameStatisticList = new GameStatisticList();
-            //var allStatistics = new Dictionary<DateTime, string[]>();
 
-            string path = "";
-            var listDateTime = new List<DateTime>();
 
             //----------------------------------------------------                              KARTOJASI !!! + (UNIT-TEST)
             //----------------------------------------------------                              KARTOJASI !!! + (UNIT-TEST)
             //----------------------------------------------------                              KARTOJASI !!! + (UNIT-TEST)
             //----------------------------------------------------                              KARTOJASI !!! + (UNIT-TEST)
-            path = FileReader.GetFilePath("TowerOfHanoiLogs.txt");
+            var path = FileReader.GetFilePath("TowerOfHanoiLogs.txt");
             string[] allTxtFileLines = File.ReadAllLines(path);
-            listDateTime = GetAllUniqueDateTimesFromTxtFileLines(allTxtFileLines);
+            var listDateTime = GetAllUniqueDateTimesFromTxtFileLines(allTxtFileLines);
 
             foreach (var date in listDateTime)
             {
@@ -65,7 +62,17 @@ namespace TowerOfHanoi.Domain.Helpers
                 }
             }
 
+
+
+
             gameStatisticList.Order();  // ======================================================================================== NEVEIKI ORDER !!!
+
+
+
+
+
+
+
 
             for (int gameIndex = 0; gameIndex < gameStatisticList.AllGamesStatistics.Count; gameIndex++)
             {
@@ -110,7 +117,7 @@ namespace TowerOfHanoi.Domain.Helpers
                     // ******************************************************************************************
                     // ************************************* KARTOJASI ******************************************
                     // ******************************************************************************************
-                    // Finds last specific game's DateTime lines from allHtmlFileLines by going from last line to the top
+                    // Finds last line of specific selectedDateTime from allHtmlFileLines by going from last line to the top
                     List<string> gameLines = new List<string>();                    
                     for (int i = allHtmlFileLines.Count() - 1; i >= 0; i--)
                     {
@@ -126,7 +133,7 @@ namespace TowerOfHanoi.Domain.Helpers
                     }
 
                     var victoryValidator = new VictoryValidator();
-                    if (victoryValidator.IsAllDisksLastMovesFoundInHtmlLog(gameLines) && gameLines != null)
+                    if (gameLines != null && victoryValidator.IsAllDisksLastMovesFoundInHtmlLog(gameLines))
                     {
                         if (victoryValidator.IsGameWon())
                         {
@@ -139,14 +146,31 @@ namespace TowerOfHanoi.Domain.Helpers
                 }
                 else //if (allCsvFileLines.Contains(gameDateTime))
                 {
-                    
+                    // ******************************************************************************************
+                    // ************************************* KARTOJASI ******************************************
+                    // ******************************************************************************************
+                    // Extracting only selectedDateTime lines from allCsvFileLines
+                    List<string> gameLines = new List<string>();
+                    foreach (string line in allCsvFileLines)
+                    {
+                        if (line.Contains(selectedDateTime))
+                            gameLines.Add(line);
+                    }
+
+                    // Checks if last disk position of Csv log file is victory position 
+                    var victoryValidator = new VictoryValidator();
+                    if (gameLines != null && victoryValidator.IsAllDisksLastMovesFoundInCsvLog(gameLines[gameLines.Count - 1]))
+                    {
+                        if (victoryValidator.IsGameWon())
+                        {
+                            gameStatisticList.AllGamesStatistics[gameIndex].VictoryStatus = true;
+                            gameStatisticList.AllGamesStatistics[gameIndex].MovesUntilVictory = victoryValidator.MovesUntilVictory;
+                        }
+                        else
+                            gameStatisticList.AllGamesStatistics[gameIndex].MovesUntilVictory = "N/B";
+                    }
                 }
             }
-
-
-
-
-
             return gameStatisticList;
         }
 
@@ -168,11 +192,10 @@ namespace TowerOfHanoi.Domain.Helpers
 
         internal static List<DateTime> GetAllUniqueDateTimesFromHtmlFileLines(List<string> fileLines)
         {
-            var copyOfFileLines = fileLines.GetRange(9, fileLines.Count() - 9);         // making a copy to leave original reffered type object untouched
+            // Making a copy to leave original reffered type object untouched
+            // Removing all not needed 9 lines if header
+            var copyOfFileLines = fileLines.GetRange(9, fileLines.Count() - 9);         
             var list = new List<DateTime>();
-
-            // Removing all not needed Header
-            //copyOfFileLines.RemoveRange(0, 9);
 
             while (copyOfFileLines.Count >= 8)
             {
