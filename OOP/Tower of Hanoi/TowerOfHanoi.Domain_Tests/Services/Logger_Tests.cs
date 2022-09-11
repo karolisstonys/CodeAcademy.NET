@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TowerOfHanoi.Domain.Services;
 using TowerOfHanoi.Domain.Models;
+using TowerOfHanoi.Domain.Helpers;
 
 namespace TowerOfHanoi.Domain.Services_Tests
 {

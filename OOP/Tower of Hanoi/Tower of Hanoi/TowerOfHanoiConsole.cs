@@ -1,6 +1,6 @@
 ﻿using TowerOfHanoi.Domain.Enums;
+using TowerOfHanoi.Domain.Helpers;
 using TowerOfHanoi.Domain.Models;
-using TowerOfHanoi.Domain.Services;
 
 namespace Tower_of_Hanoi
 {
@@ -66,7 +66,7 @@ namespace Tower_of_Hanoi
                     case 's' or 'S':
                         Console.Clear();
                         Console.WriteLine("Statistika:\n");
-                        Dictionary<DateTime, string[]> dictionary = Statistics.ShowStatistics(tower);
+                        var allStatistics = Statistics.ShowStatistics(tower);
                         break;
 
                     case '\u001b':  // ESC

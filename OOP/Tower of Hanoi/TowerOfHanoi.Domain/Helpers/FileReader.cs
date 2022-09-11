@@ -1,17 +1,18 @@
 ﻿using TowerOfHanoi.Domain.Interfaces;
 
-namespace TowerOfHanoi.Domain.Services
+namespace TowerOfHanoi.Domain.Helpers
 {
-    public class FileReader
+    public static class FileReader
     {
-        public bool CheckIfFileIsEmpty(string fileName)
+        // Move to other class maybe? Helpers\FileValidator.cs ?
+        public static bool CheckIfFileIsEmpty(string fileName)
         {
             string path = GetFilePath(fileName);
             string allText = File.ReadAllText(path);
             return allText.Length == 0;
         }
 
-        public string GetFilePath(string fileName)
+        public static string GetFilePath(string fileName)
         {
             return new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.Parent.Parent.FullName + "\\TowerOfHanoi.Domain\\Logs\\" + fileName;
         }
