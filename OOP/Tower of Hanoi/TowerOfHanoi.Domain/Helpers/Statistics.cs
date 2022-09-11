@@ -65,7 +65,7 @@ namespace TowerOfHanoi.Domain.Helpers
 
 
 
-            gameStatisticList.Order();  // ======================================================================================== NEVEIKI ORDER !!!
+            var gameStatisticList2 = gameStatisticList.Order();  // ======================================================================================== NEVEIKI ORDER !!!
 
 
 
@@ -82,9 +82,6 @@ namespace TowerOfHanoi.Domain.Helpers
                 // Checking if game was won and marking accordingly 
                 if (FindGameInLogFileLines.IsDateTimeFound(allTxtFileLines, selectedDateTime))
                 {
-                    // ******************************************************************************************
-                    // ************************************* KARTOJASI ******************************************
-                    // ******************************************************************************************
                     // Extracting specific game DateTime lines from allTxtFileLines
                     List<string> gameLines = new List<string>();
                     foreach (string line in allTxtFileLines)
@@ -95,6 +92,8 @@ namespace TowerOfHanoi.Domain.Helpers
 
                     // FOR goes backwards from last line up and looks for last placement of every disk
                     var victoryValidator = new VictoryValidator();
+                    // For when not all four disks are found (e.g. Disk4 is never moved)
+                    gameStatisticList.AllGamesStatistics[gameIndex].MovesUntilVictory = "N/B";
                     for (int i = gameLines.Count() - 1; i >= 0; i--)
                     {
                         if (victoryValidator.IsAllDisksLastMovesFoundInTxtLog(gameLines[i]))
@@ -108,15 +107,10 @@ namespace TowerOfHanoi.Domain.Helpers
                             gameStatisticList.AllGamesStatistics[gameIndex].MovesUntilVictory = "N/B";
                             break;
                         }
-                        // When not all four disks are found (e.g. Disk4 is never moved)
-                        gameStatisticList.AllGamesStatistics[gameIndex].MovesUntilVictory = "N/B";
                     }
                 }
                 else if (FindGameInLogFileLines.IsDateTimeFound(allHtmlFileLines, selectedDateTime))
                 {
-                    // ******************************************************************************************
-                    // ************************************* KARTOJASI ******************************************
-                    // ******************************************************************************************
                     // Finds last line of specific selectedDateTime from allHtmlFileLines by going from last line to the top
                     List<string> gameLines = new List<string>();                    
                     for (int i = allHtmlFileLines.Count() - 1; i >= 0; i--)
@@ -146,9 +140,6 @@ namespace TowerOfHanoi.Domain.Helpers
                 }
                 else //if (allCsvFileLines.Contains(gameDateTime))
                 {
-                    // ******************************************************************************************
-                    // ************************************* KARTOJASI ******************************************
-                    // ******************************************************************************************
                     // Extracting only selectedDateTime lines from allCsvFileLines
                     List<string> gameLines = new List<string>();
                     foreach (string line in allCsvFileLines)

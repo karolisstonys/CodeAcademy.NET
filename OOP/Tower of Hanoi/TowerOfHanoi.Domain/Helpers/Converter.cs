@@ -8,16 +8,6 @@ namespace TowerOfHanoi.Domain.Helpers
 {
     public static class Converter
     {
-        //public static string DiskNumberToWords(int number)
-        //{
-        //    return number switch
-        //    {
-        //        1 => "1 dalies diskas",
-        //        2 or 3 => number.ToString() + " dalių diskas",
-        //        _ => throw new NotImplementedException()
-        //    };
-        //}
-
         public static string FromPegNumberConvertToWord(int number)
         {
             return number switch

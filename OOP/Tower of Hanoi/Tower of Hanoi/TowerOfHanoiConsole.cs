@@ -8,9 +8,9 @@ namespace Tower_of_Hanoi
     {
         static void Main(string[] args)
         {
-            bool logToCSV = true;
+            bool logToCSV = false;
             bool logToHTML = false;
-            bool logToTXT = false;
+            bool logToTXT = true;
             bool play = true;
 
             if (!(logToCSV || logToHTML || logToTXT))
@@ -79,9 +79,6 @@ namespace Tower_of_Hanoi
                         break;
                 }
             }
-
-
-
         }
 
         /* SUKURTI ŽAIDIMĄ TOWER OF HANOI
