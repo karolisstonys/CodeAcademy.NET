@@ -1,4 +1,6 @@
-﻿using TowerOfHanoi.Domain.Models;
+﻿using TowerOfHanoi.Domain.Enums;
+using TowerOfHanoi.Domain.Interfaces;
+using TowerOfHanoi.Domain.Models;
 using TowerOfHanoi.Domain.Models.Interfaces;
 
 namespace TowerOfHanoi.Domain.Helpers
@@ -72,5 +74,6 @@ namespace TowerOfHanoi.Domain.Helpers
         public bool IsAllDisksFound() => _disk1 != 0 && _disk2 != 0 && _disk3 != 0 && _disk4 != 0;
 
         public bool IsGameWon() => _disk1 == 3 && _disk2 == 3 && _disk3 == 3 && _disk4 == 3;
+
     }
 }

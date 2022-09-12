@@ -98,5 +98,14 @@ namespace TowerOfHanoi.Domain.Models
             }
             return pegNo;
         }
+
+        public static bool IsGameOver(ITower tower)
+        {
+            var disk1Position = tower.FindDisk(EDisks.Disk1);
+            var disk2Position = tower.FindDisk(EDisks.Disk2);
+            var disk3Position = tower.FindDisk(EDisks.Disk3);
+            var disk4Position = tower.FindDisk(EDisks.Disk4);
+            return disk1Position == 3 && disk2Position == 3 && disk3Position == 3 && disk4Position == 3;
+        }
     }
 }

@@ -17,6 +17,7 @@ namespace Tower_of_Hanoi
             bool logToHTML = true;
             bool logToTXT = false;
             bool play = true;
+            string msg = "";
 
             if (!(logToCSV || logToHTML || logToTXT))
             {
@@ -30,61 +31,32 @@ namespace Tower_of_Hanoi
             {
                 var towerStringBuilder = tower.StringBuildTower(tower.Pegs[0], tower.Pegs[1], tower.Pegs[2]);
 
-                Console.WriteLine();
-                Console.WriteLine($"Žaidimas {tower.DateAndTime}");
-                if (tower.InHand != null)
-                {
-                    Console.WriteLine($"Diskas rankoje - {tower.InHand}. Paimtas iš {tower.DiskInHandFromPeg}.");
-                }
-                else
-                {
-                    Console.WriteLine();
-                }
-                Console.WriteLine();
-                Console.WriteLine(towerStringBuilder.ToString());
-
+                DrawTower(msg, tower, towerStringBuilder);
+                msg = "";
                 char input = Console.ReadKey().KeyChar;
                 switch (input)
                 {
                     case '1':
-                        Console.Clear();
-                        if (tower.Move(tower.Pegs[0], 1))
-                            Console.WriteLine("Veiksmas atlikas\n");
-                        else
-                            Console.WriteLine("Veiksmas negalimas\n");
+                        if (tower.Move(tower.Pegs[0], 1) == false)
+                            msg = "Veiksmas negalimas";
                         break;
 
                     case '2':
-                        Console.Clear();
-                        if (tower.Move(tower.Pegs[1], 2))
-                            Console.WriteLine("Veiksmas atlikas\n");
-                        else
-                            Console.WriteLine("Veiksmas negalimas\n");
+                        if (tower.Move(tower.Pegs[1], 2) == false)
+                            msg = "Veiksmas negalimas";
                         break;
 
                     case '3':
-                        Console.Clear();
-                        if (tower.Move(tower.Pegs[2], 3))
-                            Console.WriteLine("Veiksmas atlikas\n");
-                        else
-                            Console.WriteLine("Veiksmas negalimas\n");
+                        if (tower.Move(tower.Pegs[2], 3) == false)
+                            msg = "Veiksmas negalimas";
                         break;
 
                     case 'h' or 'H':
-                        Console.Clear();
-                        Console.WriteLine("Pagalba: " + PlayerHelper.GiveNextBestMove(tower));
+                        msg = "Pagalba: " + PlayerHelper.GiveNextBestMove(tower);
                         break;
 
                     case 's' or 'S':
-                        Console.Clear();
-                        Console.Write("Statistika:\n");
-                        var allStatistics = Statistics.ShowStatistics(tower);
-                        var list = StatisticsPrinter.BuildAllStatistics(allStatistics);
-                        foreach (var line in list)
-                        {
-                            Console.WriteLine(line);
-                        }
-                        
+                        ShowStatistics(tower);
                         break;
 
                     case '\u001b':  // ESC
@@ -92,11 +64,50 @@ namespace Tower_of_Hanoi
                         break;
 
                     default:
-                        Console.Clear();
                         Console.WriteLine("Blogas pasirinkimas, bandykite iš naujo.\n");
                         break;
                 }
+
+                if (tower.InHand == null && Tower.IsGameOver(tower))
+                {
+                    Console.WriteLine(" !LAIMEJOTE!");
+                    break;
+                }
             }
+        }
+
+        private static void DrawTower(string msg, ITower tower, StringBuilder towerStringBuilder)
+        {
+            Console.Clear();
+            Console.WriteLine($"Žaidimas {tower.DateAndTime}");
+            if (tower.InHand != null)
+            {
+                Console.WriteLine($"Diskas rankoje - {tower.InHand}. Paimtas iš {tower.DiskInHandFromPeg}.");
+            }
+            else
+            {
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+            Console.WriteLine(towerStringBuilder.ToString());
+
+            Console.WriteLine();
+            Console.WriteLine(msg);
+
+        }
+
+        private static void ShowStatistics(ITower tower)
+        {
+            Console.Clear();
+            Console.Write("Statistika:\n");
+            var allStatistics = Statistics.ShowStatistics(tower);
+            var list = StatisticsPrinter.BuildAllStatistics(allStatistics);
+            foreach (var line in list)
+            {
+                Console.WriteLine(line);
+            }
+            Console.WriteLine("Norėdami tęsti, paspauskite bet kurį mygtuką");
+            Console.ReadKey();
         }
 
         /* SUKURTI ŽAIDIMĄ TOWER OF HANOI
