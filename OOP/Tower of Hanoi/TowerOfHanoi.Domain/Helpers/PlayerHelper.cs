@@ -9,9 +9,6 @@ namespace TowerOfHanoi.Domain.Helpers
         public static string GiveNextBestMove(ITower tower)
         {
             string help = "PAGALBA NEGALIMA";
-            List<string> foundPossibleHelpList = new List<string>();
-            string foundHelp = "";
-            int foundHelpIndex = 0;
 
             // Find all disk positions in current tower
             var disk1Position = tower.FindDisk(EDisks.Disk1).ToString();
@@ -19,57 +16,91 @@ namespace TowerOfHanoi.Domain.Helpers
             var disk3Position = tower.FindDisk(EDisks.Disk3).ToString();
             var disk4Position = tower.FindDisk(EDisks.Disk4).ToString();
 
-            // "paimkite diską iš ...... stulpelio padėkite į ......."
+            // If disks are in starting position
             if (AreDisksInStartingPosition(disk1Position, disk2Position, disk3Position, disk4Position)) return "paimkite diską iš pirmo stulpelio padėkite į antrą";
+            
             // Get all previous games statistics and sort it by MovesUntilVictory
             var allStatistics = Statistics.ShowStatistics(tower);
             allStatistics.SortByMovesUntilVictory();
 
-            // PRIORITETAS: CSV → HTML → TXT
 
-            // CSV
+            // CSV -----------------------------------------------------------------------------------
             // Build CSV search term
             string CsvSearchTerm = $"{disk1Position},{disk2Position},{disk3Position},{disk4Position}";
             string[] allCsvFileLines = FileReader.GetAllCsvFileLines();
 
+            string helpInCsv = LookForHelpInCsv(CsvSearchTerm, allCsvFileLines, allStatistics);            
+            if (helpInCsv != "") return helpInCsv;
+
+
+            // HTML ----------------------------------------------------------------------------------
+            //string helpInHtml = LookForHelpInHtml(HtmlSearchTerm, allHtmlFileLines, allStatistics);
+            //if (helpInHtml != "") return helpInHtml;
+
+
+            // TXT -----------------------------------------------------------------------------------
+            //string helpInTxt = LookForHelpInTxt(TxtSearchTerm, allTxtFileLines, allStatistics);
+            //if (helpInTxt != "") return helpInTxt;
+
+
+            return help;
+        }
+
+        private static bool AreDisksInStartingPosition(string disk1Position, string disk2Position, string disk3Position, string disk4Position) =>
+            disk1Position == "1" && 
+            disk2Position == "1" && 
+            disk3Position == "1" && 
+            disk4Position == "1";
+
+        // Public for tests only
+        public static string LookForHelpInCsv(string csvSearchTerm, string[] allCsvFileLines, GameStatisticList allStatistics)
+        {
+            string help = "";
+            List<string> foundPossibleHelpList = new List<string>();
+            string foundHelpLine = "";
+
             // Find all possible helper moves from allCsvFileLines
             for (int i = 0; i < allCsvFileLines.Length; i++)
             {
-                if (allCsvFileLines[i].Contains(CsvSearchTerm))
+                if (allCsvFileLines[i].Contains(csvSearchTerm))
                     foundPossibleHelpList.Add(allCsvFileLines[i]);
             }
 
             for (int i = 0; i < allStatistics.AllGamesStatistics.Count; i++)
             {
-                if (IsHelpFound(foundHelp)) break;
+                if (IsHelpFound(foundHelpLine)) break;
                 for (int j = 0; j < foundPossibleHelpList.Count; j++)
                 {
                     var dateFrompossibleHelpList = Convert.ToDateTime(foundPossibleHelpList[j].Substring(0, 19));
                     if (allStatistics.AllGamesStatistics[i].GameDateTime == dateFrompossibleHelpList)
                     {
-                        foundHelp = foundPossibleHelpList[j];
+                        foundHelpLine = foundPossibleHelpList[j];
                     }
                 }
             }
 
-            if (IsHelpFound(foundHelp))
+            if (IsHelpFound(foundHelpLine))
             {
-                var helpIndexInAllCsvFileLines = FindHelpIndex(foundHelp, allCsvFileLines);
+                var helpIndexInAllCsvFileLines = FindHelpIndex(foundHelpLine, allCsvFileLines);
                 help = GiveHelpInWords(allCsvFileLines, helpIndexInAllCsvFileLines);
             }
-
-            // -----------------------------------------------------------------------------------
-            // HTML
-            //List<string> allHtmlFileLines = FileReader.GetAllHtmlFileLines();
-
-
-            // -----------------------------------------------------------------------------------
-            // TXT
-            //string[] allTxtFileLines = FileReader.GetAllTxtFileLines();
 
             return help;
         }
 
+        private static bool IsHelpFound(string foundHelp) => foundHelp != "";
+        
+        private static int FindHelpIndex(string foundHelpLine, string[] allCsvFileLines)
+        {
+            int helpIndex = 0;
+            for (int i = 0; i < allCsvFileLines.Length; i++)
+            {
+                if (allCsvFileLines[i] == foundHelpLine)
+                    helpIndex = i;
+            }
+            return helpIndex; 
+        }
+        
         private static string GiveHelpInWords(string[] allCsvFileLines, int helpIndexInAllCsvFileLines)
         {
             string helpInWords = "";
@@ -99,24 +130,8 @@ namespace TowerOfHanoi.Domain.Helpers
 
         private static bool IsMovement(int pegMoveFrom, int pegMoveTo) => pegMoveFrom != pegMoveTo;
 
-        private static int FindHelpIndex(string foundHelp, string[] allCsvFileLines)
-        {
-            int helpIndex = 0;
-            for (int i = 0; i < allCsvFileLines.Length; i++)
-            {
-                if (allCsvFileLines[i] == foundHelp)
-                    helpIndex = i;
-            }
-            return helpIndex; 
-        }
 
-        private static bool IsHelpFound(string foundHelp) => foundHelp != "";
 
-        private static bool AreDisksInStartingPosition(string disk1Position, string disk2Position, string disk3Position, string disk4Position) =>
-            disk1Position == "1" && 
-            disk2Position == "1" && 
-            disk3Position == "1" && 
-            disk4Position == "1";
 
 
     }
