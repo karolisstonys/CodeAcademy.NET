@@ -18,7 +18,6 @@ namespace TowerOfHanoi.Domain.Helpers
             string[] allTxtFileLines = FileReader.GetAllTxtFileLines();
             AddUniqueGamesFromLogs(theGameStatisticList, GetAllUniqueDateTimesFromTxtFileLines(allTxtFileLines));
 
-
             // Gathering games from HTML logs
             List<string> allHtmlFileLines = FileReader.GetAllHtmlFileLines();
             AddUniqueGamesFromLogs(theGameStatisticList, GetAllUniqueDateTimesFromHtmlFileLines(allHtmlFileLines));
