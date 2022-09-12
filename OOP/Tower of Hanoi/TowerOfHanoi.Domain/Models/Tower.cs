@@ -36,11 +36,10 @@ namespace TowerOfHanoi.Domain.Models
         public bool LogInTxtFile { get; set; }
 
         public EDisks? InHand { get; set; } = null;
+
         public int DiskInHandFromPeg { get; set; }
 
         public Peg[] Pegs { get; set; } = new Peg[3];
-
-
 
         public StringBuilder StringBuildTower(Peg peg1, Peg peg2, Peg peg3)
         {
@@ -99,8 +98,5 @@ namespace TowerOfHanoi.Domain.Models
             }
             return pegNo;
         }
-
-
-
     }
 }

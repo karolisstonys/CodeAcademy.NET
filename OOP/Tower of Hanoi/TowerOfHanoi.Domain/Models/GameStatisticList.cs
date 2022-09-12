@@ -30,5 +30,7 @@ namespace TowerOfHanoi.Domain.Models
 
         public void Sort() => AllGamesStatistics.Sort((a, b) => a.GameDateTime.CompareTo(b.GameDateTime));
 
+        public void SortByMovesUntilVictory() => AllGamesStatistics.Sort((a, b) => a.MovesUntilVictory.CompareTo(b.MovesUntilVictory));
+
     }
 }

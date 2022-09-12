@@ -72,7 +72,7 @@ namespace Tower_of_Hanoi
 
                     case 'h' or 'H':
                         Console.Clear();
-                        Console.WriteLine("Pagalba:\n");
+                        Console.WriteLine("Pagalba: " + MovementHelper.GiveNextBestMove(tower));
                         break;
 
                     case 's' or 'S':

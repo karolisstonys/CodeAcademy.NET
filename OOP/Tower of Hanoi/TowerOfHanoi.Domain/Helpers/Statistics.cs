@@ -15,23 +15,17 @@ namespace TowerOfHanoi.Domain.Helpers
             var theGameStatisticList = new GameStatisticList();
 
             // Gathering games from TXT logs
-            var path = FileReader.GetFilePath("TowerOfHanoiLogs.txt");
-            string[] allTxtFileLines = File.ReadAllLines(path);
-            var listOfUniqueGamesInTxtLogs = GetAllUniqueDateTimesFromTxtFileLines(allTxtFileLines);
-            AddUniqueGamesFromLogs(theGameStatisticList, listOfUniqueGamesInTxtLogs);
+            string[] allTxtFileLines = FileReader.GetAllTxtFileLines();
+            AddUniqueGamesFromLogs(theGameStatisticList, GetAllUniqueDateTimesFromTxtFileLines(allTxtFileLines));
 
 
             // Gathering games from HTML logs
-            path = FileReader.GetFilePath("TowerOfHanoiLogs.html");
-            List<string> allHtmlFileLines = File.ReadAllLines(path).ToList();
-            var listOfUniqueGamesInHtmlLogs = GetAllUniqueDateTimesFromHtmlFileLines(allHtmlFileLines);
-            AddUniqueGamesFromLogs(theGameStatisticList, listOfUniqueGamesInHtmlLogs);
+            List<string> allHtmlFileLines = FileReader.GetAllHtmlFileLines();
+            AddUniqueGamesFromLogs(theGameStatisticList, GetAllUniqueDateTimesFromHtmlFileLines(allHtmlFileLines));
 
             // Gathering games from CSV logs
-            path = FileReader.GetFilePath("TowerOfHanoiLogs.csv");
-            string[] allCsvFileLines = File.ReadAllLines(path);
-            var listOfUniqueGamesInCsvLogs = GetAllUniqueDateTimesFromCsvFileLines(allCsvFileLines);
-            AddUniqueGamesFromLogs(theGameStatisticList, listOfUniqueGamesInCsvLogs);
+            string[] allCsvFileLines = FileReader.GetAllCsvFileLines();
+            AddUniqueGamesFromLogs(theGameStatisticList, GetAllUniqueDateTimesFromCsvFileLines(allCsvFileLines));
 
             theGameStatisticList.Sort();
 
@@ -152,7 +146,7 @@ namespace TowerOfHanoi.Domain.Helpers
             return list;
         }
 
-        private static void AddUniqueGamesFromLogs(GameStatisticList gameStatisticList, List<DateTime> listOfUniqueGamesInLogs)
+        public static void AddUniqueGamesFromLogs(GameStatisticList gameStatisticList, List<DateTime> listOfUniqueGamesInLogs)
         {
             foreach (var gameDateTime in listOfUniqueGamesInLogs)
             {
@@ -163,7 +157,7 @@ namespace TowerOfHanoi.Domain.Helpers
             }
         }
 
-        private static void ValidateIfGameIsVictorious(GameStatisticList gameStatisticList, int gameIndex)
+        public static void ValidateIfGameIsVictorious(GameStatisticList gameStatisticList, int gameIndex)
         {
             var game = gameStatisticList.AllGamesStatistics[gameIndex];
 
