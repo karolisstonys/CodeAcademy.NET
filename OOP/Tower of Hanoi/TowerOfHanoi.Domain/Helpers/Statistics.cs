@@ -14,10 +14,7 @@ namespace TowerOfHanoi.Domain.Helpers
             var gameStatisticList = new GameStatisticList();
 
 
-            //----------------------------------------------------                              KARTOJASI !!! + (UNIT-TEST)
-            //----------------------------------------------------                              KARTOJASI !!! + (UNIT-TEST)
-            //----------------------------------------------------                              KARTOJASI !!! + (UNIT-TEST)
-            //----------------------------------------------------                              KARTOJASI !!! + (UNIT-TEST)
+            //----------------------------------------------------
             var path = FileReader.GetFilePath("TowerOfHanoiLogs.txt");
             string[] allTxtFileLines = File.ReadAllLines(path);
             var listDateTime = GetAllUniqueDateTimesFromTxtFileLines(allTxtFileLines);
@@ -30,10 +27,7 @@ namespace TowerOfHanoi.Domain.Helpers
                 }
             }
 
-            //----------------------------------------------------                              KARTOJASI !!! + (UNIT-TEST)
-            //----------------------------------------------------                              KARTOJASI !!! + (UNIT-TEST)
-            //----------------------------------------------------                              KARTOJASI !!! + (UNIT-TEST)
-            //----------------------------------------------------                              KARTOJASI !!! + (UNIT-TEST)
+            //----------------------------------------------------
             path = FileReader.GetFilePath("TowerOfHanoiLogs.html");
             List<string> allHtmlFileLines = File.ReadAllLines(path).ToList();
             listDateTime = GetAllUniqueDateTimesFromHtmlFileLines(allHtmlFileLines);
@@ -46,10 +40,7 @@ namespace TowerOfHanoi.Domain.Helpers
                 }
             }
 
-            //----------------------------------------------------                              KARTOJASI !!! + (UNIT-TEST)
-            //----------------------------------------------------                              KARTOJASI !!! + (UNIT-TEST)
-            //----------------------------------------------------                              KARTOJASI !!! + (UNIT-TEST)
-            //----------------------------------------------------                              KARTOJASI !!! + (UNIT-TEST)
+            //----------------------------------------------------
             path = FileReader.GetFilePath("TowerOfHanoiLogs.csv");
             string[] allCsvFileLines = File.ReadAllLines(path);
             listDateTime = GetAllUniqueDateTimesFromCsvFileLines(allCsvFileLines);
@@ -62,17 +53,7 @@ namespace TowerOfHanoi.Domain.Helpers
                 }
             }
 
-
-
-
-            var gameStatisticList2 = gameStatisticList.Order();  // ======================================================================================== NEVEIKI ORDER !!!
-
-
-
-
-
-
-
+            gameStatisticList.Sort();
 
             for (int gameIndex = 0; gameIndex < gameStatisticList.AllGamesStatistics.Count; gameIndex++)
             {
@@ -83,7 +64,7 @@ namespace TowerOfHanoi.Domain.Helpers
                 if (FindGameInLogFileLines.IsDateTimeFound(allTxtFileLines, selectedDateTime))
                 {
                     // Extracting specific game DateTime lines from allTxtFileLines
-                    List<string> gameLines = new List<string>();
+                    var gameLines = new List<string>();
                     foreach (string line in allTxtFileLines)
                     {
                         if (line.Contains(selectedDateTime))
@@ -112,7 +93,7 @@ namespace TowerOfHanoi.Domain.Helpers
                 else if (FindGameInLogFileLines.IsDateTimeFound(allHtmlFileLines, selectedDateTime))
                 {
                     // Finds last line of specific selectedDateTime from allHtmlFileLines by going from last line to the top
-                    List<string> gameLines = new List<string>();                    
+                    var gameLines = new List<string>();                    
                     for (int i = allHtmlFileLines.Count() - 1; i >= 0; i--)
                     {
                         if (allHtmlFileLines[i].Contains(selectedDateTime))
@@ -141,7 +122,7 @@ namespace TowerOfHanoi.Domain.Helpers
                 else //if (allCsvFileLines.Contains(gameDateTime))
                 {
                     // Extracting only selectedDateTime lines from allCsvFileLines
-                    List<string> gameLines = new List<string>();
+                    var gameLines = new List<string>();
                     foreach (string line in allCsvFileLines)
                     {
                         if (line.Contains(selectedDateTime))

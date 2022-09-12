@@ -28,11 +28,7 @@ namespace TowerOfHanoi.Domain.Models
             AllGamesStatistics.Add(gameStatistic);
         }
 
-        public GameStatisticList Order()
-        {
-            AllGamesStatistics.OrderBy(g => g.GameDateTime.TimeOfDay);
-            return this;
-        }
+        public void Sort() => AllGamesStatistics.Sort((a, b) => a.GameDateTime.CompareTo(b.GameDateTime));
 
     }
 }
