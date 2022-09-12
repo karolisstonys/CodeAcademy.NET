@@ -11,53 +11,33 @@ namespace TowerOfHanoi.Domain.Helpers
     {
         public static GameStatisticList ShowStatistics(Tower tower)
         {
-            var gameStatisticList = new GameStatisticList();
+            var theGameStatisticList = new GameStatisticList();
 
-
-            //----------------------------------------------------
+            // Gathering games from TXT logs
             var path = FileReader.GetFilePath("TowerOfHanoiLogs.txt");
             string[] allTxtFileLines = File.ReadAllLines(path);
-            var listDateTime = GetAllUniqueDateTimesFromTxtFileLines(allTxtFileLines);
+            var listOfUniqueGamesInTxtLogs = GetAllUniqueDateTimesFromTxtFileLines(allTxtFileLines);
+            AddUniqueGamesFromLogs(theGameStatisticList, listOfUniqueGamesInTxtLogs);
 
-            foreach (var date in listDateTime)
-            {
-                if (!gameStatisticList.IsGameExistingWithThisDate(date))
-                {
-                    gameStatisticList.Add(new GameStatistic() { GameDateTime = date, MovesUntilVictory = "", VictoryStatus = false });
-                }
-            }
 
-            //----------------------------------------------------
+            // Gathering games from HTML logs
             path = FileReader.GetFilePath("TowerOfHanoiLogs.html");
             List<string> allHtmlFileLines = File.ReadAllLines(path).ToList();
-            listDateTime = GetAllUniqueDateTimesFromHtmlFileLines(allHtmlFileLines);
+            var listOfUniqueGamesInHtmlLogs = GetAllUniqueDateTimesFromHtmlFileLines(allHtmlFileLines);
+            AddUniqueGamesFromLogs(theGameStatisticList, listOfUniqueGamesInHtmlLogs);
 
-            foreach (var date in listDateTime)
-            {
-                if (!gameStatisticList.IsGameExistingWithThisDate(date))
-                {
-                    gameStatisticList.Add(new GameStatistic() { GameDateTime = date, MovesUntilVictory = "", VictoryStatus = false });
-                }
-            }
-
-            //----------------------------------------------------
+            // Gathering games from CSV logs
             path = FileReader.GetFilePath("TowerOfHanoiLogs.csv");
             string[] allCsvFileLines = File.ReadAllLines(path);
-            listDateTime = GetAllUniqueDateTimesFromCsvFileLines(allCsvFileLines);
+            var listOfUniqueGamesInCsvLogs = GetAllUniqueDateTimesFromCsvFileLines(allCsvFileLines);
+            AddUniqueGamesFromLogs(theGameStatisticList, listOfUniqueGamesInCsvLogs);
 
-            foreach (var date in listDateTime)
+            theGameStatisticList.Sort();
+
+            for (int gameIndex = 0; gameIndex < theGameStatisticList.AllGamesStatistics.Count; gameIndex++)
             {
-                if (!gameStatisticList.IsGameExistingWithThisDate(date))
-                {
-                    gameStatisticList.Add(new GameStatistic() { GameDateTime = date, MovesUntilVictory = "", VictoryStatus = false });
-                }
-            }
-
-            gameStatisticList.Sort();
-
-            for (int gameIndex = 0; gameIndex < gameStatisticList.AllGamesStatistics.Count; gameIndex++)
-            {
-                string selectedDateTime = gameStatisticList.AllGamesStatistics[gameIndex].GameDateTime.ToString();
+                string selectedDateTime = theGameStatisticList.AllGamesStatistics[gameIndex].GameDateTime.ToString();
+                var selectedGameValidator = theGameStatisticList.AllGamesStatistics[gameIndex].VictoryValidator;
 
                 // Going through log files in order (TXT -> HTML -> CSV) to find specific game
                 // Checking if game was won and marking accordingly 
@@ -71,29 +51,16 @@ namespace TowerOfHanoi.Domain.Helpers
                             gameLines.Add(line);
                     }
 
-                    // FOR goes backwards from last line up and looks for last placement of every disk
-                    var victoryValidator = new VictoryValidator();
                     // For when not all four disks are found (e.g. Disk4 is never moved)
-                    gameStatisticList.AllGamesStatistics[gameIndex].MovesUntilVictory = "N/B";
+                    theGameStatisticList.AllGamesStatistics[gameIndex].MovesUntilVictory = "N/B";
+                    // FOR goes backwards from last line up and looks for last placement of every disk
                     for (int i = gameLines.Count() - 1; i >= 0; i--)
-                    {
-                        if (victoryValidator.IsAllDisksLastMovesFoundInTxtLog(gameLines[i]))
-                        {
-                            if (victoryValidator.IsGameWon())
-                            {
-                                gameStatisticList.AllGamesStatistics[gameIndex].VictoryStatus = true;
-                                gameStatisticList.AllGamesStatistics[gameIndex].MovesUntilVictory = MovementCountFinder.FromTxtLine(gameLines[gameLines.Count() - 1]);
-                                break;
-                            }
-                            gameStatisticList.AllGamesStatistics[gameIndex].MovesUntilVictory = "N/B";
-                            break;
-                        }
-                    }
+                        ValidateIfGameIsVictorious(theGameStatisticList, gameIndex);
                 }
                 else if (FindGameInLogFileLines.IsDateTimeFound(allHtmlFileLines, selectedDateTime))
                 {
                     // Finds last line of specific selectedDateTime from allHtmlFileLines by going from last line to the top
-                    var gameLines = new List<string>();                    
+                    var singleGameLines = new List<string>();                    
                     for (int i = allHtmlFileLines.Count() - 1; i >= 0; i--)
                     {
                         if (allHtmlFileLines[i].Contains(selectedDateTime))
@@ -101,23 +68,14 @@ namespace TowerOfHanoi.Domain.Helpers
                             // When it's found another FOR goes and takes JUST 5 lines with all the data from that last record
                             for (int j = i; j <= i + 5; j++)
                             {
-                                gameLines.Add(allHtmlFileLines[j]);
+                                singleGameLines.Add(allHtmlFileLines[j]);
                             }
                             break;
                         }
                     }
 
-                    var victoryValidator = new VictoryValidator();
-                    if (gameLines != null && victoryValidator.IsAllDisksLastMovesFoundInHtmlLog(gameLines))
-                    {
-                        if (victoryValidator.IsGameWon())
-                        {
-                            gameStatisticList.AllGamesStatistics[gameIndex].VictoryStatus = true;
-                            gameStatisticList.AllGamesStatistics[gameIndex].MovesUntilVictory = victoryValidator.MovesUntilVictory;
-                        }
-                        else
-                            gameStatisticList.AllGamesStatistics[gameIndex].MovesUntilVictory = "N/B";
-                    }
+                    if (singleGameLines != null && selectedGameValidator.IsAllDisksLastMovesFoundInHtmlLog(singleGameLines))
+                        ValidateIfGameIsVictorious(theGameStatisticList, gameIndex);
                 }
                 else //if (allCsvFileLines.Contains(gameDateTime))
                 {
@@ -130,23 +88,15 @@ namespace TowerOfHanoi.Domain.Helpers
                     }
 
                     // Checks if last disk position of Csv log file is victory position 
-                    var victoryValidator = new VictoryValidator();
-                    if (gameLines != null && victoryValidator.IsAllDisksLastMovesFoundInCsvLog(gameLines[gameLines.Count - 1]))
-                    {
-                        if (victoryValidator.IsGameWon())
-                        {
-                            gameStatisticList.AllGamesStatistics[gameIndex].VictoryStatus = true;
-                            gameStatisticList.AllGamesStatistics[gameIndex].MovesUntilVictory = victoryValidator.MovesUntilVictory;
-                        }
-                        else
-                            gameStatisticList.AllGamesStatistics[gameIndex].MovesUntilVictory = "N/B";
-                    }
+                    if (gameLines != null && selectedGameValidator.IsAllDisksLastMovesFoundInCsvLog(gameLines[gameLines.Count - 1]))
+                        ValidateIfGameIsVictorious(theGameStatisticList, gameIndex);
                 }
             }
-            return gameStatisticList;
+            return theGameStatisticList;
         }
 
-        internal static List<DateTime> GetAllUniqueDateTimesFromTxtFileLines(string[] fileLines)
+
+        private static List<DateTime> GetAllUniqueDateTimesFromTxtFileLines(string[] fileLines)
         {
             var list = new List<DateTime>();
 
@@ -162,7 +112,7 @@ namespace TowerOfHanoi.Domain.Helpers
             return list;
         }
 
-        internal static List<DateTime> GetAllUniqueDateTimesFromHtmlFileLines(List<string> fileLines)
+        private static List<DateTime> GetAllUniqueDateTimesFromHtmlFileLines(List<string> fileLines)
         {
             // Making a copy to leave original reffered type object untouched
             // Removing all not needed 9 lines if header
@@ -183,7 +133,7 @@ namespace TowerOfHanoi.Domain.Helpers
             return list;
         }
 
-        internal static List<DateTime> GetAllUniqueDateTimesFromCsvFileLines(string[] fileLines)
+        private static List<DateTime> GetAllUniqueDateTimesFromCsvFileLines(string[] fileLines)
         {
             var list = new List<DateTime>();
 
@@ -199,7 +149,29 @@ namespace TowerOfHanoi.Domain.Helpers
             return list;
         }
 
+        private static void AddUniqueGamesFromLogs(GameStatisticList gameStatisticList, List<DateTime> listOfUniqueGamesInLogs)
+        {
+            foreach (var gameDateTime in listOfUniqueGamesInLogs)
+            {
+                if (!gameStatisticList.IsGameExistingWithThisDate(gameDateTime))
+                {
+                    gameStatisticList.Add(new GameStatistic() { GameDateTime = gameDateTime, MovesUntilVictory = "", VictoryStatus = false });
+                }
+            }
+        }
 
+        private static void ValidateIfGameIsVictorious(GameStatisticList gameStatisticList, int gameIndex)
+        {
+            var game = gameStatisticList.AllGamesStatistics[gameIndex];
+
+            if (game.VictoryValidator.IsGameWon())
+            {
+                game.VictoryStatus = true;
+                game.MovesUntilVictory = game.VictoryValidator.MovesUntilVictory;
+            }
+            else
+                game.MovesUntilVictory = "N/B";
+        }
 
 
 

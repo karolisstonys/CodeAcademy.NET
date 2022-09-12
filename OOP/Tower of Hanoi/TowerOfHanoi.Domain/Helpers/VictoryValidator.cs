@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using TowerOfHanoi.Domain.Models;
 
 namespace TowerOfHanoi.Domain.Helpers
 {
     public class VictoryValidator
     {
-        internal int _disk1 = 0;
-        internal int _disk2 = 0;
-        internal int _disk3 = 0;
-        internal int _disk4 = 0;
+        private int _disk1 = 0;
+        private int _disk2 = 0;
+        private int _disk3 = 0;
+        private int _disk4 = 0;
 
-        public string MovesUntilVictory { get; internal set; } = "";
+        public string MovesUntilVictory { get; private set; } = "";
 
         public bool IsAllDisksLastMovesFoundInTxtLog(string line)
         {
@@ -72,7 +68,8 @@ namespace TowerOfHanoi.Domain.Helpers
             return IsAllDisksFound();
         }
 
-        internal bool IsAllDisksFound() => _disk1 != 0 && _disk2 != 0 && _disk3 != 0 && _disk4 != 0;
-        internal bool IsGameWon() => _disk1 == 3 && _disk2 == 3 && _disk3 == 3 && _disk4 == 3;
+        public bool IsAllDisksFound() => _disk1 != 0 && _disk2 != 0 && _disk3 != 0 && _disk4 != 0;
+
+        public bool IsGameWon() => _disk1 == 3 && _disk2 == 3 && _disk3 == 3 && _disk4 == 3;
     }
 }

@@ -19,7 +19,7 @@ namespace Tower_of_Hanoi
 
             if (!(logToCSV || logToHTML || logToTXT))
             {
-                Console.WriteLine("Turi buti pasirinktas bent vienas istorijos kaupimo budas");
+                Console.WriteLine("Turi būti pasirinktas bent vienas istorijos kaupimo būdas");
                 play = false;
             }
 
@@ -76,7 +76,7 @@ namespace Tower_of_Hanoi
 
                     case 's' or 'S':
                         Console.Clear();
-                        Console.WriteLine("Statistika:\n");
+                        Console.Write("Statistika:\n");
                         var allStatistics = Statistics.ShowStatistics(tower);
                         var list = StatisticsPrinter.BuildAllStatistics(allStatistics);
                         foreach (var line in list)
