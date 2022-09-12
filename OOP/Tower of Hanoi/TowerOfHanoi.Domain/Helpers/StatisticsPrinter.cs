@@ -18,22 +18,33 @@ namespace TowerOfHanoi.Domain.Helpers
 
             for (int i = 0; i < allStatistics.AllGamesStatistics.Count; i++)
             {
+
+
+
+
                 var change = "N/G";
                 int change1 = 0;
                 int j = i;
-                while (i > 0 && allStatistics.AllGamesStatistics[j-1].VictoryStatus)
-                {
-                    change1 = Int32.Parse(allStatistics.AllGamesStatistics[j-1].MovesUntilVictory);
-                    j--;
-                    if (j < allStatistics.AllGamesStatistics.Count) break;
-                }
 
-                if (Int32.TryParse(allStatistics.AllGamesStatistics[i].MovesUntilVictory, out int change2))
+
+                if (allStatistics.AllGamesStatistics[i].VictoryStatus)
                 {
-                    string positive = "";
-                    if (change2 > change1)
-                        positive = "+";
-                    change = positive + (change2 - change1).ToString();
+                    while (i > 0 && !allStatistics.AllGamesStatistics[j-1].VictoryStatus)
+                    {
+                        j--;
+                        if (j < 1) break;
+                    }
+                    if (j > 1)
+                        change1 = Int32.Parse(allStatistics.AllGamesStatistics[j-1].MovesUntilVictory);
+
+
+                    if (Int32.TryParse(allStatistics.AllGamesStatistics[i].MovesUntilVictory, out int change2))
+                    {
+                        string positive = "";
+                        if (change2 > change1)
+                            positive = "+";
+                        change = positive + (change2 - change1).ToString();
+                    }
                 }
 
 
