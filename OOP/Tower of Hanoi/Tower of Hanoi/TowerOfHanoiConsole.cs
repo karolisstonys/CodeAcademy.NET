@@ -1,4 +1,5 @@
-﻿using TowerOfHanoi.Domain.Enums;
+﻿using System.Text;
+using TowerOfHanoi.Domain.Enums;
 using TowerOfHanoi.Domain.Helpers;
 using TowerOfHanoi.Domain.Models;
 
@@ -8,9 +9,12 @@ namespace Tower_of_Hanoi
     {
         static void Main(string[] args)
         {
+            Console.OutputEncoding = Encoding.GetEncoding(1200);
+            Console.InputEncoding = Encoding.GetEncoding(1200);
+
             bool logToCSV = false;
-            bool logToHTML = false;
-            bool logToTXT = true;
+            bool logToHTML = true;
+            bool logToTXT = false;
             bool play = true;
 
             if (!(logToCSV || logToHTML || logToTXT))
@@ -25,9 +29,16 @@ namespace Tower_of_Hanoi
             {
                 var towerStringBuilder = tower.StringBuildTower(tower.Pegs[0], tower.Pegs[1], tower.Pegs[2]);
 
-                Console.WriteLine(tower.DateAndTime);
                 Console.WriteLine();
-                Console.WriteLine($"Diskas rankoje: {tower.InHand}");
+                Console.WriteLine($"Žaidimas {tower.DateAndTime}");
+                if (tower.InHand != null)
+                {
+                    Console.WriteLine($"Diskas rankoje - {tower.InHand}. Paimtas iš {tower.DiskInHandFromPeg}.");
+                }
+                else
+                {
+                    Console.WriteLine();
+                }
                 Console.WriteLine();
                 Console.WriteLine(towerStringBuilder.ToString());
 
@@ -67,17 +78,12 @@ namespace Tower_of_Hanoi
                         Console.Clear();
                         Console.WriteLine("Statistika:\n");
                         var allStatistics = Statistics.ShowStatistics(tower);
-                        for (int i = 0; i < allStatistics.AllGamesStatistics.Count; i++)
+                        var list = StatisticsPrinter.BuildAllStatistics(allStatistics);
+                        foreach (var line in list)
                         {
-                            var change = "N/G"; 
-
-                            if (i > 0 && Int32.TryParse(allStatistics.AllGamesStatistics[i-1].MovesUntilVictory, out int change1))
-                            {
-                                var IsChange2Int = Int32.TryParse(allStatistics.AllGamesStatistics[i].MovesUntilVictory, out int change2);
-                                change = (change1 - change2).ToString();
-                            }
-                            Console.WriteLine($"{allStatistics.AllGamesStatistics[i].GameDateTime} {allStatistics.AllGamesStatistics[i].MovesUntilVictory} {change}");
+                            Console.WriteLine(line);
                         }
+                        
                         break;
 
                     case '\u001b':  // ESC
