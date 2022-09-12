@@ -16,7 +16,7 @@ namespace TowerOfHanoi.Domain.Helpers_Tests
         public void LookForHelpInCsv_Test()
         {
             //Arrange
-            string fakeCsvSearchTerm = "2,2,3,1";
+            string fakeCsvSearchTerm = "3,2,3,1";
             string[] fakeAllCsvFileLines =
             {
                 "2022-09-10 16:35:02,1,2,1,1,1",
@@ -31,14 +31,45 @@ namespace TowerOfHanoi.Domain.Helpers_Tests
                 "2022-09-10 16:35:02,10,1,1,2,1"
             };
             GameStatisticList fakeAllStatistics = new GameStatisticList();
-            fakeAllStatistics.AllGamesStatistics.Add( 
-                new GameStatistic() { 
-                    GameDateTime = new DateTime(2022, 09, 10, 16, 35, 02), 
-                    MovesUntilVictory = "15", 
-                    VictoryStatus = true 
+            fakeAllStatistics.AllGamesStatistics.Add(
+                new GameStatistic()
+                {
+                    GameDateTime = new DateTime(2022, 09, 10, 16, 35, 02),
+                    MovesUntilVictory = "15",
+                    VictoryStatus = true
                 }
             );
-            string expected = "paimkite diską iš antro stulpelio padėkite į trečią";
+            string expected = "paimkite diską iš antro stulpelio padėkite į pirmą";
+
+            //Act
+            var actual = PlayerHelper.LookForHelpInCsv(fakeCsvSearchTerm, fakeAllCsvFileLines, fakeAllStatistics);
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void LookForHelpInCsv_Test1()
+        {
+            //Arrange
+            string fakeCsvSearchTerm = "2,2,2,2";
+            string[] fakeAllCsvFileLines =
+            {
+                "2022-09-10 16:35:02,1,2,1,1,1",
+                "2022-09-10 16:35:02,2,3,1,1,1",
+                "2022-09-10 16:35:02,3,3,2,1,1",
+                "2022-09-10 16:35:02,4,2,2,1,1"
+            };
+            GameStatisticList fakeAllStatistics = new GameStatisticList();
+            fakeAllStatistics.AllGamesStatistics.Add(
+                new GameStatistic()
+                {
+                    GameDateTime = new DateTime(2022, 09, 12, 12, 08, 32),
+                    MovesUntilVictory = "15",
+                    VictoryStatus = true
+                }
+            );
+            string expected = "";
 
             //Act
             var actual = PlayerHelper.LookForHelpInCsv(fakeCsvSearchTerm, fakeAllCsvFileLines, fakeAllStatistics);
