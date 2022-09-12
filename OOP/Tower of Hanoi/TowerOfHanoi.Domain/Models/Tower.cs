@@ -24,12 +24,6 @@ namespace TowerOfHanoi.Domain.Models
             LogInHtmlFile = logToHTML;
             LogInTxtFile = logToTXT;
         }
-        //public Tower(Peg peg1, Peg peg2, Peg peg3)
-        //{
-        //    Pegs[0] = peg1;
-        //    Pegs[1] = peg2;
-        //    Pegs[2] = peg3;
-        //}
 
         public DateTime DateAndTime { get; } = DateTime.Now;
 

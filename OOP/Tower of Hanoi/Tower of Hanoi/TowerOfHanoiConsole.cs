@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using TowerOfHanoi.Domain.Enums;
 using TowerOfHanoi.Domain.Helpers;
+using TowerOfHanoi.Domain.Interfaces;
 using TowerOfHanoi.Domain.Models;
 
 namespace Tower_of_Hanoi
@@ -23,7 +24,7 @@ namespace Tower_of_Hanoi
                 play = false;
             }
 
-            var tower = new Tower(logToCSV, logToHTML, logToTXT);
+            ITower tower = new Tower(logToCSV, logToHTML, logToTXT);
 
             while (play)
             {

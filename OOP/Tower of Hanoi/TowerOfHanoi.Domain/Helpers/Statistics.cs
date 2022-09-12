@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TowerOfHanoi.Domain.Interfaces;
 using TowerOfHanoi.Domain.Models;
 
 namespace TowerOfHanoi.Domain.Helpers
 {
     public static class Statistics
     {
-        public static GameStatisticList ShowStatistics(Tower tower)
+        public static GameStatisticList ShowStatistics(ITower tower)
         {
             var theGameStatisticList = new GameStatisticList();
 
@@ -95,8 +96,8 @@ namespace TowerOfHanoi.Domain.Helpers
             return theGameStatisticList;
         }
 
-
-        private static List<DateTime> GetAllUniqueDateTimesFromTxtFileLines(string[] fileLines)
+        // Public for tests only
+        public static List<DateTime> GetAllUniqueDateTimesFromTxtFileLines(string[] fileLines)
         {
             var list = new List<DateTime>();
 
@@ -112,7 +113,8 @@ namespace TowerOfHanoi.Domain.Helpers
             return list;
         }
 
-        private static List<DateTime> GetAllUniqueDateTimesFromHtmlFileLines(List<string> fileLines)
+        // Public for tests only
+        public static List<DateTime> GetAllUniqueDateTimesFromHtmlFileLines(List<string> fileLines)
         {
             // Making a copy to leave original reffered type object untouched
             // Removing all not needed 9 lines if header
@@ -133,7 +135,8 @@ namespace TowerOfHanoi.Domain.Helpers
             return list;
         }
 
-        private static List<DateTime> GetAllUniqueDateTimesFromCsvFileLines(string[] fileLines)
+        // Public for tests only
+        public static List<DateTime> GetAllUniqueDateTimesFromCsvFileLines(string[] fileLines)
         {
             var list = new List<DateTime>();
 

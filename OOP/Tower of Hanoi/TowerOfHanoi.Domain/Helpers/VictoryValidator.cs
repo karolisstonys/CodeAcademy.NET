@@ -1,8 +1,9 @@
 ﻿using TowerOfHanoi.Domain.Models;
+using TowerOfHanoi.Domain.Models.Interfaces;
 
 namespace TowerOfHanoi.Domain.Helpers
 {
-    public class VictoryValidator
+    public class VictoryValidator : IVictoryValidator
     {
         private int _disk1 = 0;
         private int _disk2 = 0;

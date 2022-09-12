@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TowerOfHanoi.Domain.Helpers
 {
-    public class FindGameInLogFileLines
+    public static class FindGameInLogFileLines
     {
         public static bool IsDateTimeFound(IEnumerable<string> allFileLines, string gameDateTime)
         {

@@ -3,7 +3,7 @@ using TowerOfHanoi.Domain.Models;
 
 namespace TowerOfHanoi.Domain.Helpers
 {
-    public class MovementValidator
+    public static class MovementValidator
     {
         public static bool IsDiskBelowLarger(int emptyIndex, Peg peg, EDisks? inHand)
         {
