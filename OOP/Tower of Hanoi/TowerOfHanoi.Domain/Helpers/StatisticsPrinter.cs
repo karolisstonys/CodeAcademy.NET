@@ -13,21 +13,31 @@ namespace TowerOfHanoi.Domain.Helpers
         {
             var list = new List<string>();
             list.Add("╔═════════════════════╤════════════════════════════╤═════════╗");  // ─ ┼ │ ╟ ╚ ╧ ╝ ╢
-            list.Add("║ Žaidimo data\t      │ Ėjimų kiekis iki laimėjimo │ Pokytis ║  ");
+            list.Add("║ Žaidimo data\t      │ Ėjimų kiekis iki laimėjimo │ Pokytis ║");
             list.Add("╠═════════════════════╪════════════════════════════╪═════════╣");
 
             for (int i = 0; i < allStatistics.AllGamesStatistics.Count; i++)
             {
-                var line = "";
                 var change = "N/G";
-
-                if (i > 0 && Int32.TryParse(allStatistics.AllGamesStatistics[i-1].MovesUntilVictory, out int change1))
+                int change1 = 0;
+                int j = i;
+                while (i > 0 && allStatistics.AllGamesStatistics[j-1].VictoryStatus)
                 {
-                    var IsChange2Int = Int32.TryParse(allStatistics.AllGamesStatistics[i].MovesUntilVictory, out int change2);
-                    change = (change2 - change1).ToString();
+                    change1 = Int32.Parse(allStatistics.AllGamesStatistics[j-1].MovesUntilVictory);
+                    j--;
+                    if (j < allStatistics.AllGamesStatistics.Count) break;
                 }
 
-                line = $"║ {allStatistics.AllGamesStatistics[i].GameDateTime} │ {allStatistics.AllGamesStatistics[i].MovesUntilVictory}\t\t\t   │ {change,-8}║";
+                if (Int32.TryParse(allStatistics.AllGamesStatistics[i].MovesUntilVictory, out int change2))
+                {
+                    string positive = "";
+                    if (change2 > change1)
+                        positive = "+";
+                    change = positive + (change2 - change1).ToString();
+                }
+
+
+                var line = $"║ {allStatistics.AllGamesStatistics[i].GameDateTime} │ {allStatistics.AllGamesStatistics[i].MovesUntilVictory}\t\t\t   │ {change,-8}║";
                 list.Add(line);
             }
 
