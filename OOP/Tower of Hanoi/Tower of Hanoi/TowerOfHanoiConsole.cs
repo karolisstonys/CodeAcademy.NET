@@ -67,6 +67,17 @@ namespace Tower_of_Hanoi
                         Console.Clear();
                         Console.WriteLine("Statistika:\n");
                         var allStatistics = Statistics.ShowStatistics(tower);
+                        for (int i = 0; i < allStatistics.AllGamesStatistics.Count; i++)
+                        {
+                            var change = "N/G"; 
+
+                            if (i > 0 && Int32.TryParse(allStatistics.AllGamesStatistics[i-1].MovesUntilVictory, out int change1))
+                            {
+                                var IsChange2Int = Int32.TryParse(allStatistics.AllGamesStatistics[i].MovesUntilVictory, out int change2);
+                                change = (change1 - change2).ToString();
+                            }
+                            Console.WriteLine($"{allStatistics.AllGamesStatistics[i].GameDateTime} {allStatistics.AllGamesStatistics[i].MovesUntilVictory} {change}");
+                        }
                         break;
 
                     case '\u001b':  // ESC
