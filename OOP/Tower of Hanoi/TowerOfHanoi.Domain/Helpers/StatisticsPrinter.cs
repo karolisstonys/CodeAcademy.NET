@@ -18,14 +18,9 @@ namespace TowerOfHanoi.Domain.Helpers
 
             for (int i = 0; i < allStatistics.AllGamesStatistics.Count; i++)
             {
-
-
-
-
                 var change = "N/G";
                 int change1 = 0;
                 int j = i;
-
 
                 if (allStatistics.AllGamesStatistics[i].VictoryStatus)
                 {
@@ -37,7 +32,6 @@ namespace TowerOfHanoi.Domain.Helpers
                     if (j > 1)
                         change1 = Int32.Parse(allStatistics.AllGamesStatistics[j-1].MovesUntilVictory);
 
-
                     if (Int32.TryParse(allStatistics.AllGamesStatistics[i].MovesUntilVictory, out int change2))
                     {
                         string positive = "";
@@ -46,7 +40,6 @@ namespace TowerOfHanoi.Domain.Helpers
                         change = positive + (change2 - change1).ToString();
                     }
                 }
-
 
                 var line = $"║ {allStatistics.AllGamesStatistics[i].GameDateTime} │ {allStatistics.AllGamesStatistics[i].MovesUntilVictory}\t\t\t   │ {change,-8}║";
                 list.Add(line);
