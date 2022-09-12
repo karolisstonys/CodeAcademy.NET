@@ -25,8 +25,9 @@ namespace TowerOfHanoi.Domain.Helpers
             var allStatistics = Statistics.ShowStatistics(tower);
             allStatistics.SortByMovesUntilVictory();
 
-            //PRIORITETAS: CSV → HTML → TXT
+            // PRIORITETAS: CSV → HTML → TXT
 
+            // CSV
             // Build CSV search term
             string CsvSearchTerm = $"{disk1Position},{disk2Position},{disk3Position},{disk4Position}";
             string[] allCsvFileLines = FileReader.GetAllCsvFileLines();
@@ -53,16 +54,18 @@ namespace TowerOfHanoi.Domain.Helpers
 
             if (IsHelpFound(foundHelp))
             {
-                int helpIndexInAllCsvFileLines = FindHelpIndex(foundHelp, allCsvFileLines);
-                string temp = GiveHelpInWords(allCsvFileLines, helpIndexInAllCsvFileLines);
+                var helpIndexInAllCsvFileLines = FindHelpIndex(foundHelp, allCsvFileLines);
+                help = GiveHelpInWords(allCsvFileLines, helpIndexInAllCsvFileLines);
             }
 
+            // -----------------------------------------------------------------------------------
+            // HTML
+            //List<string> allHtmlFileLines = FileReader.GetAllHtmlFileLines();
 
-            List<string> allHtmlFileLines = FileReader.GetAllHtmlFileLines();
-            string[] allTxtFileLines = FileReader.GetAllTxtFileLines();
 
-
-
+            // -----------------------------------------------------------------------------------
+            // TXT
+            //string[] allTxtFileLines = FileReader.GetAllTxtFileLines();
 
             return help;
         }
@@ -73,26 +76,28 @@ namespace TowerOfHanoi.Domain.Helpers
 
             string moveFrom = allCsvFileLines[helpIndexInAllCsvFileLines];
             moveFrom = moveFrom.Substring(moveFrom.Length -7, 7);
+
             string moveTo = allCsvFileLines[helpIndexInAllCsvFileLines + 1];
             moveTo = moveTo.Substring(moveTo.Length -7, 7);
 
-            var disk1a = moveFrom.Substring(0, 1);
-            var disk2a = moveFrom.Substring(2, 1);
-            var disk3a = moveFrom.Substring(4, 1);
-            var disk4a = moveFrom.Substring(6, 1);
+            int pegMoveFrom = 0;
+            int pegMoveTo = 0;
 
-            var disk1b = moveTo.Substring(0, 1);
-            var disk2b = moveTo.Substring(2, 1);
-            var disk3b = moveTo.Substring(4, 1);
-            var disk4b = moveTo.Substring(5, 1);
+            for (int i = 0; i <= 6; i+=2)
+            {
+                pegMoveFrom = Convert.ToInt32(moveFrom.Substring(i, 1));
+                pegMoveTo = Convert.ToInt32(moveTo.Substring(i, 1));
+                if (IsMovement(pegMoveFrom, pegMoveTo)) break;
+            }
 
+            // "paimkite diską iš pirmo stulpelio padėkite į antrą"
 
-
-
-
+            helpInWords = "paimkite diską iš " + Converter.FromPegNumberConvertToWord(pegMoveFrom) + " stulpelio padėkite į " + Converter.ToPegNumberConvertToWord(pegMoveTo);
 
             return helpInWords;
         }
+
+        private static bool IsMovement(int pegMoveFrom, int pegMoveTo) => pegMoveFrom != pegMoveTo;
 
         private static int FindHelpIndex(string foundHelp, string[] allCsvFileLines)
         {
@@ -112,5 +117,7 @@ namespace TowerOfHanoi.Domain.Helpers
             disk2Position == "1" && 
             disk3Position == "1" && 
             disk4Position == "1";
+
+
     }
 }
