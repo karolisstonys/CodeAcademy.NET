@@ -4,7 +4,7 @@ using TowerOfHanoi.Domain.Models;
 
 namespace TowerOfHanoi.Domain.Helpers
 {
-    public static class MovementHelper
+    public static class PlayerHelper
     {
         public static string GiveNextBestMove(ITower tower)
         {
