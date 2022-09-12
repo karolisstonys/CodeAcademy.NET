@@ -64,7 +64,7 @@ namespace Tower_of_Hanoi
                         break;
 
                     default:
-                        Console.WriteLine("Blogas pasirinkimas, bandykite iš naujo.\n");
+                        msg = "Blogas pasirinkimas, bandykite iš naujo.";
                         break;
                 }
 
