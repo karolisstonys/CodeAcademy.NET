@@ -21,7 +21,7 @@ namespace L052_CodeFirstSqliteDB.Infrastructure.Database
             context.SaveChanges();
         }
 
-        public void AddPerson(string firstName, string lastName, int age)
+        public void AddPerson(string firstName, string lastName, DateTime birthDate, string email, double height)
         {
             using var context = new BloggingContext();
 
@@ -31,12 +31,39 @@ namespace L052_CodeFirstSqliteDB.Infrastructure.Database
             {
                 FirstName = firstName,
                 LastName = lastName,
-                Age = age
+                BirthDate = birthDate,
+                Email = email,
+                Height = height,
             };
 
             context.Persons.Add(person);
 
             context.SaveChanges();
+        }
+
+        public void PrintAllPersons()
+        {
+            using var context = new BloggingContext();
+
+            var persons = context.Persons;
+
+            foreach (var person in persons)
+            {
+                Console.WriteLine($"{person.PersonId} {person.FirstName} {person.LastName} {person.BirthDate} {person.Email} {person.Height}");
+            }
+        }
+
+        public void PrintAllPersonsSorted()
+        {
+            using var context = new BloggingContext();
+
+            var persons = context.Persons
+                .OrderBy(person => person.FirstName);
+
+            foreach (var person in persons)
+            {
+                Console.WriteLine($"{person.PersonId} {person.FirstName} {person.LastName} {person.BirthDate} {person.Email} {person.Height}");
+            }
         }
     }
 }

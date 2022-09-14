@@ -19,7 +19,7 @@ namespace L052_CodeFirstSqliteDB
 
             while (true)
             {
-                Console.WriteLine("\n1.Add new User\nq. Quit");
+                Console.WriteLine("\n1.Add new user\n2. Print users\n3. Print users (Sorted by name)\nq. Quit");
 
                 char selector = Console.ReadKey().KeyChar;
 
@@ -29,11 +29,23 @@ namespace L052_CodeFirstSqliteDB
                         Console.WriteLine();
                         Console.Write("Name: ");
                         var firstName = Console.ReadLine();
-                        Console.Write("Surname: ");
+                        Console.Write("Last name: ");
                         var lastName = Console.ReadLine();
-                        Console.Write("Age: ");
-                        var age = Convert.ToInt32(Console.ReadLine());
-                        _bloggingRepository.AddPerson(firstName, lastName, age);
+                        Console.Write("Birth date: ");
+                        var birthDate = Convert.ToDateTime(Console.ReadLine());
+                        Console.Write("Email: ");
+                        var email = Console.ReadLine();
+                        Console.Write("Height: ");
+                        var height = Convert.ToDouble(Console.ReadLine());
+                        _bloggingRepository.AddPerson(firstName, lastName, birthDate, email, height);
+                        break;
+                    case '2':
+                        Console.WriteLine();
+                        _bloggingRepository.PrintAllPersons();
+                        break;
+                    case '3':
+                        Console.WriteLine();
+                        _bloggingRepository.PrintAllPersonsSorted();
                         break;
                     case 'q':
                         return;
@@ -53,7 +65,12 @@ namespace L052_CodeFirstSqliteDB
 
 
         }
+
+
     }
+
+
+
 
     
 

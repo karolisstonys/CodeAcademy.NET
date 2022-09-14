@@ -11,6 +11,10 @@ namespace L052_CodeFirstSqliteDB.Infrastructure.Interfaces
     {
         void AddPerson(Person person);
 
-        void AddPerson(string firstName, string lastName, int age);
+        void AddPerson(string firstName, string lastName, DateTime birthDate, string email, double height);
+
+        public void PrintAllPersons();
+
+        public void PrintAllPersonsSorted();
     }
 }
