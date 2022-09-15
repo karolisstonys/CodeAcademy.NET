@@ -19,7 +19,9 @@ namespace L052_CodeFirstSqliteDB
 
             while (true)
             {
-                Console.WriteLine("\n1.Add new user\n2. Print users\n3. Print users (Sorted by name)\nq. Quit");
+                Console.WriteLine("\n1. Add new user\n2. Print users\n3. Print users (Sorted by name)");
+                Console.WriteLine("\n4. Add new animal\n5. Print animals\n6. Print animals by type\n7. Print animals (Sorted by name)");
+                Console.WriteLine("\nq. Quit");
 
                 char selector = Console.ReadKey().KeyChar;
 
@@ -46,6 +48,30 @@ namespace L052_CodeFirstSqliteDB
                     case '3':
                         Console.WriteLine();
                         _bloggingRepository.PrintAllPersonsSorted();
+                        break;
+                    case '4':
+                        Console.WriteLine();
+                        Console.Write("Name: ");
+                        var animalName = Console.ReadLine();
+                        Console.Write("Type: ");
+                        var animalType = Console.ReadLine();
+                        Console.Write("Birth date: ");
+                        var animalBirthDate = Convert.ToDateTime(Console.ReadLine());
+                        _bloggingRepository.AddAnimal(animalName, animalType, animalBirthDate);
+                        break;
+                    case '5':
+                        Console.WriteLine();
+                        _bloggingRepository.PrintAllAnimals();
+                        break;
+                    case '6':
+                        Console.WriteLine();
+                        Console.Write("Name: ");
+                        var animalTypeToFind = Console.ReadLine();
+                        _bloggingRepository.PrintAllAnimalsByType(animalTypeToFind);
+                        break;
+                    case '7':
+                        Console.WriteLine();
+                        _bloggingRepository.PrintAllAnimalsSorted();
                         break;
                     case 'q':
                         return;
