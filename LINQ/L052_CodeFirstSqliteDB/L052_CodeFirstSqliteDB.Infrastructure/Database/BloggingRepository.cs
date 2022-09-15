@@ -10,11 +10,14 @@ namespace L052_CodeFirstSqliteDB.Infrastructure.Database
 {
     public class BloggingRepository : IBloggingRepository
     {
+        public BloggingRepository()
+        {
+            using var context = new BloggingContext();
+            context.Database.EnsureCreated();
+        }
         public void AddPerson(Person person)
         {
             using var context = new BloggingContext();
-
-            context.Database.EnsureCreated();
 
             context.Persons.Add(person);
 
@@ -24,8 +27,6 @@ namespace L052_CodeFirstSqliteDB.Infrastructure.Database
         public void AddPerson(string firstName, string lastName, DateTime birthDate, string email, double height)
         {
             using var context = new BloggingContext();
-
-            context.Database.EnsureCreated();
 
             var person = new Person()
             {
@@ -65,5 +66,68 @@ namespace L052_CodeFirstSqliteDB.Infrastructure.Database
                 Console.WriteLine($"{person.PersonId} {person.FirstName} {person.LastName} {person.BirthDate} {person.Email} {person.Height}");
             }
         }
+
+        public void AddAnimal(Animal animal)
+        {
+            using var context = new BloggingContext();
+
+            context.Animals.Add(animal);
+
+            context.SaveChanges();
+        }
+
+        public void AddAnimal(string name, string type, DateTime birthDate)
+        {
+            using var context = new BloggingContext();
+
+            var animal = new Animal()
+            {
+                Name = name,
+                Type = type,
+                BirthDate = birthDate
+            };
+
+            context.Animals.Add(animal);
+
+            context.SaveChanges();
+        }
+        public void PrintAllAnimals()
+        {
+            using var context = new BloggingContext();
+
+            var animals = context.Animals;
+
+            foreach (var animal in animals)
+            {
+                Console.WriteLine($"{animal.AnimalId} {animal.Name} {animal.Type} {animal.BirthDate}");
+            }
+        }
+
+        public void PrintAllAnimalsByType(string type)
+        {
+            using var context = new BloggingContext();
+
+            var animals = context.Animals.Where(a => a.Type == type);
+
+            Console.WriteLine($"All {type} animals:");
+            foreach (var animal in animals)
+            {
+                Console.WriteLine($"{animal.AnimalId} {animal.Name} {animal.BirthDate}");
+            }
+        }
+
+        public void PrintAllAnimalsSorted()
+        {
+            using var context = new BloggingContext();
+
+            var animals = context.Animals
+                .OrderBy(a => a.Name);
+
+            foreach (var animal in animals)
+            {
+                Console.WriteLine($"{animal.AnimalId} {animal.Name} {animal.Type} {animal.BirthDate}");
+            }
+        }
+
     }
 }

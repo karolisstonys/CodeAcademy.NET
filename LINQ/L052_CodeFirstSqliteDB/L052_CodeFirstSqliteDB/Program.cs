@@ -58,8 +58,17 @@ namespace L052_CodeFirstSqliteDB
 
 
 
+            /* Uzduotis 1:
+            Atnaujinkit Person, kad turetu Weight(double), Biography(string:nullable) atributus  
+            (Nauja migracija turetu tureti tik siuos atnaujinimus). 
+
+            Sukurkite nauja klase Animal, kuri turetu AnimalId(Primary Key), Name, Type, BirthDate atributus. 
+            Pridekit animal i DbContext ir sukurkite nauja migracija. */
 
 
+            /* Uzduotis 2:
+            Sukurkite metodus, kurie leistu prideti nauja gyvuna, atspausdintu visus gyvunus, isgautu gyvunus kurie yra paduoto tipo, 
+            atspausdintu visus gyvunus surikiuotus pagal varda. Pridekite sias funkcijas I main programos pasirinkimu menu. */
 
 
 

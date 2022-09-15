@@ -16,5 +16,15 @@ namespace L052_CodeFirstSqliteDB.Infrastructure.Interfaces
         public void PrintAllPersons();
 
         public void PrintAllPersonsSorted();
+
+        void AddAnimal(Animal animal);
+
+        void AddAnimal(string name, string type, DateTime birthDate);
+
+        public void PrintAllAnimals();
+
+        public void PrintAllAnimalsByType(string type);
+
+        public void PrintAllAnimalsSorted();
     }
 }

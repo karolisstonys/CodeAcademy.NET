@@ -1,10 +1,5 @@
 ﻿using L052_CodeFirstSqliteDB.Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace L052_CodeFirstSqliteDB.Infrastructure.Database
 {
@@ -21,6 +16,9 @@ namespace L052_CodeFirstSqliteDB.Infrastructure.Database
 
         // Registruojame nauja lentele savo duombazeje
         public DbSet<Person> Persons { get; set; }
+
+        public DbSet<Animal> Animals { get; set; }
+
         public string DbPath { get; } // ConnectionString
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -32,7 +30,12 @@ namespace L052_CodeFirstSqliteDB.Infrastructure.Database
 
 
         }
-
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Animal>()
+                .HasKey(a => a.AnimalId);
+        }
 
     }
 }

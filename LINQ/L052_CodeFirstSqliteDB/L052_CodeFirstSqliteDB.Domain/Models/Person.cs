@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace L052_CodeFirstSqliteDB.Domain.Models
 {
-    // Code First approache - Klase yra lentele
-    public class Person
+    public class Person    // Code First approache - Klase yra lentele
     {
         public Person() { }
 
@@ -37,6 +31,12 @@ namespace L052_CodeFirstSqliteDB.Domain.Models
         public string Email { get; set; }
 
         public double Height { get; set; }
+
+
+
+        public double Weight { get; set; } = 0;
+
+        public string? Biography { get; set; }
 
     }
 }
