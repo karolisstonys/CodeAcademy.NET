@@ -1,10 +1,10 @@
 ﻿namespace L054_DB_Mutation
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Console.WriteLine("Hello, DB!");
         }
     }
 }
