@@ -1,5 +1,6 @@
 ﻿using L056_Db_Dapper.Database;
 using L056_Db_Dapper.Database.Dapper;
+using L056_Db_Dapper.Services;
 
 namespace L056_Db_Dapper
 {
@@ -17,6 +18,8 @@ namespace L056_Db_Dapper
             databaseBootstrap.Setup();
             Console.WriteLine("Database check is COMPLETE.");
 
+            IProductService productService = new ProductService();
+            productService.Run();
         }
     }
 }
