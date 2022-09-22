@@ -34,11 +34,11 @@ namespace L056_Db_Dapper_Tasks.Database
 
             connection.Execute(@"
                 CREATE TABLE Note (
-                Id [INT IDENTITY(1,1) PRIMARY KEY] NOT NULL,
-                Title VARCHAR(80) NULL,
+                Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                Title VARCHAR(100) NOT NULL,
                 Description VARCHAR(1000) NULL,
-                CreationDatetime DATE NULL,
-                Priority VARCHAR(100) NULL)");
+                CreationDatetime DATETIME DEFAULT current_timestamp,
+                Priority VARCHAR(100) DEFAULT 0)");
         }
     }
 }

@@ -12,7 +12,7 @@ namespace L056_Db_Dapper_Tasks.Database.Dapper
         {
             var folder = Environment.SpecialFolder.LocalApplicationData;
             var path = Environment.GetFolderPath(folder);
-            ConnString = "Data Source=" + Path.Join(path, "NoteBook.db");
+            ConnString = "Data Source=" + Path.Join(path, "Notebook.db");
         }
 
         public string ConnString { get; }
