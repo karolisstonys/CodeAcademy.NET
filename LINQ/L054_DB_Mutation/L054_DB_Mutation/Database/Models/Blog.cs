@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace P053_QueryingSqliteDb.Domain.Models
+namespace L057_Db_TransactionChangeTracking.Domain.Models
 {
     [Table("Blog")]
     public class Blog

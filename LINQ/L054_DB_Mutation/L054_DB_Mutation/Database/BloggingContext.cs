@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace P053_QueryingSqliteDb.Infrastructure.Database
+namespace L057_Db_TransactionChangeTracking.Infrastructure.Database
 {
     // Naudokite [CTRL + .] shortcut
     public class BloggingContext : DbContext
