@@ -1,21 +1,14 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
-using DB_Music_Shop.Domain.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace DB_Music_Shop.Domain
+namespace DB_Music_Shop.Domain.Models
 {
     public partial class ChinookContext : DbContext
     {
-        public ChinookContext()
-        {
-        }
+        public ChinookContext() { }
 
-        public ChinookContext(DbContextOptions<ChinookContext> options)
-            : base(options)
-        {
-        }
+        public ChinookContext(DbContextOptions<ChinookContext> options) : base(options) { }
 
         public virtual DbSet<Album> Albums { get; set; } = null!;
         public virtual DbSet<Artist> Artists { get; set; } = null!;
@@ -32,8 +25,8 @@ namespace DB_Music_Shop.Domain
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlite("DataSource=I:\\CODING\\GitHub_CodeAcademy.NET\\LINQ\\DB_Music_Shop\\DB_Music_Shop\\InitialData\\chinook.db");
+                #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlite("DataSource=I:\\CODING\\GitHub_CodeAcademy.NET\\LINQ\\DB_Music_Shop\\DB_Music_Shop.Infrastructure\\Database\\chinook.db");
             }
         }
 
