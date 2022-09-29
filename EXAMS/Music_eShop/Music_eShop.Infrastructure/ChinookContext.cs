@@ -1,12 +1,9 @@
-﻿using DB_Music_Shop.Domain.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace DB_Music_Shop.Infrastructure.Database
+namespace Music_eShop.Infrastructure
 {
     public partial class ChinookContext : DbContext
     {
@@ -28,10 +25,7 @@ namespace DB_Music_Shop.Infrastructure.Database
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-            {
-                #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlite("DataSource=I:\\CODING\\GitHub_CodeAcademy.NET\\LINQ\\DB_Music_Shop\\DB_Music_Shop.Infrastructure\\Database\\chinook.db");
-            }
+                optionsBuilder.UseSqlite("DataSource=I:\\CODING\\GitHub_CodeAcademy.NET\\EXAMS\\Music_eShop\\Music_eShop.Infrastructure\\Database\\Chinook.db");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
