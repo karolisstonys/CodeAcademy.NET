@@ -16,10 +16,16 @@ namespace Music_eShop.Infrastructure.Database
             using (var db = new ChinookContext())
             {
                 //return db.Customers.Select(c => c).ToList();
+                
+                var result = new List<Customer>();
+                
+                
+                if (!db.Customers.Any()) 
+                    return result;
 
-                var result = from c in db.Customers
-                             select c;
-                return result.ToList();
+                result = (from c in db.Customers
+                             select c).ToList();
+                return result;
 
             }
         }
