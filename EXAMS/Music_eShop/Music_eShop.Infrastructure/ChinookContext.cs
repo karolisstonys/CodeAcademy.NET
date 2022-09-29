@@ -8,7 +8,14 @@ namespace Music_eShop.Infrastructure
 {
     public class ChinookContext : DbContext
     {
-        public ChinookContext() { }
+        public string ConnectionString { get; }
+
+        public ChinookContext() 
+        {
+            var folder = Environment.SpecialFolder.LocalApplicationData;
+            var path = Environment.GetFolderPath(folder);
+            ConnectionString = Path.Join(path, "Chinook.db");
+        }
 
         public ChinookContext(DbContextOptions<ChinookContext> options) : base(options) { }
 
@@ -26,7 +33,7 @@ namespace Music_eShop.Infrastructure
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-                optionsBuilder.UseSqlite("DataSource=I:\\CODING\\GitHub_CodeAcademy.NET\\EXAMS\\Music_eShop\\Music_eShop.Infrastructure\\Database\\Chinook.db");
+                optionsBuilder.UseSqlite($"DataSource={ConnectionString}");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Music_eShop.Infrastructure.Database;
+using Music_eShop.Infrastructure.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Music_eShop.Domain.Services
 {
-    public class ShopConsole
+    public class ShopConsole : IShopConsole
     {
         public void Run()
         {            
@@ -22,7 +24,7 @@ namespace Music_eShop.Domain.Services
                 switch (input)
                 {
                     case '1':
-                        //();
+                        ShowAllCustomers();
                         break;
                     case '2':
                         //();
@@ -42,6 +44,7 @@ namespace Music_eShop.Domain.Services
             }
         }
 
+
         private void ShowMenu(int menuNumber)
         {
             switch (menuNumber)
@@ -51,10 +54,10 @@ namespace Music_eShop.Domain.Services
                     Console.WriteLine("│           Muzikos elektroninė-parduotuvė           │");
                     Console.WriteLine("╞════════════════════════════════════════════════════╡");
                     Console.WriteLine("| Pasirinkimai :                                     │");
-                    Console.WriteLine("| 1.  |   Prisijungti                                │");
-                    Console.WriteLine("| 2.  |   Registruotis                               │");
-                    Console.WriteLine("| 3.  |   Darbuotojų Parinktys                       │");
-                    Console.WriteLine("| ESC |   Išeiti                                     │");
+                    Console.WriteLine("│ 1.  │   Prisijungti                                │");
+                    Console.WriteLine("│ 2.  │   Registruotis                               │");
+                    Console.WriteLine("│ 3.  │   Darbuotojų Parinktys                       │");
+                    Console.WriteLine("| ESC │   Išeiti                                     │");
                     Console.WriteLine("└────────────────────────────────────────────────────┘");
                     break;
                 case 2:
@@ -68,6 +71,25 @@ namespace Music_eShop.Domain.Services
         {
             Console.WriteLine("Norėdami tęsti, paspauskite bet kurį mygtuką...");
             Console.ReadKey();
+        }
+
+
+
+
+
+
+
+
+
+
+        private void ShowAllCustomers()
+        {
+            ICustomerRepository customers = new CustomerRepository();
+            var allCustomers = customers.Get();
+            foreach (var customer in allCustomers)
+            {
+                Console.WriteLine($"| {customer.CustomerId,3} │ {customer.FirstName} {customer.LastName}");
+            }
         }
     }
 }

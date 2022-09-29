@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Music_eShop.Domain.Models;
-using Music_eShop.Infrastructure;
 
 namespace Music_eShop.Domain.Models
 {
