@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Music_eShop.Infrastructure;
+using Music_eShop.Domain.Models;
 
-namespace Music_eShop.Infrastructure
+namespace Music_eShop.Domain.Models
 {
     public partial class MediaType
     {

@@ -20,9 +20,9 @@ namespace Music_eShop
 
         protected static IEnumerable<dynamic> GetCustomersByCountry(string country)
         {
-            using (var ctx = new ChinookContext())
+            using (var db = new ChinookContext())
             {
-                var res = ctx.Customers.Where(x => x.Country == country).Select(c => new
+                var res = db.Customers.Where(x => x.Country == country).Select(c => new
                 {
                     Vardas = c.FirstName,
                     KlientoId = c.CustomerId,

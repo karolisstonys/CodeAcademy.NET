@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Music_eShop.Domain.Models;
 
 namespace Music_eShop.Infrastructure
 {
-    public partial class ChinookContext : DbContext
+    public class ChinookContext : DbContext
     {
         public ChinookContext() { }
 
@@ -239,6 +240,6 @@ namespace Music_eShop.Infrastructure
             OnModelCreatingPartial(modelBuilder);
         }
 
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+        private void OnModelCreatingPartial(ModelBuilder modelBuilder) { }
     }
 }
