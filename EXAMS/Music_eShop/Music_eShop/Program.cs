@@ -1,4 +1,5 @@
 ﻿using Music_eShop.Infrastructure;
+using System.Text;
 
 namespace Music_eShop
 {
@@ -6,6 +7,9 @@ namespace Music_eShop
     {
         static void Main(string[] args)
         {
+            Console.OutputEncoding = Encoding.GetEncoding(1200);
+            Console.InputEncoding = Encoding.GetEncoding(1200);
+
             Console.WriteLine("Hello, Music eShop!");
 
             //Scaffold-DbContext "DataSource=I:\CODING\GitHub_CodeAcademy.NET\EXAMS\Music_eShop\Music_eShop.Infrastructure\Database\Chinook.db" Microsoft.EntityFrameworkCore.Sqlite
