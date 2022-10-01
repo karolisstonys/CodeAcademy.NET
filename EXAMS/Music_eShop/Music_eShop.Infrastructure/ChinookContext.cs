@@ -6,15 +6,14 @@ using Music_eShop.Domain.Models;
 
 namespace Music_eShop.Infrastructure
 {
-    public class ChinookContext : DbContext
+    public partial class ChinookContext : DbContext
     {
         public string ConnectionString { get; }
 
         public ChinookContext() 
         {
-            var folder = Environment.SpecialFolder.LocalApplicationData;
-            var path = Environment.GetFolderPath(folder);
-            ConnectionString = Path.Join(path, "Chinook.db");
+            var folder = AppContext.BaseDirectory;
+            ConnectionString = Path.Combine(folder, @"..\..\..\..\Music_eShop.Infrastructure\Database\Chinook.db");
         }
 
         public ChinookContext(DbContextOptions<ChinookContext> options) : base(options) { }
@@ -247,6 +246,6 @@ namespace Music_eShop.Infrastructure
             OnModelCreatingPartial(modelBuilder);
         }
 
-        private void OnModelCreatingPartial(ModelBuilder modelBuilder) { }
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

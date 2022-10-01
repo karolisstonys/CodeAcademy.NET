@@ -10,24 +10,52 @@ namespace Music_eShop.Infrastructure.Database
 {
     public class CustomerRepository : ICustomerRepository
     {
+        private readonly ChinookContext _context;
+
+        public CustomerRepository() { }
+
+        public CustomerRepository(ChinookContext context)
+        {
+            _context = context;
+        }
 
         public List<Customer> Get()
         {
-            using (var db = new ChinookContext())
+            //using (var db = new ChinookContext())
+            //{
+                
+                var customers = new List<Customer>();                
+                
+                if (!_context.Customers.Any()) return customers;
+
+                customers = (from c in _context.Customers
+                              select c).ToList();
+
+                return customers;
+
+            //}
+        }
+
+        public void Add(string customerFirtName, string customerLastName, string customerEmail)
+        {
+            var newCustomer = new Customer()
             {
-                //return db.Customers.Select(c => c).ToList();
-                
-                var result = new List<Customer>();
-                
-                
-                if (!db.Customers.Any()) 
-                    return result;
+                FirstName = customerFirtName,
+                LastName = customerLastName,
+                Email = customerEmail,
+            };
+            _context.Customers.Add(newCustomer);
+            _context.SaveChanges();
+        }
 
-                result = (from c in db.Customers
-                             select c).ToList();
-                return result;
-
-            }
+        public void Update(int customerId, string customerFirtName, string customerLastName)
+        {
+            //using (var context = new BloggingContext())
+            //{
+            //    var blog = context.Blogs.Find(blogId);
+            //    blog.Name = name;
+            //    context.SaveChanges();
+            //}
         }
     }
 }

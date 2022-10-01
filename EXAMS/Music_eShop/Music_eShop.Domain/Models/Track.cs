@@ -28,5 +28,7 @@ namespace Music_eShop.Domain.Models
         public virtual ICollection<InvoiceItem> InvoiceItems { get; set; }
 
         public virtual ICollection<Playlist> Playlists { get; set; }
+
+        public string Status { get; set; } = "Active";
     }
 }
