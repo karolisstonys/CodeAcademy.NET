@@ -55,59 +55,11 @@ namespace Music_eShop.Domain.Services
                     EmployeeMenu();
                     break;
                 case AppState.UpdateUserScreen:
-
+                    UpdateUserMenu();
                     break;
                 default:
                     break;
             }
-        }
-
-        private void EmployeeMenu()
-        {
-            ShowMenu();
-            while (_state == AppState.EmployeeScreen)
-            {
-                char input = Console.ReadKey().KeyChar;
-                switch (input)
-                {
-                    case '1':
-                        //Keisti klientų duomenis
-                        break;
-                    case '2':
-                        //Pakeisti dainos statusą
-                        break;
-                    case '3':
-                        //Statistika (Darbuotojams)
-                        break;
-                    case 'q' or 'Q':  // ESC
-                        _state = AppState.LoginScreen;
-                        _user = null;
-                        return;
-                    default:
-                        Console.WriteLine();
-                        Console.WriteLine("Blogas pasirinkimas, bandykite iš naujo.");
-                        break;
-                }
-                //PauseScreen();
-            }
-        }
-
-        private void EmployeeLogin()
-        {
-            ShowMenu();
-            var pinCode = "0001";
-            Console.Write("Įveskit PIN: ");
-            var pinEntered = Console.ReadLine();
-            while (pinEntered != pinCode)
-            {
-                Console.Write("Blogas PIN! Bandykite dar kartą: ");
-                pinEntered = Console.ReadLine();
-            }
-            _state = AppState.EmployeeScreen;
-            _user = new User()
-            {
-                Name = "Darbuotojas-0001"
-            };
         }
 
         private void LoginMenu()
@@ -133,6 +85,7 @@ namespace Music_eShop.Domain.Services
                         _state = AppState.EmployeeLogin;
                         break;
                     case 'q' or 'Q':  // ESC
+                        Environment.Exit(0);
                         return;
                     default:
                         Console.WriteLine();
@@ -232,6 +185,83 @@ namespace Music_eShop.Domain.Services
             }
         }
 
+        private void EmployeeLogin()
+        {
+            ShowMenu();
+            var pinCode = "0001";
+            Console.Write("Įveskit PIN: ");
+            var pinEntered = Console.ReadLine();
+            while (pinEntered != pinCode)
+            {
+                Console.Write("Blogas PIN! Bandykite dar kartą: ");
+                pinEntered = Console.ReadLine();
+            }
+            _state = AppState.EmployeeScreen;
+            _user = new User()
+            {
+                Name = "Darbuotojas-0001"
+            };
+        }
+
+        private void EmployeeMenu()
+        {
+            ShowMenu();
+            while (_state == AppState.EmployeeScreen)
+            {
+                char input = Console.ReadKey().KeyChar;
+                switch (input)
+                {
+                    case '1':
+                        //Keisti klientų duomenis
+                        break;
+                    case '2':
+                        //Pakeisti dainos statusą
+                        break;
+                    case '3':
+                        //Statistika (Darbuotojams)
+                        break;
+                    case 'q' or 'Q':  // ESC
+                        _state = AppState.LoginScreen;
+                        _user = null;
+                        return;
+                    default:
+                        Console.WriteLine();
+                        Console.WriteLine("Blogas pasirinkimas, bandykite iš naujo.");
+                        break;
+                }
+                //PauseScreen();
+            }
+        }
+
+        private void UpdateUserMenu()
+        {
+            ShowMenu();
+            while (_state == AppState.UpdateUserScreen)
+            {
+                char input = Console.ReadKey().KeyChar;
+                switch (input)
+                {
+                    case '1':
+                        //Gauti pirkėjų sąrašą
+                        break;
+                    case '2':
+                        //Pašalinti pirkėją pagal ID (BONUS)
+                        break;
+                    case '3':
+                        //Modifikuoti pirkėjo duomenis
+                        break;
+                    case 'q' or 'Q':  // ESC
+                        _state = AppState.EmployeeScreen;
+                        return;
+                    default:
+                        Console.WriteLine();
+                        Console.WriteLine("Blogas pasirinkimas, bandykite iš naujo.");
+                        break;
+                }
+                //PauseScreen();
+            }
+        }
+
 
         private void ShowMenu()
         {
@@ -243,38 +273,32 @@ namespace Music_eShop.Domain.Services
                 Console.WriteLine("└────────────────────────────────────────────────────┘");
             }
 
+            if (_state != AppState.EmployeeLogin)
+            {
+                Console.WriteLine("┌────────────────────────────────────────────────────┐");
+                Console.WriteLine("│           Muzikos elektroninė-parduotuvė           │");
+                Console.WriteLine("╞════════════════════════════════════════════════════╡");
+                Console.WriteLine("| Pasirinkimai :                                     │");
+            }
+
             switch (_state)
             {
                 case AppState.LoginScreen:
-                    Console.WriteLine("┌────────────────────────────────────────────────────┐");
-                    Console.WriteLine("│           Muzikos elektroninė-parduotuvė           │");
-                    Console.WriteLine("╞════════════════════════════════════════════════════╡");
-                    Console.WriteLine("| Pasirinkimai :                                     │");
                     Console.WriteLine("│ 1.  │   Prisijungti                                │");
                     Console.WriteLine("│ 2.  │   Registruotis                               │");
                     Console.WriteLine("│ 3.  │   Darbuotojų Parinktys                       │");
                     Console.WriteLine("| Q.  │   Išeiti                                     │");
-                    Console.WriteLine("└────────────────────────────────────────────────────┘");
                     break;
                 case AppState.BuyScreen:
-                    Console.WriteLine("┌────────────────────────────────────────────────────┐");
-                    Console.WriteLine("│           Muzikos elektroninė-parduotuvė           │");
-                    Console.WriteLine("╞════════════════════════════════════════════════════╡");
-                    Console.WriteLine("| Pasirinkimai :                                     │");
                     Console.WriteLine("│ 1.  │   Peržiūrėti katalogą                        │");
                     Console.WriteLine("│ 2.  │   Įdėti į krepšelį                           │");
                     Console.WriteLine("│ 3.  │   Peržiūrėti krepšelį                        │");
                     Console.WriteLine("│ 3.  │   Peržiūrėti pirkimų istorija (Išrašai)      │");
                     Console.WriteLine("│ Q.  │   Atsijungti                                 │");
-                    Console.WriteLine("└────────────────────────────────────────────────────┘");
                     break;
                 case AppState.CatalogScreen:
-                    Console.WriteLine("┌────────────────────────────────────────────────────┐");
-                    Console.WriteLine("│           Muzikos elektroninė-parduotuvė           │");
-                    Console.WriteLine("╞════════════════════════════════════════════════════╡");
-                    Console.WriteLine("| Pasirinkimai :                                     │");
                     Console.WriteLine("│ a   │   rikiavimas pagal Name abecėlės tvarka      │");
-                    Console.WriteLine("│ b   │   rikiavimas pagalName atvirkštine abecėle   │");
+                    Console.WriteLine("│ b   │   rikiavimas pagal Name atvirkštine abecėle  │");
                     Console.WriteLine("│ c   │   rikiavimas Pagal Composer                  │");
                     Console.WriteLine("│ d   │   rikiavimas pagal Genre                     │");
                     Console.WriteLine("│ e   │   rikiavimas pagal Composer ir Album         │");
@@ -286,7 +310,6 @@ namespace Music_eShop.Domain.Services
                     Console.WriteLine("│ k   │   paieška pagal Milliseconds                 │");
                     Console.WriteLine("│ l   │   paieška pagal Album ir Artist              │");
                     Console.WriteLine("│ Q.  │   Grįžti                                     │");
-                    Console.WriteLine("└────────────────────────────────────────────────────┘");
                     break;
                 case AppState.EmployeeLogin:
                     Console.WriteLine("╔═══════════╗");
@@ -302,16 +325,22 @@ namespace Music_eShop.Domain.Services
                     Console.WriteLine("╚═══╩═══╩═══╝");
                     break;
                 case AppState.EmployeeScreen:
-                    Console.WriteLine("┌────────────────────────────────────────────────────┐");
-                    Console.WriteLine("│           Muzikos elektroninė-parduotuvė           │");
-                    Console.WriteLine("╞════════════════════════════════════════════════════╡");
-                    Console.WriteLine("| Pasirinkimai :                                     │");
                     Console.WriteLine("│ 1.  │   Keisti klientų duomenis                    │");
                     Console.WriteLine("│ 2.  │   Pakeisti dainos statusą                    │");
                     Console.WriteLine("│ 3.  │   Statistika (Darbuotojams)                  │");
                     Console.WriteLine("│ Q.  │   Atsijungti                                 │");
-                    Console.WriteLine("└────────────────────────────────────────────────────┘");
                     break;
+                case AppState.UpdateUserScreen:
+                    Console.WriteLine("│ 1.  │   Gauti pirkėjų sąrašą                       │");
+                    Console.WriteLine("│ 2.  │   Pašalinti pirkėją pagal ID                 │");
+                    Console.WriteLine("│ 3.  │   Modifikuoti pirkėjo duomenis               │");
+                    Console.WriteLine("│ Q.  │   Grįžti                                     │");
+                    break; 
+            }
+
+            if (_state != AppState.EmployeeLogin)
+            {
+                Console.WriteLine("└────────────────────────────────────────────────────┘");
             }
         }
 

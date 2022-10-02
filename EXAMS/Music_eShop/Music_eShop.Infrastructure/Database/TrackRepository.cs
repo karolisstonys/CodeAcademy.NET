@@ -119,7 +119,7 @@ namespace Music_eShop.Infrastructure.Database
             string genreName = "";
             string composer = "";
 
-            Console.WriteLine($"{"Id",-4} {"Name",-30} {"Composer",-30} {"Album",-20} {"Genre",-20}");
+            Console.WriteLine($"{"Id",-4} {"Name",-45} {"Composer",-45} {"Album",-35} {"Genre",-20}");
 
             foreach (var track in tracks)
             {
@@ -127,7 +127,7 @@ namespace Music_eShop.Infrastructure.Database
                 if (track.GenreId != null) genreName = track.Genre.Name;
                 if (track.Composer != null) composer = track.Composer;
 
-                Console.WriteLine($"{track.TrackId,-4} {track.Name,-30} {composer,-30} {albumTitle,-20} {genreName,-20}");
+                Console.WriteLine($"{track.TrackId,-4} {track.Name,-45} {composer,-45} {albumTitle,-35} {genreName,-20}");
                 //Console.WriteLine($"{track.TrackId,4} - {track.Name} - {composer} - {albumTitle} - {genreName} - {track.Milliseconds} - {Encoding.Default.GetString(track.UnitPrice)}");
             }
         }
