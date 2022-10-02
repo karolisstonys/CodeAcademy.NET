@@ -108,10 +108,12 @@ namespace Music_eShop.Domain.Services
                         _state = AppState.CatalogScreen;
                         break;
                     case '2':
-
+                        //Įdėti į krepšelį
                         break;
                     case '3':
-
+                    //Peržiūrėti krepšelį
+                    case '4':
+                        //Peržiūrėti pirkimų istorija (Išrašai)
                         break;
                     case 'q' or 'Q':  // ESC
                         _state = AppState.LoginScreen;
@@ -149,8 +151,9 @@ namespace Music_eShop.Domain.Services
                     case 'e': //rikiavims pagal Composer ir Album   
                         ShowCatalogOrderedByComposerAndAlbum();
                         break;
-                    case 'f': //paieška pagal Id                   
-
+                    case 'f': //paieška pagal Id    
+                        Console.Write("Iveskite paieškos teksta (Id): ");
+                        FindTrackByID(Console.ReadLine());
                         break;
                     case 'g': //paieška pagal Name                   
                         Console.WriteLine();
@@ -242,7 +245,7 @@ namespace Music_eShop.Domain.Services
                 switch (input)
                 {
                     case '1':
-                        //Gauti pirkėjų sąrašą
+                        ShowAllCustomers();
                         break;
                     case '2':
                         //Pašalinti pirkėją pagal ID (BONUS)
@@ -261,7 +264,6 @@ namespace Music_eShop.Domain.Services
                 //PauseScreen();
             }
         }
-
 
         private void ShowMenu()
         {
@@ -413,6 +415,7 @@ namespace Music_eShop.Domain.Services
             ITrackRepository tracks = new TrackRepository(context);
             tracks.Print(tracks.GetTracksSortedByNameDesc());
         }
+
         private void ShowCatalogOrderedByComposer()
         {
             Console.WriteLine("Visas katalogas surikiuotas pagal 'Composer':");
@@ -420,6 +423,7 @@ namespace Music_eShop.Domain.Services
             ITrackRepository tracks = new TrackRepository(context);
             tracks.Print(tracks.GetTracksSortedByComposer());
         }
+
         private void ShowCatalogOrderedByGenre()
         {
             Console.WriteLine("Visas katalogas surikiuotas pagal 'Genre':");
@@ -427,6 +431,7 @@ namespace Music_eShop.Domain.Services
             ITrackRepository tracks = new TrackRepository(context);
             tracks.Print(tracks.GetTracksSortedByGenre());
         }
+
         private void ShowCatalogOrderedByComposerAndAlbum()
         {
             Console.WriteLine("Visas katalogas surikiuotas pagal 'Composer' ir 'Album':");
@@ -434,5 +439,19 @@ namespace Music_eShop.Domain.Services
             ITrackRepository tracks = new TrackRepository(context);
             tracks.Print(tracks.GetTracksSortedByComposerAndAlbum());
         }
+
+        private void FindTrackByID(string searchText)
+        {
+            Console.WriteLine("Daina/os pagal 'Id':");
+            var context = new ChinookContext();
+            ITrackRepository tracks = new TrackRepository(context);
+            tracks.Print(tracks.FindTracksById(searchText));
+        }
+
+
+
+
+
+
     }
 }

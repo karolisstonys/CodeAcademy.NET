@@ -21,19 +21,12 @@ namespace Music_eShop.Infrastructure.Database
 
         public List<Customer> Get()
         {
-            //using (var db = new ChinookContext())
-            //{
-                
                 var customers = new List<Customer>();                
                 
                 if (!_context.Customers.Any()) return customers;
 
-                customers = (from c in _context.Customers
-                              select c).ToList();
-
-                return customers;
-
-            //}
+                return (from c in _context.Customers
+                              select c).ToList();;
         }
 
         public void Add(string customerFirtName, string customerLastName, string customerEmail)
