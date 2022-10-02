@@ -33,6 +33,7 @@ namespace Music_eShop.Infrastructure
         {
             if (!optionsBuilder.IsConfigured)
                 optionsBuilder.UseSqlite($"DataSource={ConnectionString}");
+            optionsBuilder.UseLazyLoadingProxies();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

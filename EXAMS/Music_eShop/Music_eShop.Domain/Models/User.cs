@@ -16,10 +16,20 @@ namespace Music_eShop.Domain.Models
             Name = name;
         }
 
-        public long CustomerID { get; set; }
+        public long? CustomerID { get; set; }
 
         public string Name { get; set; }
 
-        public Dictionary<int, int> Cart { get; set; }
+        public Cart Cart { get; set; } = new Cart();
     }
+
+    public class Cart : List<CartTrack> { }
+
+    public class CartTrack
+    {
+        public long trackId;
+
+        public int trackCount;
+    }
+
 }
