@@ -9,6 +9,8 @@ namespace Music_eShop.Infrastructure.Interfaces
 {
     public interface ITrackRepository
     {
+        public Track? Get(string trackId);
+        public Track ChangeStatus(string trackId);
         public List<Track> GetTracksSortedByNameAsc();
         public List<Track> GetTracksSortedByNameDesc();
         public List<Track> GetTracksSortedByComposer();

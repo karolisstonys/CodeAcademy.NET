@@ -21,44 +21,67 @@ namespace Music_eShop.Infrastructure.Database
 
         public List<Customer> Get()
         {
-                var customers = new List<Customer>();                
-                
-                if (!_context.Customers.Any()) return customers;
+            var customers = new List<Customer>();
 
-                return (from c in _context.Customers
-                              select c).ToList();;
+            if (!_context.Customers.Any()) return customers;
+
+            return (from c in _context.Customers
+                    select c).ToList(); ;
         }
-        public Customer? Get(long id)
+
+        public Customer? Get(string customerId)
         {
+            long id = 0;
+            while (!long.TryParse(customerId, out id))
+            {
+                Console.Write("Blogas pasirinkimas, bandykite dar kartą: ");
+                customerId = Console.ReadLine();
+            }
             var customer = new Customer();
 
             if (!_context.Customers.Any()) return customer;
 
             return (from c in _context.Customers
                     where c.CustomerId == id
-                    select c).FirstOrDefault(); ;
+                    select c).FirstOrDefault();
         }
 
         public void Add(string customerFirtName, string customerLastName, string customerEmail)
         {
-            var newCustomer = new Customer()
+            using (_context)
             {
-                FirstName = customerFirtName,
-                LastName = customerLastName,
-                Email = customerEmail,
-            };
-            _context.Customers.Add(newCustomer);
+                var newCustomer = new Customer()
+                {
+                    FirstName = customerFirtName,
+                    LastName = customerLastName,
+                    Email = customerEmail,
+                };
+                _context.Customers.Add(newCustomer);
+                _context.SaveChanges();
+            }
+        }
+
+        public void Update(long customerId, string firstName, string lastName, string? company, string? address, string? city, string? state, string? county, string? postalCode, string? phone, string? fax, string email, long? employeeId)
+        {
+            var customer = _context.Customers.Find(customerId);
+            customer.FirstName = firstName;
+            customer.LastName = lastName;
+            customer.Company = company;
+            customer.Address = address;
+            customer.City = city;
+            customer.State = state;
+            customer.Country = county;
+            customer.PostalCode = postalCode;
+            customer.Phone = phone;
+            customer.Fax = fax;
+            customer.Email = email;
+            customer.SupportRepId = employeeId;
             _context.SaveChanges();
         }
 
-        public void Update(int customerId, string customerFirtName, string customerLastName)
+        public void Delete(long customerId)
         {
-            //using (var context = new BloggingContext())
-            //{
-            //    var blog = context.Blogs.Find(blogId);
-            //    blog.Name = name;
-            //    context.SaveChanges();
-            //}
+            throw new NotImplementedException();
         }
     }
 }

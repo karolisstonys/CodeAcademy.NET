@@ -16,12 +16,14 @@ namespace Music_eShop.Domain.Services
         private AppState _state = AppState.LoginScreen;
         private User _user = null;
         private readonly ICustomerRepository _customers;
+        private readonly IEmployeeRepository _employee;
         private readonly ITrackRepository _tracks;
 
         public ShopConsole()
         {
             var context = new ChinookContext();
             _customers = new CustomerRepository(context);
+            _employee = new EmployeeRepository(context);
             _tracks = new TrackRepository(context);
         }
 
@@ -49,7 +51,7 @@ namespace Music_eShop.Domain.Services
                     CatalogMenu();
                     break;
                 case AppState.AddToCartScreen:
-
+                    AddToCartMenu();
                     break;
                 case AppState.CartScreen:
 
@@ -70,6 +72,9 @@ namespace Music_eShop.Domain.Services
                     break;
             }
         }
+
+
+        // -------------------------------------------
 
         private void LoginMenu()
         {
@@ -97,7 +102,7 @@ namespace Music_eShop.Domain.Services
                         Environment.Exit(0);
                         return;
                     default:
-                        Console.WriteLine();
+                        Console.Clear();
                         Console.WriteLine("Blogas pasirinkimas, bandykite iš naujo.");
                         break;
                 }
@@ -107,9 +112,9 @@ namespace Music_eShop.Domain.Services
 
         private void BuyMenu()
         {
-            ShowMenu();
             while (_state == AppState.BuyScreen)
             {
+                ShowMenu();
                 char input = Console.ReadKey().KeyChar;
                 switch (input)
                 {
@@ -117,10 +122,11 @@ namespace Music_eShop.Domain.Services
                         _state = AppState.CatalogScreen;
                         break;
                     case '2':
-                        //Įdėti į krepšelį
+                        _state = AppState.AddToCartScreen;                        
                         break;
                     case '3':
-                    //Peržiūrėti krepšelį
+                        PrintCart();
+                        break;
                     case '4':
                         //Peržiūrėti pirkimų istorija (Išrašai)
                         break;
@@ -129,11 +135,11 @@ namespace Music_eShop.Domain.Services
                         _user = null;
                         return;
                     default:
-                        Console.WriteLine();
+                        Console.Clear();
                         Console.WriteLine("Blogas pasirinkimas, bandykite iš naujo.");
                         break;
                 }
-                //PauseScreen();
+                PauseScreen();
             }
         }
 
@@ -185,6 +191,41 @@ namespace Music_eShop.Domain.Services
                         _state = AppState.BuyScreen;
                         return;
                     default:
+                        Console.Clear();
+                        Console.WriteLine("Blogas pasirinkimas, bandykite iš naujo.");
+                        break;
+                }
+                PauseScreen();
+            }
+        }
+
+        private void AddToCartMenu()
+        {
+            while (_state == AppState.AddToCartScreen)
+            {
+                ShowMenu();
+                char input = Console.ReadKey().KeyChar;
+                switch (input)
+                {
+                    case '1':
+                        //Rasti dainą pagal Id
+                        FindAndAddToCartTracksById();
+                        break;
+                    case '2':
+                        //Rasti dainą pagal pavadinimą
+                        FindAndAddToCartTracksByName();
+                        break;
+                    case '3':
+                        //Rasti dainas pagal albumo Id
+                        break;
+                    case '4':
+                        //Rasti dainas pagal albumo pavadinimą
+                        break;
+                    case 'q' or 'Q':  // ESC
+                        _state = AppState.BuyScreen;
+                        return;
+                    default:
+                        Console.Clear();
                         Console.WriteLine("Blogas pasirinkimas, bandykite iš naujo.");
                         break;
                 }
@@ -204,26 +245,31 @@ namespace Music_eShop.Domain.Services
                 Console.Write("Blogas PIN! Bandykite dar kartą: ");
                 pinEntered = Console.ReadLine();
             }
+
             _state = AppState.EmployeeScreen;
+            var employee = _employee.Get(1);
             _user = new User()
             {
-                Name = "Darbuotojas-0001"
+                CustomerID = null,
+                EmoloyeeID = 1,            
+                Name =  employee.Title + " " + employee.FirstName + " " + employee.LastName
             };
         }
 
         private void EmployeeMenu()
         {
-            ShowMenu();
             while (_state == AppState.EmployeeScreen)
             {
+                ShowMenu();
                 char input = Console.ReadKey().KeyChar;
                 switch (input)
                 {
-                    case '1':
-                        //Keisti klientų duomenis
+                    case '1': // Keisti klientų duomenis
+                        _state = AppState.UpdateUserScreen;
                         break;
                     case '2':
                         //Pakeisti dainos statusą
+                        ChangeTackStatus();
                         break;
                     case '3':
                         //Statistika (Darbuotojams)
@@ -233,19 +279,19 @@ namespace Music_eShop.Domain.Services
                         _user = null;
                         return;
                     default:
-                        Console.WriteLine();
+                        Console.Clear();
                         Console.WriteLine("Blogas pasirinkimas, bandykite iš naujo.");
                         break;
                 }
-                //PauseScreen();
+                PauseScreen();
             }
         }
 
         private void UpdateUserMenu()
         {
-            ShowMenu();
             while (_state == AppState.UpdateUserScreen)
             {
+                ShowMenu();
                 char input = Console.ReadKey().KeyChar;
                 switch (input)
                 {
@@ -254,21 +300,25 @@ namespace Music_eShop.Domain.Services
                         break;
                     case '2':
                         //Pašalinti pirkėją pagal ID (BONUS)
+                        FindAndDeleteCusttomer();
                         break;
                     case '3':
                         //Modifikuoti pirkėjo duomenis
+                        FindAndUpdateCustomer();
                         break;
                     case 'q' or 'Q':  // ESC
                         _state = AppState.EmployeeScreen;
                         return;
                     default:
-                        Console.WriteLine();
+                        Console.Clear();
                         Console.WriteLine("Blogas pasirinkimas, bandykite iš naujo.");
                         break;
                 }
-                //PauseScreen();
+                PauseScreen();
             }
         }
+
+        // -------------------------------------------
 
         private void ShowMenu()
         {
@@ -276,7 +326,7 @@ namespace Music_eShop.Domain.Services
             {
                 Console.WriteLine("┌────────────────────────────────────────────────────┐");
                 Console.WriteLine($"│Vartotojas:{_user.Name,41}│");
-                Console.WriteLine($"│Krepšelyje prekių:{_user.Cart.Count(),34}│");
+                Console.WriteLine($"│Dainos krepšelyje:{_user.Cart.Count(),34}│");
                 Console.WriteLine("└────────────────────────────────────────────────────┘");
             }
 
@@ -295,13 +345,20 @@ namespace Music_eShop.Domain.Services
                     Console.WriteLine("│ 2.  │   Registruotis                               │");
                     Console.WriteLine("│ 3.  │   Darbuotojų Parinktys                       │");
                     Console.WriteLine("| Q.  │   Išeiti                                     │");
-                    break;
+                    break; 
                 case AppState.BuyScreen:
                     Console.WriteLine("│ 1.  │   Peržiūrėti katalogą                        │");
                     Console.WriteLine("│ 2.  │   Įdėti į krepšelį                           │");
                     Console.WriteLine("│ 3.  │   Peržiūrėti krepšelį                        │");
-                    Console.WriteLine("│ 3.  │   Peržiūrėti pirkimų istorija (Išrašai)      │");
+                    Console.WriteLine("│ 4.  │   Peržiūrėti pirkimų istorija (Išrašai)      │");
                     Console.WriteLine("│ Q.  │   Atsijungti                                 │");
+                    break; 
+                case AppState.AddToCartScreen:
+                    Console.WriteLine("│ 1.  │   Rasti dainą pagal Id                       │");
+                    Console.WriteLine("│ 2.  │   Rasti dainą pagal pavadinimą               │");
+                    Console.WriteLine("│ 3.  │   Rasti dainas pagal albumo Id               │");
+                    Console.WriteLine("│ 4.  │   Rasti dainas pagal albumo pavadinimą       │");
+                    Console.WriteLine("│ Q.  │   Grįžti                                     │");
                     break;
                 case AppState.CatalogScreen:
                     Console.WriteLine("│ a   │   rikiavimas pagal Name abecėlės tvarka      │");
@@ -359,6 +416,8 @@ namespace Music_eShop.Domain.Services
             Console.Clear();
         }
 
+        // -------------------------------------------
+
         private void ShowAllCustomers()
         {
             Console.WriteLine();
@@ -384,53 +443,99 @@ namespace Music_eShop.Domain.Services
 
         private User Login(string customerId)
         {
-            long userId = 0;
-            while(!long.TryParse(customerId, out userId))
-            {
-                Console.Write("Blogas pasirinkimas, bandykite dar kartą: ");
-                customerId = Console.ReadLine();
-            }
+            var customer = _customers.Get(customerId);
 
-            var customer = _customers.Get(userId);
-
-            var user = new User(customer.CustomerId, customer.FirstName + " " + customer.LastName);
+            var user = new User(customer.CustomerId, null, customer.FirstName + " " + customer.LastName);
 
             return user;
         }
 
+        private void FindAndUpdateCustomer()
+        {
+            Console.Write(" Pasirinkite Customer pagal ID: ");
+            var customer = _customers.Get(Console.ReadLine());
+
+            Console.Write($"Customer FirstName '{customer.FirstName}' keisti į: ");
+            var newFirstName = Console.ReadLine();
+            Console.Write($"Customer LastName '{customer.LastName}' keisti į: ");
+            var newLastName = Console.ReadLine();
+            Console.Write($"Customer Company '{customer.Company}' keisti į: ");
+            var newCompany = Console.ReadLine();
+            Console.Write($"Customer Address '{customer.Address}' keisti į: ");
+            var newAddress = Console.ReadLine();
+            Console.Write($"Customer City '{customer.City}' keisti į: ");
+            var newCity = Console.ReadLine();
+            Console.Write($"Customer State '{customer.State}' keisti į: ");
+            var newState = Console.ReadLine();
+            Console.Write($"Customer Country '{customer.Country}' keisti į: ");
+            var newCountry = Console.ReadLine();
+            Console.Write($"Customer PostalCode '{customer.PostalCode}' keisti į: ");
+            var newPostalCode = Console.ReadLine();
+            Console.Write($"Customer Phone '{customer.Phone}' keisti į: ");
+            var newPhone = Console.ReadLine();
+            Console.Write($"Customer Fax '{customer.Fax}' keisti į: ");
+            var newFax = Console.ReadLine();
+            Console.Write($"Customer Email '{customer.Email}' keisti į: ");
+            var newEmail = Console.ReadLine();
+
+            _customers.Update(customer.CustomerId, newFirstName, newLastName, newCompany, newAddress, newCity, newState, newCountry, newPostalCode, newPhone, newFax, newEmail, _user.EmoloyeeID);
+            Console.WriteLine("Customer pakeistas sekmingai");
+        }
+
+        private void FindAndDeleteCusttomer()
+        {
+            Console.Write(" Pasirinkite Customer pagal ID: ");
+            var customer = _customers.Get(Console.ReadLine());
+            throw new NotImplementedException();
+        }
+
+        private void ChangeTackStatus()
+        {
+            Console.Write(" Pasirinkite Track pagal ID: ");
+            var track = _tracks.Get(Console.ReadLine());
+            Console.WriteLine($"{track.Name} [{track.Status}]");
+
+            Console.Write("Ar norite keisti [Status] ? (t/n) ");
+            if (Console.ReadKey().KeyChar == 't')
+            {
+                track = _tracks.ChangeStatus(track.TrackId.ToString());
+                Console.WriteLine($"\n{track.Name} [{track.Status}\n]");
+            }
+        }
+
         private void PrintCatalogOrderedAsc()
         {
-            Console.WriteLine(" Visas katalogas surikiuotas pagal 'Name' abecėlės tvarka:");
+            Console.WriteLine("\nVisas katalogas surikiuotas pagal 'Name' abecėlės tvarka:");
             _tracks.Print(_tracks.GetTracksSortedByNameAsc());
         }
 
         private void PrintCatalogOrderedDesc()
         {
-            Console.WriteLine(" Visas katalogas surikiuotas pagal 'Name' atvirkštine abecėlės tvarka:");
+            Console.WriteLine("\nVisas katalogas surikiuotas pagal 'Name' atvirkštine abecėlės tvarka:");
             _tracks.Print(_tracks.GetTracksSortedByNameDesc());
         }
 
         private void PrintCatalogOrderedByComposer()
         {
-            Console.WriteLine(" Visas katalogas surikiuotas pagal 'Composer':");
+            Console.WriteLine("\nVisas katalogas surikiuotas pagal 'Composer':");
             _tracks.Print(_tracks.GetTracksSortedByComposer());
         }
 
         private void PrintCatalogOrderedByGenre()
         {
-            Console.WriteLine(" Visas katalogas surikiuotas pagal 'Genre':");
+            Console.WriteLine("\nVisas katalogas surikiuotas pagal 'Genre':");
             _tracks.Print(_tracks.GetTracksSortedByGenre());
         }
 
         private void PrintCatalogOrderedByComposerAndAlbum()
         {
-            Console.WriteLine(" Visas katalogas surikiuotas pagal 'Composer' ir 'Album':");
+            Console.WriteLine("\nVisas katalogas surikiuotas pagal 'Composer' ir 'Album':");
             _tracks.Print(_tracks.GetTracksSortedByComposerAndAlbum());
         }
 
         private void FindAndPrintTrackByID()
         {
-            Console.Write(" Įveskite paieškos tekstą (Id): ");
+            Console.Write("\nĮveskite paieškos tekstą (Id): ");
             var searchText = Console.ReadLine();
             Console.WriteLine(" Daina/os pagal 'Id':");
             _tracks.Print(_tracks.FindTracksById(searchText));
@@ -438,7 +543,7 @@ namespace Music_eShop.Domain.Services
 
         private void FindAndPrintTracksByName()
         {
-            Console.Write(" Įveskite paieškos tekstą (Name): ");
+            Console.Write("\nĮveskite paieškos tekstą (Name): ");
             var searchText = Console.ReadLine();
             Console.WriteLine(" Daina/os pagal 'Name':");
             _tracks.Print(_tracks.FindTracksByName(searchText));
@@ -446,7 +551,7 @@ namespace Music_eShop.Domain.Services
 
         private void FindAndPrintTracksByComposer()
         {
-            Console.Write(" Įveskite paieškos tekstą (Composer): ");
+            Console.Write("\nĮveskite paieškos tekstą (Composer): ");
             var searchText = Console.ReadLine();
             Console.WriteLine(" Daina/os pagal 'Composer':");
             _tracks.Print(_tracks.FindTracksByComposer(searchText));
@@ -454,7 +559,7 @@ namespace Music_eShop.Domain.Services
 
         private void FindAndPrintTracksByGenre()
         {
-            Console.Write(" Įveskite paieškos tekstą (Genre): ");
+            Console.Write("\nĮveskite paieškos tekstą (Genre): ");
             var searchText = Console.ReadLine();
             Console.WriteLine(" Daina/os pagal 'Genre':");
             _tracks.Print(_tracks.FindTracksByGenre(searchText));
@@ -462,7 +567,7 @@ namespace Music_eShop.Domain.Services
 
         private void FindAndPrintTracksByComposerAndAlbum()
         {
-            Console.Write(" Įveskite paieškos tekstą (Composer ir Album): ");
+            Console.Write("\nĮveskite paieškos tekstą (Composer ir Album): ");
             var searchText = Console.ReadLine();
             Console.WriteLine(" Daina/os pagal 'Composer' ir 'Album':"); 
             _tracks.Print(_tracks.FindTracksByComposerAndAlbum(searchText));
@@ -470,7 +575,7 @@ namespace Music_eShop.Domain.Services
 
         private void FindAndPrintTracksByMilliseconds()
         {
-            Console.Write("Įveskite paieškos tekstą (Milliseconds) nuo: ");
+            Console.Write("\nĮveskite paieškos tekstą (Milliseconds) nuo: ");
             var from = Console.ReadLine();
             Console.Write("Įveskite paieškos tekstą (Milliseconds) iki: ");
             var to = Console.ReadLine();
@@ -483,6 +588,96 @@ namespace Music_eShop.Domain.Services
             var searchText = Console.ReadLine();
             Console.WriteLine(" Daina/os pagal 'Album' ir 'Artist':");
             _tracks.Print(_tracks.FindTracksByAlbumAndArtist(searchText));
+        }
+
+        private void FindAndAddToCartTracksById()
+        {
+            Console.Write("\nĮveskite paieškos tekstą (Id): ");
+            var searchText = Console.ReadLine();
+            Console.WriteLine(" Daina/os pagal 'Id':");
+            var tracks = _tracks.FindTracksById(searchText);
+            _tracks.Print(tracks);
+
+
+            if (tracks.Count == 0) return;
+
+            Console.Write("Ar norite įdėti rasts dainas į krepšelį? (t/n) ");
+            if (Console.ReadKey().KeyChar == 't')
+            {
+                AddToCart(tracks);
+                Console.WriteLine("\nĮ krepšelį įdėta sekmingai.");
+            }
+        }
+
+        private void FindAndAddToCartTracksByName()
+        {
+            Console.Write("\nĮveskite paieškos tekstą (Name): ");
+            var searchText = Console.ReadLine();
+            Console.WriteLine(" Daina/os pagal 'Id':");
+            var tracks = _tracks.FindTracksByName(searchText);
+            _tracks.Print(tracks);
+
+            if (tracks.Count == 0) return;
+
+            Console.Write("Ar norite įdėti rasts dainas į krepšelį? (t/n) ");
+            if (Console.ReadKey().KeyChar == 't')
+            {
+                AddToCart(tracks);
+                Console.WriteLine("\nĮ krepšelį įdėta sekmingai.");
+            }
+        }
+
+        private void AddToCart(List<Track> tracks)
+        {
+            foreach (var track in tracks)
+            {
+                var trackIsInCart = false;
+                // Goes through CART and looks for same track   // Increase count if found 
+                foreach (var cartItem in _user.Cart)
+                {
+                    if (cartItem.trackId == track.TrackId)
+                    {
+                        cartItem.trackCount++;
+                        trackIsInCart = true;
+                    }
+                }
+
+                // If track is not in CART, adds it
+                if (!trackIsInCart) _user.Cart.Add(new CartTrack() { trackId = track.TrackId, trackCount = 1 });
+            }
+        }
+
+        private void PrintCart()
+        {
+            string albumTitle = "";
+            string genreName = "";
+            string composer = "";
+
+            Console.WriteLine();
+            Console.WriteLine("┌────┬─────────────────────────────────────────────┬─────────────────────────────────────────────┬───────────────────────────────────┬────────────────────┬──────────┬──────────┐");
+            Console.WriteLine($"│{"Id",-4}│{"Name",-45}│{"Composer",-45}│{"Album",-35}│{"Genre",-20}│{"Kaina",-10}│{"Kiekis",-10}│");
+            Console.WriteLine("├────┼─────────────────────────────────────────────┼─────────────────────────────────────────────┼───────────────────────────────────┼────────────────────┼──────────┼──────────┤");
+            foreach (var cartItem in _user.Cart)
+            {
+                var track = _tracks.Get(cartItem.trackId.ToString());
+                if (track.AlbumId != null) albumTitle = track.Album.Title;
+                if (track.GenreId != null) genreName = track.Genre.Name;
+                if (track.Composer != null) composer = track.Composer;
+
+                Console.WriteLine($"│{track.TrackId,-4}│{track.Name.Truncate(44),-45}│{composer.Truncate(44),-45}│{albumTitle.Truncate(34),-35}│{genreName.Truncate(19),-20}│{Encoding.Default.GetString(track.UnitPrice),-10}│{cartItem.trackCount,-10}│");
+            }
+            Console.WriteLine("└────┴─────────────────────────────────────────────┴─────────────────────────────────────────────┴───────────────────────────────────┴────────────────────┴──────────┴──────────┘");
+
+        }
+
+    }
+    public static class StringExt
+    {
+        public static string? Truncate(this string? value, int maxLength, string truncationSuffix = "…")
+        {
+            return value?.Length > maxLength
+                ? value.Substring(0, maxLength) + truncationSuffix
+                : value;
         }
     }
 }

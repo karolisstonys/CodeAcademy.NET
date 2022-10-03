@@ -8,8 +8,6 @@ namespace Music_eShop
 {
     internal class Program
     {
-        private static ICustomerRepository _customerRepository = new CustomerRepository();
-
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.GetEncoding(1200);
@@ -19,22 +17,5 @@ namespace Music_eShop
             eShop.Run();
 
         }
-
-        //protected static IEnumerable<dynamic> GetCustomersByCountry(string country)
-        //{
-        //    using (var db = new ChinookContext())
-        //    {
-        //        var res = db.Customers.Where(x => x.Country == country).Select(c => new
-        //        {
-        //            Vardas = c.FirstName,
-        //            KlientoId = c.CustomerId,
-        //            SaliesPavadinimas = c.Country,
-        //        });
-        //        return res;
-        //    }
-        //}
-
-
-
     }
 }

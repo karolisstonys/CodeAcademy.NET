@@ -10,13 +10,16 @@ namespace Music_eShop.Domain.Models
     {
         public User() { }
 
-        public User(long customerID, string name)
+        public User(long? customerID, long? employeeID, string name)
         {
             CustomerID = customerID;
+            EmoloyeeID = employeeID;
             Name = name;
         }
 
         public long? CustomerID { get; set; }
+
+        public long? EmoloyeeID { get; set; }
 
         public string Name { get; set; }
 
