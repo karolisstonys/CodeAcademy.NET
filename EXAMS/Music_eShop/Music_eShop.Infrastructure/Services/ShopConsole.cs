@@ -78,9 +78,9 @@ namespace Music_eShop.Domain.Services
 
         private void LoginMenu()
         {
-            ShowMenu();
             while (_state == AppState.LoginScreen)
             {
+                ShowMenu();
                 char input = Console.ReadKey().KeyChar;
                 switch (input)
                 {
@@ -89,6 +89,11 @@ namespace Music_eShop.Domain.Services
                         ShowAllCustomers();
                         Console.Write("Pasirinkite pagal ID: ");
                         _user = Login(Console.ReadLine());
+                        if (_user == null)
+                        {
+                            Console.WriteLine("Netinkamas vartotojo pasirinkimas.");
+                            break;
+                        }
                         _state = AppState.BuyScreen;
                         break;
                     case '2':
@@ -445,6 +450,7 @@ namespace Music_eShop.Domain.Services
         {
             var customer = _customers.Get(customerId);
 
+            if (customer == null) return null;
             var user = new User(customer.CustomerId, null, customer.FirstName + " " + customer.LastName);
 
             return user;
@@ -499,7 +505,7 @@ namespace Music_eShop.Domain.Services
             if (Console.ReadKey().KeyChar == 't')
             {
                 track = _tracks.ChangeStatus(track.TrackId.ToString());
-                Console.WriteLine($"\n{track.Name} [{track.Status}\n]");
+                Console.WriteLine($"\nPakeitimas: {track.Name} [{track.Status}]\n");
             }
         }
 
