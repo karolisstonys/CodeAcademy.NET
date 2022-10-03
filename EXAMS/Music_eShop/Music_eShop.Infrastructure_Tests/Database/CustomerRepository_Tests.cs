@@ -24,6 +24,7 @@ namespace Music_eShop.Infrastructure.Database_Tests
                 .UseInMemoryDatabase(databaseName: "Chinook")
                 .Options;
             _context = new ChinookContext(options);
+            //isvalyti _context , kad veiktu vis unit testai is karto, tarp restu issivalytu ir vel uzsipildytu
             _context.Customers.Add(new Customer() { CustomerId = 1001, FirstName = "Jonas", LastName = "Jonaitis", Email = "jonas@jonaitis.lt" });
             _context.Customers.Add(new Customer() { CustomerId = 1002, FirstName = "Egle", LastName = "Eglaite", Email = "egle@eglaite.lt" });
             _context.Customers.Add(new Customer() { CustomerId = 1003, FirstName = "Petras", LastName = "Petraitis", Email = "petras@petraitis.lt" });
