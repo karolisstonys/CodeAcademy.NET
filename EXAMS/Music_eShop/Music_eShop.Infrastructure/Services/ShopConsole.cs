@@ -15,6 +15,15 @@ namespace Music_eShop.Domain.Services
     {
         private AppState _state = AppState.LoginScreen;
         private User _user = null;
+        private readonly ICustomerRepository _customers;
+        private readonly ITrackRepository _tracks;
+
+        public ShopConsole()
+        {
+            var context = new ChinookContext();
+            _customers = new CustomerRepository(context);
+            _tracks = new TrackRepository(context);
+        }
 
         public void Run()
         {
@@ -136,46 +145,41 @@ namespace Music_eShop.Domain.Services
                 char input = Console.ReadKey().KeyChar;
                 switch (input)
                 {
-                    case 'a': //rikiavims pagal Name abecėlės tvarka
-                        ShowCatalogOrderedAsc();
+                    case 'a':
+                        PrintCatalogOrderedAsc();
                         break;
-                    case 'b': //rikiavims pagal Name atvirkštine abecėlės tvarka
-                        ShowCatalogOrderedDesc();
+                    case 'b':
+                        PrintCatalogOrderedDesc();
                         break;
-                    case 'c': //rikiavims pagal Composer
-                        ShowCatalogOrderedByComposer();
+                    case 'c':
+                        PrintCatalogOrderedByComposer();
                         break;
-                    case 'd': //rikiavims pagal Genre
-                        ShowCatalogOrderedByGenre();
+                    case 'd':
+                        PrintCatalogOrderedByGenre();
                         break;
-                    case 'e': //rikiavims pagal Composer ir Album   
-                        ShowCatalogOrderedByComposerAndAlbum();
+                    case 'e':
+                        PrintCatalogOrderedByComposerAndAlbum();
                         break;
-                    case 'f': //paieška pagal Id    
-                        Console.Write("Iveskite paieškos teksta (Id): ");
-                        FindTrackByID(Console.ReadLine());
+                    case 'f':   
+                        FindAndPrintTrackByID();
                         break;
-                    case 'g': //paieška pagal Name                   
-                        Console.WriteLine();
-                        var context = new ChinookContext();
-                        ITrackRepository tracks = new TrackRepository(context);
-                        Console.Write("Iveskite paieškos teksta (Name): ");
-                        var found = tracks.FindTracksByName(Console.ReadLine());
+                    case 'g':
+                        FindAndPrintTracksByName();
                         break;
-                    case 'h': //paieška pagal Composer                   
-
+                    case 'h':
+                        FindAndPrintTracksByComposer();
                         break;
-                    case 'i': //paieška pagal Genre
-
+                    case 'i':
+                        FindAndPrintTracksByGenre();
                         break;
-                    case 'j': //paieška pagal Composer ir Album
-
+                    case 'j':
+                        FindAndPrintTracksByComposerAndAlbum();
                         break;
-                    case 'k': //paieška pagal Milliseconds (Mažiau nei X arba daugiau nei X)                   
-
+                    case 'k': 
+                        FindAndPrintTracksByMilliseconds();
                         break;
-                    case 'l': //(BONUS) paieška pagal Album ir Artist
-
+                    case 'l': // (BONUS)
+                        FindAndPrintTracksByAlbumAndArtist();
                         break;
                     case 'q' or 'Q':  // ESC
                         _state = AppState.BuyScreen;
@@ -187,6 +191,7 @@ namespace Music_eShop.Domain.Services
                 PauseScreen();
             }
         }
+
 
         private void EmployeeLogin()
         {
@@ -356,10 +361,8 @@ namespace Music_eShop.Domain.Services
 
         private void ShowAllCustomers()
         {
-            var context = new ChinookContext();
-            ICustomerRepository customers = new CustomerRepository(context);
             Console.WriteLine();
-            var allCustomers = customers.Get();
+            var allCustomers = _customers.Get();
             foreach (var customer in allCustomers)
             {
                 Console.WriteLine($"| {customer.CustomerId,3} │ {customer.FirstName} {customer.LastName}");
@@ -375,9 +378,7 @@ namespace Music_eShop.Domain.Services
             Console.Write("El.paštas: ");
             var email = Console.ReadLine();
 
-            var context = new ChinookContext();
-            ICustomerRepository customers = new CustomerRepository(context);
-            customers.Add(firstName, lastName, email);
+            _customers.Add(firstName, lastName, email);
             Console.WriteLine("Naujas klientas sekmingai išsaugotas.");
         }
 
@@ -390,68 +391,98 @@ namespace Music_eShop.Domain.Services
                 customerId = Console.ReadLine();
             }
 
-
-            var context = new ChinookContext();
-
-            var customer = context.Customers.Find(userId);
+            var customer = _customers.Get(userId);
 
             var user = new User(customer.CustomerId, customer.FirstName + " " + customer.LastName);
 
             return user;
         }
 
-        private void ShowCatalogOrderedAsc()
+        private void PrintCatalogOrderedAsc()
         {
-            Console.WriteLine("Visas katalogas surikiuotas pagal 'Name' abecėlės tvarka:");
-            var context = new ChinookContext();
-            ITrackRepository tracks = new TrackRepository(context);
-            tracks.Print(tracks.GetTracksSortedByNameAsc());
+            Console.WriteLine(" Visas katalogas surikiuotas pagal 'Name' abecėlės tvarka:");
+            _tracks.Print(_tracks.GetTracksSortedByNameAsc());
         }
 
-        private void ShowCatalogOrderedDesc()
+        private void PrintCatalogOrderedDesc()
         {
-            Console.WriteLine("Visas katalogas surikiuotas pagal 'Name' atvirkštine abecėlės tvarka:");
-            var context = new ChinookContext();
-            ITrackRepository tracks = new TrackRepository(context);
-            tracks.Print(tracks.GetTracksSortedByNameDesc());
+            Console.WriteLine(" Visas katalogas surikiuotas pagal 'Name' atvirkštine abecėlės tvarka:");
+            _tracks.Print(_tracks.GetTracksSortedByNameDesc());
         }
 
-        private void ShowCatalogOrderedByComposer()
+        private void PrintCatalogOrderedByComposer()
         {
-            Console.WriteLine("Visas katalogas surikiuotas pagal 'Composer':");
-            var context = new ChinookContext();
-            ITrackRepository tracks = new TrackRepository(context);
-            tracks.Print(tracks.GetTracksSortedByComposer());
+            Console.WriteLine(" Visas katalogas surikiuotas pagal 'Composer':");
+            _tracks.Print(_tracks.GetTracksSortedByComposer());
         }
 
-        private void ShowCatalogOrderedByGenre()
+        private void PrintCatalogOrderedByGenre()
         {
-            Console.WriteLine("Visas katalogas surikiuotas pagal 'Genre':");
-            var context = new ChinookContext();
-            ITrackRepository tracks = new TrackRepository(context);
-            tracks.Print(tracks.GetTracksSortedByGenre());
+            Console.WriteLine(" Visas katalogas surikiuotas pagal 'Genre':");
+            _tracks.Print(_tracks.GetTracksSortedByGenre());
         }
 
-        private void ShowCatalogOrderedByComposerAndAlbum()
+        private void PrintCatalogOrderedByComposerAndAlbum()
         {
-            Console.WriteLine("Visas katalogas surikiuotas pagal 'Composer' ir 'Album':");
-            var context = new ChinookContext();
-            ITrackRepository tracks = new TrackRepository(context);
-            tracks.Print(tracks.GetTracksSortedByComposerAndAlbum());
+            Console.WriteLine(" Visas katalogas surikiuotas pagal 'Composer' ir 'Album':");
+            _tracks.Print(_tracks.GetTracksSortedByComposerAndAlbum());
         }
 
-        private void FindTrackByID(string searchText)
+        private void FindAndPrintTrackByID()
         {
-            Console.WriteLine("Daina/os pagal 'Id':");
-            var context = new ChinookContext();
-            ITrackRepository tracks = new TrackRepository(context);
-            tracks.Print(tracks.FindTracksById(searchText));
+            Console.Write(" Įveskite paieškos tekstą (Id): ");
+            var searchText = Console.ReadLine();
+            Console.WriteLine(" Daina/os pagal 'Id':");
+            _tracks.Print(_tracks.FindTracksById(searchText));
         }
 
+        private void FindAndPrintTracksByName()
+        {
+            Console.Write(" Įveskite paieškos tekstą (Name): ");
+            var searchText = Console.ReadLine();
+            Console.WriteLine(" Daina/os pagal 'Name':");
+            _tracks.Print(_tracks.FindTracksByName(searchText));
+        }
 
+        private void FindAndPrintTracksByComposer()
+        {
+            Console.Write(" Įveskite paieškos tekstą (Composer): ");
+            var searchText = Console.ReadLine();
+            Console.WriteLine(" Daina/os pagal 'Composer':");
+            _tracks.Print(_tracks.FindTracksByComposer(searchText));
+        }
 
+        private void FindAndPrintTracksByGenre()
+        {
+            Console.Write(" Įveskite paieškos tekstą (Genre): ");
+            var searchText = Console.ReadLine();
+            Console.WriteLine(" Daina/os pagal 'Genre':");
+            _tracks.Print(_tracks.FindTracksByGenre(searchText));
+        }
 
+        private void FindAndPrintTracksByComposerAndAlbum()
+        {
+            Console.Write(" Įveskite paieškos tekstą (Composer ir Album): ");
+            var searchText = Console.ReadLine();
+            Console.WriteLine(" Daina/os pagal 'Composer' ir 'Album':"); 
+            _tracks.Print(_tracks.FindTracksByComposerAndAlbum(searchText));
+        }
 
+        private void FindAndPrintTracksByMilliseconds()
+        {
+            Console.Write("Įveskite paieškos tekstą (Milliseconds) nuo: ");
+            var from = Console.ReadLine();
+            Console.Write("Įveskite paieškos tekstą (Milliseconds) iki: ");
+            var to = Console.ReadLine();
+            _tracks.Print(_tracks.FindTracksByMilliseconds(from, to));
+        }
 
+        private void FindAndPrintTracksByAlbumAndArtist()
+        {
+            Console.Write(" Įveskite paieškos tekstą (Album ir Artist): ");
+            var searchText = Console.ReadLine();
+            Console.WriteLine(" Daina/os pagal 'Album' ir 'Artist':");
+            _tracks.Print(_tracks.FindTracksByAlbumAndArtist(searchText));
+        }
     }
 }

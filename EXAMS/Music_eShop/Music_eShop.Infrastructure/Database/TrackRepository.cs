@@ -94,7 +94,19 @@ namespace Music_eShop.Infrastructure.Database
 
         public List<Track> FindTracksByComposerAndAlbum(string searchText)
         {
-            return new List<Track>();   // ??????????????????????????????????????????????????????????
+            var foundComposers = _context.Tracks
+                                         .Where(t => t.Composer.Contains(searchText))
+                                         .ToList();
+
+            var foundAlbums = _context.Tracks
+                                      .Where(t => t.Album.Title.Contains(searchText))
+                                      .ToList();
+
+            var foundComposersAndAlbums = new List<Track>();
+            foundComposersAndAlbums.AddRange(foundComposers);
+            foundComposersAndAlbums.AddRange(foundAlbums);
+
+            return foundComposersAndAlbums;
         }
 
         public List<Track> FindTracksByMilliseconds(string from, string to)
@@ -110,7 +122,19 @@ namespace Music_eShop.Infrastructure.Database
 
         public List<Track> FindTracksByAlbumAndArtist(string searchText)
         {
-            return new List<Track>();   // ??????????????????????????????????????????????????????????
+            var foundAlbums = _context.Tracks
+                                      .Where(t => t.Album.Title.Contains(searchText))
+                                      .ToList();
+
+            var foundArtists = _context.Tracks
+                                         .Where(t => t.Album.Artist.Name.Contains(searchText))
+                                         .ToList();
+
+            var foundAlbumsAndArtists = new List<Track>();
+            foundAlbumsAndArtists.AddRange(foundAlbums);
+            foundAlbumsAndArtists.AddRange(foundArtists);
+
+            return foundAlbumsAndArtists;
         }
 
         public void Print(List<Track> tracks)

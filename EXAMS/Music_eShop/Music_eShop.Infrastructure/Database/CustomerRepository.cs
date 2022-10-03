@@ -28,6 +28,16 @@ namespace Music_eShop.Infrastructure.Database
                 return (from c in _context.Customers
                               select c).ToList();;
         }
+        public Customer? Get(long id)
+        {
+            var customer = new Customer();
+
+            if (!_context.Customers.Any()) return customer;
+
+            return (from c in _context.Customers
+                    where c.CustomerId == id
+                    select c).FirstOrDefault(); ;
+        }
 
         public void Add(string customerFirtName, string customerLastName, string customerEmail)
         {
