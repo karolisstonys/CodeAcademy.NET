@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Music_eShop", "Music_eShop\Music_eShop.csproj", "{DF8DDC61-E851-4FFA-9833-C73526C8B3EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Music_eShop", "Music_eShop\Music_eShop.csproj", "{DF8DDC61-E851-4FFA-9833-C73526C8B3EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Music_eShop.Domain", "Music_eShop.Domain\Music_eShop.Domain.csproj", "{1E436374-79E2-4FEC-BAC2-D3321DC0E93E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Music_eShop.Domain", "Music_eShop.Domain\Music_eShop.Domain.csproj", "{1E436374-79E2-4FEC-BAC2-D3321DC0E93E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Music_eShop.Infrastructure", "Music_eShop.Infrastructure\Music_eShop.Infrastructure.csproj", "{E28D199A-6FA1-4BE9-9E15-4A50AB55748B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Music_eShop.Infrastructure", "Music_eShop.Infrastructure\Music_eShop.Infrastructure.csproj", "{E28D199A-6FA1-4BE9-9E15-4A50AB55748B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Music_eShop.Infrastructure_Tests", "Music_eShop.Infrastructure_Tests\Music_eShop.Infrastructure_Tests.csproj", "{95B75FAD-FC68-4390-9758-822FD80A293B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{E28D199A-6FA1-4BE9-9E15-4A50AB55748B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E28D199A-6FA1-4BE9-9E15-4A50AB55748B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E28D199A-6FA1-4BE9-9E15-4A50AB55748B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95B75FAD-FC68-4390-9758-822FD80A293B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95B75FAD-FC68-4390-9758-822FD80A293B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95B75FAD-FC68-4390-9758-822FD80A293B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95B75FAD-FC68-4390-9758-822FD80A293B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

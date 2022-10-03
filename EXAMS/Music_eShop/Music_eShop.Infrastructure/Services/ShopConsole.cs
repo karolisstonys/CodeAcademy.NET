@@ -441,7 +441,7 @@ namespace Music_eShop.Domain.Services
             Console.WriteLine("Naujas klientas sekmingai išsaugotas.");
         }
 
-        private User Login(string customerId)
+        public User Login(string customerId)
         {
             var customer = _customers.Get(customerId);
 

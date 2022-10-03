@@ -48,8 +48,6 @@ namespace Music_eShop.Infrastructure.Database
 
         public void Add(string customerFirtName, string customerLastName, string customerEmail)
         {
-            using (_context)
-            {
                 var newCustomer = new Customer()
                 {
                     FirstName = customerFirtName,
@@ -58,7 +56,6 @@ namespace Music_eShop.Infrastructure.Database
                 };
                 _context.Customers.Add(newCustomer);
                 _context.SaveChanges();
-            }
         }
 
         public void Update(long customerId, string firstName, string lastName, string? company, string? address, string? city, string? state, string? county, string? postalCode, string? phone, string? fax, string email, long? employeeId)

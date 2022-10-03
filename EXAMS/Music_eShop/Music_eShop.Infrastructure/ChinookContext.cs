@@ -31,9 +31,11 @@ namespace Music_eShop.Infrastructure
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
+            if (!optionsBuilder.IsConfigured)       // FOR UNIT TESTS
+            {
                 optionsBuilder.UseSqlite($"DataSource={ConnectionString}");
-            optionsBuilder.UseLazyLoadingProxies();
+                optionsBuilder.UseLazyLoadingProxies();
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
