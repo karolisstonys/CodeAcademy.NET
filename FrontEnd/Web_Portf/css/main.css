@@ -1,0 +1,91 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    background-color: #f1f1f1;
+}
+
+a {
+    text-decoration: none;
+    font-size: 20px;
+}
+
+nav {
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    border-bottom: #00dc0a 1px solid;
+    background-color: #fff;
+    width: 100%;
+    margin: 0 auto;
+}
+
+nav ul {
+    margin: 0;
+    padding-left: calc(50vw - 200px);
+    list-style-type: none;
+    list-style-image: none;
+}
+
+nav li {
+    margin-right: 0px;
+    display: inline;
+}
+
+nav ul li a {
+    text-decoration: none;
+    margin: 0px;
+    padding: 5px 10px 5px 10px;
+    color: #000;
+}
+
+nav ul li a:hover {
+    color: #00dc0a;
+    text-decoration: none;
+}
+
+nav li.current-menu-item a {
+    color: #fff;
+    text-decoration: none;
+    background-color: #00dc0a;
+}
+
+nav li.current_page_item {
+    color: #fff;
+    text-decoration: none;
+    background-color: #00dc0a;
+}
+
+section {
+    width: 600px;
+    margin: 0 auto;
+}
+
+#home>p {
+    margin: 50px;
+    font-size: 50px;
+    float: left;
+}
+
+#home>img {
+    position: absolute;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    margin-right: 20vh;
+    height: 80%;
+    top: calc(0%);
+    right: calc(0% - 0px);
+    z-index: -1000;
+}
+
+#txt-swither {
+    color: #00dc0a;
+}
+
+#about,
+#github,
+#contacts {
+    display: none;
+}

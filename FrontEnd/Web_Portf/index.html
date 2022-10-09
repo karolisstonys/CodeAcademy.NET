@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRTL</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/main.js"></script>
+</head>
+
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="#">Pradžia</a></li>
+            <li><a href="#">Apie mane</a></li>
+            <li><a href="#">GitHub</a></li>
+            <li><a href="#">Kontaktai</a></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+        <p>
+            Labas, aš esu
+            <br><span id="txt-swither" value="0">Karolis</span>.
+        </p>
+        <img src="img/TRTL-7.png" />
+    </section>
+
+    <section id="about">
+
+    </section>
+
+    <section id="github">
+
+    </section>
+
+    <section id="contacts">
+
+    </section>
+
+
+
+
+</body>
+
+</html>
+
+
+<script>
+    function Counter(elem, delay) {
+        var value = parseInt(elem.getAttribute("value"), 10);
+        var interval;
+
+        var titles = [
+            "Karolis",
+            "tėtis",
+            "geimeris",
+            "programuotojas"
+        ];
+
+        function updateDisplay(value) {
+            elem.innerHTML = value;
+        }
+
+        function run() {
+            value += 1;
+            if (value == titles.length) value = 0;
+
+            elem.setAttribute("value", value);
+            updateDisplay(titles[value]);
+        }
+
+        function start() {
+            interval = window.setInterval(run, delay);
+        }
+
+        this.start = start;
+    }
+
+    var elem = document.getElementById("txt-swither");
+
+    counter = new Counter(elem, 2000);
+    counter.start();
+</script>
