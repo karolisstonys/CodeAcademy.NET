@@ -14,31 +14,31 @@
 
     <nav>
         <ul>
-            <li><a href="#">Pradžia</a></li>
-            <li><a href="#">Apie mane</a></li>
-            <li><a href="#">GitHub</a></li>
-            <li><a href="#">Kontaktai</a></li>
+            <li onclick="aboutme()">About me</li>
+            <li onclick="programming()">Programming</li>
+            <li onclick="github()">GitHub</li>
+            <li onclick="contacts()">Contacts</li>
         </ul>
     </nav>
 
-    <section id="home">
+    <section id="about">
         <p>
-            Labas, aš esu
+            Hello, I am
             <br><span id="txt-swither" value="0">Karolis</span>.
         </p>
         <img src="img/TRTL-7.png" />
     </section>
 
-    <section id="about">
-
+    <section id="programming">
+        Programming
     </section>
 
     <section id="github">
-
+        GitHub
     </section>
 
     <section id="contacts">
-
+        Contacts
     </section>
 
 
@@ -50,15 +50,49 @@
 
 
 <script>
+    function aboutme() {
+        document.getElementById("about").style.display = "block";
+        document.getElementById("programming").style.display = "none";
+        document.getElementById("github").style.display = "none";
+        document.getElementById("contacts").style.display = "none";
+    }
+
+    function programming() {
+        document.getElementById("about").style.display = "none";
+        document.getElementById("programming").style.display = "block";
+        document.getElementById("github").style.display = "none";
+        document.getElementById("contacts").style.display = "none";
+    }
+
+    function github() {
+        document.getElementById("about").style.display = "none";
+        document.getElementById("programming").style.display = "none";
+        document.getElementById("github").style.display = "block";
+        document.getElementById("contacts").style.display = "none";
+    }
+
+    function contacts() {
+        document.getElementById("about").style.display = "none";
+        document.getElementById("programming").style.display = "none";
+        document.getElementById("github").style.display = "none";
+        document.getElementById("contacts").style.display = "block";
+    }
+
+
+
+
     function Counter(elem, delay) {
         var value = parseInt(elem.getAttribute("value"), 10);
         var interval;
 
         var titles = [
             "Karolis",
-            "tėtis",
-            "geimeris",
-            "programuotojas"
+            "father of two",
+            "gamer",
+            "programmer",
+            "cyclist",
+            "dog lover",
+            "geek"
         ];
 
         function updateDisplay(value) {

@@ -30,18 +30,14 @@ nav ul {
 }
 
 nav li {
-    margin-right: 0px;
     display: inline;
-}
-
-nav ul li a {
-    text-decoration: none;
     margin: 0px;
     padding: 5px 10px 5px 10px;
     color: #000;
 }
 
-nav ul li a:hover {
+
+nav ul li:hover {
     color: #00dc0a;
     text-decoration: none;
 }
@@ -63,13 +59,13 @@ section {
     margin: 0 auto;
 }
 
-#home>p {
+#about>p {
     margin: 50px;
     font-size: 50px;
     float: left;
 }
 
-#home>img {
+#about>img {
     position: absolute;
     margin-top: 10vh;
     margin-bottom: 10vh;
@@ -80,11 +76,12 @@ section {
     z-index: -1000;
 }
 
+
 #txt-swither {
     color: #00dc0a;
 }
 
-#about,
+#programming,
 #github,
 #contacts {
     display: none;
