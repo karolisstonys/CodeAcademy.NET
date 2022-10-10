@@ -1,0 +1,33 @@
+body {
+    background-color: black;
+}
+
+div {
+    height: 300px;
+    width: 300px;
+    border-radius: 10px;
+}
+
+.salmon {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    background-color: salmon;
+    display: block;
+}
+
+.steelblue {
+    position: absolute;
+    top: 120px;
+    left: 320px;
+    background-color: steelblue;
+    display: block;
+}
+
+.teal {
+    position: absolute;
+    top: 140px;
+    left: 570px;
+    background-color: teal;
+    display: block;
+}
