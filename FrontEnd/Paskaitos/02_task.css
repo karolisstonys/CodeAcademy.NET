@@ -1,0 +1,72 @@
+.MainContainer {
+    display: inline-block;
+    height: auto;
+    margin-bottom: 100px;
+    border: solid 20px gray;
+}
+
+.IngredientsAndAllergens {
+    float: left;
+    width: 50%;
+}
+
+.Ingredients,
+.Allergens {
+    clear: both;
+    padding: 30px;
+}
+
+.AllergensLine {
+    display: block;
+}
+
+.AllergensLine>div {
+    display: inline-block;
+    border: solid 1px black;
+    margin: 20px;
+    padding: 20px;
+}
+
+.AllergenName {
+    display: block;
+}
+
+
+h1 {
+    font-size: 50px;
+}
+
+.PhotoAndSteps {
+    float: left;
+    width: 50%;
+}
+
+.Photo,
+.Steps {
+    clear: both;
+    width: 100%;
+    border-color: black;
+    border-style: solid;
+}
+
+img {
+    width: 100%;
+}
+
+.Photo {
+    border-width: 1px 1px 0px 1px;
+}
+
+.Steps {
+    border-width: 1px;
+}
+
+.Steps>h3,
+.Steps>ol {
+    margin: 30px;
+}
+
+.break {
+    display: block;
+    height: 300vh;
+}
