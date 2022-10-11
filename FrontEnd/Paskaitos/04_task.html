@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="https://www.google.com/" method="get">
+        <div class="container">
+            <h1>Payment form</h1>
+            <p>Requaried fields are followed by *</p>
+            <h2>Contact information</h2>
+            <div>
+                <label for="Name">Name* :</label>
+                <input type="text" id="Name" name="Name" required />
+            </div>
+            <div>
+                <label for="Email">E-mail* :</label>
+                <input type="email" id="Email" name="Email" autocomplete="off" required />
+            </div>
+            <div>
+                <label for="Password">Password* :</label>
+                <input type="password" id="Password" name="Password" autocomplete="off" required />
+            </div>
+            <h2>Contact information</h2>
+            <div>
+                <label for="CardType">Card type* :</label>
+                <select id="CardType" name="CardType">
+                    <option value="visa" selected>Visa</option>
+                    <option value="mastercard">MasrterCard</option>
+                </select>
+            </div>
+            <div>
+                <label for="CardNumber">Card number* :</label>
+                <input type="number" id="CardNumber" name="CardNumber" required />
+            </div>
+            <div>
+                <label for="CardExp">Card expiration date :</label>
+                <input type="text" id="CardExp" name="CardExp" placeholder="dd/mm/yyyy" required />
+            </div>
+            <div class="break" />
+            <div>
+                <p>Agree with terms and conditions</p>
+                <input type="checkbox">
+            </div>
+            <div class="button">
+                <input type="submit" value="Validate the Payment" />
+            </div>
+        </div>
+    </form>
+    <div class="Card">
+        <div class="Chip"></div>
+        <div class="CardNumberDots">
+            <span></span><span></span><span></span><span></span>&nbsp&nbsp&nbsp
+            <span></span><span></span><span></span><span></span>&nbsp&nbsp&nbsp
+            <span></span><span></span><span></span><span></span>&nbsp&nbsp&nbsp
+            <span></span><span></span><span></span><span></span>
+        </div>
+        <div class="FullName">FULL NAME</div>
+        <div class="CardDate">
+            MM / YY
+        </div>
+        <div class="ValidUntil">Valid until</div>
+    </div>
+</body>
+
+</html>
+
+<style>
+    .container {
+        display: inline-block;
+        border: solid 1px black;
+        border-radius: 10px;
+        padding: 20px;
+    }
+
+    div {
+        margin: 5px 0px 5px 0px;
+    }
+
+    label {
+        display: inline-block;
+        text-align: right;
+        align-content: flex-end;
+        width: 150px;
+    }
+
+    input[type='text'],
+    input[type='email'],
+    input[type='password'],
+    select,
+    input[type='number'],
+    input[type='date'] {
+        width: 250px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .break {
+        border-top: solid 1px black;
+    }
+
+    p {
+        display: inline-block;
+    }
+
+    .button {
+        display: flex;
+        justify-content: center;
+    }
+
+    .Card {
+        margin-top: 50px;
+        background-color: lightgray;
+        border-radius: 15px;
+        width: 500px;
+        height: 350px;
+    }
+
+    .Chip {
+        position: relative;
+        top: 60px;
+        left: 50px;
+        background-color: white;
+        border-radius: 5px;
+        border-top: solid 5px gray;
+        border-right: solid 10px gray;
+        border-bottom: solid 5px gray;
+        border-left: solid 0px gray;
+        width: 70px;
+        height: 50px;
+    }
+
+    .CardNumberDots {
+        position: relative;
+        top: 100px;
+        left: 50px;
+    }
+
+    .CardNumberDots span {
+        display: inline-block;
+        background-color: white;
+        margin-left: 3px;
+        border-radius: 10px;
+        width: 18px;
+        height: 18px;
+    }
+
+    .FullName {
+        position: relative;
+        color: white;
+        font-size: 25px;
+        top: 150px;
+        left: 50px;
+    }
+
+    .CardDate {
+        position: relative;
+        color: white;
+        font-size: 20px;
+        top: 120px;
+        left: 320px;
+    }
+
+    .ValidUntil {
+        position: relative;
+        color: white;
+        font-size: 10px;
+        top: 80px;
+        left: 320px;
+    }
+</style>

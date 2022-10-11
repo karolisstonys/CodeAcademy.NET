@@ -1,7 +1,7 @@
 .MainContainer {
     display: inline-block;
     height: auto;
-    margin-bottom: 100px;
+    margin: 100px;
     border: solid 20px gray;
 }
 
