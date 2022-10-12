@@ -4,76 +4,90 @@
 }
 
 body {
-    background-color: #f1f1f1;
+    height: 100%;
+    background-color: #f9f9f9;
+    background-image: url("../img/bg12.jpg");
 }
 
-a {
-    text-decoration: none;
-    font-size: 20px;
+html {
+    display: table;
+    margin: auto;
+}
+
+body {
+    display: table-cell;
+    vertical-align: middle;
+    width: 700px;
 }
 
 nav {
-    padding-top: 15px;
-    padding-bottom: 5px;
-    padding-left: 5px;
-    border-bottom: #00dc0a 1px solid;
-    background-color: #fff;
     width: 100%;
-    margin: 0 auto;
+    float: left;
+    margin: 20px 0 20px 0;
+    padding: 0;
 }
 
 nav ul {
-    margin: 0;
-    padding-left: calc(50vw - 200px);
-    list-style-type: none;
-    list-style-image: none;
+    list-style: none;
+    width: 531px;
+    margin: 0 auto;
+    padding: 0;
 }
 
 nav li {
-    display: inline;
-    margin: 0px;
-    padding: 5px 10px 5px 10px;
+    float: left;
+    display: block;
+    padding: 8px 25px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 22px;
+    background-color: #00dc0b30;
     color: #000;
+    border: 1px solid #aaa;
+    margin-left: -1px;
 }
 
-
-nav ul li:hover {
-    color: #00dc0a;
-    text-decoration: none;
+nav li:first-child {
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
 }
 
-nav li.current-menu-item a {
-    color: #fff;
-    text-decoration: none;
-    background-color: #00dc0a;
+nav li:last-child {
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
 }
 
-nav li.current_page_item {
-    color: #fff;
-    text-decoration: none;
-    background-color: #00dc0a;
+nav li:hover {
+    color: #000;
+    background-color: #fff;
+    cursor: pointer;
 }
 
 section {
-    width: 600px;
-    margin: 0 auto;
+    margin-top: 120px;
+}
+
+p {
+    font-size: 40px;
+    padding-left: 50px;
+
+}
+
+#about {
+    position: relative;
 }
 
 #about>p {
-    margin: 50px;
-    font-size: 50px;
     float: left;
 }
 
 #about>img {
     position: absolute;
-    margin-top: 10vh;
-    margin-bottom: 10vh;
-    margin-right: 20vh;
-    height: 80%;
+    margin-top: 35px;
     top: calc(0%);
-    right: calc(0% - 0px);
-    z-index: -1000;
+    right: calc(0% - 50px);
+    z-index: -1;
+    max-height: 500px;
 }
 
 
@@ -81,8 +95,71 @@ section {
     color: #00dc0a;
 }
 
-#programming,
+a:hover,
+a:link,
+a:visited {
+    color: #00dc0a;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #00dc0a;
+    text-decoration: underline;
+}
+
+#skills,
 #github,
 #contacts {
     display: none;
+}
+
+.contacts {
+    /*display: inline-block;
+    margin: 0 auto;*/
+}
+
+.ContactLine {
+    display: block;
+    margin: 40px 0px 0px 150px;
+}
+
+.ContactIcon,
+.ContactText {
+    display: inline-block;
+    margin: 0 5px;
+    font-size: 25px;
+}
+
+.ContactIcon img {
+    height: 50px;
+}
+
+#skills {}
+
+.SkillLine {
+    display: block;
+    margin: 10px 0px 0px 50px;
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 5px;
+}
+
+.SkillDate,
+.SkillName,
+.SkillDescription {
+    display: inline-block;
+    margin: 0 10px;
+    font-size: 16px;
+}
+
+.SkillDate {
+    width: 80px;
+}
+
+.SkillName {
+    width: 180px;
+}
+
+.SkillDescription {
+    color: darkgray;
 }
