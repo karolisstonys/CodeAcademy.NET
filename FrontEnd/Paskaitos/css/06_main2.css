@@ -1,0 +1,268 @@
+h3 {
+    margin: 20px 0 0 0;
+    padding: 0;
+}
+
+div.container-row {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    border: solid 1px teal;
+    margin: 0.2em;
+}
+
+div.container-row div {
+    width: 30px;
+    height: 30px;
+    margin: 0.2em;
+    border: solid 2px hotpink;
+    background-image: url(../../Web_Portf/img/bg14.jpg);
+    text-align: center;
+}
+
+div.container-col {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: flex-start;
+    border: solid 1px teal;
+    margin: 0.2em;
+    height: 120px;
+}
+
+div.container-col div {
+    width: 30px;
+    height: 30px;
+    margin: 0.2em;
+    border: solid 2px hotpink;
+    background-image: url(../../Web_Portf/img/bg14.jpg);
+    text-align: center;
+}
+
+div.container-row-end {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    border: solid 1px purple;
+    margin: 0.2em;
+}
+
+div.container-row-end div {
+    width: 30px;
+    height: 30px;
+    margin: 0.2em;
+    border: solid 2px royalblue;
+    background-image: url(../../Web_Portf/img/bg14.jpg);
+    text-align: center;
+}
+
+div.container-col-end {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: flex-end;
+    border: solid 1px purple;
+    margin: 0.2em;
+    height: 120px;
+}
+
+div.container-col-end div {
+    width: 30px;
+    height: 30px;
+    margin: 0.2em;
+    border: solid 2px royalblue;
+    background-image: url(../../Web_Portf/img/bg14.jpg);
+    text-align: center;
+}
+
+div.container-row-center {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    border: solid 1px brown;
+    margin: 0.2em;
+}
+
+div.container-row-center div {
+    width: 30px;
+    height: 30px;
+    margin: 0.2em;
+    border: solid 2px sienna;
+    background-image: url(../../Web_Portf/img/bg14.jpg);
+    text-align: center;
+}
+
+div.container-col-center {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    border: solid 1px brown;
+    margin: 0.2em;
+    height: 120px;
+}
+
+div.container-col-center div {
+    width: 30px;
+    height: 30px;
+    margin: 0.2em;
+    border: solid 2px sienna;
+    background-image: url(../../Web_Portf/img/bg14.jpg);
+    text-align: center;
+}
+
+div.container-row-space-between {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    border: solid 1px brown;
+    margin: 0.2em;
+}
+
+div.container-row-space-between div {
+    width: 30px;
+    height: 30px;
+    margin: 0.2em;
+    border: solid 2px sienna;
+    background-image: url(../../Web_Portf/img/bg14.jpg);
+    text-align: center;
+}
+
+div.container-col-space-between {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-between;
+    border: solid 1px brown;
+    margin: 0.2em;
+    height: 120px;
+}
+
+div.container-col-space-between div {
+    width: 30px;
+    height: 30px;
+    margin: 0.2em;
+    border: solid 2px sienna;
+    background-image: url(../../Web_Portf/img/bg14.jpg);
+    text-align: center;
+}
+
+div.container-row-space-around {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    border: solid 1px brown;
+    margin: 0.2em;
+}
+
+div.container-row-space-around div {
+    width: 30px;
+    height: 30px;
+    margin: 0.2em;
+    border: solid 2px sienna;
+    background-image: url(../../Web_Portf/img/bg14.jpg);
+    text-align: center;
+}
+
+div.container-col-space-around {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-around;
+    border: solid 1px brown;
+    margin: 0.2em;
+    height: 120px;
+}
+
+div.container-col-space-around div {
+    width: 30px;
+    height: 30px;
+    margin: 0.2em;
+    border: solid 2px sienna;
+    background-image: url(../../Web_Portf/img/bg14.jpg);
+    text-align: center;
+}
+
+/*************************** TASK 4 ***************************/
+
+.blackish {
+    background-color: black;
+    display: inline-block;
+    width: 100%;
+    height: auto;
+}
+
+.redish,
+.yellowish,
+.blueish,
+.greenish,
+.pinkish,
+.limeish {
+    width: 30px;
+    height: 30px;
+    margin: 0.2em;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.redish {
+    background-color: lightcoral;
+}
+
+.yellowish {
+    background-color: gold;
+}
+
+.blueish {
+    background-color: lightskyblue;
+}
+
+.greenish {
+    background-color: forestgreen;
+}
+
+.pinkish {
+    background-color: hotpink;
+}
+
+.limeish {
+    background-color: greenyellow;
+}
+
+
+.flex {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.inline-flex {
+    display: flex;
+}
+
+.flex-center-row {
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.flex-space-between-row {
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.flex-space-around-row {
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.flex-space-evenly-row {
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+}
