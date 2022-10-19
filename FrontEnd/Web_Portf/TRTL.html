@@ -19,17 +19,37 @@
 
 <body>
 
-    <nav>
-        <ul>
-            <li onclick="aboutme()">About me</li>
-            <li onclick="skills()">Skills</li>
-            <li onclick="github()">GitHub</li>
-            <li onclick="contacts()">Contacts</li>
-        </ul>
-    </nav>
+    <div id="nav">
+        <div>
+            <nav>
+                <ul>
+                    <li title="About me" onclick="aboutme()">
+                        <span>About me</span>
+                        <div id="AboutMeIcon"></div>
+                    </li>
+                    <li title="My skills" onclick="skills()">
+                        <span>Skills</span>
+                        <div id="SkillsMeIcon"></div>
+                    </li>
+                    <li title="GitHub" onclick="github()">
+                        <span>GitHub</span>
+                        <div id="GithubIcon"></div>
+                    </li>
+                    <li title="Contact me" onclick="contacts()">
+                        <span>Contacts</span>
+                        <div id="ContactsIcon"></div>
+                    </li>
+                    <li title="Homework" onclick="homework()">
+                        <span>Homework</span>
+                        <div id="HomeworkIcon"></div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
 
     <section id="about">
-        <div id="">
+        <div id="flex-row-center">
             <div>
                 <p>
                     Hello, my name is Karolis
@@ -38,7 +58,9 @@
                 </p>
             </div>
 
-            <div><img src="img/TRTL-8a.png" /></div>
+            <div>
+                <img src="img/TRTL-8a.png" />
+            </div>
         </div>
     </section>
 
@@ -69,8 +91,8 @@
                 broker. HTML5, JavaScript, C#.</div>
         </div>
         <div class="SkillLine">
-            <div class="SkillDate">Photoshop</div>
-            <div class="SkillName"></div>
+            <div class="SkillDate"></div>
+            <div class="SkillName">Photoshop</div>
             <div class="SkillDescription">I have many years of experience working with Adobe Photoshop.</div>
         </div>
     </section>
@@ -84,32 +106,69 @@
     </section>
 
     <section id="contacts">
-        <div class="ContactLine">
-            <div class="ContactIcon">
-                <img src="img/email.png" alt="">
+        <div class="ContactColumn">
+            <div class="ContactLine">
+                <div class="ContactIcon">
+                    <img src="img/email.png" alt="">
+                </div>
+                <div class="ContactText">
+                    name@email.com
+                </div>
             </div>
-            <div class="ContactText">
-                name@email.com
+            <div class="ContactLine">
+                <div class="ContactIcon">
+                    <img src="img/phone.png" alt="">
+                </div>
+                <div class="ContactText">
+                    +370 600 00000
+                </div>
             </div>
-        </div>
-        <div class="ContactLine">
-            <div class="ContactIcon">
-                <img src="img/phone.png" alt="">
-            </div>
-            <div class="ContactText">
-                +370 600 00000
-            </div>
-        </div>
-        <div class="ContactLine">
-            <div class="ContactIcon">
-                <img src="img/steam.png" alt="">
-            </div>
-            <div class="ContactText">
-                nickname
+            <div class="ContactLine">
+                <div class="ContactIcon">
+                    <img src="img/steam.png" alt="">
+                </div>
+                <div class="ContactText">
+                    nickname
+                </div>
             </div>
         </div>
     </section>
 
+    <section id="homework">
+        <div id="hw_flex-row-center">
+            <div id="hw_flex-row-center2">
+                <div id="hw_col1">
+                    <div class="hw_title">CAT</div>
+                    <div>Common, yet regarder by many as the worst house pet.</div>
+                    <div>Scratchers everything</div>
+                    <div class="hw_hr">Easily lost for days</div>
+                    <div class="hw_hr">Kind of a bummer</div>
+                    <div class="hw_price">Free</div>
+                    <div class="hw_yellow_button">🐱 Take</div>
+                </div>
+                <div id="hw_col2">
+                    <div class="hw_title">DOG</div>
+                    <div>Loving, gentle and caring. Dogs are the best house pet to have and will increase happiness ten
+                        fold.</div>
+                    <div>Super fun</div>
+                    <div class="hw_hr">Friends love them</div>
+                    <div class="hw_hr">Plays games</div>
+                    <div class="hw_hr">Not a cat</div>
+                    <div class="hw_price">$90</div>
+                    <div class="hw_yellow_button">🐶 Buy</div>
+                </div>
+                <div id="hw_col3">
+                    <div class="hw_title">FISH</div>
+                    <div>Cheap n' easy.</div>
+                    <div>Eats flakes</div>
+                    <div class="hw_hr">Cop out</div>
+                    <div class="hw_hr">Replaceable</div>
+                    <div class="hw_price">$3</div>
+                    <div class="hw_yellow_button">🐠 Buy</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
 
@@ -124,6 +183,7 @@
         document.getElementById("skills").style.display = "none";
         document.getElementById("github").style.display = "none";
         document.getElementById("contacts").style.display = "none";
+        document.getElementById("homework").style.display = "none";
     }
 
     function skills() {
@@ -131,6 +191,7 @@
         document.getElementById("skills").style.display = "block";
         document.getElementById("github").style.display = "none";
         document.getElementById("contacts").style.display = "none";
+        document.getElementById("homework").style.display = "none";
     }
 
     function github() {
@@ -138,13 +199,23 @@
         document.getElementById("skills").style.display = "none";
         document.getElementById("github").style.display = "block";
         document.getElementById("contacts").style.display = "none";
+        document.getElementById("homework").style.display = "none";
     }
 
     function contacts() {
         document.getElementById("about").style.display = "none";
         document.getElementById("skills").style.display = "none";
         document.getElementById("github").style.display = "none";
-        document.getElementById("contacts").style.display = "block";
+        document.getElementById("contacts").style.display = "flex";
+        document.getElementById("homework").style.display = "none";
+    }
+
+    function homework() {
+        document.getElementById("about").style.display = "none";
+        document.getElementById("skills").style.display = "none";
+        document.getElementById("github").style.display = "none";
+        document.getElementById("contacts").style.display = "none";
+        document.getElementById("homework").style.display = "block";
     }
 
 
