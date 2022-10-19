@@ -46,6 +46,10 @@ body {
     nav li {
         padding: 4px 10px 0px 10px;
     }
+
+    #about p {
+        padding-left: 0px;
+    }
 }
 
 
@@ -77,13 +81,17 @@ body {
     nav li {
         padding: 8px 15px;
     }
+
+    #about p {
+        padding-left: 0px;
+    }
 }
 
 @media only screen and (min-width: 1000px) {
     /* For desktop: */
 
     body {
-        width: 1000px;
+        width: 900px;
     }
 
     #flex-row-center {
@@ -106,6 +114,10 @@ body {
 
     nav li {
         padding: 8px 15px;
+    }
+
+    #about p {
+        padding-left: 100px;
     }
 
 }
@@ -183,19 +195,12 @@ section {
 
 p {
     font-size: 40px;
-    padding-left: 50px;
 
 }
 
 #about {
     position: relative;
 }
-
-#about>p {
-    float: left;
-}
-
-
 
 #about img {
     /*position: absolute;
@@ -366,6 +371,7 @@ a:hover {
 
 .hw_price {
     font-size: 35px;
+    font-weight: 600;
 }
 
 .hw_yellow_button {
