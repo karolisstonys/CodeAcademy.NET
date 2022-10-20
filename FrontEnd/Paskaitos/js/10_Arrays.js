@@ -129,7 +129,7 @@ greet('Edvinas');
 
 function throwDice(numRolls) {
     for (let i = 0; i < numRolls; i++) {
-        throwDie();
+        //throwDie();
     }
 }
 
@@ -419,6 +419,72 @@ pickOne(callGeneric, callMoreGeneric);
 
 
 
+// TASK 4 --------------------------------------------------------------
+function getPersonData() {
+    let vardas = window.prompt('vardas?', '');
+    let pavarde = window.prompt('pavarde?', '');
+    let amzius = window.prompt('amzius?', '');
+    let elpastas = window.prompt('el.pastas?', '');
+
+    console.log(vardas);
+    console.log(pavarde);
+    console.log(amzius);
+    console.log(elpastas);
+}
+//getPersonData();
+// END OF TASK 4 ======================================================= END!
 
 
 
+
+
+// TASK 5+6 --------------------------------------------------------------
+function isMoreThan18(a) {
+    return a >= 18;
+}
+
+//let age = prompt('Amzius?');
+
+//buy();
+
+/*function buy() {
+    if (isMoreThan18(age)) {
+        allGood();
+    }
+    else {
+        if (confirm("Ar turite tevu leidima?") === true) {
+            allGood();
+        } else {
+            goBackToKinderGarten();
+        }
+    }
+}*/
+
+function buy() {
+    return (isMoreThan18(age) ? allGood() : (confirm("Ar turite tevu leidima?") ? allGood() : goBackToKindergarten()));
+}
+
+function allGood() {
+    alert('Pirkimas galimas');
+}
+
+function goBackToKindergarten() {
+    alert('Pirkimas NEGALIMAS!!!');
+}
+// END OF TASK 5+6 ======================================================= END!
+
+
+
+// TASK 6.1 --------------------------------------------------------------
+let metai = prompt('Metai?');
+
+arKeliamiejiMetai(metai);
+
+
+function arKeliamiejiMetai(metai) {
+    if (metai % 4 === 0 || metai % 100 === 0 || metai % 400 === 0) {    // buvo bloga salyga ... =(
+        return alert('O taip!')
+    }
+    return alert('Ne')
+}
+// END OF TASK 6.1 ======================================================= END!
