@@ -420,7 +420,7 @@ pickOne(callGeneric, callMoreGeneric);
 
 
 // TASK 4 --------------------------------------------------------------
-function getPersonData() {
+/*function getPersonData() {
     let vardas = window.prompt('vardas?', '');
     let pavarde = window.prompt('pavarde?', '');
     let amzius = window.prompt('amzius?', '');
@@ -431,7 +431,7 @@ function getPersonData() {
     console.log(amzius);
     console.log(elpastas);
 }
-//getPersonData();
+//getPersonData();*/
 // END OF TASK 4 ======================================================= END!
 
 
@@ -439,13 +439,13 @@ function getPersonData() {
 
 
 // TASK 5+6 --------------------------------------------------------------
-function isMoreThan18(a) {
+/*function isMoreThan18(a) {
     return a >= 18;
 }
 
 //let age = prompt('Amzius?');
 
-//buy();
+//buy();*/
 
 /*function buy() {
     if (isMoreThan18(age)) {
@@ -460,7 +460,7 @@ function isMoreThan18(a) {
     }
 }*/
 
-function buy() {
+/*function buy() {
     return (isMoreThan18(age) ? allGood() : (confirm("Ar turite tevu leidima?") ? allGood() : goBackToKindergarten()));
 }
 
@@ -470,13 +470,13 @@ function allGood() {
 
 function goBackToKindergarten() {
     alert('Pirkimas NEGALIMAS!!!');
-}
+}*/
 // END OF TASK 5+6 ======================================================= END!
 
 
 
 // TASK 6.1 --------------------------------------------------------------
-let metai = prompt('Metai?');
+/*let metai = prompt('Metai?');
 
 arKeliamiejiMetai(metai);
 
@@ -486,5 +486,65 @@ function arKeliamiejiMetai(metai) {
         return alert('O taip!')
     }
     return alert('Ne')
-}
+}*/
 // END OF TASK 6.1 ======================================================= END!
+
+
+
+
+
+
+// TASK 6.3 --------------------------------------------------------------
+/*let username = prompt('username?');
+let password = prompt('password?');
+isPaswordValid(username, password)
+
+function isPaswordValid(username, password) {
+    if (password.length < 8) {
+        alert('Password is to short');
+        return;
+    }
+
+    if (password.includes(" ")) {
+        alert('Password must not have spaces');
+        return;
+    }
+
+    if (password != username) {
+        alert('Password must be different than username');
+        return;
+    }
+}
+*/
+// END OF TASK 6.3 ======================================================= END!
+/*function average(arr) {
+    let sum = 0;
+    for (const item of arr) {
+        sum = sum + item;
+    }
+    alert(sum / arr.length)
+}*/
+// TASK 6.4 --------------------------------------------------------------
+
+
+
+// END OF TASK 6.4 ======================================================= END!
+
+
+
+
+
+// TASK 6.5 --------------------------------------------------------------
+
+
+
+// END OF TASK 6.5 ======================================================= END!
+
+
+
+
+// TASK 9 --------------------------------------------------------------
+
+
+
+// END OF TASK 9 ======================================================= END!
