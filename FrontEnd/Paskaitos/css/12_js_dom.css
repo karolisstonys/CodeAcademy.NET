@@ -1,0 +1,6 @@
+li::marker {
+    content: "→ ";
+    color: blueviolet;
+    font-weight: 900;
+    font-size: 35px;
+}
