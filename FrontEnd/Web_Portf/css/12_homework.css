@@ -2,30 +2,29 @@
     display: inline-block;
     height: auto;
     margin: 0px;
-    border: solid 20px gray;
     background-color: #ffffffaa;
-}
-
-.IngredientsAndAllergens {
-    float: left;
-    width: 50%;
 }
 
 .Steps,
 .Allergens {
     clear: both;
-    padding: 0 10px 0 25px;
+    padding: 0 5px 0 25px;
 }
 
 .AllergensLine {
     display: block;
 }
 
-.AllergensLine>div {
-    display: inline-block;
+.AllergensLine div {
+    display: none;
     border: solid 1px black;
-    margin: 8px;
-    padding: 8px;
+    font-size: 26px;
+    height: 40px;
+    width: 40px;
+
+    text-align: center;
+
+    margin: 3px;
 }
 
 .AllergenName {
@@ -37,10 +36,6 @@ h1 {
     font-size: 50px;
 }
 
-.PhotoAndSteps {
-    float: left;
-    width: 50%;
-}
 
 .Photo,
 .Ingredients {
@@ -48,6 +43,7 @@ h1 {
     width: 100%;
     border: solid 1px black;
 }
+
 
 .Ingredients {
     background-color: #dddddd;
@@ -86,7 +82,7 @@ img {
     float: left;
     display: block;
     font-size: 16px;
-    background: linear-gradient(-45deg, #ee775230, #e73c7e30, #23a6d530, #23d5ab30);
+    background: linear-gradient(-45deg, #ee775250, #e73c7e50, #23a6d550, #23d5ab50);
     background-size: 400% 400%;
     animation: gradient 10s ease infinite;
     color: #000;
@@ -97,15 +93,59 @@ img {
 }
 
 #hw_2_menu li.selected {
-    background: linear-gradient(-45deg, #ee775260, #e73c7e60, #23a6d560, #23d5ab60);
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
     background-size: 400% 400%;
     animation: gradient 10s ease infinite;
 
 }
 
 #hw_2_menu li:hover {
-    background: linear-gradient(-45deg, #ee775290, #e73c7e90, #23a6d590, #23d5ab90);
-    background-size: 400% 400%;
-    animation: gradient 10s ease infinite;
+    border-color: #000;
     cursor: pointer;
+}
+
+
+@media only screen and (min-width: 1000px) {
+    .hw_2_MainContainer {
+
+        border: solid 10px gray;
+        border-radius: 50px;
+    }
+
+    .Photo {
+        border-top-left-radius: 40px;
+    }
+
+    .StepsAndAllergens {
+        float: left;
+        width: 50%;
+    }
+
+    .Steps {
+        border-bottom-right-radius: 40px;
+    }
+
+    .PhotoAndIngredients {
+        float: left;
+        width: 50%;
+    }
+
+    img {
+        border-top-left-radius: 40px;
+    }
+
+    .Photo {
+        border-top-left-radius: 40px;
+    }
+
+    .Ingredients {
+        border-bottom-right-radius: 40px;
+    }
+
+}
+
+@media only screen and (max-width: 999px) {
+    .hw_2_MainContainer {
+        margin-bottom: 40px;
+    }
 }

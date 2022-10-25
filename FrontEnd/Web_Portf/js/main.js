@@ -73,6 +73,7 @@ function hw_menu(menu) {
                 hw_1.style.display = 'none';
             if (window.getComputedStyle(hw_2).display === 'none')
                 hw_2.style.display = 'block';
+            hw_2_menu('karsta_kakava');
             break;
     }
 }
