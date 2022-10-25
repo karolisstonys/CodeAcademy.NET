@@ -7,7 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TRTL</title>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/12_homework.css">
     <script src="js/main.js"></script>
+    <script src="js/12_homework.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -133,39 +135,57 @@
     </section>
 
     <section id="homework">
-        <div id="hw_flex-row-center">
-            <div id="hw_flex-row-center2">
-                <div id="hw_col1">
-                    <div class="hw_title">CAT</div>
-                    <div>Common, yet regarder by many as the worst house pet.</div>
-                    <div>Scratchers everything</div>
-                    <div class="hw_hr">Easily lost for days</div>
-                    <div class="hw_hr">Kind of a bummer</div>
-                    <div class="hw_price">Free</div>
-                    <div class="hw_yellow_button">🐱 Take</div>
-                </div>
-                <div id="hw_col2">
-                    <div class="hw_title">DOG</div>
-                    <div>Loving, gentle and caring. Dogs are the best house pet to have and will increase happiness ten
-                        fold.</div>
-                    <div>Super fun</div>
-                    <div class="hw_hr">Friends love them</div>
-                    <div class="hw_hr">Plays games</div>
-                    <div class="hw_hr">Not a cat</div>
-                    <div class="hw_price">$90</div>
-                    <div class="hw_yellow_button">🐶 Buy</div>
-                </div>
-                <div id="hw_col3">
-                    <div class="hw_title">FISH</div>
-                    <div>Cheap n' easy.</div>
-                    <div>Eats flakes</div>
-                    <div class="hw_hr">Cop out</div>
-                    <div class="hw_hr">Replaceable</div>
-                    <div class="hw_price">$3</div>
-                    <div class="hw_yellow_button">🐠 Buy</div>
+
+        <div id="hw_menu">
+            <ul>
+                <li onclick="hw_menu(1)" title="Cat, dog, fish buying banner">1</li>
+                <li onclick="hw_menu(2)" title="">2</li>
+            </ul>
+        </div>
+
+
+
+        <div id="hw_1">
+            <div id="hw_flex-row-center">
+                <div id="hw_flex-row-center2">
+                    <div id="hw_col1">
+                        <div class="hw_title">CAT</div>
+                        <div>Common, yet regarder by many as the worst house pet.</div>
+                        <div>Scratchers everything</div>
+                        <div class="hw_hr">Easily lost for days</div>
+                        <div class="hw_hr">Kind of a bummer</div>
+                        <div class="hw_price">Free</div>
+                        <div class="hw_yellow_button">🐱 Take</div>
+                    </div>
+                    <div id="hw_col2">
+                        <div class="hw_title">DOG</div>
+                        <div>Loving, gentle and caring. Dogs are the best house pet to have and will increase happiness
+                            ten
+                            fold.</div>
+                        <div>Super fun</div>
+                        <div class="hw_hr">Friends love them</div>
+                        <div class="hw_hr">Plays games</div>
+                        <div class="hw_hr">Not a cat</div>
+                        <div class="hw_price">$90</div>
+                        <div class="hw_yellow_button">🐶 Buy</div>
+                    </div>
+                    <div id="hw_col3">
+                        <div class="hw_title">FISH</div>
+                        <div>Cheap n' easy.</div>
+                        <div>Eats flakes</div>
+                        <div class="hw_hr">Cop out</div>
+                        <div class="hw_hr">Replaceable</div>
+                        <div class="hw_price">$3</div>
+                        <div class="hw_yellow_button">🐠 Buy</div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <div id="hw_2">
+
+        </div>
+
     </section>
 
 
@@ -174,50 +194,7 @@
 
 </html>
 
-
 <script>
-    function aboutme() {
-        document.getElementById("about").style.display = "block";
-        document.getElementById("skills").style.display = "none";
-        document.getElementById("github").style.display = "none";
-        document.getElementById("contacts").style.display = "none";
-        document.getElementById("homework").style.display = "none";
-    }
-
-    function skills() {
-        document.getElementById("about").style.display = "none";
-        document.getElementById("skills").style.display = "block";
-        document.getElementById("github").style.display = "none";
-        document.getElementById("contacts").style.display = "none";
-        document.getElementById("homework").style.display = "none";
-    }
-
-    function github() {
-        document.getElementById("about").style.display = "none";
-        document.getElementById("skills").style.display = "none";
-        document.getElementById("github").style.display = "block";
-        document.getElementById("contacts").style.display = "none";
-        document.getElementById("homework").style.display = "none";
-    }
-
-    function contacts() {
-        document.getElementById("about").style.display = "none";
-        document.getElementById("skills").style.display = "none";
-        document.getElementById("github").style.display = "none";
-        document.getElementById("contacts").style.display = "flex";
-        document.getElementById("homework").style.display = "none";
-    }
-
-    function homework() {
-        document.getElementById("about").style.display = "none";
-        document.getElementById("skills").style.display = "none";
-        document.getElementById("github").style.display = "none";
-        document.getElementById("contacts").style.display = "none";
-        document.getElementById("homework").style.display = "block";
-    }
-
-
-
 
     function Counter(elem, delay) {
         var value = parseInt(elem.getAttribute("value"), 10);
@@ -257,17 +234,4 @@
 
     counter = new Counter(elem, 3000);
     counter.start();
-</script>
-<script>
-    GitHubCalendar(".calendar", "TRTL");
-
-    // or enable responsive functionality:
-    GitHubCalendar(".calendar", "TRTL", { responsive: true });
-
-    // Use a proxy
-    GitHubCalendar(".calendar", "TRTL", {
-        proxy(username) {
-            return fetch(`https://your-proxy.com/github?user=${TRTL}`)
-        }
-    }).then(r => r.text())
 </script>
