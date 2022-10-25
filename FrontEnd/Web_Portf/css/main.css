@@ -219,13 +219,7 @@ p {
 a:hover,
 a:link,
 a:visited {
-    color: #00dc0a;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #00dc0a;
-    text-decoration: underline;
+    color: #009107;
 }
 
 #skills,
@@ -233,6 +227,10 @@ a:hover {
 #contacts,
 #homework {
     display: none;
+}
+
+#homework {
+    margin-top: 10px !important;
 }
 
 #contacts {
@@ -289,21 +287,21 @@ a:hover {
 
 /*  -  -  -  -  H  O  M  E  W  O  R  K  -  -  -  -  */
 
-#hw_menu {
+#hw_menu,
+#hw_2_menu {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
     justify-content: center;
 }
 
-#hw_menu ul {
+#hw_menu ul,
+#hw_2_menu ul {
     list-style: none;
     padding: 0;
 }
 
 #hw_menu li {
-    width: 30px;
-    height: 30px;
     float: left;
     display: block;
     font-size: 16px;
@@ -311,7 +309,9 @@ a:hover {
     color: #000;
     margin: 5px;
     border: 1px solid #aaa;
-    border-radius: 50%;
+    border-radius: 15px;
+    width: 30px;
+    height: 30px;
     padding-left: 9px;
     padding-top: 3px;
 }
@@ -325,6 +325,8 @@ a:hover {
 #hw_2 {
     display: none;
 }
+
+
 
 #hw_flex-row-center {
     display: flex;
@@ -341,8 +343,6 @@ a:hover {
     background: linear-gradient(-45deg, #ee775290, #e73c7e90, #23a6d590, #23d5ab90);
     background-size: 400% 400%;
     animation: gradient 10s ease infinite;
-    /*height: 80vh;
-    width: 70vw;*/
     padding: 50px;
     border: 1px solid #aaa;
     border-radius: 15px;

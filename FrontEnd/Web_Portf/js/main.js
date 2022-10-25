@@ -63,23 +63,16 @@ function hw_menu(menu) {
 
     switch (menu) {
         case 1:
-            if (window.getComputedStyle(hw_2).display === 'block') {
+            if (window.getComputedStyle(hw_2).display === 'block')
                 hw_2.style.display = 'none';
-            }
-
-            if (window.getComputedStyle(hw_1).display === 'none') {
+            if (window.getComputedStyle(hw_1).display === 'none')
                 hw_1.style.display = 'block';
-            }
             break;
         case 2:
-            if (window.getComputedStyle(hw_1).display === 'block') {
+            if (window.getComputedStyle(hw_1).display === 'block')
                 hw_1.style.display = 'none';
-            }
-
-            if (window.getComputedStyle(hw_2).display === 'none') {
+            if (window.getComputedStyle(hw_2).display === 'none')
                 hw_2.style.display = 'block';
-            }
             break;
     }
-
 }
