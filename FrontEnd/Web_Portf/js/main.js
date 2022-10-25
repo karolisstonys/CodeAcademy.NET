@@ -41,39 +41,39 @@ function homework() {
 
 
 
-// GitHubCalendar ---------------------
-GitHubCalendar(".calendar", "TRTL");
 
-// or enable responsive functionality:
-GitHubCalendar(".calendar", "TRTL", { responsive: true });
-
-// Use a proxy
-GitHubCalendar(".calendar", "TRTL", {
-    proxy(username) {
-        return fetch(`https://your-proxy.com/github?user=${TRTL}`)
-    }
-}).then(r => r.text())
-
-// ------------------------------------
 
 
 function hw_menu(menu) {
     const hw_1 = document.getElementById('hw_1')
     const hw_2 = document.getElementById('hw_2')
+    const hw_3 = document.getElementById('hw_3')
 
     switch (menu) {
         case 1:
-            if (window.getComputedStyle(hw_2).display === 'block')
-                hw_2.style.display = 'none';
             if (window.getComputedStyle(hw_1).display === 'none')
                 hw_1.style.display = 'block';
+            if (window.getComputedStyle(hw_2).display === 'block')
+                hw_2.style.display = 'none';
+            if (window.getComputedStyle(hw_3).display === 'block')
+                hw_3.style.display = 'none';
             break;
         case 2:
             if (window.getComputedStyle(hw_1).display === 'block')
                 hw_1.style.display = 'none';
             if (window.getComputedStyle(hw_2).display === 'none')
                 hw_2.style.display = 'block';
-            hw_2_menu('karsta_kakava');
+            if (window.getComputedStyle(hw_3).display === 'block')
+                hw_3.style.display = 'none';
+            hw_2_menu('karsta_kakava'); // REIKIA KAD KitchenToolsSearch VEIKTU
+            break;
+        case 3:
+            if (window.getComputedStyle(hw_1).display === 'block')
+                hw_1.style.display = 'none';
+            if (window.getComputedStyle(hw_2).display === 'block')
+                hw_2.style.display = 'none';
+            if (window.getComputedStyle(hw_3).display === 'none')
+                hw_3.style.display = 'block';
             break;
     }
 }

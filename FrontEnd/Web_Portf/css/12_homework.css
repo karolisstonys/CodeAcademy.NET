@@ -130,7 +130,7 @@ img {
         width: 50%;
     }
 
-    img {
+    .PhotoAndIngredients img {
         border-top-left-radius: 40px;
     }
 

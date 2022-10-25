@@ -1,0 +1,114 @@
+#hw_3_container {
+    display: inline-block;
+    width: 100%;
+    height: auto;
+    border: solid 1px black;
+
+    background-color: #ffffffaa;
+    margin: 0px;
+    padding: 20px;
+}
+
+@media only screen and (min-width: 1000px) {
+    #hw_3_container {
+
+        border: solid 1px gray;
+        border-radius: 20px;
+    }
+}
+
+#hw_3_Card {
+    float: left;
+    margin-top: 0px;
+    background-color: lightgray;
+    border-radius: 15px;
+    width: 500px;
+    height: 350px;
+    justify-content: center;
+}
+
+.Chip {
+    position: relative;
+    top: 60px;
+    left: 50px;
+    background-color: white;
+    border-radius: 5px;
+    border-top: solid 5px gray;
+    border-right: solid 10px gray;
+    border-bottom: solid 5px gray;
+    border-left: solid 0px gray;
+    width: 70px;
+    height: 50px;
+}
+
+.CardNumberDots {
+    position: relative;
+    top: 100px;
+    left: 50px;
+}
+
+.CardNumberDots span {
+    display: inline-block;
+    background-color: white;
+    margin-left: 3px;
+    border-radius: 10px;
+    width: 18px;
+    height: 18px;
+}
+
+.FullName {
+    position: relative;
+    color: white;
+    font-size: 25px;
+    top: 150px;
+    left: 50px;
+}
+
+.CardDate {
+    position: relative;
+    color: white;
+    font-size: 20px;
+    top: 120px;
+    left: 320px;
+}
+
+.ValidUntil {
+    display: none;
+    /*position: relative;
+    color: white;
+    font-size: 10px;
+    top: 80px;
+    left: 320px;*/
+}
+
+
+
+#hw_3_Card_Form {
+    float: left;
+    padding: 0px 50px;
+    margin-top: 50px;
+}
+
+
+#hw_3_Card_Form label {
+    display: inline-block;
+    width: 150px;
+}
+
+input[type='text'],
+input[type='email'],
+input[type='password'],
+select,
+input[type='number'],
+input[type='date'] {
+    width: 250px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.button {
+    display: flex;
+    margin-top: 50px;
+    justify-content: center;
+}
