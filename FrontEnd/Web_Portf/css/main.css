@@ -39,8 +39,8 @@ body {
     nav #ContactsIcon,
     nav #HomeworkIcon {
         display: inline-block;
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
     }
 
     nav li {
@@ -48,8 +48,8 @@ body {
     }
 
     #about p {
-        padding: 0 0 0 0px;
-        font-size: 28px;
+        padding: 0 0 0 20px;
+        font-size: 22px;
     }
 
     #imgTRTL {
@@ -64,7 +64,7 @@ body {
     /* For tablet: */
 
     body {
-        width: 600px;
+        width: 680px;
     }
 
     #flex-row-center {
@@ -98,7 +98,8 @@ body {
     /* For desktop: */
 
     body {
-        width: 900px;
+        min-width: 900px;
+        max-width: 1200px;
     }
 
     #flex-row-center {
@@ -177,32 +178,32 @@ nav li:hover {
 }
 
 #AboutMeIcon {
-    background-image: url("/Web_Portf/icons/aboutme.png");
-    background-size: 50px;
+    background-image: url("aboutme.png");
+    background-size: 40px;
     background-repeat: no-repeat;
 }
 
 #SkillsMeIcon {
-    background-image: url("/Web_Portf/icons/skills.png");
-    background-size: 50px;
+    background-image: url("skills.png");
+    background-size: 40px;
     background-repeat: no-repeat;
 }
 
 #GithubIcon {
-    background-image: url("/Web_Portf/icons/github.png");
-    background-size: 50px;
+    background-image: url("github.png");
+    background-size: 40px;
     background-repeat: no-repeat;
 }
 
 #ContactsIcon {
-    background-image: url("/Web_Portf/icons/contacts.png");
-    background-size: 50px;
+    background-image: url("contacts.png");
+    background-size: 40px;
     background-repeat: no-repeat;
 }
 
 #HomeworkIcon {
-    background-image: url("/Web_Portf/icons/homework.png");
-    background-size: 50px;
+    background-image: url("homework.png");
+    background-size: 40px;
     background-repeat: no-repeat;
 }
 
@@ -327,10 +328,7 @@ a:visited {
     margin: 5px;
     border: 1px solid #aaa;
     border-radius: 15px;
-    width: 30px;
-    height: 30px;
-    padding-left: 9px;
-    padding-top: 3px;
+    padding: 4px 9px 5px 10px;
 }
 
 #hw_menu li:hover {
@@ -361,11 +359,11 @@ a:visited {
     background: linear-gradient(-45deg, #ee775290, #e73c7e90, #23a6d590, #23d5ab90);
     background-size: 400% 400%;
     animation: gradient 10s ease infinite;
-    padding: 50px;
+    padding: 5px;
     border: 1px solid #aaa;
     border-radius: 15px;
     text-align: center;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 @keyframes gradient {
@@ -386,28 +384,12 @@ a:visited {
     margin-top: 12px;
 }
 
-#hw_col1 {
-    margin-right: 40px;
-    padding: 0 20px 20px 20px;
-    width: 220px;
-    border: solid 1px #aaa;
-    border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.4);
-}
-
-#hw_col2 {
-    margin-right: 40px;
-    padding: 0 20px 20px 20px;
-    width: 220px;
-    border: solid 1px #aaa;
-    border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.4);
-}
-
+#hw_col1,
+#hw_col2,
 #hw_col3 {
-    margin-right: 0px;
-    padding: 0 20px 20px 20px;
-    width: 220px;
+    margin: 10px 20px;
+    padding: 0 15px 15px 15px;
+    width: 200px;
     border: solid 1px #aaa;
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.4);
@@ -415,7 +397,7 @@ a:visited {
 
 .hw_title {
     margin: 20px;
-    font-size: 30px;
+    font-size: 28px;
     color: white;
     text-shadow: 2px 2px #00000080;
     font-weight: 600;
@@ -427,7 +409,7 @@ a:visited {
 }
 
 .hw_price {
-    font-size: 35px;
+    font-size: 25px;
     font-weight: 600;
 }
 
