@@ -39,8 +39,8 @@ body {
     nav #ContactsIcon,
     nav #HomeworkIcon {
         display: inline-block;
-        width: 64px;
-        height: 64px;
+        width: 50px;
+        height: 50px;
     }
 
     nav li {
@@ -48,8 +48,14 @@ body {
     }
 
     #about p {
-        padding: 0 0 0 30px;
-        font-size: 30px;
+        padding: 0 0 0 0px;
+        font-size: 28px;
+    }
+
+    #imgTRTL {
+        display: flex;
+        align-content: center;
+        justify-content: center;
     }
 }
 
@@ -172,22 +178,32 @@ nav li:hover {
 
 #AboutMeIcon {
     background-image: url("/Web_Portf/icons/aboutme.png");
+    background-size: 50px;
+    background-repeat: no-repeat;
 }
 
 #SkillsMeIcon {
     background-image: url("/Web_Portf/icons/skills.png");
+    background-size: 50px;
+    background-repeat: no-repeat;
 }
 
 #GithubIcon {
     background-image: url("/Web_Portf/icons/github.png");
+    background-size: 50px;
+    background-repeat: no-repeat;
 }
 
 #ContactsIcon {
     background-image: url("/Web_Portf/icons/contacts.png");
+    background-size: 50px;
+    background-repeat: no-repeat;
 }
 
 #HomeworkIcon {
     background-image: url("/Web_Portf/icons/homework.png");
+    background-size: 50px;
+    background-repeat: no-repeat;
 }
 
 section {
