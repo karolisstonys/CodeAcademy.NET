@@ -48,7 +48,8 @@ body {
     }
 
     #about p {
-        padding-left: 0px;
+        padding: 0 0 0 30px;
+        font-size: 30px;
     }
 }
 
