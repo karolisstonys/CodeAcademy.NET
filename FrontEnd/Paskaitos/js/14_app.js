@@ -149,3 +149,28 @@ function L14_shift() {
     L14_array1.shift(L14_textbox.value);
     L14_run_1();
 }
+
+// END OF TASK 1
+
+
+
+
+
+
+
+
+
+
+
+
+let unsortedLetters = [
+    'T',
+    't',
+    'E',
+    'a',
+    'S',
+    'A',
+    'R',
+];
+
+console.log(unsortedLetters.sort());
