@@ -305,3 +305,17 @@ task5Arr3[task5Arr3.length] = { subject: 'methods' };
 console.log(task5Arr3);
 
 // END OF TASK 5
+
+
+
+
+// TASK 6
+
+let accords = ['D', 'G', 'C', 'C7', 'F'];
+
+
+
+
+
+
+// END OF TASK 6
