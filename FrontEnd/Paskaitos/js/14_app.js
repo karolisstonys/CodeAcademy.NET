@@ -245,13 +245,37 @@ function task2Func(name) {
         task2.totalToys = task2.toysArray.length;
 
         for (let friend of task2.friends) {
-            console.log(friend.name);
+            console.log(friend.name + ' is now doing ' + friend.activity);
         }
     }
 
 }
 task2Func('child1');
-
-
-
 // END OF TASK 2
+
+
+
+
+// TASK 3
+const person = {
+    name: 'Rosa',
+    age: 120,
+    alive: false,
+    interests: ['swimming', 'cards']
+}
+
+task3Func();
+function task3Func() {
+    person.name = "The new guy";
+    let newAge = Math.floor(Math.random() * 101) + 20;
+    person.age = newAge;
+    if (newAge < 100) {
+        person.alive = true;
+        person.interests.push('enjoying life');
+    }
+    console.log(person.interests)
+
+}
+
+// END OF TASK 3
+
