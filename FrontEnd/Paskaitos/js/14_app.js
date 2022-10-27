@@ -174,3 +174,84 @@ let unsortedLetters = [
 ];
 
 console.log(unsortedLetters.sort());
+
+
+
+
+
+
+
+
+const student = {
+    firstName: 'Jonas',
+    lastName: 'Jonaitis',
+    fullName: function () {
+        return this.firstName + " " + this.lastName;
+    }
+}
+
+student.fullName();
+
+const shoppingCart = [
+    {
+        product: "Janga1",
+        price: 6.99,
+        quantity: 1
+    },
+    {
+        product: "Janga2",
+        price: 6.99,
+        quantity: 1
+    },
+    {
+        product: "Janga3",
+        price: 6.99,
+        quantity: 1
+    },
+]
+
+
+
+
+
+// TASK 2
+const task2 = {
+    name: "child1",
+    toysArray: ['toy1', 'toy2', 'toy3'],
+    yearsOld: 6,
+    birthday: true,
+    totalToys: null,
+    friends: [
+        {
+            name: "friendName1",
+            activity: "activity1"
+        },
+        {
+            name: "friendName2",
+            activity: "activity2"
+        },
+        {
+            name: "friendName3",
+            activity: "activity3"
+        },
+    ]
+}
+
+function task2Func(name) {
+    if (task2.name === name && task2.birthday) {
+        let birthdayToy = task2.toysArray.shift();
+        task2.toysArray.push('New Toy 3000');
+        task2.yearsOld++;
+        task2.totalToys = task2.toysArray.length;
+
+        for (let friend of task2.friends) {
+            console.log(friend.name);
+        }
+    }
+
+}
+task2Func('child1');
+
+
+
+// END OF TASK 2
