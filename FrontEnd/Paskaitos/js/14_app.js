@@ -279,3 +279,29 @@ function task3Func() {
 
 // END OF TASK 3
 
+
+
+
+
+// TASK 4
+
+const task4Arr = ["I", "study", "JavaScript", "right", "now"];
+console.log(task4Arr);
+task4Arr.splice(0, 3, "Lets", "dance");
+console.log(task4Arr.join(' '));
+
+// END OF TASK 4
+
+
+
+// TASK 5
+
+let task5Arr1 = ["slice", "splice", "concat"];
+let task5Arr2 = ["pop", "push", "shift", "unshift"];
+let task5Arr3 = task5Arr1.concat(task5Arr2)
+task5Arr3[task5Arr3.length] = 'length';
+task5Arr3[task5Arr3.length] = 7;
+task5Arr3[task5Arr3.length] = { subject: 'methods' };
+console.log(task5Arr3);
+
+// END OF TASK 5
