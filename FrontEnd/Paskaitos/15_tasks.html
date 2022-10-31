@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Task 1 - Terms and conditions.</h1>
+    <div>
+        <span id="txt_task1"></span>
+    </div>
+    <h1>Task 2 - Terms and conditions.</h1>
+    <div>
+        <div>
+            <input type="text" name="text" id="txt_task2">
+        </div>
+        <div>
+            <h2 id="h2_task2"></h2>
+        </div>
+        <div><button id="button_task2">Save</button></div>
+    </div>
+
+    <script>
+        let terms_conds = false;
+        //terms_conds = window.confirm('Agree to terms and conditions?');
+        txt_task1.innerHTML = terms_conds ? 'User agrre to terms and conditions.' : 'User refused terms and conditions.';
+        sessionStorage.setItem('Agree to terms and conditions?', terms_conds ? 'YES' : 'NO');
+        localStorage.setItem('Agree to terms and conditions?', terms_conds ? 'YES' : 'NO');
+
+        txt_task2.addEventListener('keyup', (e) => {
+            h2_task2.innerHTML = e.target.value;
+        })
+
+        button_task2.addEventListener('click', () => {
+            localStorage.setItem('Textbox', txt_task2.value);
+        })
+
+
+
+    </script>
+</body>
+
+</html>
