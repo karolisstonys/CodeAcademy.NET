@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser storage</title>
+    <script type="text/javascript" src="js/15_script.js"></script>
+</head>
+
+<body>
+    <h1>Browser storage</h1>
+    <div>
+        <h4>Issaugotos reiksmes:</h4>
+        <div>mokymai_key = <span id="lbl_mokymai_key"></span></div>
+        <div>kitas_raktas = <span id="lbl_kitas_raktas"></span></div>
+        <div>mokymai_localStorage = <span id="lbl_mokymai_localStorage"></span></div>
+        <div>json_localStorage = <span id="lbl_json_localStorage"></span></div>
+    </div>
+
+    <h4>Save to Storage</h4>
+    <div>
+        <div>
+            <button id="btn_setSessionStorage" type="button">set SessionStorage 'mokymai_key'</button>
+            <span id="txt_setSessionStorage" style="color: red;">--tuščia--</span>
+        </div>
+
+        <div>
+            <button id="btn_setSessionStorage1" type="button">set SessionStorage 'kitas_raktas'</button>
+            <span id="txt_setSessionStorage1" style="color: red;">--tuščia--</span>
+        </div>
+
+
+        <div>
+            <button id="btn_setLocalStorage" type="button">set LocalStorage 'mokymai_localStorage'</button>
+            <span id="txt_setLocalStorage" style="color: red;">--tuščia--</span>
+        </div>
+
+        <div>
+            <button id="btn_json_setLocalStorage" type="button">set LocalStorage 'json_localStorage'</button>
+            <span id="txt_json_setLocalStorage" style="color: red;">--tuščia--</span>
+        </div>
+    </div>
+
+
+    <h4>Read from Storage</h4>
+    <div>
+        <div>
+            <button id="btn_getMokymaiKey" type="button">read SessionStorage 'mokymai_key'</button>
+            <span id="txt_getMokymaiKey">--nenuskaityta--</span>
+        </div>
+        <div>
+            <button id="btn_get_kitas_raktas" type="button">read SessionStorage 'kitas_raktas'</button>
+            <span id="txt_get_kitas_raktas">--nenuskaityta--</span>
+        </div>
+        <div>
+            <button id="btn_get_mokymai_localStorage" type="button">read LocalStorage 'mokymai_localStorage'</button>
+            <span id="txt_get_mokymai_localStorage">--nenuskaityta--</span>
+        </div>
+        <div>
+            <button id="btn_getLocalStorage" type="button">read LocalStorage 'json_localStorage'</button>
+            <span id="txt_getLocalStorage">--nenuskaityta--</span>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- SCRIPT -->
+    <script type="text/javascript" src="js/15_script.js"></script>
+</body>
+
+</html>
