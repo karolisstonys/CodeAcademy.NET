@@ -1,13 +1,10 @@
-
-// ********************* GET *********************
 const showValues = () => {
     lbl_mokymai_key.innerHTML = sessionStorage.mokymai_key ?? '-';
     lbl_kitas_raktas.innerHTML = sessionStorage.kitas_raktas ?? '-';
     lbl_mokymai_localStorage.innerHTML = localStorage.mokymai_localStorage ?? '-';
     lbl_json_localStorage.innerHTML = localStorage.json_localStorage ?? '-';
-}
+};
 document.addEventListener('DOMContentLoaded', showValues);
-
 
 
 // ********************* SET *********************
@@ -50,17 +47,54 @@ btn_getMokymaiKey.addEventListener('click', () => {
     const val = sessionStorage.getItem('mokymai_key');
     txt_getMokymaiKey.innerHTML = val ?? 'nieko nera';
 })
+
 btn_get_kitas_raktas.addEventListener('click', () => {
     const val = sessionStorage.getItem('kitas_raktas');
     txt_get_kitas_raktas.innerHTML = val ?? 'nieko nera';
 })
+
 btn_get_mokymai_localStorage.addEventListener('click', () => {
     const val = localStorage.mokymai_localStorage;  // Object-like access
     txt_get_mokymai_localStorage.innerHTML = val ?? 'nieko nera';
 })
+
 btn_getLocalStorage.onclick = () => {               // .onclick atributas
     const val = localStorage.json_localStorage;     // Object-like access
     txt_getLocalStorage.innerHTML = val ?? 'nieko nera';
+};
+
+// ********************* REMOVE *********************
+
+btn_remove_mokymai_key.addEventListener('click', () => {
+    sessionStorage.removeItem('mokymai_key');
+    showValues();
+})
+
+btn_remove_kitas_raktas.addEventListener('click', () => {
+    sessionStorage.removeItem('kitas_raktas');
+    showValues();
+})
+
+btn_get_mokymai_localStorage.addEventListener('click', () => {
+    localStorage.removeItem('mokymi_localStorage');
+    showValues();
+})
+
+btn_remove_json_localStorage.onclick = () => {
+    localStorage.removeItem('json_localStorage');
+    showValues();
+};
+
+// ********************* CLEAR *********************
+
+btn_clear_session_storage.addEventListener('click', () => {
+    sessionStorage.clear();
+    showValues();
+})
+
+btn_clear_session_storage.onclick = () => {
+    localStorage.clear();
+    showValues();
 };
 
 
