@@ -375,5 +375,72 @@ console.log(arrMultiplied(numbers3, 3));
 
 
 
+// TASK 9
+
+function isPersonInArray(nameArr, lookupName) {
+    return nameArr.includes(lookupName)
+        ? getGenderBasedGreet(lookupName)
+        : `Unfotunately Name is not in our list`;
+}
+
+function getGenderBasedGreet(name) {
+    // Alternative: can be used with endswith
+    let lastChar = name.charAt(name.length - 1); // name[name.length-1]
+    if (lastChar === 's') {
+        return `Welcome Mr. ${name}`;
+    }
+    return `Welcome Miss. ${name}`;
+}
+
+console.log(isPersonInArray(budgetExercise8, 'Edvinas'));
+
+function arrCountTwos(arr) {
+    return arr.filter(n => n === 2).length;
+}
+
+console.log(arrCountTwos(numbers3));
+
+// END OF TASK 9
 
 
+
+// TASK 10
+
+const names = budgets.map((person) => person.name);
+const monies = budgets.map((person) => person.budget);
+
+if (monies.some(n => n < 0)) {
+    console.log(`Found a budget account with a negative value.`);
+}
+
+function belowHundred(arr) {
+    if (arr.some(belowHundredCondition)) {
+        return arr.filter(belowHundredCondition);
+    }
+    return `All numbers are above 100`;
+};
+
+function belowHundredCondition(num) {
+    return num < 100;
+}
+
+console.log(belowHundred(numbers3));
+
+function symbolified(arr) {
+    if (arr.every(n => n.length >= 3)) {
+        if (arr.some(symbolifiedCondition)) {
+            let newArr = arr.filter(symbolifiedCondition);
+            return newArr.map(function (ele) {
+                return ele.replace('a', '@');
+            });
+        }
+    }
+}
+
+function symbolifiedCondition(word) {
+    return word.includes('a');
+}
+
+console.log(symbolified(budgetExercise8));
+
+// END OF TASK 10
