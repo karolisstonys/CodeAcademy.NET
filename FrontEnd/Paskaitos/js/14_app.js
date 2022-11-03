@@ -313,9 +313,67 @@ console.log(task5Arr3);
 
 let accords = ['D', 'G', 'C', 'C7', 'F'];
 
+function updateAccord(accord) {
+    if (!accord.endsWith('7')) {
+        accord += '7';
+    }
+    return accord;
+    // console.log(accord);
+}
 
-
-
-
+for (let i = 0; i < accords.length; i++) {
+    console.log(updateAccord(accords[i]));
+}
 
 // END OF TASK 6
+
+
+
+
+// TASK 7
+let numbers3 = [5, 1, 7, 2, -9, 8, 2, 7, 9, 4, -5, 2, -6, 8, -4, 6];
+
+const bodyEle = document.querySelector('body');
+
+numbers3.forEach(function (num, ind) {
+    bodyEle.innerHTML += `<p>Index Nr: ${ind}, value: ${num}</p>`;
+});
+
+bodyEle.innerHTML += `<hr/>`;
+
+for (let i = 0; i < numbers3.length; i++) {
+    bodyEle.innerHTML += `<p>Index Nr: ${i}, value: ${numbers3[i]}</p>`;
+};
+
+// END OF TASK 7
+
+
+
+
+// TASK 8
+function arrDouble(arr) {
+    return arr.map(function (arrEle) {
+        // We return value to an array that is STILL in progress of being built
+        return arrEle * 2;
+    });
+}
+
+function arrDoubleArrowSyntax(arr) {
+    return arr.map(arrEle => arrEle * 2);
+}
+
+console.log(arrDouble(numbers3));
+
+function arrMultiplied(arr, multiplier) {
+    return arr.map(arrEle => arrEle * multiplier);
+}
+
+console.log(arrMultiplied(numbers3, 3));
+
+// END OF TASK 8
+
+
+
+
+
+
