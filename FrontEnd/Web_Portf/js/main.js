@@ -57,6 +57,8 @@ function hw_menu(menu) {
                 hw_2.style.display = 'none';
             if (window.getComputedStyle(hw_3).display === 'block')
                 hw_3.style.display = 'none';
+            if (window.getComputedStyle(hw_4).display === 'block')
+                hw_4.style.display = 'none';
             break;
         case 2:
             if (window.getComputedStyle(hw_1).display === 'block')
@@ -66,6 +68,8 @@ function hw_menu(menu) {
             if (window.getComputedStyle(hw_3).display === 'block')
                 hw_3.style.display = 'none';
             hw_2_menu('karsta_kakava'); // REIKIA KAD KitchenToolsSearch VEIKTU
+            if (window.getComputedStyle(hw_4).display === 'block')
+                hw_4.style.display = 'none';
             break;
         case 3:
             if (window.getComputedStyle(hw_1).display === 'block')
@@ -74,6 +78,18 @@ function hw_menu(menu) {
                 hw_2.style.display = 'none';
             if (window.getComputedStyle(hw_3).display === 'none')
                 hw_3.style.display = 'block';
+            if (window.getComputedStyle(hw_4).display === 'block')
+                hw_4.style.display = 'none';
+            break;
+        case 4:
+            if (window.getComputedStyle(hw_1).display === 'block')
+                hw_1.style.display = 'none';
+            if (window.getComputedStyle(hw_2).display === 'block')
+                hw_2.style.display = 'none';
+            if (window.getComputedStyle(hw_3).display === 'block')
+                hw_3.style.display = 'none';
+            if (window.getComputedStyle(hw_4).display === 'none')
+                hw_4.style.display = 'block';
             break;
     }
 }
