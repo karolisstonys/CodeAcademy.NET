@@ -47,15 +47,24 @@ body {
         padding: 4px 10px 0px 10px;
     }
 
-    #about p {
-        padding: 0 0 0 20px;
-        font-size: 22px;
-    }
-
     #imgTRTL {
         display: flex;
         align-content: center;
         justify-content: center;
+    }
+
+    #about p,
+    #github p {
+        padding: 0 0 0 20px;
+        font-size: 22px;
+    }
+
+    .SkillLine {
+        margin: 10px 5px 0px 5px;
+    }
+
+    .calendar {
+        display: none;
     }
 }
 
@@ -89,8 +98,17 @@ body {
         padding: 8px 15px;
     }
 
-    #about p {
+    #about p,
+    #github p {
         padding-left: 0px;
+    }
+
+    .SkillLine {
+        margin: 10px 10px 0px 10px;
+    }
+
+    .calendar {
+        display: block;
     }
 }
 
@@ -124,8 +142,17 @@ body {
         padding: 8px 15px;
     }
 
-    #about p {
+    #about p,
+    #github p {
         padding-left: 100px;
+    }
+
+    .SkillLine {
+        margin: 10px 20px 0px 20px;
+    }
+
+    .calendar {
+        display: block;
     }
 
 }
@@ -275,7 +302,6 @@ a:visited {
 
 .SkillLine {
     display: block;
-    margin: 10px 0px 0px 50px;
     background-color: #fff;
     border-radius: 7px;
     padding: 5px;
