@@ -205,31 +205,31 @@ nav li:hover {
 }
 
 #AboutMeIcon {
-    background-image: url("aboutme.png");
+    background-image: url("../icons/aboutme.png");
     background-size: 40px;
     background-repeat: no-repeat;
 }
 
 #SkillsMeIcon {
-    background-image: url("skills.png");
+    background-image: url("../icons/skills.png");
     background-size: 40px;
     background-repeat: no-repeat;
 }
 
 #GithubIcon {
-    background-image: url("github.png");
+    background-image: url("../icons/github.png");
     background-size: 40px;
     background-repeat: no-repeat;
 }
 
 #ContactsIcon {
-    background-image: url("contacts.png");
+    background-image: url("../icons/contacts.png");
     background-size: 40px;
     background-repeat: no-repeat;
 }
 
 #HomeworkIcon {
-    background-image: url("homework.png");
+    background-image: url("../icons/homework.png");
     background-size: 40px;
     background-repeat: no-repeat;
 }
