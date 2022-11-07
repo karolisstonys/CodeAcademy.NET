@@ -65,18 +65,32 @@ div.box {
     margin-bottom: 10px;
     border: solid 1px gray;
     border-radius: 6px;
+    margin-right: 10px;
 }
 
 #hw_4_task3_textbox {
-
     display: inline-block;
+    width: 100px;
     padding: 5px;
-    margin-left: 10px;
     border: solid 1px red;
     border-radius: 6px;
+    margin-bottom: 10px;
 }
 
 #hw_4_task3_check_pizza_ingredients {
     clear: both;
     display: block;
+}
+
+#hw4_task4_clock {
+    display: inline-block;
+    width: 66px;
+    height: 22px;
+    margin: 10px;
+    border: solid 1px green;
+    padding: 5px;
+    background-color: black;
+    color: greenyellow;
+    font-weight: 900;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
