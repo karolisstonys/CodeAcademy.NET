@@ -34,8 +34,14 @@
         <p id="starships_cargo_capacity"></p>
         <p id="starships_consumables"></p>
     </div>
-    <div>
+    <div style="margin-top:50px">
+        <span>Planets:</span>
+        <button onclick="getSwapiAllPlanetsCount()">Count planets</button>
+        <div id="div_swapi_planet_counter">
+        </div>
         <button onclick="getSwapiAllPlanets()">Get planets</button>
+        <button onclick="getSwapiAllResidents()">Get residents</button>
+        <button onclick="getSwapiAllFilms()">Get films</button>
         <table id="table_swapi_planets"></table>
     </div>
 
