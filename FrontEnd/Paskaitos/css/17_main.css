@@ -1,0 +1,14 @@
+#table_swapi_planets {}
+
+#table_swapi_planets th {
+    padding: 0 10px;
+    margin: 0;
+    border: solid 1px darkgreen;
+    background-color: #00640050;
+}
+
+#table_swapi_planets td {
+    padding: 0 10px;
+    margin: 0;
+    border: solid 1px #00640050;
+}
