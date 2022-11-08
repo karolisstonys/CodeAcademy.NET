@@ -2,7 +2,7 @@ const urlStarships = 'https://swapi.dev/api/starships';
 const options = '';
 
 const getSwapiStarship = (obj) => {
-    fetch(urlStarships, options)
+    fetch(urlStarships)
         .then(response => response.json())
         .then(data => {
             starships_name.innerHTML = data.results[obj].name;
@@ -89,7 +89,7 @@ const getSwapiAllResidents = async () => {
             else if (residentData.gender === "female")
                 td.innerHTML += `<span title="${residentData.name}">👩</span>`;
             else
-                td.innerHTML += `<span title="${residentData.name}">👽</span>`;
+                td.innerHTML += `<span title="${residentData.name}">🤖</span>`;
         }
     }
 }
