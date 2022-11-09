@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/18_main.css">
+    <title>JS FETCH ALL</title>
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+
+    <div>
+        <h2>Post:</h2>
+        <form id="animal_form_post" class="form">
+            <label for="Name">Name:</label>
+            <input type="text" name="Name">
+            <label for="Type">Type:</label>
+            <input type="text" name="Type">
+            <label for="Legs">Legs:</label>
+            <input type="number" name="Legs">
+            <input type="button" id="animal_form_submit" value="Post">
+            <p id="post_message"></p>
+        </form>
+    </div>
+
+    <div>
+        <h2>Get by Id:</h2>
+        <div class="form">
+            <label for="Id">ID:</label>
+            <input type="text" name="Id" id="get_animal_by_id">
+            <input type="button" id="get_animal_button" value="Get by Id">
+            <p>ID: <span id="get_animal_id"></span></p>
+            <p>Name: <span id="get_animal_name"></span></p>
+            <p>Type: <span id="get_animal_type"></span></p>
+            <p>Legs: <span id="get_animal_legs"></span></p>
+            <p>Created: <span id="get_animal_created"></span></p>
+            <p>Modified: <span id="get_animal_modified"></span></p>
+        </div>
+    </div>
+
+    <div>
+        <h2>Update by Id:</h2>
+        <form id="animal_form_update" class="form">
+            <label for="Id">ID:</label>
+            <input type="text" name="Id" id="update_animal_by_id">
+            <label for="Name">Name:</label>
+            <input type="text" name="Name">
+            <label for="Type">Type:</label>
+            <input type="text" name="Type">
+            <label for="Legs">Legs:</label>
+            <input type="number" name="Legs">
+            <input type="button" id="update_animal_button" value="Update by Id">
+            <p id="update_message"></p>
+        </form>
+    </div>
+
+
+
+    <!-- SCRIPTS -->
+    <script src="js/18_js_fetch_all.js"></script>
+</body>
+
+</html>
