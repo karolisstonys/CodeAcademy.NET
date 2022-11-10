@@ -10,10 +10,15 @@ window.onload = function () {
     if (user) {
         user_id.innerHTML = user.ID;
         user_name.innerHTML = user.FirstName + " " + user.LastName;
+        getAllTodosForThisUser();
     };
 };
 
-const generateGuidQuickly = () => Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+const logout = () => {
+    localStorage.clear();
+    window.location.href = "index.html";
+}
+user_logout.addEventListener('click', logout);
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
@@ -25,8 +30,8 @@ function createNewTodo() {
     let newObject = {};
 
     form.forEach((value, key) => { newObject[key] = value });
+    //newObject['Completed'] = true;
     newObject['UserID'] = user.ID;
-    newObject['GUID'] = generateGuidQuickly();
 
     fetch(postURL, {
         method: 'post',
@@ -36,10 +41,15 @@ function createNewTodo() {
         },
         body: JSON.stringify(newObject)
     })
-        .then(obj => {
-            console.log(obj.json())
-            p_message.innerHTML += '<br>Naujas todo sukurtas sekmingai!';
-            getAllTodosForThisUser(); // TEMP
+        .then(res => {
+            if (res.ok) {
+                console.log(res.json());
+                p_message.innerHTML += '<br>Naujas todo sukurtas sekmingai!';
+                getAllTodosForThisUser();
+            }
+            else {
+                p_message.innerHTML += '<br>Klaida! - ' + + res.status;
+            }
         })
         .catch((err) => p_message.innerHTML += '<br>Todo sukurti nepavyko - ' + err);
 }
@@ -56,7 +66,7 @@ const getURL = 'https://testapi.io/api/4seven/resource/Todos';
 const getOptions = {
     method: 'get',
     headers: {
-        'Accept': 'application/json, text/plain, */*',
+        'Accept': 'application/json, text/plain',
         'Content-Type': 'application/json'
     }
 }
@@ -67,8 +77,37 @@ const saveToLocalStorage = (obj) => {
 
 const showUserTodos = () => {
     const allUserTodos = JSON.parse(localStorage.getItem('ALL_TODOS'));
+    div_all_todo.innerHTML = '';
     for (const todo of allUserTodos) {
-        p_message.innerHTML += `<br>${todo.Completed} ${todo.Type} ${todo.Content} ${todo.EndDate} ${todo.GUID}`;
+        let completed = todo.Completed ? '🗹' : '☐';
+        //❌💬💭
+        div_all_todo.innerHTML +=
+            `<div id="div_todo_${todo.ID}" class="div_todo">` +
+
+            `<div id="div_todo_mask_${todo.ID}" class="div_mask">` +
+            `<div>Ištrinti Todo (ID ${todo.ID})?</div>` +
+            `<div class="div_mask_buttons">` +
+            `<div class="todo_delete_confirm" onclick="confirmDeleteTodo(${todo.ID})">Trinti</div>` +
+            `<div class="todo_delete_cancel" onclick="cancelDeleteTodo(${todo.ID})">Atšaukti</div>` +
+            `</div></div>` +
+
+            `<div class="todo_header">` +
+            `<div class="todo_header_left">` +
+            `<div>${completed}</div>` +
+            `<div class="todo_enddate">${todo.EndDate}</div>` +
+            `</div><div class="todo_header_right">` +
+            `<div class="todo_icon" title="Įvykdyti">✔️</div>` +
+            `<div class="todo_icon" title="Redaguoti" onclick="editTodo(${todo.ID})">✏️</div>` +
+            `<div class="todo_icon" title="Trinti" onclick="deleteTodo(${todo.ID})">🗑️</div>` +
+            `</div></div>` +
+
+            `<div>${todo.Type}</div>` +
+            `<div class="todo_content">${todo.Content}</div>` +
+            `<div class="todo_footer"><div class="todo_icon" title="Sukurta: ${todo.Created}">${todo.Created}</div>` +
+            `<div class="todo_icon" title="Atnaujinta: ${todo.Updated}">${todo.Updated}</div></div>` +
+            `</div>`
+
+        //p_message.innerHTML += `<br>[${todo.ID}] ${todo.Completed} ${todo.Type} ${todo.Content} ${todo.EndDate} [${todo.Created}] [${todo.Updated}]`;
 
     }
 }
@@ -83,11 +122,13 @@ const getAllTodosForThisUser = () => {
             for (const todo of userTodoData.data) {
                 if (todo.UserID === user.ID) {
                     userTodosArr.push({
+                        ID: todo.id,
                         Completed: todo.Completed,
                         Type: todo.Type,
                         Content: todo.Content,
                         EndDate: todo.EndDate,
-                        GUID: todo.GUID
+                        Created: todo.createdAt.slice(0, 10) + ' ' + todo.createdAt.slice(11, 19),
+                        Updated: todo.updatedAt.slice(0, 10) + ' ' + todo.updatedAt.slice(11, 19)
                     });
                 }
             }
@@ -99,3 +140,52 @@ const getAllTodosForThisUser = () => {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
+
+//deleteTodo(${todo.ID})
+//confirmDeleteTodo(${todo.ID})
+//cancelDeleteTodo(${todo.ID})
+
+const fetchAndDeleteURL = 'https://testapi.io/api/4seven/resource/Todos/';
+const fetchTodoOptions = {
+    method: 'get',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    }
+}
+const deleteTodoOptions = {
+    method: 'delete',
+    headers: {
+        'Accept': 'application/json, text/plain',
+        'Content-Type': 'application/json'
+    }
+}
+
+const deleteTodo = (id) => {
+    document.getElementById('div_todo_mask_' + id).style.display = 'flex';
+}
+
+
+const confirmDeleteTodo = (id) => {
+
+    fetch(fetchAndDeleteURL + id, fetchTodoOptions)
+        .then((response) => response.json())
+        .then((todo) => {
+            console.log(`Todo rastas: ${todo}`);
+            //console.log(todo);
+            return fetch(fetchAndDeleteURL + id, deleteTodoOptions)
+        })
+        .then(res => {
+            if (res.ok) {
+                p_message.innerHTML += `<br>Todo (id - ${id}) sekmingai istrintas!`;
+                getAllTodosForThisUser();
+            }
+            else {
+                p_message.innerHTML += '<br>Klaida! - ' + + res.status;
+            }
+        })
+        .catch((error) => {
+            console.log(`Request failed with error: ${error}`);
+        })
+}
+

@@ -1,6 +1,6 @@
-const goToCreateUser = () => window.location.href = "index.html";
+const goToLogin = () => window.location.href = "login.html";
 
-p_login.addEventListener('click', goToCreateUser);
+p_login.addEventListener('click', goToLogin);
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
