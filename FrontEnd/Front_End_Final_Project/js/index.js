@@ -9,7 +9,14 @@ const form_login = document.querySelector('#form_login');
 const login_first_name = document.querySelector('#login_first_name');
 const login_last_name = document.querySelector('#login_last_name');
 
-function lookForUser() {
+
+const validateLogin = () => {
+    if (!login_first_name.value) return false;
+    if (!login_last_name.value) return false;
+    return true;
+};
+
+const lookForUser = () => {
     fetch('https://testapi.io/api/4seven/resource/Users', {
         method: 'get',
         headers: {
@@ -25,6 +32,9 @@ function lookForUser() {
                     user.LastName === login_last_name.value) {
                     message.innerHTML = 'Vartotojas rastas ' + user.Email;
                 }
+                else {
+                    message.innerHTML = 'Vartotojas nerastas';
+                }
             }
         })
         .catch((err) => message.innerHTML = err);
@@ -33,7 +43,11 @@ function lookForUser() {
 const login_button = document.querySelector('#login_button');
 login_button.addEventListener('click', (e) => {
     e.preventDefault(); // Breaks manual refresh after submit
-    lookForUser();
+    if (validateLogin())
+        lookForUser();
+    else {
+        message.innerHTML = 'Forma nevalidi!';
+    }
 })
 
 

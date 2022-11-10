@@ -25,9 +25,9 @@ function createNewUser() {
     })
         .then(obj => {
             console.log(obj.json())
-            message.innerHTML = 'sukurta rasta!';
+            message.innerHTML = 'Naujas vartotojas sukurtas sekmingai!';
         })
-        .catch((err) => message.innerHTML = err);
+        .catch((err) => message.innerHTML = 'Vartotoją sukurti nepavyko - ' + err);
 }
 
 const form_create_user_submit = document.querySelector('#form_create_user_submit');
