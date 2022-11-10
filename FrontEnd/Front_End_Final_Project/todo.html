@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo</title>
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+    <h1>ToDo</h1>
+    <h3 id="user_id"></h3>
+    <h3 id="user_name"></h3>
+
+    <div id="div_create_new_todo">
+        <form id="form_new_todo">
+            <div>
+                <label for="Type">Type:</label>
+                <input type="text" name="Type">
+            </div>
+            <div>
+                <label for="Content">Content:</label>
+                <input type="text" name="Content">
+            </div>
+            <div>
+                <label for="EndDate">EndDate:</label>
+                <input type="text" name="EndDate">
+            </div>
+            <input type="button" id="form_new_todo_submit" value="Create new todo">
+        </form>
+    </div>
+
+    <p id="p_message"></p>
+    <p style="color: red;">- validacijos</p>
+    <p style="color: red;">- dizainas</p>
+    <p style="color: red;">- uzkrauti visus todo i sesijos/local storage</p>
+    <p style="color: red;">- paieska/filtracija todo is sesijos/local storage</p>
+    <p style="color: red;">- «input type="text" name="Content"» pakeisti i textarea</p>
+
+    <div id="div_show_all_todo"></div>
+
+    <!-- SCRIPTS -->
+    <script src="js/todo.js"></script>
+</body>
+
+</html>
