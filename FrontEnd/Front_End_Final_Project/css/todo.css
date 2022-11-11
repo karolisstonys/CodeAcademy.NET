@@ -1,22 +1,45 @@
-/** {
+body {
     margin: 0;
     padding: 0;
+    background-color: #666;
 }
 
-body {}*/
+label {
+    width: 65px;
+    display: inline-block;
+    justify-content: end;
+}
+
+input {
+    width: 150px;
+    display: inline-block;
+}
+
+
+
+#todo_window_header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: end;
+}
+
+#todo_window_header>div {
+    margin: 0 5px 0 0;
+}
 
 #div_menu_and_all_todo {
     display: flex;
     flex-flow: column nowrap;
     margin: 5px;
-    border: solid 1px #5c3f00;
-    background-color: #815800;
+    /*border: solid 1px #5c3f00;
+    background-color: #815800;*/
     color: #fff;
 }
 
+
 #form_new_todo {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     margin: 5px;
 }
 
@@ -34,8 +57,8 @@ body {}*/
 #div_all_todo {
     display: flex;
     flex-flow: row wrap;
-    background-color: #888;
-    border: solid 1px #5c3f00;
+    /*background-color: #888;
+    border: solid 1px #5c3f00;*/
     /*border-radius: 50px;*/
     padding: 10px;
     margin: 5px;
@@ -48,15 +71,69 @@ body {}*/
     position: relative;
     margin: 15px 20px 15px 10px;
     padding: 0px;
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
     text-decoration: none;
     color: #000;
     background-color: #ffc;
     box-shadow: 5px 5px 5px rgba(33, 33, 33, .8);
 }
 
-.div_mask {
+.div_edit_mask {
+    display: none;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 252px;
+    height: 252px;
+    z-index: 5;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: #fff;
+    font-size: 15px;
+}
+
+.div_edit_mask>div {
+    margin: 5px 0;
+}
+
+.div_edit_mask_buttons {
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.todo_edit_confirm,
+.todo_edit_cancel {
+    display: inline-block;
+    margin: 0 10px;
+    padding: 3px 6px;
+    border-radius: 8px;
+}
+
+.todo_edit_confirm {
+    border: solid 1px #999;
+    background-color: #008000;
+}
+
+.todo_edit_confirm:hover {
+    background-color: #00ad00;
+    cursor: pointer;
+}
+
+.todo_edit_cancel {
+    border: solid 1px #999;
+    background-color: #333;
+}
+
+.todo_edit_cancel:hover {
+    background-color: #555;
+    cursor: pointer;
+}
+
+.div_delete_mask {
     display: none;
     flex-flow: column nowrap;
     justify-content: space-evenly;
@@ -64,19 +141,19 @@ body {}*/
     position: absolute;
     top: -1px;
     left: -1px;
-    width: 202px;
-    height: 202px;
+    width: 252px;
+    height: 252px;
     z-index: 10;
     background-color: rgba(0, 0, 0, 0.9);
     color: #fff;
+    font-size: 20px;
     font-weight: 600;
 }
 
-.div_mask_buttons {
+.div_delete_mask_buttons {
     flex-flow: row nowrap;
     justify-content: space-evenly;
     align-items: center;
-
 }
 
 .todo_delete_confirm,
@@ -85,26 +162,25 @@ body {}*/
     margin: 0 10px;
     padding: 3px 6px;
     border-radius: 8px;
-
 }
 
 .todo_delete_confirm {
     border: solid 1px #999;
-    background-color: green;
+    background-color: #b80000;
 }
 
 .todo_delete_confirm:hover {
-    background-color: #00b800;
+    background-color: #ff1f1f;
     cursor: pointer;
 }
 
 .todo_delete_cancel {
     border: solid 1px #999;
-    background-color: #b80000;
+    background-color: #333;
 }
 
 .todo_delete_cancel:hover {
-    background-color: red;
+    background-color: #555;
     cursor: pointer;
 }
 
@@ -161,7 +237,8 @@ body {}*/
 
 .todo_enddate {
     color: #666;
-    font-size: 12px;
+    font-family: 'Reenie Beanie';
+    font-size: 25px;
 }
 
 .todo_footer {
@@ -182,7 +259,7 @@ body {}*/
     padding: 0;
 }
 
-.todo_header>div:hover {
+.todo_header_right>div:hover {
     cursor: pointer;
 }
 
@@ -198,8 +275,29 @@ body {}*/
     display: inline-block;
 }
 
-.todo_content {
-    padding: 7px;
+.todo_type {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    margin: 0;
+    padding: 7px 7px 0 7px;
     font-family: 'Reenie Beanie';
-    font-size: 35px;
+    font-size: 28px;
+    text-transform: uppercase;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+}
+
+.todo_content {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    margin: 0;
+    padding: 0px 7px;
+    font-family: 'Reenie Beanie';
+    font-size: 31px;
+    overflow: hidden;
+    max-height: 184px;
 }
