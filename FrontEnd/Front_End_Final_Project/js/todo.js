@@ -165,6 +165,11 @@ const deleteTodo = (id) => {
     document.getElementById('div_todo_mask_' + id).style.display = 'flex';
 }
 
+const cancelDeleteTodo = (id) => {
+    document.getElementById('div_todo_mask_' + id).style.display = 'none';
+}
+
+
 
 const confirmDeleteTodo = (id) => {
 
