@@ -8,11 +8,12 @@ window.onload = function () {
         window.location.href = "index.html";
     };
     if (user) {
-        user_id.innerHTML = user.ID;
         user_name.innerHTML = user.FirstName + " " + user.LastName;
         getAllTodosForThisUser();
     };
 };
+const toggleTodoForm = () => div_create_new_todo.style.display = (div_create_new_todo.style.display == 'none') ? 'block' : 'none';
+create_new_todo.addEventListener('click', toggleTodoForm);
 
 const logout = () => {
     localStorage.clear();
@@ -85,6 +86,7 @@ const showUserTodos = () => {
             `<div id="div_todo_${todo.ID}" class="div_todo">` +
 
             `<div id="div_edit_todo_mask_${todo.ID}" class="div_edit_mask">` +
+            `<div><h2>Redagavimas</h2></div>` +
             `<div><label for="Type">Type:</label><input type="text" id="update_type_${todo.ID}" value="${todo.Type}"></div>` +
             `<div><label for="Content">Content:</label><input type="text" id="update_content_${todo.ID}" value="${todo.Content}"></div>` +
             `<div><label for="EndDate">EndDate:</label><input type="text" id="update_enddate_${todo.ID}" value="${todo.EndDate}"></div>` +

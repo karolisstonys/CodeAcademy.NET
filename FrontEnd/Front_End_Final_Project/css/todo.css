@@ -1,7 +1,8 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #666;
+    background-color: #888;
+    color: #fff;
 }
 
 label {
@@ -15,16 +16,34 @@ input {
     display: inline-block;
 }
 
-
-
 #todo_window_header {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: end;
+    justify-content: space-between;
+    margin: 0;
+    padding: 3px 0 0 0;
 }
 
-#todo_window_header>div {
-    margin: 0 5px 0 0;
+#todo_window_header div {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    margin: 0 3px 0 3px;
+}
+
+#create_new_todo,
+#user_logout {
+    border: solid 1px black;
+    border-radius: 10px;
+    background-color: #00000099;
+    padding: 5px;
+    margin: 2px 1px 1px 1px;
+    color: #fff;
+}
+
+#user_name {
+    padding: 0px;
+    font-size: 22px;
 }
 
 #div_menu_and_all_todo {
@@ -36,6 +55,12 @@ input {
     color: #fff;
 }
 
+#div_create_new_todo {
+    display: none;
+    border: solid 1px black;
+    border-radius: 10px;
+    background-color: #000;
+}
 
 #form_new_todo {
     display: flex;
@@ -90,9 +115,14 @@ input {
     width: 252px;
     height: 252px;
     z-index: 5;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: #303020ee;
     color: #fff;
     font-size: 15px;
+}
+
+.div_edit_mask h2 {
+    margin: 0;
+    padding: 0;
 }
 
 .div_edit_mask>div {
@@ -144,7 +174,7 @@ input {
     width: 252px;
     height: 252px;
     z-index: 10;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: #303020ee;
     color: #fff;
     font-size: 20px;
     font-weight: 600;
