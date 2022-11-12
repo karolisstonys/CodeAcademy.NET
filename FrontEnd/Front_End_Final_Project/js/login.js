@@ -1,4 +1,4 @@
-const goToCreateUser = () => window.location.href = "create_user.html";
+const goToCreateUser = () => window.location.href = "user.html";
 const goToToDo = () => window.location.href = "todo.html";
 
 p_create_user.addEventListener('click', goToCreateUser);
@@ -9,7 +9,7 @@ const form_login = document.querySelector('#form_login');
 const login_first_name = document.querySelector('#login_first_name');
 const login_last_name = document.querySelector('#login_last_name');
 
-const validateLogin = () => {
+const validateForm = () => {
     if (!login_first_name.value) return false;
     if (!login_last_name.value) return false;
     return true;
@@ -60,7 +60,7 @@ const lookForUser = () => {
 const login_button = document.querySelector('#login_button');
 login_button.addEventListener('click', (e) => {
     e.preventDefault(); // Breaks manual refresh after submit
-    if (validateLogin())
+    if (validateForm())
         lookForUser();
     else {
         p_message.innerHTML += '<br>Forma nėra validi!';

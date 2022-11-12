@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/user.css">
+    <title>Susikurkite nauja vartotoją</title>
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+    <form id="form_create_user">
+        <h2>Naujas vartotojas</h2>
+        <div>
+            <label for="FirstName">Vardas:</label>
+            <input type="text" name="FirstName" id="user_first_name">
+        </div>
+        <div>
+            <label for="LastName">Pavardė:</label>
+            <input type="text" name="LastName" id="user_last_name">
+        </div>
+        <div>
+            <label for="Email">El. paštas:</label>
+            <input type="text" name="Email" id="user_email">
+        </div>
+        <a href="#" id="form_create_user_submit">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Kurti
+        </a>
+        <a href="login.html" id="login_link">Jau turite paskyrą? Prisijunkite.</a>
+    </form>
+    <div id="messenger"></div>
+
+    <!--SCRIPTS -->
+    <script src="js/user.js"></script>
+</body>
+
+</html>
