@@ -279,13 +279,24 @@
     cursor: help;
 }
 
-.todo_icon {
-    display: none;
+@media (pointer:coarse) {
+
+    .todo_icon {
+        display: inline-block;
+    }
 }
 
-.div_todo:hover .todo_icon {
-    display: inline-block;
+@media not screen and (any-pointer: coarse) {
+
+    .todo_icon {
+        display: none;
+    }
+
+    .div_todo:hover .todo_icon {
+        display: inline-block;
+    }
 }
+
 
 .todo_type {
     display: flex;
