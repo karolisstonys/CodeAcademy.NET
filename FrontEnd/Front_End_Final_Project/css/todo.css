@@ -13,7 +13,7 @@
     margin: 0 3px 0 3px;
 }
 
-#create_new_todo,
+/*#create_new_todo,
 #user_logout {
     border: solid 1px black;
     border-radius: 10px;
@@ -21,7 +21,7 @@
     padding: 5px;
     margin: 2px 1px 1px 1px;
     color: #fff;
-}
+}*/
 
 #user_name {
     padding: 0px;
@@ -323,4 +323,21 @@
     font-size: 31px;
     overflow: hidden;
     max-height: 184px;
+}
+
+/********************************************************************************************************/
+
+#todo_window_header #create_new_todo,
+#todo_window_header #user_logout {
+    position: relative;
+    display: inline-block;
+    padding: 3px 6px;
+    color: #03e9f4;
+    font-size: 14px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    /*margin: 25px 0px 10px 0px;*/
+    letter-spacing: 4px
 }

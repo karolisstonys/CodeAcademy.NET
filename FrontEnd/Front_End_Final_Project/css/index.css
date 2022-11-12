@@ -29,7 +29,8 @@ body {
 .index-box>div {
     padding-top: 35px;
     margin-bottom: 35px;
-    color: #243b55;
+    /*color: #243b55;*/
+    color: #3a6596;
 }
 
 .index-box a {

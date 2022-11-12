@@ -89,7 +89,8 @@ input {
 #login_link {
     margin: 15px 0px 0px 0px;
     text-decoration: none;
-    color: #243b55;
+    /*color: #243b55;*/
+    color: #3a6596;
 }
 
 #login_link:hover {
