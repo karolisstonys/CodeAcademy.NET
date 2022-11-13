@@ -14,8 +14,6 @@ html {
     margin: auto;
 }
 
-
-
 body {
     display: table-cell;
     vertical-align: middle;
@@ -67,7 +65,6 @@ body {
         display: none;
     }
 }
-
 
 @media only screen and (min-width: 700px) {
     /* For tablet: */
