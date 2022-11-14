@@ -11,7 +11,7 @@ document.addEventListener("keypress", (event) => {
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-let counter = 0;
+let messageID = 0;
 const clearMessage = (id) => {
     setTimeout(() => {
         document.getElementById('message_' + id).remove();
@@ -19,9 +19,9 @@ const clearMessage = (id) => {
 }
 
 const message = (text) => {
-    messenger.innerHTML += `<div id="message_${counter}">${text}</div>`;
-    clearMessage(counter);
-    counter++;
+    messenger.innerHTML += `<div id="message_${messageID}">${text}</div>`;
+    clearMessage(messageID);
+    messageID++;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////

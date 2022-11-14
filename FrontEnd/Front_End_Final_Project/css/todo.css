@@ -440,3 +440,35 @@
         bottom: 100%;
     }
 }
+
+/********************************************************************************************************/
+
+#messenger {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: flex-end;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding-right: 20px;
+    padding-bottom: 30px;
+}
+
+#messenger>div {
+    display: inline-block;
+    border-radius: 5px;
+    padding: 8px;
+    margin-top: 5px;
+    white-space: nowrap;
+}
+
+#messenger>div.red {
+    border: solid 1px red;
+    color: red;
+}
+
+#messenger>div.green {
+    border: solid 1px green;
+    color: green;
+}

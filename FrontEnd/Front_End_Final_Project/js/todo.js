@@ -20,6 +20,25 @@ user_logout.addEventListener('click', logout);
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+let messageID = 0;
+const clearMessage = (id, timer) => {
+    setTimeout(() => {
+        document.getElementById('message_' + id).remove();
+    }, timer);
+}
+
+let ms = 5000;
+const message = (text, color, timer) => {
+    messenger.innerHTML += `<div id="message_${messageID}" class="${color}">${text}</div>`;
+    if (timer != null) ms = timer;
+    clearMessage(messageID, ms);
+    messageID++;
+}
+
+message('validacijos', 'red', 360000);
+message('paieska/filtracija todo is sesijos/local storage', 'red', 360000);
+
+///////////////////////////////////////////////////////////////////////////////////////////
 const form_new_todo = document.querySelector('#form_new_todo');
 const postURL = 'https://testapi.io/api/4seven/resource/Todos';
 
@@ -169,6 +188,8 @@ const buildTodoObject = (id, state) => {
 
 const confirmEditTodo = (id, state) => {
     buildTodoObject(id, state);
+
+    //validate Type , Content , EndDate
 
     fetch(fetchTodoURL + id, {
         method: 'put',
