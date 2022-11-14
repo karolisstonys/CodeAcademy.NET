@@ -147,7 +147,6 @@ const getAllTodosForThisUser = () => {
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-
 const editTodo = (id) => {
     document.getElementById('div_edit_todo_mask_' + id).style.display = 'flex';
 }

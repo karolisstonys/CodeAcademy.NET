@@ -41,6 +41,12 @@ const clearForm = () => {
     user_email.value = '';
 };
 
+const goToToDo = () => window.location.href = "todo.html";
+
+const saveToLocalStorage = (obj) => {
+    localStorage.setItem('USER', JSON.stringify(obj));
+};
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 document.addEventListener("keypress", (event) => {
@@ -108,11 +114,4 @@ form_create_user_submit.addEventListener('click', (e) => {
     if (validateForm()) createNewUser();
 })
 
-
-
-
-
-
-
-
-
+///////////////////////////////////////////////////////////////////////////////////////////
