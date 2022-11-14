@@ -1,5 +1,6 @@
 //JSON.stringify(userObj)
 //JSON.parse(userObj)
+
 const user = JSON.parse(localStorage.getItem('USER'));
 
 window.onload = function () {
@@ -8,11 +9,11 @@ window.onload = function () {
         window.location.href = "index.html";
     };
     if (user) {
-        user_name.innerHTML = user.FirstName + " " + user.LastName;
+        logo.title = user.FirstName + " " + user.LastName;
         getAllTodosForThisUser();
     };
 };
-const toggleTodoForm = () => div_create_new_todo.style.display = (div_create_new_todo.style.display == 'none') ? 'block' : 'none';
+const toggleTodoForm = () => div_create_new_todo.style.display = (div_create_new_todo.style.display === 'none') ? 'block' : 'none';
 create_new_todo.addEventListener('click', toggleTodoForm);
 
 const logout = () => {
@@ -31,7 +32,6 @@ function createNewTodo() {
     let newObject = {};
 
     form.forEach((value, key) => { newObject[key] = value });
-    //newObject['Completed'] = true;
     newObject['UserID'] = user.ID;
 
     fetch(postURL, {
@@ -57,7 +57,7 @@ function createNewTodo() {
 
 const form_new_todo_submit = document.querySelector('#form_new_todo_submit');
 form_new_todo_submit.addEventListener('click', (e) => {
-    e.preventDefault(); // Breaks manual refresh after submit
+    e.preventDefault();
     createNewTodo();
 })
 
@@ -169,7 +169,6 @@ const confirmEditTodo = (id) => {
     updatedObject['Type'] = document.getElementById('update_type_' + id).value;
     updatedObject['Content'] = document.getElementById('update_content_' + id).value;
     updatedObject['EndDate'] = document.getElementById('update_enddate_' + id).value;
-    //updatedObject['Completed'] = user.ID;
 
     fetch(fetchTodoURL + id, {
         method: 'put',
@@ -216,25 +215,44 @@ const deleteTodoOptions = {
 }
 
 const confirmDeleteTodo = (id) => {
-
     fetch(fetchTodoURL + id, fetchTodoOptions)
-        .then((response) => response.json())
+        .then((response) => {
+            console.log('res:');
+            console.log(response);
+            console.log('res1');
+            if (response.ok) {
+                console.log('response.ok');
+            }
+            else {
+                p_message.innerHTML += `<br>Klaida1 - ` + response.status;
+                console.log('response.NOT.ok');
+            }
+            console.log('res2');
+            return response.json()
+        })
         .then((todo) => {
-            console.log(`Todo rastas: ${todo}`);
-            //console.log(todo);
+
+            console.log('1');
+            console.log(todo);
             return fetch(fetchTodoURL + id, deleteTodoOptions)
         })
         .then(res => {
+            console.log('2');
             if (res.ok) {
+                console.log('3');
                 p_message.innerHTML += `<br>Todo (id - ${id}) sekmingai istrintas!`;
                 getAllTodosForThisUser();
+                console.log('4');
             }
             else {
-                p_message.innerHTML += '<br>Klaida! - ' + + res.status;
+                console.log('5');
+                p_message.innerHTML += '<br>Klaida: ' + res.status;
             }
+            console.log('6');
         })
         .catch((error) => {
-            console.log(`Request failed with error: ${error}`);
+            p_message.innerHTML += `<br>Klaida2: ${error}`;
+            console.log('E');
         })
 }
 
