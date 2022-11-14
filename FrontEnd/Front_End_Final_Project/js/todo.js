@@ -107,7 +107,7 @@ const showUserTodos = () => {
             `<div>${completed}</div>` +
             `<div class="todo_enddate">${todo.EndDate}</div>` +
             `</div><div class="todo_header_right">` +
-            `<div class="todo_icon" title="Įvykdyti">✔️</div>` +
+            `<div class="todo_icon" title="Įvykdyti" onclick="confirmEditTodo(${todo.ID}, true)">✔️</div>` +
             `<div class="todo_icon" title="Redaguoti" onclick="editTodo(${todo.ID})">✏️</div>` +
             `<div class="todo_icon" title="Trinti" onclick="deleteTodo(${todo.ID})">🗑️</div>` +
             `</div></div>` +
@@ -162,13 +162,18 @@ const cancelEditTodo = (id) => {
 
 const fetchTodoURL = 'https://testapi.io/api/4seven/resource/Todos/';
 
-const confirmEditTodo = (id) => {
-    let updatedObject = {};
-
+let updatedObject = {};
+const buildTodoObject = (id, state) => {
+    updatedObject = {};
+    if (state != null) updatedObject['Completed'] = state;
     updatedObject['UserID'] = user.ID;
     updatedObject['Type'] = document.getElementById('update_type_' + id).value;
     updatedObject['Content'] = document.getElementById('update_content_' + id).value;
     updatedObject['EndDate'] = document.getElementById('update_enddate_' + id).value;
+}
+
+const confirmEditTodo = (id, state) => {
+    buildTodoObject(id, state);
 
     fetch(fetchTodoURL + id, {
         method: 'put',
@@ -206,6 +211,7 @@ const fetchTodoOptions = {
         'Content-Type': 'application/json'
     }
 }
+
 const deleteTodoOptions = {
     method: 'delete',
     headers: {
@@ -216,43 +222,35 @@ const deleteTodoOptions = {
 
 const confirmDeleteTodo = (id) => {
     fetch(fetchTodoURL + id, fetchTodoOptions)
-        .then((response) => {
-            console.log('res:');
-            console.log(response);
-            console.log('res1');
-            if (response.ok) {
-                console.log('response.ok');
+        .then((fetchResponse) => {
+            console.log(fetchResponse);
+            if (fetchResponse.ok) {
+                console.log('fetchResponse.ok');
             }
             else {
-                p_message.innerHTML += `<br>Klaida1 - ` + response.status;
-                console.log('response.NOT.ok');
+                p_message.innerHTML += `<br>Klaida1 - ` + fetchResponse.status;
+                console.log('fetchResponse.NOT.ok');
             }
-            console.log('res2');
-            return response.json()
+            return fetchResponse.json()
         })
-        .then((todo) => {
-
-            console.log('1');
-            console.log(todo);
+        .then(() => {
             return fetch(fetchTodoURL + id, deleteTodoOptions)
-        })
-        .then(res => {
-            console.log('2');
-            if (res.ok) {
-                console.log('3');
-                p_message.innerHTML += `<br>Todo (id - ${id}) sekmingai istrintas!`;
-                getAllTodosForThisUser();
-                console.log('4');
-            }
-            else {
-                console.log('5');
-                p_message.innerHTML += '<br>Klaida: ' + res.status;
-            }
-            console.log('6');
+                .then(deleteResponse => {
+                    console.log(deleteResponse);
+                    if (deleteResponse.ok) {
+                        p_message.innerHTML += `<br>Todo (id - ${id}) sekmingai istrintas!`;
+                        getAllTodosForThisUser();
+                    }
+                    else {
+                        p_message.innerHTML += '<br>Klaida2: ' + deleteResponse.status;
+                    }
+                })
+                .catch((error) => {
+                    p_message.innerHTML += `<br>Klaida3: ${error}`;
+                })
         })
         .catch((error) => {
-            p_message.innerHTML += `<br>Klaida2: ${error}`;
-            console.log('E');
+            p_message.innerHTML += `<br>Klaida4: ${error}`;
         })
 }
 
