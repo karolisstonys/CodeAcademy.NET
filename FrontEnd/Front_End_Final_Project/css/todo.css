@@ -3,7 +3,8 @@
     flex-flow: row nowrap;
     justify-content: space-between;
     margin: 0;
-    padding: 3px 0 0 0;
+    padding: 0 0 0 0;
+    background-color: #141e30;
 }
 
 #todo_window_header div {
@@ -13,15 +14,17 @@
     margin: 0 3px 0 3px;
 }
 
-/*#create_new_todo,
+#create_new_todo,
 #user_logout {
-    border: solid 1px black;
-    border-radius: 10px;
-    background-color: #00000099;
-    padding: 5px;
-    margin: 2px 1px 1px 1px;
-    color: #fff;
-}*/
+    margin-top: 5px;
+}
+
+#logo {
+    width: 300px;
+    height: 38px;
+    background-image: url('../img/logo_h38px.jpg');
+    background-repeat: no-repeat;
+}
 
 #user_name {
     padding: 0px;
@@ -38,7 +41,7 @@
 }
 
 #div_create_new_todo {
-    display: none;
+    /*display: none;*/
     border: solid 1px black;
     border-radius: 10px;
     background-color: #000;
@@ -331,13 +334,109 @@
 #todo_window_header #user_logout {
     position: relative;
     display: inline-block;
-    padding: 3px 6px;
+    padding: 6px 10px 4px 10px;
+    height: 18px;
     color: #03e9f4;
     font-size: 14px;
     text-decoration: none;
     text-transform: uppercase;
+    justify-content: baseline;
     overflow: hidden;
     transition: .5s;
     /*margin: 25px 0px 10px 0px;*/
-    letter-spacing: 4px
+    letter-spacing: 3px
+}
+
+
+#todo_window_header #create_new_todo span,
+#todo_window_header #user_logout span {
+    position: absolute;
+    display: block;
+}
+
+#todo_window_header #create_new_todo:hover span:nth-child(1),
+#todo_window_header #user_logout:hover span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #03e9f4);
+    animation: btn-anim1 1s linear infinite;
+}
+
+@keyframes btn-anim1 {
+    0% {
+        left: -100%;
+    }
+
+    50%,
+    100% {
+        left: 100%;
+    }
+}
+
+#todo_window_header #create_new_todo:hover span:nth-child(2),
+#todo_window_header #user_logout:hover span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #03e9f4);
+    animation: btn-anim2 1s linear infinite;
+    animation-delay: 0.25s
+}
+
+@keyframes btn-anim2 {
+    0% {
+        top: -100%;
+    }
+
+    50%,
+    100% {
+        top: 100%;
+    }
+}
+
+#todo_window_header #create_new_todo:hover span:nth-child(3),
+#todo_window_header #user_logout:hover span:nth-child(3) {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(270deg, transparent, #03e9f4);
+    animation: btn-anim3 1s linear infinite;
+    animation-delay: 0.5s
+}
+
+@keyframes btn-anim3 {
+    0% {
+        right: -100%;
+    }
+
+    50%,
+    100% {
+        right: 100%;
+    }
+}
+
+#todo_window_header #create_new_todo:hover span:nth-child(4),
+#todo_window_header #user_logout:hover span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, #03e9f4);
+    animation: btn-anim4 1s linear infinite;
+    animation-delay: 0.75s
+}
+
+@keyframes btn-anim4 {
+    0% {
+        bottom: -100%;
+    }
+
+    50%,
+    100% {
+        bottom: 100%;
+    }
 }

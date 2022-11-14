@@ -36,6 +36,15 @@ const saveToLocalStorage = (obj) => {
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+document.addEventListener("keypress", (event) => {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        document.getElementById("login_button").click();
+    }
+});
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
 const getURL = 'https://testapi.io/api/4seven/resource/Users';
 const getOptions = {
     method: 'get',
@@ -45,6 +54,7 @@ const getOptions = {
     }
 }
 
+let userNotFound = true;
 const lookForUser = () => {
     fetch(getURL, getOptions)
         .then(obj => obj.json())
@@ -53,6 +63,7 @@ const lookForUser = () => {
             for (const user of userData.data) {
                 if (user.FirstName === login_first_name.value &&
                     user.LastName === login_last_name.value) {
+                    userNotFound = false;
                     //message('Vartotojas rastas.');
                     const userObj = {
                         ID: user.id,
@@ -69,7 +80,7 @@ const lookForUser = () => {
                     break;
                 }
             }
-            message('Vartotojas nerastas!');
+            if (userNotFound) message('Vartotojas nerastas!');
         })
         .catch((err) => message('Klaida - ' + err));
 }

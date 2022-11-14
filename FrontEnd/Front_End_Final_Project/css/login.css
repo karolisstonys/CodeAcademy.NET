@@ -26,34 +26,23 @@ input {
     top: 50%;
     left: 50%;
     width: 400px;
-    padding: 50px 20px 20px 20px;
+    padding: 8px 20px 20px 20px;
     transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, .5);
+    background: #141e30;
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0, 0, 0, .5);
     border-radius: 10px;
+    border: solid 1px #243b55;
 }
 
-#messenger {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: calc(50% + 140px);
-    left: 50%;
-    /*width: 380px;*/
-    transform: translate(-50%, 0%);
-}
-
-#messenger>div {
-    display: inline-block;
-    border: solid 1px red;
-    border-radius: 5px;
-    padding: 8px;
-    margin-top: 2px;
-    color: red;
-    white-space: nowrap;
+#logo {
+    width: 398px;
+    height: 140px;
+    background-image: url('../img/logo_by_k_w420px.jpg');
+    background-repeat: no-repeat;
+    background-size: 400px;
+    padding: 0px !important;
+    margin: 0px !important;
 }
 
 #form_login>div {
@@ -89,8 +78,9 @@ input {
 #login_link {
     margin: 15px 0px 0px 0px;
     text-decoration: none;
-    /*color: #243b55;*/
-    color: #3a6596;
+    /*color: #243b55;
+    color: #243b55;*/
+    color: #243b55;
 }
 
 #login_link:hover {
@@ -184,4 +174,25 @@ input {
     100% {
         bottom: 100%;
     }
+}
+
+#messenger {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: calc(50% + 190px);
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+#messenger>div {
+    display: inline-block;
+    border: solid 1px red;
+    border-radius: 5px;
+    padding: 8px;
+    margin-top: 2px;
+    color: red;
+    white-space: nowrap;
 }

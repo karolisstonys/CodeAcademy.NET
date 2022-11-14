@@ -12,10 +12,11 @@ const message = (text) => {
 }
 
 const validateForm = () => {
-    if (!user_first_name.value) return false;
-    if (!user_last_name.value) return false;
-    if (!user_email.value) return false;
-    return true;
+    let rtn = true;
+    if (!user_first_name.value) { rtn = false; }
+    if (!user_last_name.value) { rtn = false; }
+    if (!user_email.value) { rtn = false; }
+    return rtn;
 };
 
 const clearForm = () => {
@@ -23,12 +24,22 @@ const clearForm = () => {
     user_last_name.value = '';
     user_email.value = '';
 };
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+document.addEventListener("keypress", (event) => {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        document.getElementById("form_create_user_submit").click();
+    }
+});
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 const form_create_user = document.querySelector('#form_create_user');
 const postURL = 'https://testapi.io/api/4seven/resource/Users';
 
-function createNewUser() {
+const createNewUser = () => {
     let form = new FormData(form_create_user);
     let newObject = {};
 
