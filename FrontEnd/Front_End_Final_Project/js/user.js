@@ -11,13 +11,29 @@ const message = (text) => {
     counter++;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////
+
 const validateForm = () => {
-    let rtn = true;
-    if (!user_first_name.value) { rtn = false; }
-    if (!user_last_name.value) { rtn = false; }
-    if (!user_email.value) { rtn = false; }
-    return rtn;
+    let isValid = true;
+    if (!user_first_name.value) isValid = false;
+    if (!user_last_name.value) isValid = false;
+    if (!user_email.value) isValid = false;
+
+    if (!isValid) {
+        message('Visi laukai yra privalomi, prašome užpildyti tuščius laukus!');
+    }
+
+    if (user_email.value && !validateEmail(user_email.value)) {
+        isValid = false;
+        message('Blogai įvestas el. paštas');
+    }
+    return isValid;
 };
+
+function validateEmail(text) {
+    var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(text);
+}
 
 const clearForm = () => {
     user_first_name.value = '';
@@ -34,6 +50,14 @@ document.addEventListener("keypress", (event) => {
     }
 });
 
+const wannaGoToTodo = () => {
+    if (confirm("Naujas vartotojas sukurtas sekmingai! Ar norite prisijungti?") == true) {
+        goToToDo();
+    } else {
+        message('Sveikiname sekmingai sukurus savo vartotoją!');
+    }
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 const form_create_user = document.querySelector('#form_create_user');
@@ -43,34 +67,45 @@ const createNewUser = () => {
     let form = new FormData(form_create_user);
     let newObject = {};
 
-    console.log(form);
-
     form.forEach((value, key) => { newObject[key] = value });
 
     fetch(postURL, {
         method: 'post',
         headers: {
-            'Accept': 'application/json, text/plain',
+            'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(newObject)
     })
-        .then(obj => {
-            console.log(obj.json());
-            clearForm();
-            message('Naujas vartotojas sukurtas sekmingai!');
+        .then(res => {
+            //console.log(res);
+            //console.log(res.json());
+            if (res.ok) {
+                clearForm();
+                return res.json();
+            }
+            else message('Klaida: ' + res.status);
+
+        })
+        .then(u => {
+            const userObj = {
+                ID: u.id,
+                FirstName: u.FirstName,
+                LastName: u.LastName,
+                Email: u.Email,
+                Created: u.createdAt.slice(0, 10) + ' ' + u.createdAt.slice(11, 19),
+                Updated: u.updatedAt.slice(0, 10) + ' ' + u.updatedAt.slice(11, 19)
+            }
+            saveToLocalStorage(userObj);
+            wannaGoToTodo();
         })
         .catch((err) => message('Klaida - ' + err));
 }
 
 const form_create_user_submit = document.querySelector('#form_create_user_submit');
 form_create_user_submit.addEventListener('click', (e) => {
-    e.preventDefault(); // Breaks manual refresh after submit
-    if (validateForm())
-        createNewUser();
-    else {
-        message('Visi privalomi laukai turi būti užpildyti!');
-    }
+    e.preventDefault();
+    if (validateForm()) createNewUser();
 })
 
 

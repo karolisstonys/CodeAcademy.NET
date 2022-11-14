@@ -1,8 +1,13 @@
-const goToToDo = () => window.location.href = "todo.html";
-
 const form_login = document.querySelector('#form_login');
 const login_first_name = document.querySelector('#login_first_name');
 const login_last_name = document.querySelector('#login_last_name');
+
+document.addEventListener("keypress", (event) => {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        document.getElementById("login_button").click();
+    }
+});
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
@@ -18,6 +23,9 @@ const message = (text) => {
     clearMessage(counter);
     counter++;
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
 const validateForm = () => {
     if (!login_first_name.value) return false;
     if (!login_last_name.value) return false;
@@ -30,18 +38,10 @@ const clearForm = () => {
     user_email.value = '';
 };
 
+const goToToDo = () => window.location.href = "todo.html";
 const saveToLocalStorage = (obj) => {
     localStorage.setItem('USER', JSON.stringify(obj));
 };
-
-///////////////////////////////////////////////////////////////////////////////////////////
-
-document.addEventListener("keypress", (event) => {
-    if (event.key === "Enter") {
-        event.preventDefault();
-        document.getElementById("login_button").click();
-    }
-});
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
@@ -49,8 +49,7 @@ const getURL = 'https://testapi.io/api/4seven/resource/Users';
 const getOptions = {
     method: 'get',
     headers: {
-        'Accept': 'application/json, text/plain',
-        'Content-Type': 'application/json'
+        'Accept': 'application/json'
     }
 }
 
@@ -94,3 +93,5 @@ login_button.addEventListener('click', (e) => {
         message('Visi privalomi laukai turi būti užpildyti!');
     }
 })
+
+///////////////////////////////////////////////////////////////////////////////////////////

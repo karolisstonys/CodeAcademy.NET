@@ -1,18 +1,14 @@
-//JSON.stringify(userObj)
-//JSON.parse(userObj)
-
 const user = JSON.parse(localStorage.getItem('USER'));
-
 window.onload = function () {
     if (!user) {
         alert('Jūs nesate prisijungę! Prisijunkite, jei norite tęsti darbą.');
         window.location.href = "index.html";
-    };
-    if (user) {
+    } else {
         logo.title = user.FirstName + " " + user.LastName;
         getAllTodosForThisUser();
     };
 };
+
 const toggleTodoForm = () => div_create_new_todo.style.display = (div_create_new_todo.style.display === 'none') ? 'block' : 'none';
 create_new_todo.addEventListener('click', toggleTodoForm);
 
@@ -37,7 +33,7 @@ function createNewTodo() {
     fetch(postURL, {
         method: 'post',
         headers: {
-            'Accept': 'application/json, text/plain',
+            'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(newObject)
@@ -48,9 +44,7 @@ function createNewTodo() {
                 p_message.innerHTML += '<br>Naujas todo sukurtas sekmingai!';
                 getAllTodosForThisUser();
             }
-            else {
-                p_message.innerHTML += '<br>Klaida! - ' + + res.status;
-            }
+            else p_message.innerHTML += '<br>Klaida! - ' + + res.status;
         })
         .catch((err) => p_message.innerHTML += '<br>Todo sukurti nepavyko - ' + err);
 }
@@ -67,7 +61,7 @@ const getURL = 'https://testapi.io/api/4seven/resource/Todos';
 const getOptions = {
     method: 'get',
     headers: {
-        'Accept': 'application/json, text/plain',
+        'Accept': 'application/json',
         'Content-Type': 'application/json'
     }
 }
@@ -80,7 +74,9 @@ const showUserTodos = () => {
     const allUserTodos = JSON.parse(localStorage.getItem('ALL_TODOS'));
     div_all_todo.innerHTML = '';
     for (const todo of allUserTodos) {
-        let completed = todo.Completed ? '🗹' : '☐';
+        let completedMark = todo.Completed ? '🗹' : '☐';
+        let completedFalseState = todo.Completed ? false : true;
+        let completedFalseWord = todo.Completed ? '🗹' : '☐';
 
         div_all_todo.innerHTML +=
             `<div id="div_todo_${todo.ID}" class="div_todo">` +
@@ -104,7 +100,7 @@ const showUserTodos = () => {
 
             `<div class="todo_header">` +
             `<div class="todo_header_left">` +
-            `<div>${completed}</div>` +
+            `<div>${completedMark}</div>` +
             `<div class="todo_enddate">${todo.EndDate}</div>` +
             `</div><div class="todo_header_right">` +
             `<div class="todo_icon" title="Įvykdyti" onclick="confirmEditTodo(${todo.ID}, true)">✔️</div>` +
@@ -178,7 +174,7 @@ const confirmEditTodo = (id, state) => {
     fetch(fetchTodoURL + id, {
         method: 'put',
         headers: {
-            'Accept': 'application/json, text/plain, */*',
+            'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(updatedObject)
@@ -213,11 +209,7 @@ const fetchTodoOptions = {
 }
 
 const deleteTodoOptions = {
-    method: 'delete',
-    headers: {
-        'Accept': 'application/json, text/plain',
-        'Content-Type': 'application/json'
-    }
+    method: 'delete'
 }
 
 const confirmDeleteTodo = (id) => {
@@ -227,10 +219,7 @@ const confirmDeleteTodo = (id) => {
             if (fetchResponse.ok) {
                 console.log('fetchResponse.ok');
             }
-            else {
-                p_message.innerHTML += `<br>Klaida1 - ` + fetchResponse.status;
-                console.log('fetchResponse.NOT.ok');
-            }
+            else p_message.innerHTML += `<br>Klaida1 - ` + fetchResponse.status;
             return fetchResponse.json()
         })
         .then(() => {
@@ -241,9 +230,7 @@ const confirmDeleteTodo = (id) => {
                         p_message.innerHTML += `<br>Todo (id - ${id}) sekmingai istrintas!`;
                         getAllTodosForThisUser();
                     }
-                    else {
-                        p_message.innerHTML += '<br>Klaida2: ' + deleteResponse.status;
-                    }
+                    else p_message.innerHTML += '<br>Klaida2: ' + deleteResponse.status;
                 })
                 .catch((error) => {
                     p_message.innerHTML += `<br>Klaida3: ${error}`;
