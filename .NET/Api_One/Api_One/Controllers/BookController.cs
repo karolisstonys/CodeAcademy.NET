@@ -34,19 +34,26 @@ namespace Api_One.Controllers
             return allBooks.FirstOrDefault(b => b.Id == id);
         }
 
-        [HttpGet("Search1")]
-        public Book GetMeABookById(int id)
+        [HttpGet("Search")]
+        public IEnumerable<Book>? abcdefg(int? id, string? title, string? author)
         {
-            return allBooks.FirstOrDefault(b => b.Id == id);
+            if (id != null)
+                return from book in allBooks
+                       where book.Id == id
+                       select book;
+
+            if (title != null)
+                return from book in allBooks
+                       where book.Title.Contains(title)
+                       select book;
+
+            if (author != null)
+                return from book in allBooks
+                       where book.Author.Contains(author)
+                       select book;
+
+            return null;
         }
 
-        [HttpGet("Search2")]
-        public IEnumerable<Book> GetMeAllBooksByTitle(string title)
-        {
-             var a = from book in allBooks
-                   where book.Title.Contains(title)
-                   select book;
-            return a;
-        }
     }
 }
