@@ -3,16 +3,39 @@ html {
     height: 100%;
 }
 
+
+@media screen and (max-width: 600px) {
+    body {
+        min-width: 400px;
+    }
+
+    #todo_window_header #logo {
+        display: none;
+    }
+
+
+}
+
+@media screen and (max-width: 960px) {
+    #form_new_todo {
+        padding-top: 15px !important;
+        width: 240px;
+    }
+
+    #form_new_todo #form_new_todo_submit {
+        padding-bottom: 4px;
+        margin-top: 10px !important;
+        margin-bottom: 5px !important;
+        margin-left: 65px !important;
+    }
+}
+
 /*
-
-@media screen and (max-width: 480px) {}
-
 320px — 480px: Mobile devices
 481px — 768px: iPads, Tablets
 769px — 1024px: Small screens, laptops
 1025px — 1200px: Desktops, large screens
 1201px and more —  Extra large screens, TV
-
 */
 
 body {

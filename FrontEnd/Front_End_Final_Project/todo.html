@@ -41,29 +41,30 @@
             <form id="form_new_todo">
                 <div>
                     <label for="Type">Type:</label>
-                    <input type="text" name="Type">
+                    <input type="text" name="Type" id="form_new_todo_type">
                 </div>
                 <div>
                     <label for="Content">Content:</label>
-                    <input type="text" name="Content">
+                    <input type="text" name="Content" id="form_new_todo_content">
                 </div>
                 <div>
                     <label for="EndDate">EndDate:</label>
-                    <input type="text" name="EndDate">
+                    <input type="text" name="EndDate" id="form_new_todo_enddate">
                 </div>
-                <input type="button" id="form_new_todo_submit" value="Kurti">
+                <a href="#" id="form_new_todo_submit">Sukurti</a>
             </form>
         </div>
-        <div id="div_filters"></div>
+        <div id="div_filters">
+            <label for="filter_only_not_completed" style="width: 100px;">Tik neatlikti:</label>
+            <input type="checkbox" name="filter_only_not_completed" id="filter_only_not_completed" style="width: 18px;">
+            <label for="filter_search">Paieška:</label>
+            <input type="text" name="filter_search" id="filter_search">
+        </div>
 
         <div id="div_all_todo"></div>
     </div>
 
-
-    <div id="messenger">
-        <p id="p_message"></p>
-    </div>
-
+    <div id="messenger"></div>
 
     <!-- SCRIPTS -->
     <script src="js/todo.js"></script>

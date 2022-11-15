@@ -9,7 +9,7 @@ window.onload = function () {
     };
 };
 
-const toggleTodoForm = () => div_create_new_todo.style.display = (div_create_new_todo.style.display === 'none') ? 'block' : 'none';
+const toggleTodoForm = () => div_create_new_todo.style.display = div_create_new_todo.style.display === 'none' ? 'block' : 'none';
 create_new_todo.addEventListener('click', toggleTodoForm);
 
 const logout = () => {
@@ -20,52 +20,100 @@ user_logout.addEventListener('click', logout);
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+const searchLocalToDos = () => {
+    let searchTerm = (filter_search.value).toLowerCase();
+    let showNotCompletedOnly = filter_only_not_completed.checked;
+    const allLocalStorageToDos = JSON.parse(localStorage.getItem('ALL_TODOS'));
+
+    const userTodosArr = [];
+    for (const localTodo of allLocalStorageToDos) {
+        if (!showNotCompletedOnly) {
+            if ((localTodo.Type.toLowerCase()).includes(searchTerm) ||
+                (localTodo.Content.toLowerCase()).includes(searchTerm) ||
+                (localTodo.EndDate.toLowerCase()).includes(searchTerm)) {
+                userTodosArr.push(localTodo);
+            }
+        }
+        else {
+            if (((localTodo.Type.toLowerCase()).includes(searchTerm) ||
+                (localTodo.Content.toLowerCase()).includes(searchTerm) ||
+                (localTodo.EndDate.toLowerCase()).includes(searchTerm)) &&
+                localTodo.Completed === null) {
+                userTodosArr.push(localTodo);
+            }
+        }
+    }
+    showUserTodos(userTodosArr);
+}
+filter_search.addEventListener('keyup', searchLocalToDos);
+filter_search.value = '';
+filter_only_not_completed.addEventListener('click', searchLocalToDos);
+filter_only_not_completed.checked = false;
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
 let messageID = 0;
-const clearMessage = (id, timer) => {
+const clearMessage = (id) => {
     setTimeout(() => {
         document.getElementById('message_' + id).remove();
-    }, timer);
+    }, 5000);
 }
 
-let ms = 5000;
-const message = (text, color, timer) => {
-    messenger.innerHTML += `<div id="message_${messageID}" class="${color}">${text}</div>`;
-    if (timer != null) ms = timer;
-    clearMessage(messageID, ms);
+const message = (text) => {
+    messenger.innerHTML += `<div id="message_${messageID}">${text}</div>`;
+    clearMessage(messageID);
     messageID++;
 }
 
-message('validacijos', 'red', 360000);
-message('paieska/filtracija todo is sesijos/local storage', 'red', 360000);
+const validateForm = (id) => {
+    if (id) {
+        if (!document.getElementById('update_type_' + id).value) return false;
+        if (!document.getElementById('update_content_' + id).value) return false;
+        if (!document.getElementById('update_enddate_' + id).value) return false;
+    }
+    else {
+        if (!document.getElementById('form_new_todo_type').value) return false;
+        if (!document.getElementById('uform_new_todo_contentpdate_content_').value) return false;
+        if (!document.getElementById('form_new_todo_enddate').value) return false;
+    }
+    return true;
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////
+
 const form_new_todo = document.querySelector('#form_new_todo');
 const postURL = 'https://testapi.io/api/4seven/resource/Todos';
 
 function createNewTodo() {
-    let form = new FormData(form_new_todo);
-    let newObject = {};
+    if (validateForm()) {
 
-    form.forEach((value, key) => { newObject[key] = value });
-    newObject['UserID'] = user.ID;
+        let form = new FormData(form_new_todo);
+        let newObject = {};
 
-    fetch(postURL, {
-        method: 'post',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newObject)
-    })
-        .then(res => {
-            if (res.ok) {
-                console.log(res.json());
-                p_message.innerHTML += '<br>Naujas todo sukurtas sekmingai!';
-                getAllTodosForThisUser();
-            }
-            else p_message.innerHTML += '<br>Klaida! - ' + + res.status;
+        form.forEach((value, key) => { newObject[key] = value });
+        newObject['UserID'] = user.ID;
+
+        fetch(postURL, {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newObject)
         })
-        .catch((err) => p_message.innerHTML += '<br>Todo sukurti nepavyko - ' + err);
+            .then(res => {
+                if (res.ok) {
+                    console.log(res.json());
+                    message('Naujas todo sukurtas sekmingai');
+                    getAllTodosForThisUser();
+                }
+                else message(`Klaida! - ${res.status}`);
+            })
+            .catch((err) => message(`Todo sukurti nepavyko - ${err}`));
+    }
+    else {
+        message('Visi laukai yra privalomi, prašome užpildyti tuščius laukus!');
+    }
 }
 
 const form_new_todo_submit = document.querySelector('#form_new_todo_submit');
@@ -89,13 +137,13 @@ const saveToLocalStorage = (obj) => {
     localStorage.setItem('ALL_TODOS', JSON.stringify(obj));
 }
 
-const showUserTodos = () => {
-    const allUserTodos = JSON.parse(localStorage.getItem('ALL_TODOS'));
+const showUserTodos = (allUserTodos) => {
     div_all_todo.innerHTML = '';
     for (const todo of allUserTodos) {
         let completedMark = todo.Completed ? '🗹' : '☐';
+        let completedIcon = todo.Completed ? '❌' : '✔️';
         let completedFalseState = todo.Completed ? false : true;
-        let completedFalseWord = todo.Completed ? '🗹' : '☐';
+        let completedFalseWord = todo.Completed ? 'Pažymėti neatliktą' : 'Pažymėti atliktą';
 
         div_all_todo.innerHTML +=
             `<div id="div_todo_${todo.ID}" class="div_todo">` +
@@ -122,7 +170,7 @@ const showUserTodos = () => {
             `<div>${completedMark}</div>` +
             `<div class="todo_enddate">${todo.EndDate}</div>` +
             `</div><div class="todo_header_right">` +
-            `<div class="todo_icon" title="Įvykdyti" onclick="confirmEditTodo(${todo.ID}, true)">✔️</div>` +
+            `<div class="todo_icon" title="${completedFalseWord}" onclick="confirmEditTodo(${todo.ID}, ${completedFalseState})">${completedIcon}</div>` +
             `<div class="todo_icon" title="Redaguoti" onclick="editTodo(${todo.ID})">✏️</div>` +
             `<div class="todo_icon" title="Trinti" onclick="deleteTodo(${todo.ID})">🗑️</div>` +
             `</div></div>` +
@@ -132,8 +180,6 @@ const showUserTodos = () => {
             `<div class="todo_footer"><div class="todo_icon" title="Sukurta: ${todo.Created}">Sukurta: ${todo.Created}</div>` +
             `<div class="todo_icon" title="Atnaujinta: ${todo.Updated}">Atnaujinta: ${todo.Updated}</div></div>` +
             `</div>`;
-
-        //p_message.innerHTML += `<br>[${todo.ID}] ${todo.Completed} ${todo.Type} ${todo.Content} ${todo.EndDate} [${todo.Created}] [${todo.Updated}]`;
     }
 }
 
@@ -159,55 +205,47 @@ const getAllTodosForThisUser = () => {
             }
 
             saveToLocalStorage(userTodosArr)
-            showUserTodos();
+            showUserTodos(JSON.parse(localStorage.getItem('ALL_TODOS')));
         })
-        .catch((err) => p_message.innerHTML = err);
+        .catch((err) => message(`Klaida - ${err}`));
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-const editTodo = (id) => {
-    document.getElementById('div_edit_todo_mask_' + id).style.display = 'flex';
-}
-
-const cancelEditTodo = (id) => {
-    document.getElementById('div_edit_todo_mask_' + id).style.display = 'none';
-}
+const editTodo = (id) => document.getElementById('div_edit_todo_mask_' + id).style.display = 'flex';
+const cancelEditTodo = (id) => document.getElementById('div_edit_todo_mask_' + id).style.display = 'none';
 
 const fetchTodoURL = 'https://testapi.io/api/4seven/resource/Todos/';
 
-let updatedObject = {};
 const buildTodoObject = (id, state) => {
-    updatedObject = {};
+    let updatedObject = {};
     if (state != null) updatedObject['Completed'] = state;
     updatedObject['UserID'] = user.ID;
     updatedObject['Type'] = document.getElementById('update_type_' + id).value;
     updatedObject['Content'] = document.getElementById('update_content_' + id).value;
     updatedObject['EndDate'] = document.getElementById('update_enddate_' + id).value;
+    return updatedObject;
 }
 
 const confirmEditTodo = (id, state) => {
-    buildTodoObject(id, state);
-
-    //validate Type , Content , EndDate
-
-    fetch(fetchTodoURL + id, {
-        method: 'put',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(updatedObject)
-    })
-        .then((response) => {
-            console.log(response.json());
-            p_message.innerHTML = `Todo ${id}, atnaujintas sekmingai!`
-            //cancelEditTodo(id);
-            getAllTodosForThisUser();
+    if (validateForm(id)) {
+        fetch(fetchTodoURL + id, {
+            method: 'put',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(buildTodoObject(id, state))
         })
-        .catch((error) => {
-            console.log(`Request failed with error: ${error}`);
-        })
+            .then((response) => {
+                console.log(response.json());
+                message(`Todo ${id}, atnaujintas sekmingai!`)
+                //cancelEditTodo(id);
+                getAllTodosForThisUser();
+            })
+            .catch((error) => message(`Klaida: Request failed with error - ${error}`))
+    }
+    else message('Visi laukai yra privalomi, prašome užpildyti tuščius laukus!');
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -235,30 +273,22 @@ const deleteTodoOptions = {
 const confirmDeleteTodo = (id) => {
     fetch(fetchTodoURL + id, fetchTodoOptions)
         .then((fetchResponse) => {
-            console.log(fetchResponse);
-            if (fetchResponse.ok) {
-                console.log('fetchResponse.ok');
-            }
-            else p_message.innerHTML += `<br>Klaida1 - ` + fetchResponse.status;
-            return fetchResponse.json()
+            if (fetchResponse.ok) message(`Todo (id - ${id}) rastas`)
+            else message(`Klaida: toks Todo nerastas - ${fetchResponse.status}`)
+            return fetchResponse.json();
         })
         .then(() => {
             return fetch(fetchTodoURL + id, deleteTodoOptions)
                 .then(deleteResponse => {
-                    console.log(deleteResponse);
                     if (deleteResponse.ok) {
-                        p_message.innerHTML += `<br>Todo (id - ${id}) sekmingai istrintas!`;
+                        message(`Todo (id - ${id}) sekmingai ištrintas`);
                         getAllTodosForThisUser();
                     }
-                    else p_message.innerHTML += '<br>Klaida2: ' + deleteResponse.status;
+                    else message(`Klaida: ${deleteResponse.status}`)
                 })
-                .catch((error) => {
-                    p_message.innerHTML += `<br>Klaida3: ${error}`;
-                })
+                .catch((error) => message(`Klaida: ${error}`))
         })
-        .catch((error) => {
-            p_message.innerHTML += `<br>Klaida4: ${error}`;
-        })
+        .catch((error) => message(`Klaida: ${error}`))
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
