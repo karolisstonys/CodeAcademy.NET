@@ -43,9 +43,7 @@ const clearForm = () => {
 
 const goToToDo = () => window.location.href = "todo.html";
 
-const saveToLocalStorage = (obj) => {
-    localStorage.setItem('USER', JSON.stringify(obj));
-};
+const saveToLocalStorage = (obj) => localStorage.setItem('USER', JSON.stringify(obj));
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 

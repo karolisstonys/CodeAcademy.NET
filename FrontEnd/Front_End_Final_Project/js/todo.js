@@ -132,9 +132,7 @@ const getOptions = {
     }
 }
 
-const saveToLocalStorage = (obj) => {
-    localStorage.setItem('ALL_TODOS', JSON.stringify(obj));
-}
+const saveToLocalStorage = (obj) => localStorage.setItem('ALL_TODOS', JSON.stringify(obj));
 
 const showUserTodos = (allUserTodos) => {
     div_all_todo.innerHTML = '';
@@ -246,13 +244,9 @@ const confirmEditTodo = (id, state) => {
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-const deleteTodo = (id) => {
-    document.getElementById('div_delete_todo_mask_' + id).style.display = 'flex';
-}
+const deleteTodo = (id) => document.getElementById('div_delete_todo_mask_' + id).style.display = 'flex';
 
-const cancelDeleteTodo = (id) => {
-    document.getElementById('div_delete_todo_mask_' + id).style.display = 'none';
-}
+const cancelDeleteTodo = (id) => document.getElementById('div_delete_todo_mask_' + id).style.display = 'none';
 
 const fetchTodoOptions = {
     method: 'get',
@@ -262,9 +256,7 @@ const fetchTodoOptions = {
     }
 }
 
-const deleteTodoOptions = {
-    method: 'delete'
-}
+const deleteTodoOptions = { method: 'delete' }
 
 const confirmDeleteTodo = (id) => {
     fetch(fetchTodoURL + id, fetchTodoOptions)
