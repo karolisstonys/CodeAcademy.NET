@@ -5,6 +5,7 @@
     margin: 0;
     padding: 0 0 0 0;
     background-color: #141e30;
+    border-bottom: solid 1px #3a6596;
 }
 
 #todo_window_header div {
@@ -45,11 +46,11 @@
 #form_new_todo {
     border: solid 1px #3a6596;
     border-radius: 10px;
-    background-color: #000;
+    background-color: #141e30;
     padding: 5px;
     display: inline-flex;
     flex-flow: row wrap;
-    margin: 5px;
+    margin-bottom: 4px;
 }
 
 #form_new_todo>div {
@@ -59,7 +60,12 @@
 #div_filters {
     display: flex;
     flex-flow: row nowrap;
-    margin: 5px;
+    justify-content: flex-start;
+    margin: 0px;
+    border: solid 1px #3a6596;
+    border-radius: 10px;
+    background-color: #141e30;
+    padding: 5px;
 }
 
 #form_new_todo_submit {
@@ -92,7 +98,7 @@
     border: solid 1px #5c3f00;*/
     /*border-radius: 50px;*/
     padding: 10px;
-    margin: 5px;
+    margin: 0px;
 }
 
 .div_todo {
@@ -366,7 +372,7 @@
     overflow: hidden;
     transition: .5s;
     /*margin: 25px 0px 10px 0px;*/
-    letter-spacing: 3px
+    letter-spacing: 3px;
 }
 
 

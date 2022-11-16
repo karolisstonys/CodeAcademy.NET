@@ -48,7 +48,7 @@ const searchLocalToDos = () => {
 filter_search.addEventListener('keyup', searchLocalToDos);
 filter_search.value = '';
 filter_only_not_completed.addEventListener('click', searchLocalToDos);
-filter_only_not_completed.checked = false;
+filter_only_not_completed.checked = true;
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
@@ -73,7 +73,7 @@ const validateForm = (id) => {
     }
     else {
         if (!document.getElementById('form_new_todo_type').value) return false;
-        if (!document.getElementById('uform_new_todo_contentpdate_content_').value) return false;
+        if (!document.getElementById('form_new_todo_content').value) return false;
         if (!document.getElementById('form_new_todo_enddate').value) return false;
     }
     return true;
@@ -103,7 +103,6 @@ function createNewTodo() {
         })
             .then(res => {
                 if (res.ok) {
-                    console.log(res.json());
                     message('Naujas todo sukurtas sekmingai');
                     getAllTodosForThisUser();
                 }
@@ -187,7 +186,6 @@ const getAllTodosForThisUser = () => {
     fetch(getURL, getOptions)
         .then(obj => obj.json())
         .then(userTodoData => {
-            console.log(userTodoData);
             const userTodosArr = [];
 
             for (const todo of userTodoData.data) {
@@ -205,7 +203,7 @@ const getAllTodosForThisUser = () => {
             }
 
             saveToLocalStorage(userTodosArr)
-            showUserTodos(JSON.parse(localStorage.getItem('ALL_TODOS')));
+            searchLocalToDos();
         })
         .catch((err) => message(`Klaida - ${err}`));
 }
@@ -238,9 +236,7 @@ const confirmEditTodo = (id, state) => {
             body: JSON.stringify(buildTodoObject(id, state))
         })
             .then((response) => {
-                console.log(response.json());
-                message(`Todo ${id}, atnaujintas sekmingai!`)
-                //cancelEditTodo(id);
+                message(`Todo (ID:${id}) atnaujintas sekmingai!`)
                 getAllTodosForThisUser();
             })
             .catch((error) => message(`Klaida: Request failed with error - ${error}`))
@@ -273,15 +269,20 @@ const deleteTodoOptions = {
 const confirmDeleteTodo = (id) => {
     fetch(fetchTodoURL + id, fetchTodoOptions)
         .then((fetchResponse) => {
-            if (fetchResponse.ok) message(`Todo (id - ${id}) rastas`)
-            else message(`Klaida: toks Todo nerastas - ${fetchResponse.status}`)
-            return fetchResponse.json();
+            if (fetchResponse.ok) {
+                message(`Todo (id - ${id}) rastas`)
+                return fetchResponse.json();
+            }
+            else {
+                message(`Klaida: toks Todo nerastas - ${fetchResponse.status}`)
+                Promise.reject()
+            }
         })
         .then(() => {
             return fetch(fetchTodoURL + id, deleteTodoOptions)
                 .then(deleteResponse => {
                     if (deleteResponse.ok) {
-                        message(`Todo (id - ${id}) sekmingai ištrintas`);
+                        message(`Todo (ID:${id}) sekmingai ištrintas`);
                         getAllTodosForThisUser();
                     }
                     else message(`Klaida: ${deleteResponse.status}`)
