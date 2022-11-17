@@ -2,7 +2,10 @@
 {
     public class FoodDTO
     {
-        private static int counter = 0;
+        //private static int counter = 0;
+
+        public FoodDTO() { }
+
         public FoodDTO(int id, string name, string country, double weight)
         {
             //Id = counter;
