@@ -13,6 +13,13 @@ namespace L02_Task_1
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddCors(p => p.AddPolicy("corsforfood", builder =>
+            {
+                builder.WithOrigins("*")
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            }));
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -21,6 +28,8 @@ namespace L02_Task_1
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors("corsforfood");
 
             app.UseHttpsRedirection();
 
