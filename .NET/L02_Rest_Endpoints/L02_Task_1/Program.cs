@@ -29,6 +29,7 @@ namespace L02_Task_1
                 app.UseSwaggerUI();
             }
 
+            // Cors naudojama pries CSRF/XSRF
             app.UseCors("corsforfood");
 
             app.UseHttpsRedirection();

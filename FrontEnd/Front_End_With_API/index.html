@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Testing back-end API</title>
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+    <h3>Get all food</h3>
+    <input type="text" id="getAllURL" style="width:300px" value="https://localhost:7040/api/Food/allfood">
+    <button onclick="getAllData()"
+        style="border-radius: 5px; border: solid 1px #61affe; background-color: #61affe50; padding: 2px 6px 3px 6px;">GET</button>
+    <div id="getContainer"></div>
+
+    <h3>Get one food by id</h3>
+    <input type="text" name="" id="getOneURL" style="width:270px" value="https://localhost:7040/api/Food/foods/">
+    <input type="text" name="" id="getOneId" style="width:18px" value="">
+    <button onclick="getOneData()"
+        style="border-radius: 5px; border: solid 1px #61affe; background-color: #61affe50; padding: 2px 6px 3px 6px;">GET</button>
+    <div id="getOneContainer"></div>
+
+    <h3>Create new food</h3>
+    <input type="text" name="" id="postURL" style="width:300px" value="https://localhost:7040/api/Food">
+    <button onclick="postData()"
+        style="border-radius: 5px; border: solid 1px #49cc90; background-color: #49cc9050; padding: 2px 6px 3px 6px;">POST</button>
+    <br>
+    <input type="text" name="" id="postFoodName" placeholder="Name" style="width:82px" value="">
+    <input type="text" name="" id="postFoodCountry" placeholder="Country" style="width:82px" value="">
+    <input type="text" name="" id="postFoodWeight" placeholder="Weight" style="width:82px" value="">
+    <div id="postContainer"></div>
+
+    <h3>Delete food by id</h3>
+    <input type="text" name="" id="deleteURL" style="width:270px" value="https://localhost:7040/api/Food/foods/delete/">
+    <input type="text" name="" id="deleteId" style="width:18px" value="">
+    <button onclick="deleteData()"
+        style="border-radius: 5px; border: solid 1px #f93e3e; background-color: #f93e3e50; padding: 2px 6px 3px 6px;">DELETE</button>
+    <div id="deleteContainer"></div>
+
+
+    <h3>Edit food by Id</h3>
+    <input type="text" name="" id="putURL" style="width:270px" value="https://localhost:7040/api/Food/foods/put/">
+    <input type="text" name="" id="putId" style="width:18px" value="">
+    <button onclick="putData()"
+        style="border-radius: 5px; border: solid 1px #fca130; background-color: #fca13050; padding: 2px 6px 3px 6px;">PUT</button>
+    <br>
+    <input type="text" name="" id="putFoodName" placeholder="Name" style="width:82px" value="">
+    <input type="text" name="" id="putFoodCountry" placeholder="Country" style="width:82px" value="">
+    <input type="text" name="" id="putFoodWeight" placeholder="Weight" style="width:82px" value="">
+    <div id="putContainer"></div>
+
+
+
+
+
+
+
+    <!-- SCRIPTS -->
+    <script src="index.js"></script>
+</body>
+
+</html>

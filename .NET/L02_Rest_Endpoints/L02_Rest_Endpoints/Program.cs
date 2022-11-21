@@ -1,4 +1,4 @@
-namespace L02_Rest_Endpoints
+namespace L02_Task_1
 {
     public class Program
     {
@@ -13,6 +13,13 @@ namespace L02_Rest_Endpoints
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddCors(p => p.AddPolicy("corsforfood", builder =>
+            {
+                builder.WithOrigins("*")
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            }));
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -21,6 +28,9 @@ namespace L02_Rest_Endpoints
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            // Cors naudojama pries CSRF/XSRF
+            app.UseCors("corsforfood");
 
             app.UseHttpsRedirection();
 
