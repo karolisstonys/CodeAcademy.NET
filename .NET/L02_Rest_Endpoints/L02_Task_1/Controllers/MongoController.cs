@@ -15,7 +15,7 @@ namespace L02_Task_1.Controllers
         {
             var res = new List<string>();
 
-            MongoClient dbClient = new MongoClient("mongodb+srv://4seven:4rfvgy77MONGODB%212022@cluster0.tj7lwbg.mongodb.net/test");
+            MongoClient dbClient = new MongoClient("...");
 
             var dbList = dbClient.ListDatabases().ToList();
 
