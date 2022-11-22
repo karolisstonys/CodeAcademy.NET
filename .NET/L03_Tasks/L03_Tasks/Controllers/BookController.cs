@@ -1,5 +1,6 @@
 ﻿using L03_Tasks.Data;
 using L03_Tasks.Models;
+using L03_Tasks.Models.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,23 +10,61 @@ namespace L03_Tasks.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
-        private readonly IBookSet _mySet;
+        //private readonly IBookSet _mySet;
 
-        public BookController(IBookSet mySet)
+        //public BookController(IBookSet mySet)
+        //{
+        //    _mySet = mySet;
+        //}
+
+        //[HttpGet("all")]
+        //public List<Book> GetAllBooks()
+        //{
+        //    return _mySet.Books;
+        //}
+
+        //[HttpGet("{id}")]
+        //public Book? GetBookById(int id)
+        //{
+        //    return _mySet.Books.Where(b => b.Id == id).FirstOrDefault();
+        //}
+
+
+        public IActionResult Get() //List<GetBookDto>
         {
-            _mySet = mySet;
+            throw new NotImplementedException();
         }
 
-        [HttpGet("all")]
-        public List<Book> GetAllBooks()
+
+        public IActionResult Get(int id) //GetBookDto
         {
-            return _mySet.Books;
+            throw new NotImplementedException();
         }
 
-        [HttpGet("{id}")]
-        public Book? GetBookById(int id)
+
+        public IActionResult Filter(FilterBooksRequestDto req) //List<GetBookDto>
         {
-            return _mySet.Books.Where(b => b.Id == id).FirstOrDefault();
+            throw new NotImplementedException();
         }
+
+
+        public IActionResult Post(CreateBookDto req)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public IActionResult Put(UpdateBookDto req)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public IActionResult Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+
     }
 }
