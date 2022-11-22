@@ -29,37 +29,42 @@ namespace L03_Tasks.Controllers
         //    return _mySet.Books.Where(b => b.Id == id).FirstOrDefault();
         //}
 
-
-        public IActionResult Get() //List<GetBookDto>
+        [HttpGet]
+        public ActionResult<List<GetBookDto>> Get()
         {
             throw new NotImplementedException();
         }
 
 
-        public IActionResult Get(int id) //GetBookDto
+        [HttpGet("{id}")]
+        public ActionResult<GetBookDto> Get(int id)
         {
             throw new NotImplementedException();
         }
 
 
-        public IActionResult Filter(FilterBooksRequestDto req) //List<GetBookDto>
+        [HttpGet("Filter")]
+        public ActionResult<List<GetBookDto>> Filter(FilterBooksRequestDto req)
         {
             throw new NotImplementedException();
         }
 
 
+        [HttpPost]
         public IActionResult Post(CreateBookDto req)
         {
             throw new NotImplementedException();
         }
 
 
+        [HttpPut]
         public IActionResult Put(UpdateBookDto req)
         {
             throw new NotImplementedException();
         }
 
 
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             throw new NotImplementedException();

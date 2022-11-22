@@ -1,4 +1,5 @@
 using L03_Tasks.Data;
+using L03_Tasks.Services;
 
 namespace L03_Tasks
 {
@@ -10,6 +11,8 @@ namespace L03_Tasks
 
             // Add services to the container.
             builder.Services.AddSingleton<IBookSet, BookSet>();
+            builder.Services.AddTransient<IBookWrapper, BookWrapper>();
+            builder.Services.AddTransient<IBookManager, BookManager>();
 
 
             builder.Services.AddControllers();

@@ -1,6 +1,6 @@
 ﻿namespace L03_Tasks.Models.DTO
 {
-    public class GetBookDto : IGetBookDto
+    public class GetBookDto
     {
         public int Id { get; set; }
 
