@@ -12,7 +12,7 @@ namespace L04_EF_Applying_To_API
             // Add services to the container.
             builder.Services.AddDbContext<RestaurantContext>(option =>
             {
-                option.UseSqlite(builder.Configuration.GetConnectionString(""));
+                option.UseSqlite(builder.Configuration.GetConnectionString("DefaultSQLConnection"));
             });
 
             builder.Services.AddControllers();
