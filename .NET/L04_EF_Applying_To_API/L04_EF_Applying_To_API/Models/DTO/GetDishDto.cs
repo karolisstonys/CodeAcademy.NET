@@ -8,11 +8,19 @@
             Type = dish.Type;
             SpiceLevel = dish.SpiceLevel;
             Country = dish.Country;
+            RecipeItems = dish.RecipeItems
+                .Select(ri => new GetRecipeItemDto(ri))
+                .ToList();
         }
 
         public string Name { get; set; }
+
         public string Type { get; set; }
+
         public string SpiceLevel { get; set; }
+
         public string Country { get; set; }
+
+        public List<GetRecipeItemDto> RecipeItems { get; set; }
     }
 }
