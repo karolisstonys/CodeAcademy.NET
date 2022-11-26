@@ -55,7 +55,11 @@ namespace L04_EF_Applying_To_API.Controllers
             return Ok(new GetDishDto(dish));
         }
 
-
+        /// <summary>
+        /// Creates new dish
+        /// </summary>
+        /// <param name="createDishDto">Dish object</param>
+        /// <returns></returns>
         [HttpPost("CreateDish")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(IEnumerable<CreateDishDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -80,7 +84,11 @@ namespace L04_EF_Applying_To_API.Controllers
             return CreatedAtRoute("GetDish", new { id = newDish.DishId }, createDishDto);
         }
 
-
+        /// <summary>
+        /// Deletes specific dish
+        /// </summary>
+        /// <param name="id">Id by which dish object is deleted</param>
+        /// <returns></returns>
         [HttpDelete("delete/{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -100,6 +108,11 @@ namespace L04_EF_Applying_To_API.Controllers
         }
 
 
+        /// <summary>
+        /// Updates specific dish
+        /// </summary>
+        /// <param name="id">Id by which dish object is updated</param>
+        /// <returns></returns>
         [HttpPut("update/{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
