@@ -22,6 +22,7 @@ namespace L06_Api_Logging
 
             // Add services to the container.
             builder.Services.AddTransient<IBadService, BadService>();
+            builder.Services.AddTransient<IDivisionService, DivisionService>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
