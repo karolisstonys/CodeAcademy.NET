@@ -6,6 +6,8 @@ namespace L05_Tasks_MSSQL.Models
 {
     public class Book
     {
+        public Book() { }
+
         public Book(int id, string title, int publishYear)
         {
             Id = id;
