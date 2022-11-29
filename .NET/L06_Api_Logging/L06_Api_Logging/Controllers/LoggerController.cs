@@ -75,12 +75,14 @@ namespace L06_Api_Logging.Controllers
         /// </summary>
         /// <param name="a">Sveikas skaicius kuri daliname</param>
         /// <param name="b">Sveikas skaicius is kurio daliname</param>
-        /// <returns></returns>
+        /// <returns>Rezultatas</returns>
+        /// <response code="200">Teisingai ivykdomas skaiciavimas ir parodomas rezultatas</response>
+        /// <response code="500">Baisi klaida!</response>
         [HttpGet("Division")]
-        [ProducesResponseType(typeof(GetServiceResult), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(double), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Produces(MediaTypeNames.Application.Json)]
-        public IActionResult Division(int a, int b)
+        public ActionResult<double> Division(int a, int b)
         {
             double res = 0;
             _logger.LogInformation("Division service buvo iskvietas {0}, su parametrais a={1} ir b={2} ", DateTime.Now, a, b);
