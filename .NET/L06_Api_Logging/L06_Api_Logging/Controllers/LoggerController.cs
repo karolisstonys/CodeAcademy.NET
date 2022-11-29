@@ -31,7 +31,7 @@ namespace L06_Api_Logging.Controllers
         /// <response code="200">Teisingai ivykdomas loginimo logika ir gauname informacija</response>
         /// <response code="500">Baisi klaida!</response>
         [HttpGet("Get")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<GetLoggingResult>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Produces(MediaTypeNames.Application.Json)]
         public ActionResult Get()
@@ -75,7 +75,7 @@ namespace L06_Api_Logging.Controllers
         /// </summary>
         /// <param name="a">Sveikas skaicius kuri daliname</param>
         /// <param name="b">Sveikas skaicius is kurio daliname</param>
-        /// <returns>Rezultatas</returns>
+        /// <returns>Grazinamas rezultatas</returns>
         /// <response code="200">Teisingai ivykdomas skaiciavimas ir parodomas rezultatas</response>
         /// <response code="500">Baisi klaida!</response>
         [HttpGet("Division")]
@@ -85,14 +85,15 @@ namespace L06_Api_Logging.Controllers
         public ActionResult<double> Division(int a, int b)
         {
             double res = 0;
-            _logger.LogInformation("Division service buvo iskvietas {0}, su parametrais a={1} ir b={2} ", DateTime.Now, a, b);
+            _logger.LogInformation($"Division service buvo iskvietas {DateTime.Now}, su parametrais a={a} ir b={b}");
             try
             {
                 res = _divisionService.DivideTwoInts(a, b);
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "Division servisas nuluzo {0}, su parametrais a={1} ir b={2} ", DateTime.Now, a, b);
+                _logger.LogError(e, $"Division servisas nuluzo {DateTime.Now}, su parametrais a={a} ir b={b}");
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
             return Ok(res);
         }

@@ -8,10 +8,12 @@ namespace L05_Tasks_MSSQL.Models
     {
         public Book() { }
 
-        public Book(int id, string title, int publishYear)
+        public Book(int id, string title, string author, ECoverType eCoverType, int publishYear)
         {
             Id = id;
             Title = title;
+            Author = author;
+            ECoverType = eCoverType;
             PublishYear = publishYear;
         }
 
@@ -19,9 +21,8 @@ namespace L05_Tasks_MSSQL.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Title { get; set; }
-        public int? AuthorId { get; set; }
-        public Author? Author { get; set; }
-        public ECoverType? ECoverType { get; set; }
+        public string Author { get; set; }
+        public ECoverType ECoverType { get; set; }
         public int PublishYear { get; set; }
     }
 }
