@@ -21,16 +21,13 @@ namespace Wishlist.Controllers
             _pass = pass;
         }
 
-
-
         [HttpGet("Login")]
         public ActionResult<GetUserDto> Login(string username, string password)
         {
             var user = _db.Users.FirstOrDefault(u => u.Username == username);
-            if (user != null) return BadRequest("Username does not exists");
+            if (user == null) return BadRequest("Username does not exists");
 
-            //VerifyPassword(user.Password, password)
-
+            var a = _pass.VerifyPassword(user.Password, password);
 
             return Ok();
         }
