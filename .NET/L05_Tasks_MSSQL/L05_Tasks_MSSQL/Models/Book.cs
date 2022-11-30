@@ -8,13 +8,15 @@ namespace L05_Tasks_MSSQL.Models
     {
         public Book() { }
 
-        public Book(int id, string title, string author, ECoverType eCoverType, int publishYear)
+        public Book(int id, string title, string author, ECoverType eCoverType, int publishYear, DateTime created, DateTime updated)
         {
             Id = id;
             Title = title;
             Author = author;
             ECoverType = eCoverType;
             PublishYear = publishYear;
+            Created = created;
+            Updated = updated;
         }
 
         [Key]
@@ -24,5 +26,7 @@ namespace L05_Tasks_MSSQL.Models
         public string Author { get; set; }
         public ECoverType ECoverType { get; set; }
         public int PublishYear { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime Updated { get; set; }
     }
 }
