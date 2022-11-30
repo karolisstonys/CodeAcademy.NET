@@ -21,6 +21,6 @@
 
         public string Country { get; set; }
 
-        public List<GetRecipeItemDto> RecipeItems { get; set; }
+        public List<GetRecipeItemDto> RecipeItems { get; set; } = new List<GetRecipeItemDto>();
     }
 }

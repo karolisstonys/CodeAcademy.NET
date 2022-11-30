@@ -18,6 +18,7 @@ namespace L04_EF_Applying_To_API
             builder.Services.AddDbContext<RestaurantContext>(option =>
             {
                 option.UseSqlite(builder.Configuration.GetConnectionString("MyDefaultSQLConnection"));
+                option.UseLazyLoadingProxies();     // lazyLoading // su 'virtual' navigacinius propercius istraukia is karto
             });
 
             builder.Services.AddControllers()

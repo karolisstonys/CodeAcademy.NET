@@ -29,6 +29,6 @@ namespace L04_EF_Applying_To_API.Models
         public string ImagePath { get; set; }
         public DateTime CreatedDateTime { get; set; }
         public DateTime UpdatedDateTime { get; set; }
-        public List<RecipeItem> RecipeItems { get; set; }
+        public virtual List<RecipeItem> RecipeItems { get; set; }
     }
 }

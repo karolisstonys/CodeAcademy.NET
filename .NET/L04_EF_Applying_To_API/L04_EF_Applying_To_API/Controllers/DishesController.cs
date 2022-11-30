@@ -1,6 +1,7 @@
 ﻿using L04_EF_Applying_To_API.Data;
 using L04_EF_Applying_To_API.Models;
 using L04_EF_Applying_To_API.Models.DTO;
+using L04_EF_Applying_To_API.Repository.IRepository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,11 +12,11 @@ namespace L04_EF_Applying_To_API.Controllers
     [ApiController]
     public class DishesController : ControllerBase
     {
-        private readonly RestaurantContext _db;
+        private readonly IDishRepository _dishRepo;
 
-        public DishesController(RestaurantContext db)
+        public DishesController(IDishRepository dishRepo)
         {
-            _db = db;
+            _dishRepo = dishRepo;
         }
 
         /// <summary>
@@ -27,8 +28,7 @@ namespace L04_EF_Applying_To_API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<IEnumerable<GetDishDto>> GetDishes()
         {
-            return Ok(_db.Dishes
-                .Include(d => d.RecipeItems)
+            return Ok(_dishRepo.GetAll()
                 .Select(d => new GetDishDto(d))
                 .ToList());
         }
@@ -47,9 +47,7 @@ namespace L04_EF_Applying_To_API.Controllers
         {
             if (id == 0) return BadRequest();
 
-            var dish = _db.Dishes
-                .Include(d => d.RecipeItems)
-                .FirstOrDefault(d => d.DishId == id);
+            var dish = _dishRepo.Get(d => d.DishId == id);
             if (dish == null) return BadRequest();
 
             return Ok(new GetDishDto(dish));
@@ -78,8 +76,7 @@ namespace L04_EF_Applying_To_API.Controllers
                 ImagePath = createDishDto.ImagePath
             };
 
-            _db.Dishes.Add(newDish);
-            _db.SaveChanges();
+            _dishRepo.Create(newDish);
 
             return CreatedAtRoute("GetDish", new { id = newDish.DishId }, createDishDto);
         }
@@ -98,11 +95,10 @@ namespace L04_EF_Applying_To_API.Controllers
         {
             if (id == 0) return BadRequest();
 
-            var dish = _db.Dishes.FirstOrDefault(d => d.DishId == id);
+            var dish = _dishRepo.Get(d => d.DishId == id);
             if (dish == null) return BadRequest();
 
-            _db.Dishes.Remove(dish);
-            _db.SaveChanges();
+            _dishRepo.Remove(dish);
 
             return NoContent();
         }
@@ -122,7 +118,7 @@ namespace L04_EF_Applying_To_API.Controllers
         {
             if (id == 0 || updateDishDto == null) return BadRequest();
 
-            var foundDish = _db.Dishes.FirstOrDefault(d => d.DishId == id);
+            var foundDish = _dishRepo.Get(d => d.DishId == id);
             if (foundDish == null) return BadRequest();
 
             foundDish.Name = updateDishDto.Name;
@@ -132,8 +128,7 @@ namespace L04_EF_Applying_To_API.Controllers
             foundDish.ImagePath = updateDishDto.ImagePath;
 
 
-            _db.Dishes.Update(foundDish);
-            _db.SaveChanges();
+            _dishRepo.Update(foundDish);
 
             return NoContent();
 

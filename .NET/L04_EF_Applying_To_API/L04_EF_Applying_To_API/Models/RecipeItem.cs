@@ -20,7 +20,7 @@
 
         public int DishId { get; set; }
 
-        public Dish Dish { get; set; }
+        public virtual Dish Dish { get; set; }
 
     }
 }
