@@ -1,4 +1,6 @@
 using L04_EF_Applying_To_API.Data;
+using L04_EF_Applying_To_API.Repository;
+using L04_EF_Applying_To_API.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using System.Text.Json.Serialization;
@@ -12,6 +14,7 @@ namespace L04_EF_Applying_To_API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddScoped<IDishRepository, DishRepository>();
             builder.Services.AddDbContext<RestaurantContext>(option =>
             {
                 option.UseSqlite(builder.Configuration.GetConnectionString("MyDefaultSQLConnection"));
