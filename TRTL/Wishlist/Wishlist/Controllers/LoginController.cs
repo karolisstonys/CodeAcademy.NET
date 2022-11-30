@@ -21,15 +21,17 @@ namespace Wishlist.Controllers
             _pass = pass;
         }
 
-        [HttpGet("Login")]
+        [HttpGet("login")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetUserDto))]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public ActionResult<GetUserDto> Login(string username, string password)
         {
             var user = _db.Users.FirstOrDefault(u => u.Username == username);
-            if (user == null) return BadRequest("Username does not exists");
+            if (user == null) return BadRequest("username or password is incorrect");
 
-            var a = _pass.VerifyPassword(user.Password, password);
-
-            return Ok();
+            if (!_pass.VerifyPassword(user.Password, password)) return Unauthorized();
+            var dto = new GetUserDto(user);
+            return Ok(dto);
         }
     }
 }

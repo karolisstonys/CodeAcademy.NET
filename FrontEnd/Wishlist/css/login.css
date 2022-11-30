@@ -1,0 +1,110 @@
+html {
+    height: 100%;
+    background: linear-gradient(90deg, #aac4f5 0%, #899cb3 100%);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: linear-gradient(#141e30, #243b55);
+    color: #fff;
+}
+
+label {
+    width: 80px !important;
+    display: inline-block;
+    text-align: right;
+}
+
+input {
+    width: 220px !important;
+    display: inline-block;
+}
+
+#form_login {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    padding: 8px 20px 20px 20px;
+    transform: translate(-50%, -50%);
+    background: #495264;
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .5);
+    border-radius: 10px;
+    border: solid 1px #32455a;
+}
+
+#form_login>div {
+    padding-top: 5px;
+    margin-bottom: 5px;
+    /*color: #243b55;*/
+}
+
+#form_login #login_button {
+    position: relative;
+    display: inline-block;
+    padding: 8px 10px;
+    color: #03e9f4;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    margin: 25px 0px 10px 0px;
+    letter-spacing: 4px
+}
+
+#form_login #login_button:hover {
+    background: #03e9f4;
+    color: #000;
+    border-radius: 5px;
+    box-shadow: 0 0 1px #03e9f4,
+        0 0 5px #03e9f4,
+        0 0 10px #03e9f4,
+        0 0 20px #03e9f4;
+}
+
+#login_link {
+    margin: 15px 0px 0px 0px;
+    text-decoration: none;
+    /*color: #243b55;
+    color: #243b55;*/
+    color: #243b55;
+}
+
+#login_link:hover {
+    color: #03e9f4;
+    cursor: pointer;
+}
+
+
+#messenger {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: calc(50% + 190px);
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+#messenger>div {
+    display: inline-block;
+    border: solid 1px red;
+    border-radius: 5px;
+    padding: 8px;
+    margin-top: 2px;
+    color: red;
+    white-space: nowrap;
+}
+
+#login_get_address {
+    margin-top: 20px;
+}

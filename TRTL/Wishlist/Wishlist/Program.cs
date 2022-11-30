@@ -25,6 +25,13 @@ namespace Wishlist
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddCors(p => p.AddPolicy("corsforwishlist", builder =>
+            {
+                builder.WithOrigins("*")
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            }));
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -33,6 +40,9 @@ namespace Wishlist
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            // Cors naudojama pries CSRF/XSRF
+            app.UseCors("corsforwishlist");
 
             app.UseHttpsRedirection();
 
