@@ -1,4 +1,7 @@
-﻿using L07_Api_Car.Models.Dto;
+﻿using L07_Api_Car.Models;
+using L07_Api_Car.Models.Dto;
+using L07_Api_Car.Repository;
+using L07_Api_Car.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
@@ -10,12 +13,15 @@ namespace L07_Api_Car.Controllers
     public class CarController : ControllerBase
     {
         private readonly ILogger<CarController> _logger;
+        private readonly IRepository<Car> _repo;
+        private readonly ICarAdapter _adapter;
 
-        public CarController(ILogger<CarController> logger)
+        public CarController(ILogger<CarController> logger, IRepository<Car> repo, ICarAdapter adapter)
         {
-            _logger=logger;
+            _logger = logger;
+            _repo = repo;
+            _adapter = adapter;
         }
-
 
         /// <summary>
         /// Gaunamas duomenu bazeje esanciu automobiliu sarasas
@@ -26,9 +32,11 @@ namespace L07_Api_Car.Controllers
         [Produces(MediaTypeNames.Application.Json)]
         public ActionResult<GetCarResult> Get(int id)
         {
-            return Ok(new GetCarResult());
+            if (!_repo.Exists(id)) return NotFound();
+            var car = _repo.Get(id);
+            var carResult = _adapter.Bind(car);
+            return Ok(carResult);
         }
-
 
         /// <summary>
         /// Gaunamas duomenu bazeje esanciu automobiliu sarasas
@@ -38,9 +46,10 @@ namespace L07_Api_Car.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<GetCarResult>))]
         [Produces(MediaTypeNames.Application.Json)]
         public ActionResult<IEnumerable<GetCarResult>> Get()
-        {   
-
-            return Ok(new List<GetCarResult>());
+        {
+            var cars = _repo.All();
+            var carsResult = cars.Select(c => _adapter.Bind(c));
+            return Ok(carsResult);
         }
 
         /// <summary>
@@ -52,9 +61,13 @@ namespace L07_Api_Car.Controllers
         [Produces(MediaTypeNames.Application.Json)]
         public ActionResult<IEnumerable<GetCarResult>> Get([FromQuery]FilterCarRequest req)
         {
-            return Ok(new List<GetCarResult>());
-        }
+            var cars = _repo.Find(c => c.Make.Contains(req.Make != null ? req.Make : "") &&
+                                       c.Model.Contains(req.Model != null ? req.Model : "") &&
+                                       c.GearBox.ToString() == (req.GearBox != null ? req.GearBox : "") &&
+                                       c.Fuel.ToString() == (req.Fuel != null ? req.Fuel : ""));
 
+            return Ok(cars);
+        }
 
         /// <summary>
         /// Irasomas automobilis i duomenu baze
@@ -69,10 +82,8 @@ namespace L07_Api_Car.Controllers
             return CreatedAtAction(nameof(Get), new { id = 0 }, new PostCarRequest());
         }
 
-
         /// <summary>
         /// Modifikuojamas automobilis duomenu baze
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         /// </summary>
         /// <returns>grazina kazka</returns>
         [HttpPut]
@@ -95,9 +106,5 @@ namespace L07_Api_Car.Controllers
         {
             return NoContent();
         }
-
-
-
-
     }
 }

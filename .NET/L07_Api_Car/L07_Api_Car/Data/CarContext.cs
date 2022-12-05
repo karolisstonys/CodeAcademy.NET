@@ -15,20 +15,27 @@ namespace L07_Api_Car.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Car>().HasKey(c => c.Id);
+
             modelBuilder.Entity<Car>().Property(c => c.Make)
                                       .IsRequired()
                                       .HasMaxLength(30);
+
             modelBuilder.Entity<Car>().Property(c => c.Model)
                                       .IsRequired()
                                       .HasMaxLength(30);
+
             modelBuilder.Entity<Car>().Property(c => c.Year)
                                       .IsRequired();
+
             modelBuilder.Entity<Car>().Property(c => c.PlateNumber)
                                       .HasMaxLength(15);
-            modelBuilder.Entity<Car>().Property(u => u.GearBox)
-                                      .HasConversion<string>()
+
+            modelBuilder.Entity<Car>().Property(c => c.GearBox) // convertuojam ENUM i string saugojima DB
+                                      .HasConversion(c => c.ToString(), c => (ECarGearBox)Enum.Parse(typeof(ECarGearBox), c))
+                                      .IsRequired()
                                       .HasMaxLength(12);
-            modelBuilder.Entity<Car>().Property(u => u.Fuel)
+
+            modelBuilder.Entity<Car>().Property(c => c.Fuel)    // convertuojam ENUM i string saugojima DB
                                       .HasConversion<string>()
                                       .HasMaxLength(12);
 

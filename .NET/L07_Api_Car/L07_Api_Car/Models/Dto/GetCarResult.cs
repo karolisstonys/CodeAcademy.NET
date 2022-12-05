@@ -15,6 +15,9 @@
         /// Automobilio pagaminimo metai formatu yyyy-MM-dd
         /// </summary>
         public string Year { get; set; }
+        /// <summary>
+        /// Automobilio valstybinis numeris. Jeigu neregistruota - grazina "neregistruota"
+        /// </summary>
         public string PlateNumber { get; set; }
         /// <summary>
         /// Automobilio pavaru dezes tipas. Galimos reiksmes: Manual ir Automatic.
