@@ -15,7 +15,11 @@ namespace L05_Tasks_MSSQL.Repository
 
         public Book Update(Book book)
         {
-            throw new NotImplementedException();
+            book.Updated = DateTime.Now;
+            _db.Books.Update(book);
+            _db.SaveChanges();
+
+            return book;
         }
     }
 }

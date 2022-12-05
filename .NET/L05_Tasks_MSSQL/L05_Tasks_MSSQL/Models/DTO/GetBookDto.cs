@@ -5,12 +5,12 @@
         public int Id { get; set; }
 
         /// <summary>
-        /// Knygos pavadinimas ir autorius atskirtas per tarpa
+        /// Book title and author seperated by space
         /// </summary>
         public string PavadinimasIrAutorius { get; set; }
 
         /// <summary>
-        /// Leidibos metai int 
+        /// Release year of the book
         /// </summary>
         public int LeidybosMetai { get; set; }
     }

@@ -1,6 +1,7 @@
 ﻿using L05_Tasks_MSSQL.Data;
 using L05_Tasks_MSSQL.Models;
 using L05_Tasks_MSSQL.Models.DTO;
+using L05_Tasks_MSSQL.Repository.IRepository;
 using L05_Tasks_MSSQL.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,12 +18,14 @@ namespace L05_Tasks_MSSQL.Controllers
         private readonly BookStoreContext _db;
         private readonly IBookWrapper _wrapper;
         private readonly ILogger<BookStoreController> _logger;
+        private readonly IBookRepository _bookRepo;
 
-        public BookStoreController(BookStoreContext db, IBookWrapper wrapper, ILogger<BookStoreController> logger)
+        public BookStoreController(BookStoreContext db, IBookWrapper wrapper, ILogger<BookStoreController> logger, IBookRepository bookRepo)
         {
             _db = db;
             _wrapper = wrapper;
             _logger = logger;
+            _bookRepo = bookRepo;
         }
 
         /// <summary>
@@ -114,7 +117,7 @@ namespace L05_Tasks_MSSQL.Controllers
             {
                 if (createBookDto == null)
                 {
-                    _logger.LogError("HttpPost CreateBook() createBookDto objektas == null {1} ", DateTime.Now);
+                    _logger.LogError("HttpPost CreateBook(createBookDto) createBookDto objektas == null {1} ", DateTime.Now);
                     return BadRequest();
                 }
 
@@ -152,11 +155,41 @@ namespace L05_Tasks_MSSQL.Controllers
         //}
 
 
-        //[HttpPut]
-        //public IActionResult Put(UpdateBookDto req)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        /// <summary>
+        /// Atnaujiname knyga, siusdami knygos objekta
+        /// </summary>
+        /// <param name="bookUpdated">Knykos objektas su visais atnaujintais laukais</param>
+        /// <returns></returns>
+        /// <response code="204">Sekmingai atnaujinta knyga</response>
+        /// <response code="400">Blogas kreipimasis</response>
+        /// <response code="500">Baisi klaida!</response>
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(IEnumerable<CreateBookDto>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult UpdateBook(UpdateBookDto bookUpdated)
+        {
+            _logger.LogInformation("HttpPut UpdateBook(bookUpdated = {0}) buvo iskvietas {1} ", JsonConvert.SerializeObject(bookUpdated), DateTime.Now);
+            try
+            {
+                if (bookUpdated == null)
+                {
+                    _logger.LogError("HttpPut UpdateBook(bookUpdated) bookUpdated objektas == null {1} ", DateTime.Now);
+                    return BadRequest();
+                }
+
+                Book book = _wrapper.Bind(bookUpdated);
+                _bookRepo.Update(book);
+                return NoContent();
+
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "HttpPut UpdateBook(bookUpdated = {0}) nuluzo {1} ", JsonConvert.SerializeObject(bookUpdated), DateTime.Now);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+
+        }
 
 
 

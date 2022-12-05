@@ -1,4 +1,6 @@
 using L05_Tasks_MSSQL.Data;
+using L05_Tasks_MSSQL.Repository;
+using L05_Tasks_MSSQL.Repository.IRepository;
 using L05_Tasks_MSSQL.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -13,6 +15,7 @@ namespace L05_Tasks_MSSQL
 
             // Add services to the container.
             builder.Services.AddTransient<IBookWrapper, BookWrapper>();
+            builder.Services.AddScoped<IBookRepository, BookRepository>();
 
             builder.Services.AddDbContext<BookStoreContext>(option =>
             {
