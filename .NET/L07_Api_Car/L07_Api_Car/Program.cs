@@ -1,3 +1,5 @@
+using L07_Api_Car.Data;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace L07_Api_Car
@@ -11,6 +13,10 @@ namespace L07_Api_Car
             // Add services to the container.
 
 
+            builder.Services.AddDbContext<CarContext>(option =>
+            {
+                option.UseSqlServer(builder.Configuration.GetConnectionString("MyDefaultSQLConnection"));
+            });
 
 
             builder.Services.AddControllers();
