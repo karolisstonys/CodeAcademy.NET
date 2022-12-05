@@ -140,21 +140,41 @@ namespace L05_Tasks_MSSQL.Controllers
         }
 
 
+        /// <summary>
+        /// Knygu filtravimas pagal pavadinima arba autoriu
+        /// </summary>
+        /// <param name="title">Pavadinimo filtras</param>
+        /// <param name="author">Autoriaus filtras</param>
+        /// <returns>Grazina rezultata</returns>
+        /// <response code="200">Grazina visas rastas knygas pagal ivestus filtrus</response>
+        /// <response code="500">Baisi klaida!</response>
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<GetBookDto>))]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("Filter")]
         public ActionResult<List<GetBookDto>> Filter(string? title, string? author)
         {
-            var books = _bookRepo.GetAll(b => b.Title.Contains(title != null ? title : "") && 
-                                              b.Author.Contains(author != null ? author : ""));
-            
-            var booksDto = new List<GetBookDto>();
-            if (books != null)
+            _logger.LogInformation("HttpGet Filter(title = {0}, author = {1}) buvo iskviestas {2} ", title, author, DateTime.Now);
+            try
             {
-                foreach (var book in books)
+                var books = _bookRepo.GetAll(b => b.Title.Contains(title != null ? title : "") &&
+                                                  b.Author.Contains(author != null ? author : ""));
+
+                var booksDto = new List<GetBookDto>();
+                if (books != null)
                 {
-                    booksDto.Add(_wrapper.Bind(book));
+                    foreach (var book in books)
+                    {
+                        booksDto.Add(_wrapper.Bind(book));
+                    }
                 }
+                return Ok(booksDto);
             }
-            return booksDto;
+            catch (Exception e)
+            {
+                _logger.LogError("HttpGet Filter(title = {0}, author = {1}) nuluzo {2} ", title, author, DateTime.Now);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+
         }
 
 
