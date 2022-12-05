@@ -151,13 +151,13 @@ namespace L05_Tasks_MSSQL.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<GetBookDto>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("Filter")]
-        public ActionResult<List<GetBookDto>> Filter(string? title, string? author)
+        public ActionResult<List<GetBookDto>> Filter([FromQuery]FilterBooksRequestDto req)
         {
-            _logger.LogInformation("HttpGet Filter(title = {0}, author = {1}) buvo iskviestas {2} ", title, author, DateTime.Now);
+            _logger.LogInformation("HttpGet Filter(FilterBooksRequestDto req = {0}) buvo iskviestas {1} ", req, DateTime.Now);
             try
             {
-                var books = _bookRepo.GetAll(b => b.Title.Contains(title != null ? title : "") &&
-                                                  b.Author.Contains(author != null ? author : ""));
+                var books = _bookRepo.GetAll(b => b.Title.Contains(req.Pavadinimas != null ? req.Pavadinimas : "") &&
+                                                  b.Author.Contains(req.Autorius != null ? req.Autorius : ""));
 
                 var booksDto = new List<GetBookDto>();
                 if (books != null)
@@ -171,7 +171,7 @@ namespace L05_Tasks_MSSQL.Controllers
             }
             catch (Exception e)
             {
-                _logger.LogError("HttpGet Filter(title = {0}, author = {1}) nuluzo {2} ", title, author, DateTime.Now);
+                _logger.LogError("HttpGet Filter(FilterBooksRequestDto req = {0}) nuluzo {1} ", req, DateTime.Now);
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
 
