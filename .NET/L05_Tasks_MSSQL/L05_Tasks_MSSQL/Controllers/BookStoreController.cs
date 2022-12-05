@@ -29,7 +29,7 @@ namespace L05_Tasks_MSSQL.Controllers
         }
 
         /// <summary>
-        /// Uklausia visu knygu is duomenu bazes
+        /// Uzklausia visu knygu is duomenu bazes
         /// </summary>
         /// <returns>Grazina rezultata</returns>
         /// <response code="200">Teisingai ivykdomas gavimas ir parodoma visos knygos</response>
@@ -43,7 +43,8 @@ namespace L05_Tasks_MSSQL.Controllers
             _logger.LogInformation("HttpGet AllBooks() buvo iskvietas {0} ", DateTime.Now);
             try
             {
-                return Ok(_db.Books
+                return Ok(_bookRepo.GetAll()
+                    //_db.Books
                     .Select(book => _wrapper.Bind(book))
                     .ToList());
             }
@@ -80,7 +81,8 @@ namespace L05_Tasks_MSSQL.Controllers
                     return BadRequest();
                 }
 
-                var book = _db.Books.FirstOrDefault(a => a.Id == id);
+                var book = _bookRepo.Get(b => b.Id == id);
+                    //_db.Books.FirstOrDefault(a => a.Id == id);
                 if (book == null)
                 {
                     _logger.LogError("HttpGet GetBookById(id = {0}) knyga su tokiu id nerasta {1} ", id, DateTime.Now);
@@ -123,8 +125,9 @@ namespace L05_Tasks_MSSQL.Controllers
 
                 Book newBook = _wrapper.Bind(createBookDto);
 
-                _db.Books.Add(newBook);
-                _db.SaveChanges();
+                _bookRepo.Create(newBook);
+                //_db.Books.Add(newBook);
+                //_db.SaveChanges();
 
                 return CreatedAtRoute("GetBook", new { id = newBook.Id }, createBookDto);
 
@@ -137,22 +140,22 @@ namespace L05_Tasks_MSSQL.Controllers
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-        //[HttpGet("Filter")]
-        //public ActionResult<List<GetBookDto>> Filter(FilterBooksRequestDto req)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        [HttpGet("Filter")]
+        public ActionResult<List<GetBookDto>> Filter(string? title, string? author)
+        {
+            var books = _bookRepo.GetAll(b => b.Title.Contains(title != null ? title : "") && 
+                                              b.Author.Contains(author != null ? author : ""));
+            
+            var booksDto = new List<GetBookDto>();
+            if (books != null)
+            {
+                foreach (var book in books)
+                {
+                    booksDto.Add(_wrapper.Bind(book));
+                }
+            }
+            return booksDto;
+        }
 
 
         /// <summary>
@@ -192,16 +195,6 @@ namespace L05_Tasks_MSSQL.Controllers
         }
 
 
-
-
-
-
-
-
-
-
-
-
         /// <summary>
         /// Trinama knyga is duomenu bases pagal specifini id
         /// </summary>
@@ -227,8 +220,9 @@ namespace L05_Tasks_MSSQL.Controllers
                     return NotFound();
                 }
 
-                _db.Books.Remove(book);
-                _db.SaveChanges();
+                _bookRepo.Remove(book);
+                //_db.Books.Remove(book);
+                //_db.SaveChanges();
 
                 return NoContent();
             }

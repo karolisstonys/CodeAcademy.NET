@@ -2,7 +2,7 @@
 
 namespace L05_Tasks_MSSQL.Repository.IRepository
 {
-    public interface IBookRepository
+    public interface IBookRepository : IRepository<Book>
     {
         Book Update(Book book);
     }
