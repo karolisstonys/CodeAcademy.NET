@@ -15,7 +15,7 @@ namespace L07_Api_Car
 
             // Add services to the container.
             builder.Services.AddTransient<ICarAdapter, CarAdapter>();
-            builder.Services.AddTransient<IRepository<Car>, CarRepository>();
+            builder.Services.AddTransient<ICarRepository, CarRepository>();
             builder.Services.AddDbContext<CarContext>(option =>
             {
                 option.UseSqlServer(builder.Configuration.GetConnectionString("MyDefaultSQLConnection"));
