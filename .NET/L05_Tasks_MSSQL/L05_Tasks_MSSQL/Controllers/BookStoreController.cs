@@ -78,7 +78,7 @@ namespace L05_Tasks_MSSQL.Controllers
                 if (id == 0)
                 {
                     _logger.LogError("HttpGet GetBookById(id = {0}) su blogu id {1} ", id, DateTime.Now);
-                    return BadRequest();
+                    return NotFound(); // return BadRequest();
                 }
 
                 var book = _bookRepo.Get(b => b.Id == id);
