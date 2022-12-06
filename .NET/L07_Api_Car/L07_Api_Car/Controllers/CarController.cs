@@ -34,7 +34,11 @@ namespace L07_Api_Car.Controllers
         [Produces(MediaTypeNames.Application.Json)]
         public ActionResult<GetCarResult> Get(int id)
         {
-            if (!_repo.Exists(id)) return NotFound();
+            if (!_repo.Exists(id))
+            {
+                _logger.LogInformation("Car with Id={0} not found!", id);
+                return NotFound();
+            }
             var car = _repo.Get(id);
             var carResult = _adapter.Bind(car);
             return Ok(carResult);
@@ -73,13 +77,13 @@ namespace L07_Api_Car.Controllers
         {
             if (!Enum.TryParse(typeof(ECarGearBox), req.GearBox, out _))
             {
-                var validValues = Enum.GetNames(typeof(ECarGearBox));
+                string[] validValues = Enum.GetNames(typeof(ECarGearBox));
                 ModelState.AddModelError(nameof(req.GearBox), $"Not valid value. Valid values are: {string.Join(", ", validValues)}");
             }
 
             if (!Enum.TryParse(typeof(ECarFuel), req.Fuel, out _))
             {
-                var validValues = Enum.GetNames(typeof(ECarFuel));
+                string[] validValues = Enum.GetNames(typeof(ECarFuel));
                 ModelState.AddModelError(nameof(req.Fuel), $"Not valid value. Valid values are: {string.Join(", ", validValues)}");
             }
 
@@ -104,6 +108,32 @@ namespace L07_Api_Car.Controllers
         [Consumes(MediaTypeNames.Application.Json)]
         public ActionResult Put([FromBody] PutCarRequest req)
         {
+            if (!_repo.Exists(req.Id)) {
+                _logger.LogInformation("Car with Id={0} not found!", req.Id);
+                return NotFound(); 
+            }
+
+            if (!Enum.TryParse(typeof(ECarGearBox), req.GearBox, out _))
+            {
+                string[] validValues = Enum.GetNames(typeof(ECarGearBox));
+                ModelState.AddModelError(nameof(req.GearBox), $"Not valid value. Valid values are: {string.Join(", ", validValues)}");
+            }
+
+            if (!Enum.TryParse(typeof(ECarFuel), req.Fuel, out _))
+            {
+                string[] validValues = Enum.GetNames(typeof(ECarFuel));
+                ModelState.AddModelError(nameof(req.Fuel), $"Not valid value. Valid values are: {string.Join(", ", validValues)}");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return ValidationProblem(ModelState);
+            }
+
+
+            var entity = _adapter.Bind(req);
+            _repo.Update(entity);
+
             return NoContent();
         }
 
@@ -116,6 +146,15 @@ namespace L07_Api_Car.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult Delete(int id)
         {
+            if (!_repo.Exists(id))
+            {
+                _logger.LogInformation("Car with Id={0} not found!", id);
+                return NotFound();
+            }
+
+            var entity = _repo.Get(id);
+            _repo.Delete(entity);
+
             return NoContent();
         }
     }

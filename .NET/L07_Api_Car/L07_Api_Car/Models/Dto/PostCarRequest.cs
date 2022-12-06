@@ -21,12 +21,12 @@ namespace L07_Api_Car.Models.Dto
         /// <summary>
         /// Automobilio pavaru dezes tipas. Galimos reiksmes: Manual ir Automatic.
         /// </summary>
-        [MaxLength(12, ErrorMessage = "GearBox cannot be longer than 15 symbols")]
+        [MaxLength(12, ErrorMessage = "GearBox cannot be longer than 12 symbols")]
         public string GearBox { get; set; }
         /// <summary>
         /// Automobilio kuro tipas. Galimos reiksmes: Petrol, Diesel ir Electric.
         /// </summary>
-        [MaxLength(12, ErrorMessage = "Fuel cannot be longer than 15 symbols")]
+        [MaxLength(12, ErrorMessage = "Fuel cannot be longer than 12 symbols")]
         public string Fuel { get; set; }
     }
 }

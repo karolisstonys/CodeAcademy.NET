@@ -32,5 +32,19 @@ namespace L07_Api_Car.Services
                 Fuel = (ECarFuel)Enum.Parse(typeof(ECarFuel), car.Fuel)
             };
         }
+
+        public Car Bind(PutCarRequest car)
+        {
+            return new Car
+            {
+                Id = car.Id,
+                Make = car.Make,
+                Model = car.Model,
+                Year = DateTime.Parse(car.Year),
+                PlateNumber = car.PlateNumber,
+                GearBox = (ECarGearBox)Enum.Parse(typeof(ECarGearBox), car.GearBox),
+                Fuel = (ECarFuel)Enum.Parse(typeof(ECarFuel), car.Fuel)
+            };
+        }
     }
 }
