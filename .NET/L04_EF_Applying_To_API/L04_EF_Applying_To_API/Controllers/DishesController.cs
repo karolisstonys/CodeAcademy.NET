@@ -2,6 +2,7 @@
 using L04_EF_Applying_To_API.Models;
 using L04_EF_Applying_To_API.Models.DTO;
 using L04_EF_Applying_To_API.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -58,6 +59,7 @@ namespace L04_EF_Applying_To_API.Controllers
         /// </summary>
         /// <param name="createDishDto">Dish object</param>
         /// <returns></returns>
+        [Authorize]
         [HttpPost("CreateDish")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(IEnumerable<CreateDishDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
