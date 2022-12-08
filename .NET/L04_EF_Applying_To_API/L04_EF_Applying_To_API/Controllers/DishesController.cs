@@ -113,7 +113,7 @@ namespace L04_EF_Applying_To_API.Controllers
         /// <param name="id">Id by which dish object is updated</param>
         /// <returns></returns>
         [HttpPut("update/{id:int}")]
-        [Authorize(Roles = "admin,super-admin")]
+        [Authorize(Roles = "admin,")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

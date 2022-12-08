@@ -2,8 +2,13 @@ using L05_Tasks_MSSQL.Data;
 using L05_Tasks_MSSQL.Repository;
 using L05_Tasks_MSSQL.Repository.IRepository;
 using L05_Tasks_MSSQL.Services;
+using L05_Tasks_MSSQL.Services.IServices;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Reflection;
+using System.Text;
 
 namespace L05_Tasks_MSSQL
 {
@@ -15,6 +20,9 @@ namespace L05_Tasks_MSSQL
 
             // Add services to the container.
             builder.Services.AddTransient<IBookWrapper, BookWrapper>();
+            builder.Services.AddScoped<IPasswordService, PasswordService>();
+            builder.Services.AddScoped<IJwtService, JwtService>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IBookRepository, BookRepository>();
 
             builder.Services.AddDbContext<BookStoreContext>(option =>
@@ -22,16 +30,65 @@ namespace L05_Tasks_MSSQL
                 option.UseSqlServer(builder.Configuration.GetConnectionString("MyDefaultSQLConnection"));
             });
 
+            var key = builder.Configuration.GetValue<string>("MyApiSettings:SuperDuperSecret");
+            builder.Services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen(
-                options =>
+            builder.Services.AddSwaggerGen(option =>
+            {
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                option.IncludeXmlComments(xmlPath);
+
+                // This is added to show JWT UI part in Swagger
+                option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {
-                    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                    options.IncludeXmlComments(xmlPath);
+                    Description =
+                        "JWT Authorization header is using Bearer scheme. \r\n\r\n" +
+                        "Enter 'Bearer' and token separated by a space. \r\n\r\n" +
+                        "Example: \"Bearer d5f41g85d1f52a\"",
+                    Name = "Authorization", // Header key name
+                    In = ParameterLocation.Header,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT"
                 });
+
+                option.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    {
+                        new OpenApiSecurityScheme()
+                        {
+                            Reference = new OpenApiReference()
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header
+                        },
+                        new List<string>()
+                    }
+                });
+            });
 
             var app = builder.Build();
 
@@ -44,6 +101,7 @@ namespace L05_Tasks_MSSQL
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();    // ORDER MATTERS ! ! !
             app.UseAuthorization();
 
             app.MapControllers();

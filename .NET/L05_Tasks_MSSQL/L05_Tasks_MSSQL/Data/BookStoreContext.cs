@@ -9,6 +9,7 @@ namespace L05_Tasks_MSSQL.Data
         public BookStoreContext(DbContextOptions<BookStoreContext> options) : base(options) { }
 
         public DbSet<Book> Books { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
