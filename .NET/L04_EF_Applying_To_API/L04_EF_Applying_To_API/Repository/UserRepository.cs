@@ -2,6 +2,7 @@
 using L04_EF_Applying_To_API.Models;
 using L04_EF_Applying_To_API.Models.DTO;
 using L04_EF_Applying_To_API.Repository.IRepository;
+using L04_EF_Applying_To_API.Services.IServices;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -12,68 +13,69 @@ namespace L04_EF_Applying_To_API.Repository
     public class UserRepository : IUserRepository
     {
         private readonly RestaurantContext _db;
-        private string _secretKey;
+        private readonly IPasswordService _passwordService;
+        private readonly IJwtService _jwtService;
+        private readonly LoginResponse _emptyTokenAndNullUser = new LoginResponse
+                {
+                    Token = "",
+                    User = null
+                };
 
-        public UserRepository(RestaurantContext db, IConfiguration conf)
+    public UserRepository(RestaurantContext db, IConfiguration conf, IPasswordService passwordService, IJwtService jwtService)
         {
             _db = db;
-            _secretKey = conf.GetValue<string>("ApiSettings:SuperDuperSecret");
+            _passwordService = passwordService;
+            _jwtService=jwtService;
         }
 
         public bool IsUniqueUser(string username) => !_db.LocalUsers.Any(u => u.Username == username);
 
         public LoginResponse Login(LoginRequest loginRequest)
         {
-            var user = _db.LocalUsers.FirstOrDefault(u => u.Username.ToLower() == loginRequest.Username.ToLower() &&
-                                                          u.Password == loginRequest.Password);
-            if (user == null)
-                return new LoginResponse
-                {
-                    Token = "",
-                    User = null
-                };
+            var inputPastwordBytes = Encoding.UTF8.GetBytes(loginRequest.Password);
+            var user = _db.LocalUsers.FirstOrDefault(u => u.Username.ToLower() == loginRequest.Username.ToLower());
 
-            var tokenHandler = new JwtSecurityTokenHandler();
+            if (user == null) return _emptyTokenAndNullUser;
 
-            var key = Encoding.ASCII.GetBytes(_secretKey);
+            if (_passwordService.VerifyPasswordHash(loginRequest.Password, user.PasswordHash, user.PasswordSalt)) return _emptyTokenAndNullUser;
 
-            var tokenDescriptor = new SecurityTokenDescriptor()
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, user.Id.ToString())
-                }),
-                Expires = DateTime.UtcNow.AddDays(1),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var token = _jwtService.GetJwtToken(user.Id, user.Role);
 
             LoginResponse loginResponse = new()
             {
-                Token = tokenHandler.WriteToken(token),
+                Token = token,
                 User = user
             };
 
-            loginResponse.User.Password = "";
+            loginResponse.User.PasswordHash = null;
 
             return loginResponse;
         }
 
-        public LocalUser Register(RegistrationRequest registrationRequest)
+        public RegistrationResponse Register(RegistrationRequest registrationRequest)
         {
+            _passwordService.CreatePasswordHash(registrationRequest.Password, out byte[] hash, out byte[] salt);
+
             LocalUser user = new()
             {
                 Username = registrationRequest.Username,
-                Password = registrationRequest.Password,
-                Name = registrationRequest.Name
+                PasswordHash = hash,
+                PasswordSalt = salt,
+                Name = registrationRequest.Name,
+                Role = registrationRequest.Role
+            };
+
+            RegistrationResponse registrationResponse = new()
+            {
+                Username = registrationRequest.Username,
+                Name = registrationRequest.Name,
+                Role = registrationRequest.Role
             };
 
             _db.LocalUsers.Add(user);
             _db.SaveChanges();
-            user.Password = "";
 
-            return user;
+            return registrationResponse;
         }
     }
 }

@@ -9,6 +9,6 @@ namespace L04_EF_Applying_To_API.Repository.IRepository
 
         LoginResponse Login(LoginRequest loginRequest);
 
-        LocalUser Register(RegistrationRequest registrationRequest);
+        RegistrationResponse Register(RegistrationRequest registrationRequest);
     }
 }
