@@ -18,7 +18,6 @@ namespace L05_Tasks_MSSQL.Repository
             book.Updated = DateTime.Now;
             _db.Books.Update(book);
             _db.SaveChanges();
-
             return book;
         }
     }
