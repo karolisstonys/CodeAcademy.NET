@@ -17,16 +17,17 @@ namespace L05_Tasks_MSSQL.Data
         {
             var books = modelBuilder.Entity<Book>();
             books.HasData(
-                new Book(1, "In Search of Lost Time", "Marcel Proust", ECoverType.Paperback, 2001),
-                new Book(2, "Ulysses", "James Joyce", ECoverType.Hardcover, 2002),
-                new Book(3, "Don Quixote", "Miguel de Cervantes", ECoverType.Electronic, 2003),
-                new Book(4, "One Hundred Years of Solitude", "Gabriel Garcia Marquez", ECoverType.Hardcover, 2004),
-                new Book(5, "The Great Gatsby", "F. Scott Fitzgerald", ECoverType.Hardcover, 2005),
-                new Book(6, "Moby Dick", "Herman Melville", ECoverType.Paperback, 2006),
-                new Book(7, "War and Peace", "Leo Tolstoy", ECoverType.Paperback, 2007),
-                new Book(8, "Hamlet", "William Shakespeare", ECoverType.Hardcover, 2008),
-                new Book(9, "King Lear", "William Shakespeare", ECoverType.Hardcover, 2009),
-                new Book(10, "The Tempest", "William Shakespeare", ECoverType.Paperback, 2010)
+                new Book("0553211765", "A Tale of Two Cities", "Charles Dickens", ECoverType.Hardcover, 1989),
+                new Book("0786275391", "The Little Prince", "Antoine de Saint-Exupery", ECoverType.Hardcover, 2005),
+                new Book("1856134032", "Harry Potter and The Philosopher's Stone", "Rowling, J. K.", ECoverType.Hardcover, 1997),
+                new Book("0451528905", "Don Quixote", "Miguel de Cervantes", ECoverType.Paperback, 2003),
+                new Book("0847980790", "And Then There Were None", "Agatha Christie", ECoverType.Paperback, 1939),
+                new Book("0020198817", "The Great Gatsby", "F. Scott Fitzgerald", ECoverType.Paperback, 1992),
+                new Book("0553213113", "Moby Dick", "Herman Melville", ECoverType.Paperback, 1981),
+                new Book("1400079985", "War and Peace", "Leo Tolstoy", ECoverType.Paperback, 2008),
+                new Book("0451526929", "Hamlet", "William Shakespeare", ECoverType.Paperback, 1998),
+                new Book("0439136350", "Harry Potter And The Prisoner Of Azkaban", "Rowling, J. K.", ECoverType.Hardcover, 1999),
+                new Book("1856136124", "Harry Potter and the Chamber of Secrets", "Rowling, J. K.", ECoverType.Paperback, 1998)
                 );
             books.Property(b => b.Title)
                  .HasMaxLength(200);

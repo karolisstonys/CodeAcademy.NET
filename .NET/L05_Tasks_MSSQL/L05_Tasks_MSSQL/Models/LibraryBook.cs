@@ -6,10 +6,10 @@ namespace L05_Tasks_MSSQL.Models
     {
         [Key]
         public int Id { get; set; }
-        public int BookId { get; set; }
-        public Book Book { get; set; }
+        public string BookISBN { get; set; }
+        public virtual Book Book { get; set; }
         public bool IsTaken { get; set; }
-        public IEnumerable<UserBook>? UserBooks { get; set; }
+        public virtual IEnumerable<UserBook>? UserBooks { get; set; }
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
     }

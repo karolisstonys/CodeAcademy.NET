@@ -57,36 +57,35 @@ namespace L05_Tasks_MSSQL.Controllers
         }
 
         /// <summary>
-        /// Uzklausia knyga is duomenu bazes pagal specijini id
+        /// Uzklausia knyga is duomenu bazes pagal specijini isbn
         /// </summary>
-        /// <param name="id">Uzklausiamos knygos id</param>
+        /// <param name="isbn">Uzklausiamos knygos isbn</param>
         /// <returns>Grazina rezultata</returns>
         /// <response code="200">Teisingai ivykdomas gavimas ir parodoma vienos knygos informacija</response>
         /// <response code="400">Blogas kreipimasis</response>
         /// <response code="404">Nerasta</response>
         /// <response code="500">Baisi klaida!</response>
-        [HttpGet("GetSingleBook/{id:int}", Name = "GetBook")]
+        [HttpGet("GetSingleBook/{isbn}", Name = "GetBook")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<GetBookDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Produces(MediaTypeNames.Application.Json)]
-        public ActionResult<GetBookDto> GetBookById(int id)
+        public ActionResult<GetBookDto> GetBookByISBN(string isbn)
         {
-            _logger.LogInformation("HttpGet GetBookById(id = {0}) buvo iskvietas {1} ", id, DateTime.Now);
+            _logger.LogInformation("HttpGet GetBookByISBN(isbn = {0}) buvo iskvietas {1} ", isbn, DateTime.Now);
             try
             {
-                if (id == 0)
+                if (isbn == "")
                 {
-                    _logger.LogError("HttpGet GetBookById(id = {0}) su blogu id {1} ", id, DateTime.Now);
+                    _logger.LogError("HttpGet GetBookByISBN(isbn = {0}) su blogu isbn {1} ", isbn, DateTime.Now);
                     return NotFound(); // return BadRequest();
                 }
 
-                var book = _bookRepo.Get(b => b.Id == id);
-                    //_db.Books.FirstOrDefault(a => a.Id == id);
+                var book = _bookRepo.Get(b => b.ISBN == isbn);
                 if (book == null)
                 {
-                    _logger.LogError("HttpGet GetBookById(id = {0}) knyga su tokiu id nerasta {1} ", id, DateTime.Now);
+                    _logger.LogError("HttpGet GetBookByISBN(isbn = {0}) knyga su tokiu isbn nerasta {1} ", isbn, DateTime.Now);
                     return NotFound();
                 }
 
@@ -94,7 +93,7 @@ namespace L05_Tasks_MSSQL.Controllers
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "HttpGet GetBookById(id = {0}) nuluzo {1} ", id, DateTime.Now);
+                _logger.LogError(e, "HttpGet GetBookByISBN(isbn = {0}) nuluzo {1} ", isbn, DateTime.Now);
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
@@ -125,17 +124,14 @@ namespace L05_Tasks_MSSQL.Controllers
                 }
 
                 Book newBook = _wrapper.Bind(createBookDto);
-
                 _bookRepo.Create(newBook);
-                //_db.Books.Add(newBook);
-                //_db.SaveChanges();
 
-                return CreatedAtRoute("GetBook", new { id = newBook.Id }, createBookDto);
+                return CreatedAtAction(nameof(GetBookByISBN), new { isbn = newBook.ISBN }, createBookDto);
 
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "HttpPost GetBookById(createBookDto = {0}) nuluzo {1} ", JsonConvert.SerializeObject(createBookDto), DateTime.Now);
+                _logger.LogError(e, "HttpPost CreateBook(createBookDto = {0}) nuluzo {1} ", JsonConvert.SerializeObject(createBookDto), DateTime.Now);
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
@@ -152,7 +148,7 @@ namespace L05_Tasks_MSSQL.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<GetBookDto>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("Filter")]
-        public ActionResult<List<GetBookDto>> Filter([FromQuery]FilterBooksRequestDto req)
+        public ActionResult<List<GetBookDto>> Filter([FromQuery]FilterBookRequestDto req)
         {
             _logger.LogInformation("HttpGet Filter(FilterBooksRequestDto req = {0}) buvo iskviestas {1} ", req, DateTime.Now);
             try
@@ -217,27 +213,27 @@ namespace L05_Tasks_MSSQL.Controllers
 
 
         /// <summary>
-        /// Trinama knyga is duomenu bases pagal specifini id
+        /// Trinama knyga is duomenu bases pagal specifini isbn
         /// </summary>
-        /// <param name="id">Norimos istrinti knygos id</param>
+        /// <param name="isbn">Norimos istrinti knygos isbn</param>
         /// <returns>Grazina rezultata</returns>
         /// <response code="204">Sekmingai istrinta</response>
         /// <response code="400">Blogas kreipimasis</response>
         /// <response code="404">Nerasta</response>
         /// <response code="500">Baisi klaida!</response>
-        [HttpDelete("{id}")]
+        [HttpDelete("{isbn}")]
         [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(ActionResult))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult DeleteBookById(int id)
+        public ActionResult DeleteBookByISBN(string isbn)
         {
-            _logger.LogInformation("HttpDelete DeleteBookById(id = {0}) buvo iskvietas {1} ", id, DateTime.Now);
+            _logger.LogInformation("HttpDelete DeleteBookByISBN(isbn = {0}) buvo iskvietas {1} ", isbn, DateTime.Now);
             try
             {
-                var book = _db.Books.FirstOrDefault(b => b.Id == id);
+                var book = _bookRepo.Get(b => b.ISBN == isbn);
                 if (book == null)
                 {
-                    _logger.LogError("HttpDelete DeleteBookById(id = {0}) knyga su tokiu id nerasta {1} ", id, DateTime.Now);
+                    _logger.LogError("HttpDelete DeleteBookByISBN(isbn = {0}) knyga su tokiu isbn nerasta {1} ", isbn, DateTime.Now);
                     return NotFound();
                 }
 
@@ -249,7 +245,7 @@ namespace L05_Tasks_MSSQL.Controllers
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "HttpDelete DeleteBookById(id = {0}) nuluzo {1} ", id, DateTime.Now);
+                _logger.LogError(e, "HttpDelete DeleteBookByISBN(isbn = {0}) nuluzo {1} ", isbn, DateTime.Now);
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }

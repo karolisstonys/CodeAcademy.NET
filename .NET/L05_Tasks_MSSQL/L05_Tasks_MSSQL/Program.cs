@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace L05_Tasks_MSSQL
 {
@@ -20,14 +21,19 @@ namespace L05_Tasks_MSSQL
 
             // Add services to the container.
             builder.Services.AddTransient<IBookWrapper, BookWrapper>();
+            builder.Services.AddTransient<ILibraryBookAdapter, LibraryBookAdapter>();
+
             builder.Services.AddScoped<IPasswordService, PasswordService>();
             builder.Services.AddScoped<IJwtService, JwtService>();
+
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IBookRepository, BookRepository>();
+            builder.Services.AddScoped<ILibraryBookRepository, LibraryBookRepository>();
 
             builder.Services.AddDbContext<BookStoreContext>(option =>
             {
                 option.UseSqlServer(builder.Configuration.GetConnectionString("MyDefaultSQLConnection"));
+                option.UseLazyLoadingProxies();
             });
 
             var key = builder.Configuration.GetValue<string>("MyApiSettings:SuperDuperSecret");
@@ -49,7 +55,9 @@ namespace L05_Tasks_MSSQL
                     };
                 });
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(option =>

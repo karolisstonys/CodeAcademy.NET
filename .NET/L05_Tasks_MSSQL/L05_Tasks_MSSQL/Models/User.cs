@@ -13,6 +13,6 @@ namespace L05_Tasks_MSSQL.Models
         public string Role { get; set; }
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
-        public IEnumerable<UserBook>? UserBooks { get; set; }
+        public virtual IEnumerable<UserBook>? UserBooks { get; set; }
     }
 }

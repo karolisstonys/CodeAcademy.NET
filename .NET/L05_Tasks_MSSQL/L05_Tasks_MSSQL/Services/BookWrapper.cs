@@ -12,7 +12,7 @@ namespace L05_Tasks_MSSQL.Services
         {
             return new GetBookDto
             {
-                Id = book.Id,
+                ISBN = book.ISBN,
                 LeidybosMetai = book.PublishYear,
                 PavadinimasIrAutorius = book.Title + " " + book.Author
             };
@@ -22,10 +22,13 @@ namespace L05_Tasks_MSSQL.Services
         {
             return new Book
             {
+                ISBN = book.ISBN,
                 Title = book.Pavadinimas,
                 Author = book.Autorius,
                 PublishYear = book.Isleista.Year,
-                ECoverType = (ECoverType)Enum.Parse(typeof(ECoverType), book.KnygosTipas)
+                ECoverType = (ECoverType)Enum.Parse(typeof(ECoverType), book.KnygosTipas),
+                Created = DateTime.Now,
+                Updated = DateTime.Now
             };
         }
 
@@ -33,7 +36,7 @@ namespace L05_Tasks_MSSQL.Services
         {
             return new Book
             {
-                Id = book.Id,
+                ISBN = book.ISBN,
                 Title = book.Pavadinimas,
                 Author = book.Autorius,
                 PublishYear = book.Isleista.Year,

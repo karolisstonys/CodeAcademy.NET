@@ -1,6 +1,6 @@
 ﻿namespace L05_Tasks_MSSQL.Models.DTO
 {
-    public class FilterBooksRequestDto
+    public class FilterBookRequestDto
     {
         /// <summary>
         /// Book title

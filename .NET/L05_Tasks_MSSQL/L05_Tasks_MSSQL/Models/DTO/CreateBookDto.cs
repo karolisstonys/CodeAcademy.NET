@@ -3,6 +3,11 @@
     public class CreateBookDto
     {
         /// <summary>
+        /// Book ISBN number
+        /// </summary>
+        public string ISBN { get; set; }
+
+        /// <summary>
         /// Book title
         /// </summary>
         public string Pavadinimas { get; set; }

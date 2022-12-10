@@ -2,7 +2,7 @@
 {
     public class UpdateBookDto
     {
-        public int Id { get; set; }
+        public string ISBN { get; set; }
 
         /// <summary>
         /// Release date and time of the book

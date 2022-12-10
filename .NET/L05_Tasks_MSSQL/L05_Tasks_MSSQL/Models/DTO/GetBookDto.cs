@@ -2,7 +2,7 @@
 {
     public class GetBookDto
     {
-        public int Id { get; set; }
+        public string ISBN { get; set; }
 
         /// <summary>
         /// Book title and author seperated by space
