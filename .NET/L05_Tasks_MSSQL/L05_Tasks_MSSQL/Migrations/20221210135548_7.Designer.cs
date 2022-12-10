@@ -4,6 +4,7 @@ using L05_Tasks_MSSQL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace L05TasksMSSQL.Migrations
 {
     [DbContext(typeof(BookStoreContext))]
-    partial class BookStoreContextModelSnapshot : ModelSnapshot
+    [Migration("20221210135548_7")]
+    partial class _7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,110 +70,110 @@ namespace L05TasksMSSQL.Migrations
                             Id = 1,
                             Author = "Marcel Proust",
                             AvailableBooksInLibrary = 0,
-                            Created = new DateTime(2022, 12, 10, 15, 58, 36, 899, DateTimeKind.Local).AddTicks(3016),
+                            Created = new DateTime(2022, 12, 10, 15, 55, 48, 385, DateTimeKind.Local).AddTicks(233),
                             ECoverType = "Paperback",
                             PublishYear = 2001,
                             Title = "In Search of Lost Time",
-                            Updated = new DateTime(2022, 12, 10, 15, 58, 36, 899, DateTimeKind.Local).AddTicks(3046)
+                            Updated = new DateTime(2022, 12, 10, 15, 55, 48, 385, DateTimeKind.Local).AddTicks(269)
                         },
                         new
                         {
                             Id = 2,
                             Author = "James Joyce",
                             AvailableBooksInLibrary = 0,
-                            Created = new DateTime(2022, 12, 10, 15, 58, 36, 899, DateTimeKind.Local).AddTicks(3049),
+                            Created = new DateTime(2022, 12, 10, 15, 55, 48, 385, DateTimeKind.Local).AddTicks(272),
                             ECoverType = "Hardcover",
                             PublishYear = 2002,
                             Title = "Ulysses",
-                            Updated = new DateTime(2022, 12, 10, 15, 58, 36, 899, DateTimeKind.Local).AddTicks(3051)
+                            Updated = new DateTime(2022, 12, 10, 15, 55, 48, 385, DateTimeKind.Local).AddTicks(273)
                         },
                         new
                         {
                             Id = 3,
                             Author = "Miguel de Cervantes",
                             AvailableBooksInLibrary = 0,
-                            Created = new DateTime(2022, 12, 10, 15, 58, 36, 899, DateTimeKind.Local).AddTicks(3052),
+                            Created = new DateTime(2022, 12, 10, 15, 55, 48, 385, DateTimeKind.Local).AddTicks(275),
                             ECoverType = "Electronic",
                             PublishYear = 2003,
                             Title = "Don Quixote",
-                            Updated = new DateTime(2022, 12, 10, 15, 58, 36, 899, DateTimeKind.Local).AddTicks(3054)
+                            Updated = new DateTime(2022, 12, 10, 15, 55, 48, 385, DateTimeKind.Local).AddTicks(277)
                         },
                         new
                         {
                             Id = 4,
                             Author = "Gabriel Garcia Marquez",
                             AvailableBooksInLibrary = 0,
-                            Created = new DateTime(2022, 12, 10, 15, 58, 36, 899, DateTimeKind.Local).AddTicks(3056),
+                            Created = new DateTime(2022, 12, 10, 15, 55, 48, 385, DateTimeKind.Local).AddTicks(279),
                             ECoverType = "Hardcover",
                             PublishYear = 2004,
                             Title = "One Hundred Years of Solitude",
-                            Updated = new DateTime(2022, 12, 10, 15, 58, 36, 899, DateTimeKind.Local).AddTicks(3057)
+                            Updated = new DateTime(2022, 12, 10, 15, 55, 48, 385, DateTimeKind.Local).AddTicks(281)
                         },
                         new
                         {
                             Id = 5,
                             Author = "F. Scott Fitzgerald",
                             AvailableBooksInLibrary = 0,
-                            Created = new DateTime(2022, 12, 10, 15, 58, 36, 899, DateTimeKind.Local).AddTicks(3059),
+                            Created = new DateTime(2022, 12, 10, 15, 55, 48, 385, DateTimeKind.Local).AddTicks(283),
                             ECoverType = "Hardcover",
                             PublishYear = 2005,
                             Title = "The Great Gatsby",
-                            Updated = new DateTime(2022, 12, 10, 15, 58, 36, 899, DateTimeKind.Local).AddTicks(3060)
+                            Updated = new DateTime(2022, 12, 10, 15, 55, 48, 385, DateTimeKind.Local).AddTicks(284)
                         },
                         new
                         {
                             Id = 6,
                             Author = "Herman Melville",
                             AvailableBooksInLibrary = 0,
-                            Created = new DateTime(2022, 12, 10, 15, 58, 36, 899, DateTimeKind.Local).AddTicks(3063),
+                            Created = new DateTime(2022, 12, 10, 15, 55, 48, 385, DateTimeKind.Local).AddTicks(286),
                             ECoverType = "Paperback",
                             PublishYear = 2006,
                             Title = "Moby Dick",
-                            Updated = new DateTime(2022, 12, 10, 15, 58, 36, 899, DateTimeKind.Local).AddTicks(3064)
+                            Updated = new DateTime(2022, 12, 10, 15, 55, 48, 385, DateTimeKind.Local).AddTicks(288)
                         },
                         new
                         {
                             Id = 7,
                             Author = "Leo Tolstoy",
                             AvailableBooksInLibrary = 0,
-                            Created = new DateTime(2022, 12, 10, 15, 58, 36, 899, DateTimeKind.Local).AddTicks(3066),
+                            Created = new DateTime(2022, 12, 10, 15, 55, 48, 385, DateTimeKind.Local).AddTicks(290),
                             ECoverType = "Paperback",
                             PublishYear = 2007,
                             Title = "War and Peace",
-                            Updated = new DateTime(2022, 12, 10, 15, 58, 36, 899, DateTimeKind.Local).AddTicks(3068)
+                            Updated = new DateTime(2022, 12, 10, 15, 55, 48, 385, DateTimeKind.Local).AddTicks(291)
                         },
                         new
                         {
                             Id = 8,
                             Author = "William Shakespeare",
                             AvailableBooksInLibrary = 0,
-                            Created = new DateTime(2022, 12, 10, 15, 58, 36, 899, DateTimeKind.Local).AddTicks(3069),
+                            Created = new DateTime(2022, 12, 10, 15, 55, 48, 385, DateTimeKind.Local).AddTicks(293),
                             ECoverType = "Hardcover",
                             PublishYear = 2008,
                             Title = "Hamlet",
-                            Updated = new DateTime(2022, 12, 10, 15, 58, 36, 899, DateTimeKind.Local).AddTicks(3071)
+                            Updated = new DateTime(2022, 12, 10, 15, 55, 48, 385, DateTimeKind.Local).AddTicks(295)
                         },
                         new
                         {
                             Id = 9,
                             Author = "William Shakespeare",
                             AvailableBooksInLibrary = 0,
-                            Created = new DateTime(2022, 12, 10, 15, 58, 36, 899, DateTimeKind.Local).AddTicks(3073),
+                            Created = new DateTime(2022, 12, 10, 15, 55, 48, 385, DateTimeKind.Local).AddTicks(297),
                             ECoverType = "Hardcover",
                             PublishYear = 2009,
                             Title = "King Lear",
-                            Updated = new DateTime(2022, 12, 10, 15, 58, 36, 899, DateTimeKind.Local).AddTicks(3074)
+                            Updated = new DateTime(2022, 12, 10, 15, 55, 48, 385, DateTimeKind.Local).AddTicks(298)
                         },
                         new
                         {
                             Id = 10,
                             Author = "William Shakespeare",
                             AvailableBooksInLibrary = 0,
-                            Created = new DateTime(2022, 12, 10, 15, 58, 36, 899, DateTimeKind.Local).AddTicks(3076),
+                            Created = new DateTime(2022, 12, 10, 15, 55, 48, 385, DateTimeKind.Local).AddTicks(300),
                             ECoverType = "Paperback",
                             PublishYear = 2010,
                             Title = "The Tempest",
-                            Updated = new DateTime(2022, 12, 10, 15, 58, 36, 899, DateTimeKind.Local).AddTicks(3077)
+                            Updated = new DateTime(2022, 12, 10, 15, 55, 48, 385, DateTimeKind.Local).AddTicks(302)
                         });
                 });
 

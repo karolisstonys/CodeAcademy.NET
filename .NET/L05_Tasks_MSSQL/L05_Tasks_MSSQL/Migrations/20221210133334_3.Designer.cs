@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace L05TasksMSSQL.Migrations
 {
     [DbContext(typeof(BookStoreContext))]
-    [Migration("20221208180331_addedUser")]
-    partial class addedUser
+    [Migration("20221210133334_3")]
+    partial class _3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,6 +36,9 @@ namespace L05TasksMSSQL.Migrations
                     b.Property<string>("Author")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("AvailableBooksInLibrary")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -64,102 +67,139 @@ namespace L05TasksMSSQL.Migrations
                         {
                             Id = 1,
                             Author = "Marcel Proust",
-                            Created = new DateTime(2022, 12, 8, 20, 3, 31, 477, DateTimeKind.Local).AddTicks(9933),
+                            AvailableBooksInLibrary = 0,
+                            Created = new DateTime(2022, 12, 10, 15, 33, 34, 623, DateTimeKind.Local).AddTicks(6746),
                             ECoverType = "Paperback",
                             PublishYear = 2001,
                             Title = "In Search of Lost Time",
-                            Updated = new DateTime(2022, 12, 8, 20, 3, 31, 477, DateTimeKind.Local).AddTicks(9973)
+                            Updated = new DateTime(2022, 12, 10, 15, 33, 34, 623, DateTimeKind.Local).AddTicks(6781)
                         },
                         new
                         {
                             Id = 2,
                             Author = "James Joyce",
-                            Created = new DateTime(2022, 12, 8, 20, 3, 31, 477, DateTimeKind.Local).AddTicks(9981),
+                            AvailableBooksInLibrary = 0,
+                            Created = new DateTime(2022, 12, 10, 15, 33, 34, 623, DateTimeKind.Local).AddTicks(6785),
                             ECoverType = "Hardcover",
                             PublishYear = 2002,
                             Title = "Ulysses",
-                            Updated = new DateTime(2022, 12, 8, 20, 3, 31, 477, DateTimeKind.Local).AddTicks(9982)
+                            Updated = new DateTime(2022, 12, 10, 15, 33, 34, 623, DateTimeKind.Local).AddTicks(6787)
                         },
                         new
                         {
                             Id = 3,
                             Author = "Miguel de Cervantes",
-                            Created = new DateTime(2022, 12, 8, 20, 3, 31, 477, DateTimeKind.Local).AddTicks(9984),
+                            AvailableBooksInLibrary = 0,
+                            Created = new DateTime(2022, 12, 10, 15, 33, 34, 623, DateTimeKind.Local).AddTicks(6789),
                             ECoverType = "Electronic",
                             PublishYear = 2003,
                             Title = "Don Quixote",
-                            Updated = new DateTime(2022, 12, 8, 20, 3, 31, 477, DateTimeKind.Local).AddTicks(9986)
+                            Updated = new DateTime(2022, 12, 10, 15, 33, 34, 623, DateTimeKind.Local).AddTicks(6791)
                         },
                         new
                         {
                             Id = 4,
                             Author = "Gabriel Garcia Marquez",
-                            Created = new DateTime(2022, 12, 8, 20, 3, 31, 477, DateTimeKind.Local).AddTicks(9988),
+                            AvailableBooksInLibrary = 0,
+                            Created = new DateTime(2022, 12, 10, 15, 33, 34, 623, DateTimeKind.Local).AddTicks(6792),
                             ECoverType = "Hardcover",
                             PublishYear = 2004,
                             Title = "One Hundred Years of Solitude",
-                            Updated = new DateTime(2022, 12, 8, 20, 3, 31, 477, DateTimeKind.Local).AddTicks(9990)
+                            Updated = new DateTime(2022, 12, 10, 15, 33, 34, 623, DateTimeKind.Local).AddTicks(6794)
                         },
                         new
                         {
                             Id = 5,
                             Author = "F. Scott Fitzgerald",
-                            Created = new DateTime(2022, 12, 8, 20, 3, 31, 477, DateTimeKind.Local).AddTicks(9992),
+                            AvailableBooksInLibrary = 0,
+                            Created = new DateTime(2022, 12, 10, 15, 33, 34, 623, DateTimeKind.Local).AddTicks(6796),
                             ECoverType = "Hardcover",
                             PublishYear = 2005,
                             Title = "The Great Gatsby",
-                            Updated = new DateTime(2022, 12, 8, 20, 3, 31, 477, DateTimeKind.Local).AddTicks(9993)
+                            Updated = new DateTime(2022, 12, 10, 15, 33, 34, 623, DateTimeKind.Local).AddTicks(6797)
                         },
                         new
                         {
                             Id = 6,
                             Author = "Herman Melville",
-                            Created = new DateTime(2022, 12, 8, 20, 3, 31, 477, DateTimeKind.Local).AddTicks(9995),
+                            AvailableBooksInLibrary = 0,
+                            Created = new DateTime(2022, 12, 10, 15, 33, 34, 623, DateTimeKind.Local).AddTicks(6799),
                             ECoverType = "Paperback",
                             PublishYear = 2006,
                             Title = "Moby Dick",
-                            Updated = new DateTime(2022, 12, 8, 20, 3, 31, 477, DateTimeKind.Local).AddTicks(9997)
+                            Updated = new DateTime(2022, 12, 10, 15, 33, 34, 623, DateTimeKind.Local).AddTicks(6848)
                         },
                         new
                         {
                             Id = 7,
                             Author = "Leo Tolstoy",
-                            Created = new DateTime(2022, 12, 8, 20, 3, 31, 477, DateTimeKind.Local).AddTicks(9999),
+                            AvailableBooksInLibrary = 0,
+                            Created = new DateTime(2022, 12, 10, 15, 33, 34, 623, DateTimeKind.Local).AddTicks(6851),
                             ECoverType = "Paperback",
                             PublishYear = 2007,
                             Title = "War and Peace",
-                            Updated = new DateTime(2022, 12, 8, 20, 3, 31, 478, DateTimeKind.Local)
+                            Updated = new DateTime(2022, 12, 10, 15, 33, 34, 623, DateTimeKind.Local).AddTicks(6853)
                         },
                         new
                         {
                             Id = 8,
                             Author = "William Shakespeare",
-                            Created = new DateTime(2022, 12, 8, 20, 3, 31, 478, DateTimeKind.Local).AddTicks(2),
+                            AvailableBooksInLibrary = 0,
+                            Created = new DateTime(2022, 12, 10, 15, 33, 34, 623, DateTimeKind.Local).AddTicks(6855),
                             ECoverType = "Hardcover",
                             PublishYear = 2008,
                             Title = "Hamlet",
-                            Updated = new DateTime(2022, 12, 8, 20, 3, 31, 478, DateTimeKind.Local).AddTicks(4)
+                            Updated = new DateTime(2022, 12, 10, 15, 33, 34, 623, DateTimeKind.Local).AddTicks(6856)
                         },
                         new
                         {
                             Id = 9,
                             Author = "William Shakespeare",
-                            Created = new DateTime(2022, 12, 8, 20, 3, 31, 478, DateTimeKind.Local).AddTicks(6),
+                            AvailableBooksInLibrary = 0,
+                            Created = new DateTime(2022, 12, 10, 15, 33, 34, 623, DateTimeKind.Local).AddTicks(6858),
                             ECoverType = "Hardcover",
                             PublishYear = 2009,
                             Title = "King Lear",
-                            Updated = new DateTime(2022, 12, 8, 20, 3, 31, 478, DateTimeKind.Local).AddTicks(7)
+                            Updated = new DateTime(2022, 12, 10, 15, 33, 34, 623, DateTimeKind.Local).AddTicks(6860)
                         },
                         new
                         {
                             Id = 10,
                             Author = "William Shakespeare",
-                            Created = new DateTime(2022, 12, 8, 20, 3, 31, 478, DateTimeKind.Local).AddTicks(9),
+                            AvailableBooksInLibrary = 0,
+                            Created = new DateTime(2022, 12, 10, 15, 33, 34, 623, DateTimeKind.Local).AddTicks(6862),
                             ECoverType = "Paperback",
                             PublishYear = 2010,
                             Title = "The Tempest",
-                            Updated = new DateTime(2022, 12, 8, 20, 3, 31, 478, DateTimeKind.Local).AddTicks(11)
+                            Updated = new DateTime(2022, 12, 10, 15, 33, 34, 623, DateTimeKind.Local).AddTicks(6863)
                         });
+                });
+
+            modelBuilder.Entity("L05_Tasks_MSSQL.Models.LibraryBook", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsTaken")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("Updated")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("LibraryBooks");
                 });
 
             modelBuilder.Entity("L05_Tasks_MSSQL.Models.User", b =>
@@ -169,6 +209,9 @@ namespace L05TasksMSSQL.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("FullName")
                         .IsRequired()
@@ -186,6 +229,9 @@ namespace L05TasksMSSQL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("Updated")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -193,6 +239,71 @@ namespace L05TasksMSSQL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("L05_Tasks_MSSQL.Models.UserBook", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("BookReturned")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("BookTaken")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("LibraryBookId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Updated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LibraryBookId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserBooks");
+                });
+
+            modelBuilder.Entity("L05_Tasks_MSSQL.Models.LibraryBook", b =>
+                {
+                    b.HasOne("L05_Tasks_MSSQL.Models.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+                });
+
+            modelBuilder.Entity("L05_Tasks_MSSQL.Models.UserBook", b =>
+                {
+                    b.HasOne("L05_Tasks_MSSQL.Models.LibraryBook", "LibraryBook")
+                        .WithMany()
+                        .HasForeignKey("LibraryBookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("L05_Tasks_MSSQL.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("LibraryBook");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
