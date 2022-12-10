@@ -8,15 +8,15 @@ namespace L05_Tasks_MSSQL.Models
     {
         public Book() { }
 
-        public Book(int id, string title, string author, ECoverType eCoverType, int publishYear, DateTime created, DateTime updated)
+        public Book(int id, string title, string author, ECoverType eCoverType, int publishYear)
         {
             Id = id;
             Title = title;
             Author = author;
             ECoverType = eCoverType;
             PublishYear = publishYear;
-            Created = created;
-            Updated = updated;
+            Created = DateTime.Now;
+            Updated = DateTime.Now;
         }
 
         [Key]
@@ -28,5 +28,7 @@ namespace L05_Tasks_MSSQL.Models
         public int PublishYear { get; set; }
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
+        public int AvailableBooksInLibrary { get; set; } = 0;
+        public IEnumerable<LibraryBook>? LibraryBooks { get; set; }
     }
 }
