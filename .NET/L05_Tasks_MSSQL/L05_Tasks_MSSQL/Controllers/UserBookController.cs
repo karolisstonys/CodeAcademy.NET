@@ -16,14 +16,16 @@ namespace L05_Tasks_MSSQL.Controllers
         private readonly BookStoreContext _db;
         private readonly IUserBookRepository _userBookRepo;
         private readonly ILibraryBookRepository _libraryBookRepo;
+        private readonly IUserRepository _userRepo;
         private readonly IUserBookAdapter _adapter;
 
-        public UserBookController(BookStoreContext db, IUserBookRepository userBookRepo, IUserBookAdapter adapter, ILibraryBookRepository libraryBookRepo)
+        public UserBookController(BookStoreContext db, IUserBookRepository userBookRepo, IUserBookAdapter adapter, ILibraryBookRepository libraryBookRepo, IUserRepository userRepo)
         {
             _db = db;
             _userBookRepo = userBookRepo;
             _adapter = adapter;
             _libraryBookRepo = libraryBookRepo;
+            _userRepo = userRepo;
         }
 
         [HttpGet("GetAll")]
@@ -54,14 +56,17 @@ namespace L05_Tasks_MSSQL.Controllers
             var isTaken = libraryBook.IsTaken;
             if (isTaken) return NotFound("Book is already taken");
 
-            var user = _db.Users.FirstOrDefault(b => b.Id == createUserBookDto.UserId);
-            if (user == null) return NotFound();
+            var getUserDto = _userRepo.Get(b => b.Id == createUserBookDto.UserId);
+            if (getUserDto == null) return NotFound();
+            if (getUserDto.TakenLibraryBooks >= 5) return Conflict("User has too many books taken already"); // ResponseType GAL PAKEISTI ???
 
-            UserBook newUserBook = _adapter.Adapt(user, libraryBook);
+            UserBook newUserBook = _adapter.Adapt(getUserDto, libraryBook);
             _userBookRepo.Create(newUserBook);
 
             libraryBook.IsTaken = true;
             _libraryBookRepo.Update(libraryBook);
+                        
+            _userRepo.UpdateTakenLibraryBooks(getUserDto.Id, 1);
 
             GetUserBookDto getUserBookDto = _adapter.Adapt(newUserBook);
 
@@ -83,6 +88,8 @@ namespace L05_Tasks_MSSQL.Controllers
 
             libraryBook.IsTaken = false;
             _libraryBookRepo.Update(libraryBook);
+
+            _userRepo.UpdateTakenLibraryBooks(userBook.UserId, -1);
 
             return NoContent();
         }

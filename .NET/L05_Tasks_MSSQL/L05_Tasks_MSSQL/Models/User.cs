@@ -14,5 +14,6 @@ namespace L05_Tasks_MSSQL.Models
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
         public virtual IEnumerable<UserBook>? UserBooks { get; set; }
+        public int TakenLibraryBooks { get; set; } = 0;
     }
 }

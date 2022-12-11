@@ -1,19 +1,18 @@
 ﻿using L05_Tasks_MSSQL.Models;
 using L05_Tasks_MSSQL.Models.DTO;
+using L05_Tasks_MSSQL.Models.DTO.UserDto;
 using L05_Tasks_MSSQL.Services.IServices;
 
 namespace L05_Tasks_MSSQL.Services
 {
     public class UserBookAdapter : IUserBookAdapter
     {
-        public UserBook Adapt(User user, LibraryBook libraryBook)
+        public UserBook Adapt(GetUserDto user, LibraryBook libraryBook)
         {
             return new UserBook()
             {
                 UserId = user.Id,
-                User = user,
                 LibraryBookId = libraryBook.Id,
-                LibraryBook = libraryBook,
                 BookTaken = DateTime.Now,
                 BookReturned = null,
                 Created = DateTime.Now,
@@ -25,6 +24,7 @@ namespace L05_Tasks_MSSQL.Services
         {
             return new GetUserBookDto()
             {
+                Id = userBook.Id,
                 UserId = userBook.UserId,
                 UserFullName = userBook.User.FullName,
                 LibraryBookId = userBook.LibraryBookId,

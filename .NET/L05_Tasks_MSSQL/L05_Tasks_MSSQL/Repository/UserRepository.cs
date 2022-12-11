@@ -1,8 +1,10 @@
 ﻿using L05_Tasks_MSSQL.Data;
 using L05_Tasks_MSSQL.Models;
 using L05_Tasks_MSSQL.Models.DTO;
+using L05_Tasks_MSSQL.Models.DTO.UserDto;
 using L05_Tasks_MSSQL.Repository.IRepository;
 using L05_Tasks_MSSQL.Services.IServices;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace L05_Tasks_MSSQL.Repository
@@ -80,5 +82,52 @@ namespace L05_Tasks_MSSQL.Repository
 
             return registrationResponse;
         }
+
+        public List<GetUserDto> GetAll(Expression<Func<User, bool>>? filter = null)
+        {
+            IQueryable<User> users = _db.Users;
+            if (filter != null) users = _db.Users.Where(filter);
+
+            var userDto = new List<GetUserDto>();
+            foreach (var user in users)
+            {
+                userDto.Add(new GetUserDto()
+                {
+                    Id = user.Id,
+                    FullName = user.FullName,
+                    Role = user.Role,
+                    TakenLibraryBooks = user.TakenLibraryBooks
+                });
+
+            }
+            return userDto;
+        }
+
+        public GetUserDto Get(Expression<Func<User, bool>> filter)
+        {
+            User user = _db.Users.Where(filter).FirstOrDefault();
+            var userDto = new GetUserDto()
+            {
+                Id = user.Id,
+                FullName = user.FullName,
+                Role = user.Role,
+                TakenLibraryBooks = user.TakenLibraryBooks
+            };
+            return userDto;
+        }
+
+        public void UpdateTakenLibraryBooks(int userId, int modifier)
+        {
+            User user = _db.Users.First(u => u.Id == userId);
+            user.TakenLibraryBooks += modifier;
+            _db.Users.Update(user);
+            _db.SaveChanges();
+        }
+
+
+
+
+
+
     }
 }
