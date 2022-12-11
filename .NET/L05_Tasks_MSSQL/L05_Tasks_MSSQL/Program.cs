@@ -20,15 +20,17 @@ namespace L05_Tasks_MSSQL
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddTransient<IBookWrapper, BookWrapper>();
-            builder.Services.AddTransient<ILibraryBookAdapter, LibraryBookAdapter>();
-
             builder.Services.AddScoped<IPasswordService, PasswordService>();
             builder.Services.AddScoped<IJwtService, JwtService>();
+
+            builder.Services.AddTransient<IBookWrapper, BookWrapper>();
+            builder.Services.AddTransient<ILibraryBookAdapter, LibraryBookAdapter>();
+            builder.Services.AddTransient<IUserBookAdapter, UserBookAdapter>();
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IBookRepository, BookRepository>();
             builder.Services.AddScoped<ILibraryBookRepository, LibraryBookRepository>();
+            builder.Services.AddScoped<IUserBookRepository, UserBookRepository>();
 
             builder.Services.AddDbContext<BookStoreContext>(option =>
             {

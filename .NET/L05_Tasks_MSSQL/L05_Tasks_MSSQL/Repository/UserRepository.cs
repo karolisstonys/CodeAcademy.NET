@@ -63,7 +63,9 @@ namespace L05_Tasks_MSSQL.Repository
                 PasswordHash = hash,
                 PasswordSalt = salt,
                 FullName = registrationRequest.FullName,
-                Role = registrationRequest.Role
+                Role = registrationRequest.Role,
+                Created = DateTime.Now,
+                Updated = DateTime.Now
             };
 
             RegistrationResponse registrationResponse = new()

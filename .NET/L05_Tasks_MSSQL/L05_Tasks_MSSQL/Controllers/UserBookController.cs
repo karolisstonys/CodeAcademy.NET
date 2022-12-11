@@ -15,25 +15,31 @@ namespace L05_Tasks_MSSQL.Controllers
     {
         private readonly BookStoreContext _db;
         private readonly IUserBookRepository _userBookRepo;
+        private readonly ILibraryBookRepository _libraryBookRepo;
         private readonly IUserBookAdapter _adapter;
 
-        public UserBookController(BookStoreContext db, IUserBookRepository userBookRepo, IUserBookAdapter adapter)
+        public UserBookController(BookStoreContext db, IUserBookRepository userBookRepo, IUserBookAdapter adapter, ILibraryBookRepository libraryBookRepo)
         {
             _db = db;
             _userBookRepo = userBookRepo;
             _adapter = adapter;
+            _libraryBookRepo = libraryBookRepo;
         }
 
         [HttpGet("GetAll")]
-        public ActionResult<List<UserBook>> GetAction()
+        public ActionResult<List<GetUserBookDto>> GetAction()
         {
-            return _userBookRepo.GetAll();
+            var getUserBookDtoList = _userBookRepo.GetAll()
+                                                  .Select(userBooks => _adapter.Adapt(userBooks))
+                                                  .ToList();
+            return getUserBookDtoList;
         }
 
         [HttpGet("Get/{id:int}")]
-        public ActionResult<UserBook> GetUserBookById(int id)
+        public ActionResult<GetUserBookDto> GetUserBookById(int id)
         {
-            return _userBookRepo.Get(ub => ub.UserId == id);
+            var userBook = _userBookRepo.Get(ub => ub.UserId == id);
+            return _adapter.Adapt(userBook);
         }
 
         [HttpPost("TakeLibraryBook")]
@@ -42,7 +48,7 @@ namespace L05_Tasks_MSSQL.Controllers
         {
             if (createUserBookDto == null) return BadRequest();
 
-            var libraryBook = _db.LibraryBooks.FirstOrDefault(b => b.Id == createUserBookDto.LibraryBookId);
+            var libraryBook = _libraryBookRepo.Get(b => b.Id == createUserBookDto.LibraryBookId);
             if (libraryBook == null) return NotFound();
 
             var isTaken = libraryBook.IsTaken;
@@ -54,9 +60,31 @@ namespace L05_Tasks_MSSQL.Controllers
             UserBook newUserBook = _adapter.Adapt(user, libraryBook);
             _userBookRepo.Create(newUserBook);
 
+            libraryBook.IsTaken = true;
+            _libraryBookRepo.Update(libraryBook);
+
             GetUserBookDto getUserBookDto = _adapter.Adapt(newUserBook);
 
             return CreatedAtAction(nameof(GetUserBookById), new { id = getUserBookDto.UserId }, getUserBookDto);
+        }
+
+        [HttpPut("ReturnLibraryBook/{id:int}")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public IActionResult ReturnLibraryBookById(int id)
+        {
+            var userBook = _userBookRepo.Get(b => b.Id == id);
+            if (userBook == null) return NotFound();
+
+            var libraryBook = _libraryBookRepo.Get(b => b.Id == userBook.LibraryBookId);
+            if (libraryBook == null) return NotFound();
+
+            userBook.BookReturned = DateTime.Now;
+            _userBookRepo.Update(userBook);
+
+            libraryBook.IsTaken = false;
+            _libraryBookRepo.Update(libraryBook);
+
+            return NoContent();
         }
 
     }

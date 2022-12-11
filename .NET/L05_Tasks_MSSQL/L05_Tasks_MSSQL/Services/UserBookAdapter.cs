@@ -10,7 +10,6 @@ namespace L05_Tasks_MSSQL.Services
         {
             return new UserBook()
             {
-                Id = libraryBook.Id,
                 UserId = user.Id,
                 User = user,
                 LibraryBookId = libraryBook.Id,
@@ -36,6 +35,7 @@ namespace L05_Tasks_MSSQL.Services
                 BookReturned = userBook.BookReturned
             };
         }
+
 
     }
 }
