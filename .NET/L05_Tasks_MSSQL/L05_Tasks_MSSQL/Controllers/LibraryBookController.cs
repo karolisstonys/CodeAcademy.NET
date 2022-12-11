@@ -26,14 +26,14 @@ namespace L05_Tasks_MSSQL.Controllers
             _adapter = adapter;
         }
 
-        [HttpGet("All")]
+        [HttpGet("GetAll")]
         public ActionResult<List<GetLibraryBookDto>> GetLibraryBooks()
         {
             var allLibraryBooks = _libraryBookRepo.GetAll();
             return Ok(_adapter.Adapt(allLibraryBooks));
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("Get/{id:int}")]
         public ActionResult<GetLibraryBookDto> GetLibraryBookById(int id)
         {
             var libraryBook = _libraryBookRepo.Get(lb => lb.Id == id);
@@ -51,15 +51,7 @@ namespace L05_Tasks_MSSQL.Controllers
             var book = _db.Books.FirstOrDefault(b => b.ISBN == createLibraryBookDto.BookISBN);
             if (book == null) return NotFound();
 
-            LibraryBook newLibraryBook = new LibraryBook()
-            {
-                BookISBN = createLibraryBookDto.BookISBN,
-                Book = book,
-                IsTaken = false,
-                Created = DateTime.Now,
-                Updated = DateTime.Now
-            };
-
+            LibraryBook newLibraryBook = _adapter.Adapt(createLibraryBookDto.BookISBN, book);
             _libraryBookRepo.Create(newLibraryBook);
             GetLibraryBookDto getLibraryBookDto = _adapter.Adapt(newLibraryBook);
 
@@ -67,7 +59,7 @@ namespace L05_Tasks_MSSQL.Controllers
         }
 
         [HttpPost("AddMany/{count:int}")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult AddManyLibraryBooks(CreateLibraryBookDto libraryBookDto, int count)
         {
             if (libraryBookDto == null || libraryBookDto.BookISBN == "" || count <= 0) return BadRequest();
@@ -77,19 +69,30 @@ namespace L05_Tasks_MSSQL.Controllers
 
             for (int i = 0; i < count; i++)
             {
-                LibraryBook newLibraryBook = new LibraryBook()
-                {
-                    BookISBN = libraryBookDto.BookISBN,
-                    Book = book,
-                    IsTaken = false,
-                    Created = DateTime.Now,
-                    Updated = DateTime.Now
-                };
-
+                LibraryBook newLibraryBook = _adapter.Adapt(libraryBookDto.BookISBN, book);
                 _libraryBookRepo.Create(newLibraryBook);
             }
 
             return Ok();
+        }
+
+        [HttpDelete("Delete/{id:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public IActionResult DeleteLibraryBookById(int id)
+        {
+            var libraryBook = _libraryBookRepo.Get(lb => lb.Id == id);
+            if (libraryBook == null) return NotFound();
+
+            while (_db.UserBooks.FirstOrDefault(ub => ub.LibraryBookId == id) != null)
+            {
+                var userBook = _db.UserBooks.First(ub => ub.LibraryBookId == id);
+                _db.UserBooks.Remove(userBook);
+                _db.SaveChanges();
+            }
+
+            _libraryBookRepo.Remove(libraryBook);
+
+            return NoContent();
         }
 
 

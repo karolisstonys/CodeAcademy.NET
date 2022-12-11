@@ -35,11 +35,11 @@ namespace L05_Tasks_MSSQL.Controllers
         /// <returns>Grazina rezultata</returns>
         /// <response code="200">Teisingai ivykdomas gavimas ir parodoma visos knygos</response>
         /// <response code="500">Baisi klaida!</response>
-        [HttpGet("AllBooks")]
+        [HttpGet("GetAll")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<GetBookDto>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Produces(MediaTypeNames.Application.Json)]
-        public ActionResult<IEnumerable<GetBookDto>> GetBooks()
+        public ActionResult<IEnumerable<GetBookDto>> GetAllBooks()
         {
             _logger.LogInformation("HttpGet AllBooks() buvo iskvietas {0} ", DateTime.Now);
             try
@@ -65,7 +65,7 @@ namespace L05_Tasks_MSSQL.Controllers
         /// <response code="400">Blogas kreipimasis</response>
         /// <response code="404">Nerasta</response>
         /// <response code="500">Baisi klaida!</response>
-        [HttpGet("GetSingleBook/{isbn}", Name = "GetBook")]
+        [HttpGet("Get/{isbn}", Name = "GetBook")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<GetBookDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -107,7 +107,7 @@ namespace L05_Tasks_MSSQL.Controllers
         /// <response code="201">Sekmingai sukuriama nauja knyga</response>
         /// <response code="400">Blogas kreipimasis</response>
         /// <response code="500">Baisi klaida!</response>
-        [HttpPost("CreateBook")]
+        [HttpPost("Create")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(IEnumerable<CreateBookDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -183,7 +183,7 @@ namespace L05_Tasks_MSSQL.Controllers
         /// <response code="204">Sekmingai atnaujinta knyga</response>
         /// <response code="400">Blogas kreipimasis</response>
         /// <response code="500">Baisi klaida!</response>
-        [HttpPut]
+        [HttpPut("Update")]
         [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(IEnumerable<CreateBookDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -221,7 +221,7 @@ namespace L05_Tasks_MSSQL.Controllers
         /// <response code="400">Blogas kreipimasis</response>
         /// <response code="404">Nerasta</response>
         /// <response code="500">Baisi klaida!</response>
-        [HttpDelete("{isbn}")]
+        [HttpDelete("Delete/{isbn}")]
         [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(ActionResult))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

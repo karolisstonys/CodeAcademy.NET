@@ -7,5 +7,6 @@ namespace L05_Tasks_MSSQL.Services.IServices
     {
         GetLibraryBookDto Adapt(LibraryBook libraryBook);
         List<GetLibraryBookDto> Adapt(IEnumerable<LibraryBook> libraryBooks);
+        LibraryBook Adapt(string isbn, Book book);
     }
 }

@@ -48,7 +48,17 @@ namespace L05_Tasks_MSSQL.Services
         }
 
 
-
+        public LibraryBook Adapt(string isbn, Book book)
+        {
+            return new LibraryBook()
+            {
+                BookISBN = isbn,
+                Book = book,
+                IsTaken = false,
+                Created = DateTime.Now,
+                Updated = DateTime.Now
+            };
+        }
 
 
 
