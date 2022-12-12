@@ -58,9 +58,9 @@ namespace L05_Tasks_MSSQL.Controllers
 
             var getUserDto = _userRepo.Get(b => b.Id == createUserBookDto.UserId);
             if (getUserDto == null) return NotFound();
-            if (getUserDto.TakenLibraryBooks >= 5) return Conflict("User has too many books taken already");                // ResponseType GAL PAKEISTI ???
-            if (getUserDto.BooksNotReturnedInTime >= 2) return Conflict("User has too many books not returned in time");    // ResponseType GAL PAKEISTI ???
-            //if ( DEBT is more THAN 10 ) return Conflict("User has too much debt");                                        // ResponseType GAL PAKEISTI ???
+            if (getUserDto.TakenLibraryBooks >= 5) return Conflict("User has too many books taken already");
+            if (getUserDto.BooksNotReturnedInTime >= 2) return Conflict("User has too many books not returned in time");
+            if (getUserDto.TotalDebt >= 10) return Conflict("User has too much debt");
 
             UserBook newUserBook = _adapter.Adapt(getUserDto, libraryBook);
             _userBookRepo.Create(newUserBook);

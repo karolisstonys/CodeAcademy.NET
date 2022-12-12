@@ -7,5 +7,6 @@
         public string Role { get; set; }
         public int TakenLibraryBooks { get; set; }
         public int BooksNotReturnedInTime { get; set; }
+        public double TotalDebt { get; set; }
     }
 }

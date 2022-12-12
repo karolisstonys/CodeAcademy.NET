@@ -13,15 +13,15 @@ namespace L05_Tasks_MSSQL.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class BookStoreController : ControllerBase
+    public class BookController : ControllerBase
     {
 
         private readonly BookStoreContext _db;
         private readonly IBookWrapper _wrapper;
-        private readonly ILogger<BookStoreController> _logger;
+        private readonly ILogger<BookController> _logger;
         private readonly IBookRepository _bookRepo;
 
-        public BookStoreController(BookStoreContext db, IBookWrapper wrapper, ILogger<BookStoreController> logger, IBookRepository bookRepo)
+        public BookController(BookStoreContext db, IBookWrapper wrapper, ILogger<BookController> logger, IBookRepository bookRepo)
         {
             _db = db;
             _wrapper = wrapper;
@@ -57,7 +57,7 @@ namespace L05_Tasks_MSSQL.Controllers
         }
 
         /// <summary>
-        /// Uzklausia knyga is duomenu bazes pagal specijini isbn
+        /// Uzklausia knyga is duomenu bazes pagal specifini isbn
         /// </summary>
         /// <param name="isbn">Uzklausiamos knygos isbn</param>
         /// <returns>Grazina rezultata</returns>

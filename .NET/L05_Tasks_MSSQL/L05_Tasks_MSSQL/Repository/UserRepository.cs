@@ -112,7 +112,8 @@ namespace L05_Tasks_MSSQL.Repository
                 FullName = user.FullName,
                 Role = user.Role,
                 TakenLibraryBooks = user.TakenLibraryBooks,
-                BooksNotReturnedInTime = user.BooksNotReturnedInTime
+                BooksNotReturnedInTime = user.BooksNotReturnedInTime,
+                TotalDebt = user.TotalDebt
             };
             return userDto;
         }
