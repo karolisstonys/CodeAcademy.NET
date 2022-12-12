@@ -26,6 +26,10 @@ namespace L05_Tasks_MSSQL.Controllers
             _adapter = adapter;
         }
 
+        /// <summary>
+        /// Grazina visas knygas bibliotekoje
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("GetAll")]
         public ActionResult<List<GetLibraryBookDto>> GetLibraryBooks()
         {
@@ -33,6 +37,11 @@ namespace L05_Tasks_MSSQL.Controllers
             return Ok(_adapter.Adapt(allLibraryBooks));
         }
 
+        /// <summary>
+        /// Grazina viena knyga, esancia bibliotekoje, pagal bibliotekos knygos id
+        /// </summary>
+        /// <param name="id">bibliotekos knygos id</param>
+        /// <returns></returns>
         [HttpGet("Get/{id:int}")]
         public ActionResult<GetLibraryBookDto> GetLibraryBookById(int id)
         {
@@ -42,6 +51,11 @@ namespace L05_Tasks_MSSQL.Controllers
             return Ok(_adapter.Adapt(libraryBook));
         }
 
+        /// <summary>
+        /// Pridedame viena nauja knyga i biblioteka
+        /// </summary>
+        /// <param name="createLibraryBookDto">Knygos duomenys</param>
+        /// <returns></returns>
         [HttpPost("Add")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public ActionResult<GetLibraryBookDto> AddLibraryBook(CreateLibraryBookDto createLibraryBookDto)
@@ -58,6 +72,12 @@ namespace L05_Tasks_MSSQL.Controllers
             return CreatedAtAction(nameof(GetLibraryBookById), new { id = newLibraryBook.Id }, getLibraryBookDto);
         }
 
+        /// <summary>
+        /// Pridedamas norimas kiekis tos pacios knygos i biblioteka
+        /// </summary>
+        /// <param name="libraryBookDto">knygos duomenys</param>
+        /// <param name="count">norimas kiekis</param>
+        /// <returns></returns>
         [HttpPost("AddMany/{count:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult AddManyLibraryBooks(CreateLibraryBookDto libraryBookDto, int count)
@@ -76,6 +96,11 @@ namespace L05_Tasks_MSSQL.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Istriname knyga is bibliotekos pagal bibliotekos knygos id
+        /// </summary>
+        /// <param name="id">bibliotekos knygos id</param>
+        /// <returns></returns>
         [HttpDelete("Delete/{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public IActionResult DeleteLibraryBookById(int id)

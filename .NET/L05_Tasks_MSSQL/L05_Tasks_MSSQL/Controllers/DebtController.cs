@@ -28,6 +28,10 @@ namespace L05_Tasks_MSSQL.Controllers
             _userRepo = userRepo;
         }
 
+        /// <summary>
+        /// Paskaiciuoja visas skolas, atnaujina duombaze ir grazina skolininku sarasa 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("CalculateAllDebts")]
         public ActionResult<List<UserDebtDto>> CalculateAllDebts()
         {

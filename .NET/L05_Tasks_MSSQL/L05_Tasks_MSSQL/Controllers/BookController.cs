@@ -213,7 +213,7 @@ namespace L05_Tasks_MSSQL.Controllers
 
 
         /// <summary>
-        /// Trinama knyga is duomenu bases pagal specifini isbn
+        /// Trinama knyga is duomenu bazes pagal specifini isbn
         /// </summary>
         /// <param name="isbn">Norimos istrinti knygos isbn</param>
         /// <returns>Grazina rezultata</returns>

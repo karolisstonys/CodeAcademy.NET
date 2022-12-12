@@ -28,6 +28,10 @@ namespace L05_Tasks_MSSQL.Controllers
             _userRepo = userRepo;
         }
 
+        /// <summary>
+        /// Grazina visa imtu knygu istorija
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("GetAll")]
         public ActionResult<List<GetUserBookDto>> GetAction()
         {
@@ -37,6 +41,11 @@ namespace L05_Tasks_MSSQL.Controllers
             return getUserBookDtoList;
         }
 
+        /// <summary>
+        /// Grazina vieno kliento imtu knygu istorija
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("Get/{id:int}")]
         public ActionResult<GetUserBookDto> GetUserBookById(int id)
         {
@@ -44,6 +53,11 @@ namespace L05_Tasks_MSSQL.Controllers
             return _adapter.Adapt(userBook);
         }
 
+        /// <summary>
+        /// Paimti knyga is bibliotekos
+        /// </summary>
+        /// <param name="createUserBookDto">Parametrai: kas ima knyga ir kokia ima knyga</param>
+        /// <returns></returns>
         [HttpPost("TakeLibraryBook")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public ActionResult<GetUserBookDto> TakeLibraryBook(CreateUserBookDto createUserBookDto)
@@ -75,6 +89,11 @@ namespace L05_Tasks_MSSQL.Controllers
             return CreatedAtAction(nameof(GetUserBookById), new { id = getUserBookDto.UserId }, getUserBookDto);
         }
 
+        /// <summary>
+        /// Graziname knyga i biblioteka
+        /// </summary>
+        /// <param name="id">bibliotekos knygos id</param>
+        /// <returns></returns>
         [HttpPut("ReturnLibraryBook/{id:int}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public IActionResult ReturnLibraryBookById(int id)
