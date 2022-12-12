@@ -125,10 +125,11 @@ namespace L05_Tasks_MSSQL.Repository
             _db.SaveChanges();
         }
 
-        public void UpdateBooksNotReturnedInTime(int userId, int booksNotReturnedInTime)
+        public void UpdateBooksNotReturnedInTimeAndTotalDebt(int userId, int booksNotReturnedInTime, double totalDebt)
         {
             User user = _db.Users.First(u => u.Id == userId);
             user.BooksNotReturnedInTime = booksNotReturnedInTime;
+            user.TotalDebt = totalDebt;
             _db.Users.Update(user);
             _db.SaveChanges();
         }

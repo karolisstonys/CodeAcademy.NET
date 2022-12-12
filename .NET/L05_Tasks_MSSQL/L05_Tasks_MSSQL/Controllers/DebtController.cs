@@ -57,7 +57,7 @@ namespace L05_Tasks_MSSQL.Controllers
                         if (daysPassed > 28)
                         {
                             bookNotReturnedInTime.DaysLate = daysPassed - 28;
-                            bookNotReturnedInTime.Debt = 100;
+                            bookNotReturnedInTime.Debt = Math.Pow(bookNotReturnedInTime.DaysLate, 2)*0.2;
                             userDebt.TotalDebt += bookNotReturnedInTime.Debt;
                             userDebt.BooksNotReturnedInTime.Add(bookNotReturnedInTime);
                             _userBookRepo.UpdateDaysLate(userBook.Id, bookNotReturnedInTime.DaysLate);
@@ -69,7 +69,8 @@ namespace L05_Tasks_MSSQL.Controllers
 
             foreach (var user in allUserDebt)
             {
-                _userRepo.UpdateBooksNotReturnedInTime(user.UserId, user.BooksNotReturnedInTime.Count);
+                if (user.TotalDebt > 50) user.TotalDebt = 50;
+                _userRepo.UpdateBooksNotReturnedInTimeAndTotalDebt(user.UserId, user.BooksNotReturnedInTime.Count, user.TotalDebt);
             }
 
             return Ok(allUserDebt);

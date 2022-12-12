@@ -16,5 +16,6 @@ namespace L05_Tasks_MSSQL.Models
         public virtual IEnumerable<UserBook>? UserBooks { get; set; }
         public int TakenLibraryBooks { get; set; } = 0;
         public int BooksNotReturnedInTime { get; set; } = 0;
+        public double TotalDebt { get; set; } = 0;
     }
 }
