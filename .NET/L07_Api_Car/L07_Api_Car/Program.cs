@@ -21,6 +21,10 @@ namespace L07_Api_Car
                 option.UseSqlServer(builder.Configuration.GetConnectionString("MyDefaultSQLConnection"));
             });
 
+
+            builder.Services.AddTransient<ICarLeasingService, CarLeasingService>();
+            
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L07_Api_Car", "L07_Api_Car\L07_Api_Car.csproj", "{5A72C631-7B0B-48BF-B918-3DE93C2F3F62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L07_Api_Car", "L07_Api_Car\L07_Api_Car.csproj", "{5A72C631-7B0B-48BF-B918-3DE93C2F3F62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L07_Api_Car_Tests", "L07_Api_Car_Tests\L07_Api_Car_Tests.csproj", "{4B7731C6-BA4F-457B-8A3F-AD1B0682A840}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{90668232-C6B1-42E5-A764-A42947031291}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +19,16 @@ Global
 		{5A72C631-7B0B-48BF-B918-3DE93C2F3F62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A72C631-7B0B-48BF-B918-3DE93C2F3F62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A72C631-7B0B-48BF-B918-3DE93C2F3F62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B7731C6-BA4F-457B-8A3F-AD1B0682A840}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B7731C6-BA4F-457B-8A3F-AD1B0682A840}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B7731C6-BA4F-457B-8A3F-AD1B0682A840}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B7731C6-BA4F-457B-8A3F-AD1B0682A840}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4B7731C6-BA4F-457B-8A3F-AD1B0682A840} = {90668232-C6B1-42E5-A764-A42947031291}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ACDDA6F0-4E71-47CD-9DA8-B72AA6B55131}
