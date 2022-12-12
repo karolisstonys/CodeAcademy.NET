@@ -66,7 +66,7 @@ namespace L05_Tasks_MSSQL.Controllers
             libraryBook.IsTaken = true;
             _libraryBookRepo.Update(libraryBook);
                         
-            _userRepo.UpdateTakenLibraryBooks(getUserDto.Id, 1);
+            _userRepo.UpdateTakenLibraryBooks(getUserDto.Id, +1);
 
             GetUserBookDto getUserBookDto = _adapter.Adapt(newUserBook);
 

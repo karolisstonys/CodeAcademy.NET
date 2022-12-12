@@ -14,5 +14,6 @@ namespace L05_Tasks_MSSQL.Models
         public DateTime? BookReturned { get; set; }
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
+        public int DaysLate { get; set; } = 0;
     }
 }
