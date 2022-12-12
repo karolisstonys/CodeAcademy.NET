@@ -1,5 +1,7 @@
 ﻿using L05_Tasks_MSSQL.Data;
+using L05_Tasks_MSSQL.Models;
 using L05_Tasks_MSSQL.Models.DTO.DebtDto;
+using L05_Tasks_MSSQL.Models.DTO.UserDto;
 using L05_Tasks_MSSQL.Repository.IRepository;
 using L05_Tasks_MSSQL.Services.IServices;
 using Microsoft.AspNetCore.Http;
@@ -26,46 +28,51 @@ namespace L05_Tasks_MSSQL.Controllers
             _userRepo = userRepo;
         }
 
-        [HttpGet("GetAll")]
-        public ActionResult<GetAllUserDebtResponse> GetAllUserDebt()
+        [HttpGet("CalculateAllDebts")]
+        public ActionResult<List<UserDebtDto>> CalculateAllDebts()
         {
-            var usersWithBooks = _userRepo.GetAll(u => u.TakenLibraryBooks > 0);
-            //var takenLibraryBooks = _libraryBookRepo.GetAll(lb => lb.IsTaken == true);
-            var takenUserBooks = _userBookRepo.GetAll(ub => ub.BookReturned == null);
+            List<GetUserDto> usersWithBooks = _userRepo.GetAll(u => u.TakenLibraryBooks > 0).ToList();
+            List<UserBook> notReturnedBooks = _userBookRepo.GetAll(ub => ub.BookReturned == null).ToList();
 
-            //var groupByLastNamesQuery =
-            //from student in students
-            //group student by student.LastName into newGroup
-            //orderby newGroup.Key
-            //select newGroup;
+            List<UserDebtDto> allUserDebt = new List<UserDebtDto>();
 
+            foreach (var user in usersWithBooks)
+            {
+                UserDebtDto userDebt  = new UserDebtDto();
+                userDebt.UserId = user.UserId;
+                userDebt.UserFullName = user.FullName;
+                userDebt.BooksNotReturnedInTime = new List<BookNotReturnedInTime>();
+                userDebt.TotalDebt = 0;
 
-            //var allUserDebt = new List<GetAllUserDebtResponse>();
-            //foreach (var userBook in usersThatHaveBooks)
-            //{
-            //    allUserDebt.Add(
-            //        new GetAllUserDebtResponse()
-            //        {
-            //            UserId = userBook.UserId,
-            //            UserFullName = userBook.User.FullName,
-            //            LibraryBookID = userBook.LibraryBookId,
-            //            BookTaken = userBook.BookTaken
-            //        });
-            //}
+                foreach (var userBook in notReturnedBooks)
+                {
+                    if (user.UserId == userBook.UserId)
+                    {
+                        var bookNotReturnedInTime = new BookNotReturnedInTime();
+                        bookNotReturnedInTime.LibraryBookID = userBook.LibraryBookId;
+                        bookNotReturnedInTime.BookTaken = userBook.BookTaken;
+                        bookNotReturnedInTime.DaysLate = 0;
 
-            //var group = allUserDebt.GroupBy(
-            //    a => a.UserId,
-            //    a => a.LibraryBookID,
-            //    (key, b) => new { UserId = key, TakenLibraryBookIds = b.ToList() }
-            //    );
-            //foreach (var item in group)
-            //{
-            //    item
-            //}
+                        var daysPassed = (DateTime.Now - userBook.BookTaken).Days;
+                        if (daysPassed > 28)
+                        {
+                            bookNotReturnedInTime.DaysLate = daysPassed - 28;
+                            bookNotReturnedInTime.Debt = 100;
+                            userDebt.TotalDebt += bookNotReturnedInTime.Debt;
+                            userDebt.BooksNotReturnedInTime.Add(bookNotReturnedInTime);
+                            _userBookRepo.UpdateDaysLate(userBook.Id, bookNotReturnedInTime.DaysLate);
+                        }
+                    }
+                }                
+                if(userDebt.TotalDebt > 0) allUserDebt.Add(userDebt);
+            }
 
+            foreach (var user in allUserDebt)
+            {
+                _userRepo.UpdateBooksNotReturnedInTime(user.UserId, user.BooksNotReturnedInTime.Count);
+            }
 
-
-            return Ok();
+            return Ok(allUserDebt);
         }
     }
 }

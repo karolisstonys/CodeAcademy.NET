@@ -11,7 +11,7 @@ namespace L05_Tasks_MSSQL.Services
         {
             return new UserBook()
             {
-                UserId = user.Id,
+                UserId = user.UserId,
                 LibraryBookId = libraryBook.Id,
                 BookTaken = DateTime.Now,
                 BookReturned = null,

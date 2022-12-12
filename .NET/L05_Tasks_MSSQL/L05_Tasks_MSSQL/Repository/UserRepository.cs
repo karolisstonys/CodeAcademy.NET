@@ -93,7 +93,7 @@ namespace L05_Tasks_MSSQL.Repository
             {
                 userDto.Add(new GetUserDto()
                 {
-                    Id = user.Id,
+                    UserId = user.Id,
                     FullName = user.FullName,
                     Role = user.Role,
                     TakenLibraryBooks = user.TakenLibraryBooks
@@ -108,10 +108,11 @@ namespace L05_Tasks_MSSQL.Repository
             User user = _db.Users.Where(filter).FirstOrDefault();
             var userDto = new GetUserDto()
             {
-                Id = user.Id,
+                UserId = user.Id,
                 FullName = user.FullName,
                 Role = user.Role,
-                TakenLibraryBooks = user.TakenLibraryBooks
+                TakenLibraryBooks = user.TakenLibraryBooks,
+                BooksNotReturnedInTime = user.BooksNotReturnedInTime
             };
             return userDto;
         }
@@ -124,10 +125,13 @@ namespace L05_Tasks_MSSQL.Repository
             _db.SaveChanges();
         }
 
-
-
-
-
+        public void UpdateBooksNotReturnedInTime(int userId, int booksNotReturnedInTime)
+        {
+            User user = _db.Users.First(u => u.Id == userId);
+            user.BooksNotReturnedInTime = booksNotReturnedInTime;
+            _db.Users.Update(user);
+            _db.SaveChanges();
+        }
 
     }
 }

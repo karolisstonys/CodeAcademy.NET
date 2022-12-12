@@ -22,5 +22,13 @@ namespace L05_Tasks_MSSQL.Repository
             return userBook;
         }
 
+        public void UpdateDaysLate(int userBookId, int daysLate)
+        {
+            var userBook = _db.UserBooks.First(u => u.Id == userBookId);
+            userBook.DaysLate = daysLate;
+            _db.UserBooks.Update(userBook);
+            _db.SaveChanges();
+        }
+
     }
 }

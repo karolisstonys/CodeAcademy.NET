@@ -5,5 +5,6 @@ namespace L05_Tasks_MSSQL.Repository.IRepository
     public interface IUserBookRepository : IRepository<UserBook>
     {
         UserBook Update(UserBook userBook);
+        void UpdateDaysLate(int userBookId, int daysLate);
     }
 }
