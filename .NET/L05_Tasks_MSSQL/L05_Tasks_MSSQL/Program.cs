@@ -1,4 +1,6 @@
 using L05_Tasks_MSSQL.Data;
+using L05_Tasks_MSSQL.Helpers;
+using L05_Tasks_MSSQL.Helpers.IHelpers;
 using L05_Tasks_MSSQL.Repository;
 using L05_Tasks_MSSQL.Repository.IRepository;
 using L05_Tasks_MSSQL.Services;
@@ -26,6 +28,8 @@ namespace L05_Tasks_MSSQL
             builder.Services.AddTransient<IBookWrapper, BookWrapper>();
             builder.Services.AddTransient<ILibraryBookAdapter, LibraryBookAdapter>();
             builder.Services.AddTransient<IUserBookAdapter, UserBookAdapter>();
+
+            builder.Services.AddTransient<IDebtHelper, DebtHelper>();            
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IBookRepository, BookRepository>();
