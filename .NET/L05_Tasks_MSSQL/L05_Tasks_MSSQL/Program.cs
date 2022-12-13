@@ -29,7 +29,8 @@ namespace L05_Tasks_MSSQL
             builder.Services.AddTransient<ILibraryBookAdapter, LibraryBookAdapter>();
             builder.Services.AddTransient<IUserBookAdapter, UserBookAdapter>();
 
-            builder.Services.AddTransient<IDebtHelper, DebtHelper>();            
+            builder.Services.AddTransient<IDebtHelper, DebtHelper>();
+            builder.Services.AddTransient<ILibraryHelper, LibraryHelper>();
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IBookRepository, BookRepository>();

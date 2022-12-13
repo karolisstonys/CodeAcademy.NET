@@ -1,4 +1,5 @@
 ﻿using L05_Tasks_MSSQL.Data;
+using L05_Tasks_MSSQL.Helpers.IHelpers;
 using L05_Tasks_MSSQL.Models;
 using L05_Tasks_MSSQL.Models.DTO;
 using L05_Tasks_MSSQL.Repository;
@@ -18,14 +19,21 @@ namespace L05_Tasks_MSSQL.Controllers
         private readonly ILibraryBookRepository _libraryBookRepo;
         private readonly IUserRepository _userRepo;
         private readonly IUserBookAdapter _adapter;
+        private readonly ILibraryHelper _libraryHelper;
 
-        public UserBookController(BookStoreContext db, IUserBookRepository userBookRepo, IUserBookAdapter adapter, ILibraryBookRepository libraryBookRepo, IUserRepository userRepo)
+        public UserBookController(BookStoreContext db, 
+                                  IUserBookRepository userBookRepo, 
+                                  IUserBookAdapter adapter, 
+                                  ILibraryBookRepository libraryBookRepo, 
+                                  IUserRepository userRepo,
+                                  ILibraryHelper libraryHelper)
         {
             _db = db;
             _userBookRepo = userBookRepo;
             _adapter = adapter;
             _libraryBookRepo = libraryBookRepo;
             _userRepo = userRepo;
+            _libraryHelper = libraryHelper;
         }
 
         /// <summary>
@@ -65,16 +73,16 @@ namespace L05_Tasks_MSSQL.Controllers
             if (createUserBookDto == null) return BadRequest();
 
             var libraryBook = _libraryBookRepo.Get(b => b.Id == createUserBookDto.LibraryBookId);
-            if (libraryBook == null) return NotFound();
+            if (libraryBook == null) return NotFound("libraryBook = null");
 
-            var isTaken = libraryBook.IsTaken;
-            if (isTaken) return NotFound("Book is already taken");
+            var canThisBookBeTaken = _libraryHelper.CanThisBookBeTaken(libraryBook);
+            if (!canThisBookBeTaken.Answer) return NotFound(canThisBookBeTaken.Message);
 
             var getUserDto = _userRepo.Get(b => b.Id == createUserBookDto.UserId);
-            if (getUserDto == null) return NotFound();
-            if (getUserDto.TakenLibraryBooks >= 5) return Conflict("User has too many books taken already");
-            if (getUserDto.BooksNotReturnedInTime >= 2) return Conflict("User has too many books not returned in time");
-            if (getUserDto.TotalDebt >= 10) return Conflict("User has too much debt");
+            if (getUserDto == null) return NotFound("getUserDto = null");
+
+            var canThisUserTakeABook = _libraryHelper.CanThisUserTakeABook(getUserDto);
+            if (!canThisUserTakeABook.Answer) return NotFound(canThisUserTakeABook.Message);
 
             UserBook newUserBook = _adapter.Adapt(getUserDto, libraryBook);
             _userBookRepo.Create(newUserBook);
@@ -99,10 +107,10 @@ namespace L05_Tasks_MSSQL.Controllers
         public IActionResult ReturnLibraryBookById(int id)
         {
             var userBook = _userBookRepo.Get(b => b.Id == id);
-            if (userBook == null) return NotFound();
+            if (userBook == null) return NotFound("userBook == null");
 
             var libraryBook = _libraryBookRepo.Get(b => b.Id == userBook.LibraryBookId);
-            if (libraryBook == null) return NotFound();
+            if (libraryBook == null) return NotFound("libraryBook == null");
 
             userBook.BookReturned = DateTime.Now;
             _userBookRepo.Update(userBook);

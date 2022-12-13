@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L05_Tasks_MSSQL", "L05_Tasks_MSSQL\L05_Tasks_MSSQL.csproj", "{60CBFEF8-121A-42E6-BF23-F886E96DA284}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "L05_Tasks_MSSQL", "L05_Tasks_MSSQL\L05_Tasks_MSSQL.csproj", "{60CBFEF8-121A-42E6-BF23-F886E96DA284}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CDFF277D-A260-49F3-92A8-6F6C2371AB45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L05_Tasks_MSSQL_Tests", "L05_Tasks_MSSQL_Tests\L05_Tasks_MSSQL_Tests.csproj", "{1EAA1961-4388-4C07-821C-999194342751}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +19,16 @@ Global
 		{60CBFEF8-121A-42E6-BF23-F886E96DA284}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60CBFEF8-121A-42E6-BF23-F886E96DA284}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60CBFEF8-121A-42E6-BF23-F886E96DA284}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EAA1961-4388-4C07-821C-999194342751}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EAA1961-4388-4C07-821C-999194342751}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EAA1961-4388-4C07-821C-999194342751}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EAA1961-4388-4C07-821C-999194342751}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1EAA1961-4388-4C07-821C-999194342751} = {CDFF277D-A260-49F3-92A8-6F6C2371AB45}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {66F83C05-2ABD-4952-8B50-A37663047C50}

@@ -24,9 +24,7 @@ namespace L05_Tasks_MSSQL.Helpers
         {
             List<GetUserDto> usersWithBooks = _userRepo.GetAll(u => u.TakenLibraryBooks > 0).ToList();
             List<UserBook> notReturnedBooks = _userBookRepo.GetAll(ub => ub.BookReturned == null).ToList();
-
             List<UserDebtDto> allUserDebt = new List<UserDebtDto>();
-
             BuildListOfAllUsersInDebt(usersWithBooks, notReturnedBooks, allUserDebt);
 
             foreach (var user in allUserDebt)
@@ -67,12 +65,15 @@ namespace L05_Tasks_MSSQL.Helpers
                     bookNotReturnedInTime.DaysLate = 0;
 
                     var daysPassed = (DateTime.Now - userBook.BookTaken).Days;
+
                     if (daysPassed > _daysFromWhenDebtIsCounted)
                     {
                         bookNotReturnedInTime.DaysLate = daysPassed - _daysFromWhenDebtIsCounted;
                         bookNotReturnedInTime.Debt = Math.Pow(bookNotReturnedInTime.DaysLate, 2)*0.2;
+
                         userDebt.TotalDebt += bookNotReturnedInTime.Debt;
                         userDebt.BooksNotReturnedInTime.Add(bookNotReturnedInTime);
+
                         _userBookRepo.UpdateDaysLate(userBook.Id, bookNotReturnedInTime.DaysLate);
                     }
                 }
