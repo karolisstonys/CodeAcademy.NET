@@ -3,6 +3,7 @@ using L04_EF_Applying_To_API.Models;
 using L04_EF_Applying_To_API.Models.DTO;
 using L04_EF_Applying_To_API.Repository.IRepository;
 using L04_EF_Applying_To_API.Services.IServices;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -16,24 +17,29 @@ namespace L04_EF_Applying_To_API.Repository
         private readonly IPasswordService _passwordService;
         private readonly IJwtService _jwtService;
         private readonly LoginResponse _emptyTokenAndNullUser = new LoginResponse
-                {
-                    Token = "",
-                    User = null
-                };
+        {
+            Token = "",
+            User = null
+        };
 
-    public UserRepository(RestaurantContext db, IConfiguration conf, IPasswordService passwordService, IJwtService jwtService)
+        public UserRepository(RestaurantContext db, IConfiguration conf, IPasswordService passwordService, IJwtService jwtService)
         {
             _db = db;
             _passwordService = passwordService;
             _jwtService=jwtService;
         }
 
-        public bool IsUniqueUser(string username) => !_db.LocalUsers.Any(u => u.Username == username);
+        public async Task<bool> IsUniqueUserAsync(string username)
+        {
+            var user = await _db.LocalUsers.FirstOrDefaultAsync(x => x.Username == username);
+            if (user == null) return true;
+            return false;
+        }
 
-        public LoginResponse Login(LoginRequest loginRequest)
+        public async Task<LoginResponse> LoginAsync(LoginRequest loginRequest)
         {
             var inputPastwordBytes = Encoding.UTF8.GetBytes(loginRequest.Password);
-            var user = _db.LocalUsers.FirstOrDefault(u => u.Username.ToLower() == loginRequest.Username.ToLower());
+            var user = await _db.LocalUsers.FirstOrDefaultAsync(u => u.Username.ToLower() == loginRequest.Username.ToLower());
 
             if (user == null) return _emptyTokenAndNullUser;
 
@@ -52,7 +58,7 @@ namespace L04_EF_Applying_To_API.Repository
             return loginResponse;
         }
 
-        public RegistrationResponse Register(RegistrationRequest registrationRequest)
+        public async Task<RegistrationResponse> RegisterAsync(RegistrationRequest registrationRequest)
         {
             _passwordService.CreatePasswordHash(registrationRequest.Password, out byte[] hash, out byte[] salt);
 
@@ -73,7 +79,7 @@ namespace L04_EF_Applying_To_API.Repository
             };
 
             _db.LocalUsers.Add(user);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
 
             return registrationResponse;
         }

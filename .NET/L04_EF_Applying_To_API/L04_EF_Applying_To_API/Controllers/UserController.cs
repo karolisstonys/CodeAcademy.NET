@@ -17,9 +17,9 @@ namespace L04_EF_Applying_To_API.Controllers
         }
 
         [HttpPost("Login")]
-        public IActionResult Login([FromBody]LoginRequest model)
+        public async Task<IActionResult> Login([FromBody]LoginRequest model)
         {
-            var loginResponse = _userRepo.Login(model);
+            var loginResponse = await _userRepo.LoginAsync(model);
                 if (loginResponse.User == null || string.IsNullOrEmpty(loginResponse.Token))
             {
                 return BadRequest(new { mesage = "Username or password is incorect"});
@@ -28,15 +28,15 @@ namespace L04_EF_Applying_To_API.Controllers
         }
 
         [HttpPost("Redistration")]
-        public IActionResult Register([FromBody]RegistrationRequest model)
+        public async Task<IActionResult> Register([FromBody]RegistrationRequest model)
         {
-
-            if (!_userRepo.IsUniqueUser(model.Username))
+            var isUserNameUnique = await _userRepo.IsUniqueUserAsync(model.Username);
+            if (!isUserNameUnique)
             {
                 return BadRequest(new { mesage = "Username already exists" });
             }
 
-            var user = _userRepo.Register(model);
+            var user = await _userRepo.RegisterAsync(model);
             if (user == null)
             {
                 return BadRequest(new { mesage = "Registration failed" });

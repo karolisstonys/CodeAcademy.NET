@@ -27,10 +27,10 @@ namespace L04_EF_Applying_To_API.Controllers
         [HttpGet("AllDishes")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<GetDishDto>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<IEnumerable<GetDishDto>> GetDishes()
+        public async Task<ActionResult<IEnumerable<GetDishDto>>> GetDishes()
         {
-            return Ok(_dishRepo.GetAll()
-                .Select(d => new GetDishDto(d))
+            var dishes = await _dishRepo.GetAllAsync();
+            return Ok(dishes.Select(d => new GetDishDto(d))
                 .ToList());
         }
 
@@ -44,11 +44,11 @@ namespace L04_EF_Applying_To_API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<GetDishDto> GetDishById(int id)
+        public async Task<ActionResult<GetDishDto>> GetDishById(int id)
         {
             if (id == 0) return BadRequest();
 
-            var dish = _dishRepo.Get(d => d.DishId == id);
+            var dish = await _dishRepo.GetAsync(d => d.DishId == id);
             if (dish == null) return BadRequest();
 
             return Ok(new GetDishDto(dish));
@@ -64,7 +64,7 @@ namespace L04_EF_Applying_To_API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(IEnumerable<CreateDishDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<CreateDishDto> CreateDish(CreateDishDto createDishDto)
+        public async Task<ActionResult<CreateDishDto>> CreateDish(CreateDishDto createDishDto)
         {
             if (createDishDto == null) return BadRequest();
 
@@ -78,7 +78,7 @@ namespace L04_EF_Applying_To_API.Controllers
                 ImagePath = createDishDto.ImagePath
             };
 
-            _dishRepo.Create(newDish);
+            _dishRepo.CreateAsync(newDish);
 
             return CreatedAtRoute("GetDish", new { id = newDish.DishId }, createDishDto);
         }
@@ -94,18 +94,17 @@ namespace L04_EF_Applying_To_API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult DeleteDishById(int id)
+        public async Task<ActionResult> DeleteDishById(int id)
         {
             if (id == 0) return BadRequest();
 
-            var dish = _dishRepo.Get(d => d.DishId == id);
+            var dish = await _dishRepo.GetAsync(d => d.DishId == id);
             if (dish == null) return BadRequest();
 
-            _dishRepo.Remove(dish);
+            _dishRepo.RemoveAsync(dish);
 
             return NoContent();
         }
-
 
         /// <summary>
         /// Updates specific dish
@@ -118,11 +117,11 @@ namespace L04_EF_Applying_To_API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult UpdateDishById(int id, UpdateDishDto updateDishDto)
+        public async Task<ActionResult> UpdateDishById(int id, UpdateDishDto updateDishDto)
         {
             if (id == 0 || updateDishDto == null) return BadRequest();
 
-            var foundDish = _dishRepo.Get(d => d.DishId == id);
+            var foundDish = await _dishRepo.GetAsync(d => d.DishId == id);
             if (foundDish == null) return BadRequest();
 
             foundDish.Name = updateDishDto.Name;
@@ -132,10 +131,9 @@ namespace L04_EF_Applying_To_API.Controllers
             foundDish.ImagePath = updateDishDto.ImagePath;
 
 
-            _dishRepo.Update(foundDish);
+            _dishRepo.UpdateAsync(foundDish);
 
             return NoContent();
-
         }
 
 

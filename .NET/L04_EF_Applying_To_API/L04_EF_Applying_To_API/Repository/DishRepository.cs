@@ -13,11 +13,11 @@ namespace L04_EF_Applying_To_API.Repository
             _db = db;
         }
 
-        public Dish Update(Dish dish)
+        public async Task<Dish> UpdateAsync(Dish dish)
         {
             dish.UpdatedDateTime = DateTime.Now;
             _db.Dishes.Update(dish);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
             return dish;
         }
     }
