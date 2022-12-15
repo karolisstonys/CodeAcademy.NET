@@ -30,5 +30,6 @@ namespace L04_EF_Applying_To_API.Models
         public DateTime CreatedDateTime { get; set; }
         public DateTime UpdatedDateTime { get; set; }
         public virtual List<RecipeItem> RecipeItems { get; set; }
+        public virtual List<DishOrder> DishOrders { get; set; }
     }
 }

@@ -13,10 +13,34 @@ namespace L04_EF_Applying_To_API.Data
         public DbSet<Dish> Dishes { get; set; }
         public DbSet<RecipeItem> RecipeItems { get; set; }
         public DbSet<LocalUser> LocalUsers { get; set; }
-
+        public DbSet<DishOrder> DishOrders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            var dishOrder = modelBuilder.Entity<DishOrder>();
+
+            dishOrder.HasKey(d => d.DishOrderId);
+
+            dishOrder.Property(d => d.DishOrderId)
+                     .ValueGeneratedOnAdd();
+
+            dishOrder.HasOne(dorder => dorder.Dish)
+                     .WithMany(d => d.DishOrders)
+                     .HasForeignKey(d => d.DishOrderId)
+                     .OnDelete(DeleteBehavior.NoAction);
+
+            dishOrder.HasOne(dorder => dorder.LocalUser)
+                     .WithMany(u => u.DishOrders)
+                     .HasForeignKey(u => u.LocalUserId)
+                     .OnDelete(DeleteBehavior.NoAction);
+
+
+
+
+
+
+
+
             // data-seeding
             modelBuilder.Entity<Dish>()
                 .HasData(
