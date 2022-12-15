@@ -2,6 +2,8 @@ using L04_EF_Applying_To_API.Data;
 using L04_EF_Applying_To_API.Repository;
 using L04_EF_Applying_To_API.Repository.IRepository;
 using L04_EF_Applying_To_API.Services;
+using L04_EF_Applying_To_API.Services.Adapters;
+using L04_EF_Applying_To_API.Services.Adapters.IAdapters;
 using L04_EF_Applying_To_API.Services.IServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -22,8 +24,13 @@ namespace L04_EF_Applying_To_API
             // Add services to the container.
             builder.Services.AddScoped<IDishRepository, DishRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IDishOrderRepository, DishOrderRepository>();
+            builder.Services.AddTransient<IDishOrderAdapter, DishOrderAdapter>(); 
+
             builder.Services.AddScoped<IPasswordService, PasswordService>();
             builder.Services.AddScoped<IJwtService, JwtService>();
+            builder.Services.AddTransient<ICookingService, CookingService>(); 
+
             builder.Services.AddDbContext<RestaurantContext>(option =>
             {
                 option.UseSqlite(builder.Configuration.GetConnectionString("MyDefaultSQLConnection"));

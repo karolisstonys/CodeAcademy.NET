@@ -20,7 +20,7 @@ namespace L04_EF_Applying_To_API.Controllers
         public async Task<IActionResult> Login([FromBody]LoginRequest model)
         {
             var loginResponse = await _userRepo.LoginAsync(model);
-                if (loginResponse.User == null || string.IsNullOrEmpty(loginResponse.Token))
+            if (loginResponse.User == null || string.IsNullOrEmpty(loginResponse.Token))
             {
                 return BadRequest(new { mesage = "Username or password is incorect"});
             }

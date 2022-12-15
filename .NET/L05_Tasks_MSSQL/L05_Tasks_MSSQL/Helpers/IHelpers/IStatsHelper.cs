@@ -5,7 +5,6 @@ namespace L05_Tasks_MSSQL.Helpers.IHelpers
 {
     public interface IStatsHelper
     {
-        //public List<FavoriteAuthorDto> GetFavoriteAutorsForUser(int id, List<UserBook> allBooks);
-        public IOrderedEnumerable<IGrouping<string, UserBook>>? GetFavoriteAutorsForUser(int id, List<UserBook> allBooks);
+        public List<FavoriteAuthorDto> GetFavoriteAutorsForUser(int id, List<UserBook> allBooks);
     }
 }

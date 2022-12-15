@@ -83,5 +83,11 @@ namespace L04_EF_Applying_To_API.Repository
 
             return registrationResponse;
         }
+
+        public async Task<bool> IsRegisteredAsync(int UserId)
+        {
+            var isRegistered = await _db.LocalUsers.AnyAsync(u => u.Id == UserId);
+            return isRegistered;
+        }
     }
 }
