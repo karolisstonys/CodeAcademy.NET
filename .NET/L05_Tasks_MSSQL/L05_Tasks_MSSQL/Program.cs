@@ -31,6 +31,7 @@ namespace L05_Tasks_MSSQL
 
             builder.Services.AddTransient<IDebtHelper, DebtHelper>();
             builder.Services.AddTransient<ILibraryHelper, LibraryHelper>();
+            builder.Services.AddTransient<IStatsHelper, StatsHelper>(); 
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IBookRepository, BookRepository>();

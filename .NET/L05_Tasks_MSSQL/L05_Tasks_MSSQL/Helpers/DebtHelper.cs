@@ -19,43 +19,40 @@ namespace L05_Tasks_MSSQL.Helpers
             _userBookRepo = userBookRepo;
         }
 
-
         public List<UserDebtDto> UpdateAndGetAllDebtForEveryone()
         {
             List<GetUserDto> usersWithBooks = _userRepo.GetAll(u => u.TakenLibraryBooks > 0).ToList();
             List<UserBook> notReturnedBooks = _userBookRepo.GetAll(ub => ub.BookReturned == null).ToList();
-            List<UserDebtDto> allUserDebt = new List<UserDebtDto>();
-            BuildListOfAllUsersInDebt(usersWithBooks, notReturnedBooks, allUserDebt);
+            List<UserDebtDto> allUserDebt = BuildListOfAllUsersWithDebt(usersWithBooks, notReturnedBooks);
 
             foreach (var user in allUserDebt)
             {
                 if (user.TotalDebt > _debtDoesNotIncreaseAboveThisAmount) user.TotalDebt = _debtDoesNotIncreaseAboveThisAmount;
-                _userRepo.UpdateBooksNotReturnedInTimeAndTotalDebt(user.UserId, user.BooksNotReturnedInTime.Count, user.TotalDebt);
+                _userRepo.UpdateBooksNotReturnedInTimeAndTotalDebt(user.UserId, user.BooksNotReturnedInTime.Count, user.TotalDebt); // NESAUGOTI ISSKAICIUOJAMU DUOMENU
             }
             return allUserDebt;
         }
 
-
-        private void BuildListOfAllUsersInDebt(List<GetUserDto> usersWithBooks, List<UserBook> notReturnedBooks, List<UserDebtDto> allUserDebt)
+        private List<UserDebtDto> BuildListOfAllUsersWithDebt(List<GetUserDto> usersWithBooks, List<UserBook> notReturnedBooks)
         {
+            List<UserDebtDto> allUserDebt = new List<UserDebtDto>();
             foreach (var user in usersWithBooks)
             {
-                UserDebtDto userDebt = new UserDebtDto();
-                userDebt.UserId = user.UserId;
-                userDebt.UserFullName = user.FullName;
-                userDebt.BooksNotReturnedInTime = new List<BookNotReturnedInTime>();
-                userDebt.TotalDebt = 0;
-
-                BuildListOfBooksUserIsLateToReturn(notReturnedBooks, user, userDebt);
-
+                UserDebtDto userDebt = BuildListOfBooksThatUserIsLateToReturn(notReturnedBooks, user);
                 if (userDebt.TotalDebt > 0) allUserDebt.Add(userDebt);
             }
+            return allUserDebt;
         }
 
-
-        private void BuildListOfBooksUserIsLateToReturn(List<UserBook> notReturnedBooks, GetUserDto user, UserDebtDto userDebt)
+        private UserDebtDto BuildListOfBooksThatUserIsLateToReturn(List<UserBook> listUserBooks, GetUserDto user)
         {
-            foreach (var userBook in notReturnedBooks)
+            UserDebtDto userDebt = new UserDebtDto();
+            userDebt.UserId = user.UserId;
+            userDebt.UserFullName = user.FullName;
+            userDebt.BooksNotReturnedInTime = new List<BookNotReturnedInTime>();
+            userDebt.TotalDebt = 0;
+
+            foreach (var userBook in listUserBooks)
             {
                 if (user.UserId == userBook.UserId)
                 {
@@ -74,10 +71,29 @@ namespace L05_Tasks_MSSQL.Helpers
                         userDebt.TotalDebt += bookNotReturnedInTime.Debt;
                         userDebt.BooksNotReturnedInTime.Add(bookNotReturnedInTime);
 
-                        _userBookRepo.UpdateDaysLate(userBook.Id, bookNotReturnedInTime.DaysLate);
+                        _userBookRepo.UpdateDaysLate(userBook.Id, bookNotReturnedInTime.DaysLate); // NESAUGOTI ISSKAICIUOJAMU DUOMENU
                     }
                 }
             }
+            return userDebt;
         }
+
+        public UserDebtDto GetUserDebtWithListOfBooks(int id)
+        {
+            var user = _userRepo.Get(u => u.Id == id);
+            var userTakenBooks = _userBookRepo.GetAll(ub => ub.UserId == id && ub.BookReturned == null);
+
+            UserDebtDto userDebt = new UserDebtDto();
+            userDebt = BuildListOfBooksThatUserIsLateToReturn(userTakenBooks, user);
+
+            return userDebt;
+        }
+
+
+
+
+
+
+
     }
 }

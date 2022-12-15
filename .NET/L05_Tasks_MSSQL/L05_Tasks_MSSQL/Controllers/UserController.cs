@@ -16,6 +16,11 @@ namespace L05_Tasks_MSSQL.Controllers
             _userRepo = userRepo;
         }
 
+        /// <summary>
+        /// Prisijungimas su username ir password
+        /// </summary>
+        /// <param name="model">modelis nesantis username ir password</param>
+        /// <returns></returns>
         [HttpPost("Login")]
         public IActionResult Login([FromBody] LoginRequest model)
         {
@@ -27,6 +32,11 @@ namespace L05_Tasks_MSSQL.Controllers
             return Ok(loginResponse);
         }
 
+        /// <summary>
+        /// Naujo vartotojo registracija
+        /// </summary>
+        /// <param name="model">modelis nesantis username, full name, password ir role</param>
+        /// <returns></returns>
         [HttpPost("Redistration")]
         public IActionResult Register([FromBody] RegistrationRequest model)
         {
