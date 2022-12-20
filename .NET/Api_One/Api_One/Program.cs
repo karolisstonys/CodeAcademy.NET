@@ -22,6 +22,14 @@ namespace Api_One
             builder.Services.AddTransient<IMyOperationTransient, GuidService>();
             builder.Services.AddScoped<IMyOperationScoped, GuidService>();
             builder.Services.AddSingleton<IMyOperationSingleton, GuidService>();
+            builder.Services.AddTransient<IFakeApiProxyService, FakeApiProxyService>();
+
+            builder.Services.AddHttpClient("FakeApi", client =>
+            {
+                client.BaseAddress = new Uri(builder.Configuration["ExternalServices3000:FakeApiUrl"]);
+                client.Timeout = TimeSpan.FromSeconds(10);
+                client.DefaultRequestHeaders.Clear();
+            });
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
