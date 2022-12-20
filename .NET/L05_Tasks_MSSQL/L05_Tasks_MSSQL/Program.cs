@@ -31,7 +31,8 @@ namespace L05_Tasks_MSSQL
 
             builder.Services.AddTransient<IDebtHelper, DebtHelper>();
             builder.Services.AddTransient<ILibraryHelper, LibraryHelper>();
-            builder.Services.AddTransient<IStatsHelper, StatsHelper>(); 
+            builder.Services.AddTransient<IStatsHelper, StatsHelper>();
+            builder.Services.AddTransient<IDeliveryService, DeliveryService>(); 
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IBookRepository, BookRepository>();
@@ -42,6 +43,13 @@ namespace L05_Tasks_MSSQL
             {
                 option.UseSqlServer(builder.Configuration.GetConnectionString("MyDefaultSQLConnection"));
                 option.UseLazyLoadingProxies();
+            });
+
+            builder.Services.AddHttpClient("OpenRouteServiceApi", client =>
+            {
+                client.BaseAddress = new Uri(builder.Configuration["ExternalServices3000:OpenRouteServiceApiUrl"]);
+                client.Timeout = TimeSpan.FromSeconds(10);
+                client.DefaultRequestHeaders.Clear();
             });
 
             var key = builder.Configuration.GetValue<string>("MyApiSettings:SuperDuperSecret");

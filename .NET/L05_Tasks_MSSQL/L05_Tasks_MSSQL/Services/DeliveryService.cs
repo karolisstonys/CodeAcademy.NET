@@ -1,0 +1,62 @@
+﻿using L05_Tasks_MSSQL.Services.IServices;
+using Newtonsoft.Json;
+
+namespace L05_Tasks_MSSQL.Services
+{
+    public class DeliveryService : IDeliveryService
+    {
+        private readonly string _api_key = "5b3ce3597851110001cf62484c78bf80dc6c458c96f449237631bfcb";
+        private readonly string _vilnius_warehouse = "25.251531,54.700902";
+        private readonly IHttpClientFactory _httpClientFactory;
+        public DeliveryService(IHttpClientFactory httpClientFactory)
+        {
+            _httpClientFactory = httpClientFactory;
+        }
+
+        public async Task<string> GetCityLocation(string city)
+        {
+            var httpClient = _httpClientFactory.CreateClient("OpenRouteServiceApi");
+            var endpoint = "geocode/search";
+
+            var reponse = await httpClient.GetAsync(endpoint + "?api_key=" + _api_key + "&text=" + city);
+            if (reponse.IsSuccessStatusCode)
+            {
+                var content = await reponse.Content.ReadAsStringAsync();
+                return GetCoordinatesFromResponseString(content);
+            }
+            return "";
+        }
+
+        private string GetCoordinatesFromResponseString(string content)
+        {
+            string text = "type\":\"Point\",\"coordinates\":[";
+            var start = content.IndexOf(text) + text.Length;
+            var end = content.IndexOf("]", start);
+            return content.Substring(start, end-start);
+        }
+
+        public async Task<double?> GetDistanceForDelivery(string deliveryCoordinates)
+        {
+            var httpClient = _httpClientFactory.CreateClient("OpenRouteServiceApi");
+            var endpoint = "v2/directions/driving-car";
+
+            var reponse = await httpClient.GetAsync(endpoint + "?api_key=" + _api_key + "&start=" + _vilnius_warehouse + "&end=" + deliveryCoordinates);
+            if (reponse.IsSuccessStatusCode)
+            {
+                var content = await reponse.Content.ReadAsStringAsync();
+                var distanceInKm = GetDistanceInMetersFromResponseString(content) / 1000;
+                return distanceInKm;
+            }
+            return null;
+        }
+
+        private double GetDistanceInMetersFromResponseString(string content)
+        {
+            string text = "summary\":{\"distance\":";
+            var start = content.IndexOf(text) + text.Length;
+            var end = content.IndexOf(",\"duration\"", start);
+            var distanceInMeters = Convert.ToDouble(content.Substring(start, end-start));
+            return distanceInMeters;
+        }
+    }
+}
