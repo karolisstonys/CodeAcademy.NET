@@ -10,12 +10,15 @@ namespace L05_Tasks_MSSQL.Helpers
         {
             var favoriteAuthors = new List<FavoriteAuthorDto>();
 
-            var groupByLastNamesQuery = from book in allBooks
-                                        group book by book.LibraryBook.Book.Author into newBookGroup
-                                        orderby newBookGroup.Key
-                                        select newBookGroup;
+            var groupByAuthor = from book in allBooks
+                                group book by book.LibraryBook.Book.Author into newBookGroup
+                                orderby newBookGroup.Key
+                                select newBookGroup;
 
+            foreach (var item in groupByAuthor)
+            {
 
+            }
 
 
 
