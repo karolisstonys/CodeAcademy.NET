@@ -140,6 +140,33 @@ namespace L04_EF_Applying_To_API.Controllers
             return NoContent();
         }
 
+
+
+        /*
+          https://jsonpatch.com/
+
+            [
+              {
+                "path": "/Name",
+                "op": "replace",
+                "value": "Patched with DTO value"
+              }
+            ]
+
+            [
+              {
+                "path": "/RecipeItems",
+                "op": "add",
+                "value": [{
+            "Name":"TestRecipeItem",
+            "Calories":"50"
+            }]
+              }
+            ]
+
+         */
+
+
         [HttpPatch("patch3000/{id:int}", Name = "UpdatePartialDish")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -165,7 +192,7 @@ namespace L04_EF_Applying_To_API.Controllers
 
 
 
-        [HttpPatch("patch3000/{id:int}", Name = "UpdatePartialDishDto")]
+        [HttpPatch("patch3000/{id:int}/dto", Name = "UpdatePartialDishDto")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
