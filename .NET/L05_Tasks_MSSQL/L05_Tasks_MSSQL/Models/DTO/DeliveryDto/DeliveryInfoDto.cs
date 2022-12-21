@@ -1,6 +1,6 @@
 ﻿namespace L05_Tasks_MSSQL.Models.DTO.DeliveryDto
 {
-    public class DeliveryDto
+    public class DeliveryInfoDto
     {
         public string ShippingFromCity = "Vilnius";
         public string ShippingToCity;

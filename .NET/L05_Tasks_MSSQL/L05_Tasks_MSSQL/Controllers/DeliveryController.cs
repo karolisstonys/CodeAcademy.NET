@@ -25,7 +25,7 @@ namespace L05_Tasks_MSSQL.Controllers
         /// <returns></returns>
         [HttpGet("GetDeliveryPrice")]
         [Produces("application/json")]
-        public async Task<IActionResult> GetDeliveryPriceToEnteredCity([FromQuery] string city)
+        public async Task<ActionResult<DeliveryInfoDto>> GetDeliveryPriceToEnteredCity([FromQuery] string city)
         {
             try
             {
@@ -49,14 +49,14 @@ namespace L05_Tasks_MSSQL.Controllers
                     return NotFound();
                 }
 
-                DeliveryDto deliveryDto = _deliveryService.BuildDeliveryInfo(city, deliveryCoordinates, distanceInKm, deliveryPrice);
+                DeliveryInfoDto deliveryDto = _deliveryService.BuildDeliveryInfo(city, deliveryCoordinates, distanceInKm, deliveryPrice);
                 if (deliveryDto == null)
                 {
                     _logger.LogInformation("DeliveryDto sukurti nepavyko");
                     return NotFound();
                 }
 
-                return Ok("deliveryDto");
+                return Ok(deliveryDto);
             }
             catch (Exception e)
             {

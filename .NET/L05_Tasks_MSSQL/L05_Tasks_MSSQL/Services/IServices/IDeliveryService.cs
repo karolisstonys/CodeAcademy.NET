@@ -4,7 +4,7 @@ namespace L05_Tasks_MSSQL.Services.IServices
 {
     public interface IDeliveryService
     {
-        DeliveryDto BuildDeliveryInfo(string city, string deliveryCoordinates, double? distanceInKm, int? deliveryPrice);
+        DeliveryInfoDto BuildDeliveryInfo(string city, string deliveryCoordinates, double? distanceInKm, int? deliveryPrice);
         int? CalculateDeliveryPrice(double? distance);
         Task<string> GetCityLocation(string city);
         Task<double?> GetDistanceForDelivery(string deliveryCoordinates);

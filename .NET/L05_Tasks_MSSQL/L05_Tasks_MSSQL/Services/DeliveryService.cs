@@ -71,9 +71,9 @@ namespace L05_Tasks_MSSQL.Services
             return null;
         }
 
-        public DeliveryDto BuildDeliveryInfo(string city, string deliveryCoordinates, double? distanceInKm, int? deliveryPrice)
+        public DeliveryInfoDto BuildDeliveryInfo(string city, string deliveryCoordinates, double? distanceInKm, int? deliveryPrice)
         {
-            return new DeliveryDto()
+            return new DeliveryInfoDto()
             {
                 ShippingFromCity = "Vilnius",
                 ShippingFromCoordinates = "25.251531,54.700902",
