@@ -25,7 +25,9 @@ namespace L04_EF_Applying_To_API
             builder.Services.AddScoped<IDishRepository, DishRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IDishOrderRepository, DishOrderRepository>();
-            builder.Services.AddTransient<IDishOrderAdapter, DishOrderAdapter>(); 
+
+            builder.Services.AddTransient<IDishOrderAdapter, DishOrderAdapter>();
+            builder.Services.AddTransient<IDishAdapter, DishAdapter>();
 
             builder.Services.AddScoped<IPasswordService, PasswordService>();
             builder.Services.AddScoped<IJwtService, JwtService>();
@@ -59,7 +61,8 @@ namespace L04_EF_Applying_To_API
 
 
             builder.Services.AddControllers()
-                .AddJsonOptions(option => option.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+                .AddJsonOptions(option => option.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles)
+                .AddNewtonsoftJson();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(option =>

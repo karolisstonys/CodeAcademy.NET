@@ -4,6 +4,7 @@ using L04_EF_Applying_To_API.Models.DTO;
 using L04_EF_Applying_To_API.Repository.IRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -135,6 +136,55 @@ namespace L04_EF_Applying_To_API.Controllers
 
             return NoContent();
         }
+
+        [HttpPatch("patch3000/{id:int}", Name = "UpdatePartialDish")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> UpdatePartialDish(int id, JsonPatchDocument<Dish> req)
+        {
+            if (id == 0 || req == null) return BadRequest();
+
+            var dishExists = await _dishRepo.ExistsAsync(d => d.DishId == id);
+            if (!dishExists) return NotFound();
+
+            var foundDish = await _dishRepo.GetAsync(d => d.DishId == id);
+
+            req.ApplyTo(foundDish, ModelState);
+
+            await _dishRepo.UpdateAsync(foundDish);
+
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            return NoContent();
+        }
+
+
+
+        [HttpPatch("patch3000/{id:int}", Name = "UpdatePartialDishDto")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> UpdatePartialDishByDto(int id, JsonPatchDocument<UpdateDishDto> req)
+        {
+            if (id == 0 || req == null) return BadRequest();
+
+            var dishExists = await _dishRepo.ExistsAsync(d => d.DishId == id);
+            if (!dishExists) return NotFound();
+
+            var foundDish = await _dishRepo.GetAsync(d => d.DishId == id);
+
+            req.ApplyTo(foundDish, ModelState);
+
+            await _dishRepo.UpdateAsync(foundDish);
+
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            return NoContent();
+        }
+
 
 
 

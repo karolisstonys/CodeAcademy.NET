@@ -4,6 +4,7 @@
     {
         public GetDishDto(Dish dish)
         {
+            Id = dish.DishId;
             Name = dish.Name;
             Type = dish.Type;
             SpiceLevel = dish.SpiceLevel;
@@ -12,6 +13,8 @@
                 .Select(ri => new GetRecipeItemDto(ri))
                 .ToList();
         }
+
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
