@@ -2,6 +2,7 @@
 using L04_EF_Applying_To_API.Models;
 using L04_EF_Applying_To_API.Models.DTO;
 using L04_EF_Applying_To_API.Repository.IRepository;
+using L04_EF_Applying_To_API.Services.Adapters.IAdapters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
@@ -15,10 +16,12 @@ namespace L04_EF_Applying_To_API.Controllers
     public class DishesController : ControllerBase
     {
         private readonly IDishRepository _dishRepo;
+        private readonly IDishAdapter _dishAdapter;
 
-        public DishesController(IDishRepository dishRepo)
+        public DishesController(IDishRepository dishRepo, IDishAdapter dishAdapter)
         {
             _dishRepo = dishRepo;
+            _dishAdapter = dishAdapter;
         }
 
         /// <summary>
@@ -176,9 +179,13 @@ namespace L04_EF_Applying_To_API.Controllers
 
             var foundDish = await _dishRepo.GetAsync(d => d.DishId == id);
 
-            req.ApplyTo(foundDish, ModelState);
+            var updateDishDto = _dishAdapter.Bind(foundDish);
 
-            await _dishRepo.UpdateAsync(foundDish);
+            req.ApplyTo(updateDishDto, ModelState);
+
+            var dish = _dishAdapter.Bind(updateDishDto, foundDish.DishId);
+
+            await _dishRepo.UpdateAsync(dish);
 
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
