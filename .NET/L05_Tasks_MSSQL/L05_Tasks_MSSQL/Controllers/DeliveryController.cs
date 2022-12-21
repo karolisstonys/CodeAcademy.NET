@@ -1,4 +1,4 @@
-﻿using L05_Tasks_MSSQL.Models.DTO.DeliveryDto;
+﻿using L05_Tasks_MSSQL.Models.DTO.Delivery;
 using L05_Tasks_MSSQL.Services.IServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,8 +24,10 @@ namespace L05_Tasks_MSSQL.Controllers
         /// <param name="city">City name you want to deliver to</param>
         /// <returns></returns>
         [HttpGet("GetDeliveryPrice")]
-        [Produces("application/json")]
-        public async Task<ActionResult<DeliveryInfoDto>> GetDeliveryPriceToEnteredCity([FromQuery] string city)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeliveryDataDto))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<DeliveryDataDto>> GetDeliveryPriceToEnteredCity([FromQuery] string city)
         {
             try
             {
@@ -49,22 +51,20 @@ namespace L05_Tasks_MSSQL.Controllers
                     return NotFound();
                 }
 
-                DeliveryInfoDto deliveryDto = _deliveryService.BuildDeliveryInfo(city, deliveryCoordinates, distanceInKm, deliveryPrice);
-                if (deliveryDto == null)
+                DeliveryDataDto deliveryDataDto = _deliveryService.BuildDeliveryInfo(city, deliveryCoordinates, distanceInKm, deliveryPrice);
+                if (deliveryDataDto == null)
                 {
                     _logger.LogInformation("DeliveryDto sukurti nepavyko");
                     return NotFound();
                 }
 
-                return Ok(deliveryDto);
+                return Ok(deliveryDataDto.Price);
             }
             catch (Exception e)
             {
                 _logger.LogError(e, "Ivyko kazkas blogo");
                 throw;
             }
-
-
         }
 
 

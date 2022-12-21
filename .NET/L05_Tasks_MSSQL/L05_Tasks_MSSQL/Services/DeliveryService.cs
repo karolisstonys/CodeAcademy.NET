@@ -1,4 +1,4 @@
-﻿using L05_Tasks_MSSQL.Models.DTO.DeliveryDto;
+﻿using L05_Tasks_MSSQL.Models.DTO.Delivery;
 using L05_Tasks_MSSQL.Services.IServices;
 using Newtonsoft.Json;
 
@@ -71,12 +71,10 @@ namespace L05_Tasks_MSSQL.Services
             return null;
         }
 
-        public DeliveryInfoDto BuildDeliveryInfo(string city, string deliveryCoordinates, double? distanceInKm, int? deliveryPrice)
+        public DeliveryDataDto BuildDeliveryInfo(string city, string deliveryCoordinates, double? distanceInKm, int? deliveryPrice)
         {
-            return new DeliveryInfoDto()
+            return new DeliveryDataDto()
             {
-                ShippingFromCity = "Vilnius",
-                ShippingFromCoordinates = "25.251531,54.700902",
                 ShippingToCity = city,
                 ShippingToCoordinates = deliveryCoordinates,
                 Distance = distanceInKm.Value,
