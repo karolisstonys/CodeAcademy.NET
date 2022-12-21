@@ -1,4 +1,5 @@
-﻿using L05_Tasks_MSSQL.Services.IServices;
+﻿using L05_Tasks_MSSQL.Models.DTO.DeliveryDto;
+using L05_Tasks_MSSQL.Services.IServices;
 using Newtonsoft.Json;
 
 namespace L05_Tasks_MSSQL.Services
@@ -58,5 +59,32 @@ namespace L05_Tasks_MSSQL.Services
             var distanceInMeters = Convert.ToDouble(content.Substring(start, end-start));
             return distanceInMeters;
         }
+
+        public int? CalculateDeliveryPrice(double? distance)
+        {
+            var basePrice = 5;
+            if (distance == null) return null;
+            if (distance <= 50) return basePrice - 2;
+            if (distance > 50 && distance <= 150) return basePrice;
+            if (distance > 150 && distance <= 300) return basePrice + 2;
+            if (distance > 300) return null;
+            return null;
+        }
+
+        public DeliveryDto BuildDeliveryInfo(string city, string deliveryCoordinates, double? distanceInKm, int? deliveryPrice)
+        {
+            return new DeliveryDto()
+            {
+                ShippingFromCity = "Vilnius",
+                ShippingFromCoordinates = "25.251531,54.700902",
+                ShippingToCity = city,
+                ShippingToCoordinates = deliveryCoordinates,
+                Distance = distanceInKm.Value,
+                Price = deliveryPrice.Value
+            };
+        }
+
+
+
     }
 }
