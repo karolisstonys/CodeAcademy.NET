@@ -14,17 +14,24 @@ namespace L05_Tasks_MSSQL.Repository
         private readonly BookStoreContext _db;
         private readonly IPasswordService _passwordService;
         private readonly IJwtService _jwtService;
+        private readonly IUserAdapter _userAdapter;
+
         private readonly LoginResponse _emptyTokenAndNullUser = new LoginResponse
         {
             Token = "",
             User = null
         };
 
-        public UserRepository(BookStoreContext db, IConfiguration conf, IPasswordService passwordService, IJwtService jwtService)
+        public UserRepository(BookStoreContext db, 
+                              IConfiguration conf, 
+                              IPasswordService passwordService, 
+                              IJwtService jwtService,
+                              IUserAdapter userAdapter)
         {
             _db = db;
             _passwordService = passwordService;
             _jwtService=jwtService;
+            _userAdapter = userAdapter;
         }
 
         public bool IsUniqueUser(string username) => !_db.Users.Any(u => u.Username == username);
@@ -43,13 +50,7 @@ namespace L05_Tasks_MSSQL.Repository
             LoginResponse loginResponse = new()
             {
                 Token = token,
-                User = new RegistrationResponse()
-                {
-                    Id = user.Id,
-                    Username = user.Username,
-                    FullName = user.FullName,
-                    Role = user.Role
-                }
+                User = _userAdapter.Bind(user)
             };
 
             return loginResponse;
@@ -134,6 +135,27 @@ namespace L05_Tasks_MSSQL.Repository
             _db.Users.Update(user);
             _db.SaveChanges();
         }
+
+        public async Task Update(GetUserDto userDto)
+        {
+            try
+            {
+                User user = _db.Users.First(u => u.Id == userDto.UserId);
+                user.TakenLibraryBooks = userDto.TakenLibraryBooks;
+                user.BooksNotReturnedInTime = userDto.BooksNotReturnedInTime;
+                user.TotalDebt = userDto.TotalDebt;
+                user.LastLogin = userDto.LastLogin;
+                user.Points = userDto.Points;
+
+                _db.Users.Update(user);
+                await _db.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
 
     }
 }

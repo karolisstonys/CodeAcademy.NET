@@ -21,13 +21,19 @@ namespace L05_Tasks_MSSQL.Controllers
         private readonly IUserBookAdapter _adapter;
         private readonly IDebtHelper _debt;
 
-        public DebtController(BookStoreContext db, IUserBookRepository userBookRepo, IUserBookAdapter adapter, ILibraryBookRepository libraryBookRepo, IUserRepository userRepo)
+        public DebtController(BookStoreContext db, 
+                              IUserBookRepository userBookRepo, 
+                              IUserBookAdapter adapter, 
+                              ILibraryBookRepository libraryBookRepo, 
+                              IUserRepository userRepo,
+                              IDebtHelper debt)
         {
             _db = db;
             _userBookRepo = userBookRepo;
             _adapter = adapter;
             _libraryBookRepo = libraryBookRepo;
             _userRepo = userRepo;
+            _debt = debt;
         }
 
         /// <summary>

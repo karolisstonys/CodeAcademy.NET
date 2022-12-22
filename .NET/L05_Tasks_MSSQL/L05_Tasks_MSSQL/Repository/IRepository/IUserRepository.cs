@@ -10,9 +10,10 @@ namespace L05_Tasks_MSSQL.Repository.IRepository
         bool IsUniqueUser(string username);
         LoginResponse Login(LoginRequest loginRequest);
         RegistrationResponse Register(RegistrationRequest registrationRequest);
-        public List<GetUserDto> GetAll(Expression<Func<User, bool>>? filter = null);
-        public GetUserDto Get(Expression<Func<User, bool>> filter = null);
-        public void UpdateTakenLibraryBooks(int userId, int modifier);
-        public void UpdateBooksNotReturnedInTimeAndTotalDebt(int userId, int booksNotReturnedInTime, double totalDebt);
+        List<GetUserDto> GetAll(Expression<Func<User, bool>>? filter = null);
+        GetUserDto Get(Expression<Func<User, bool>> filter = null);
+        void UpdateTakenLibraryBooks(int userId, int modifier);
+        void UpdateBooksNotReturnedInTimeAndTotalDebt(int userId, int booksNotReturnedInTime, double totalDebt);
+        Task Update(GetUserDto userDto);
     }
 }

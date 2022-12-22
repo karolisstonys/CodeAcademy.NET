@@ -100,11 +100,11 @@ namespace L05_Tasks_MSSQL.Controllers
         /// <summary>
         /// Graziname knyga i biblioteka
         /// </summary>
-        /// <param name="id">bibliotekos knygos id</param>
+        /// <param name="id">knygos paemimo id (UserBookId)</param>
         /// <returns></returns>
         [HttpPut("ReturnLibraryBook/{id:int}")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        public IActionResult ReturnLibraryBookById(int id)
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public IActionResult ReturnLibraryBookById(int id) // gal reiktu siusti LibraryBookId, o ne UserBookId ?
         {
             var userBook = _userBookRepo.Get(b => b.Id == id);
             if (userBook == null) return NotFound("userBook == null");

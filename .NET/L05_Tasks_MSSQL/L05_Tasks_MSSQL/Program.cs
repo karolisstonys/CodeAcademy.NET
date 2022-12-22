@@ -28,11 +28,13 @@ namespace L05_Tasks_MSSQL
             builder.Services.AddTransient<IBookWrapper, BookWrapper>();
             builder.Services.AddTransient<ILibraryBookAdapter, LibraryBookAdapter>();
             builder.Services.AddTransient<IUserBookAdapter, UserBookAdapter>();
+            builder.Services.AddTransient<IUserAdapter, UserAdapter>(); 
 
             builder.Services.AddTransient<IDebtHelper, DebtHelper>();
             builder.Services.AddTransient<ILibraryHelper, LibraryHelper>();
             builder.Services.AddTransient<IStatsHelper, StatsHelper>();
-            builder.Services.AddTransient<IDeliveryService, DeliveryService>(); 
+            builder.Services.AddTransient<IDeliveryService, DeliveryService>();
+            builder.Services.AddTransient<IPointsService, PointsService>(); 
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IBookRepository, BookRepository>();
@@ -48,6 +50,13 @@ namespace L05_Tasks_MSSQL
             builder.Services.AddHttpClient("OpenRouteServiceApi", client =>
             {
                 client.BaseAddress = new Uri(builder.Configuration["ExternalServices3000:OpenRouteServiceApiUrl"]);
+                client.Timeout = TimeSpan.FromSeconds(10);
+                client.DefaultRequestHeaders.Clear();
+            });
+
+            builder.Services.AddHttpClient("HolidayApi", client =>
+            {
+                client.BaseAddress = new Uri(builder.Configuration["ExternalServices3000:HolidayApiUrl"]);
                 client.Timeout = TimeSpan.FromSeconds(10);
                 client.DefaultRequestHeaders.Clear();
             });

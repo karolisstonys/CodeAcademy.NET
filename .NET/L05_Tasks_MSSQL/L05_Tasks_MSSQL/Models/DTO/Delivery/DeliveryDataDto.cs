@@ -2,11 +2,11 @@
 {
     public class DeliveryDataDto
     {
-        public string ShippingFromCity = "Vilnius";
-        public string ShippingToCity;
-        public string ShippingFromCoordinates = "25.251531,54.700902";
-        public string ShippingToCoordinates;
-        public double Distance;
-        public int Price;
+        public string ShippingFromCity { get; set; } = "Vilnius";
+        public string ShippingToCity { get; set; }
+        public string ShippingFromCoordinates { get; set; } = "25.251531,54.700902";
+        public string ShippingToCoordinates { get; set; }
+        public double DistanceInKm { get; set; }
+        public int PriceInEuros { get; set; }
     }
 }

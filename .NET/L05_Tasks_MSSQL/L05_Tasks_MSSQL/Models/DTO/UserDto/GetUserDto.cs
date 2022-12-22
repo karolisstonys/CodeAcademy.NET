@@ -8,5 +8,7 @@
         public int TakenLibraryBooks { get; set; }
         public int BooksNotReturnedInTime { get; set; }
         public double TotalDebt { get; set; }
+        public DateTime LastLogin { get; set; }
+        public long Points { get; set; }
     }
 }

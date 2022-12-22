@@ -77,8 +77,8 @@ namespace L05_Tasks_MSSQL.Services
             {
                 ShippingToCity = city,
                 ShippingToCoordinates = deliveryCoordinates,
-                Distance = distanceInKm.Value,
-                Price = deliveryPrice.Value
+                DistanceInKm = distanceInKm.Value,
+                PriceInEuros = deliveryPrice.Value
             };
         }
 

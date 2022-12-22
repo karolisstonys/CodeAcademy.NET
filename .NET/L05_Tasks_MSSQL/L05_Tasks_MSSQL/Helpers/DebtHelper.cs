@@ -28,7 +28,7 @@ namespace L05_Tasks_MSSQL.Helpers
             foreach (var user in allUserDebt)
             {
                 if (user.TotalDebt > _debtDoesNotIncreaseAboveThisAmount) user.TotalDebt = _debtDoesNotIncreaseAboveThisAmount;
-                _userRepo.UpdateBooksNotReturnedInTimeAndTotalDebt(user.UserId, user.BooksNotReturnedInTime.Count, user.TotalDebt); // NESAUGOTI ISSKAICIUOJAMU DUOMENU
+                _userRepo.UpdateBooksNotReturnedInTimeAndTotalDebt(user.UserId, user.BooksNotReturnedInTime.Count, user.TotalDebt); // NESAUGOTI ISSKAICIUOJAMU DUOMENU ?
             }
             return allUserDebt;
         }
@@ -71,7 +71,7 @@ namespace L05_Tasks_MSSQL.Helpers
                         userDebt.TotalDebt += bookNotReturnedInTime.Debt;
                         userDebt.BooksNotReturnedInTime.Add(bookNotReturnedInTime);
 
-                        _userBookRepo.UpdateDaysLate(userBook.Id, bookNotReturnedInTime.DaysLate); // NESAUGOTI ISSKAICIUOJAMU DUOMENU
+                        _userBookRepo.UpdateDaysLate(userBook.Id, bookNotReturnedInTime.DaysLate); // NESAUGOTI ISSKAICIUOJAMU DUOMENU ?
                     }
                 }
             }

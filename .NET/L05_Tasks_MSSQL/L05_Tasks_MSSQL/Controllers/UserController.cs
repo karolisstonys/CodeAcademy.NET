@@ -1,5 +1,6 @@
 ﻿using L05_Tasks_MSSQL.Models.DTO;
 using L05_Tasks_MSSQL.Repository.IRepository;
+using L05_Tasks_MSSQL.Services.IServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,10 +11,12 @@ namespace L05_Tasks_MSSQL.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepo;
+        private readonly IPointsService _pointsService;
 
-        public UserController(IUserRepository userRepo)
+        public UserController(IUserRepository userRepo, IPointsService pointsService)
         {
             _userRepo = userRepo;
+            _pointsService = pointsService;
         }
 
         /// <summary>
@@ -22,13 +25,24 @@ namespace L05_Tasks_MSSQL.Controllers
         /// <param name="model">modelis nesantis username ir password</param>
         /// <returns></returns>
         [HttpPost("Login")]
-        public IActionResult Login([FromBody] LoginRequest model)
+        public async Task<IActionResult> Login([FromBody] LoginRequest model)
         {
             var loginResponse = _userRepo.Login(model);
             if (loginResponse.User == null || string.IsNullOrEmpty(loginResponse.Token))
             {
                 return BadRequest(new { mesage = "Username or password is incorect" });
             }
+
+            var lastLoginIsToday = _pointsService.WasLastLoginToday(loginResponse.User);
+            if (!lastLoginIsToday) 
+            {
+                int numberOfPoints = await _pointsService.HowManyPointsToAdd();
+                loginResponse.User.Points += numberOfPoints;
+            }
+
+            loginResponse.User.LastLogin = DateTime.Now;
+            await _userRepo.Update(loginResponse.User);
+
             return Ok(loginResponse);
         }
 

@@ -58,7 +58,7 @@ namespace L05_Tasks_MSSQL.Controllers
                     return NotFound();
                 }
 
-                return Ok(deliveryDataDto.Price);
+                return Ok(deliveryDataDto);
             }
             catch (Exception e)
             {
