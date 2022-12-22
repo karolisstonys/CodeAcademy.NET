@@ -6,6 +6,6 @@
         public int UserId { get; set; }
         public DateTime Time { get; set; }
         public double Amount { get; set; }
-        public string PointsUsed { get; set; }
+        public long PointsUsed { get; set; }
     }
 }

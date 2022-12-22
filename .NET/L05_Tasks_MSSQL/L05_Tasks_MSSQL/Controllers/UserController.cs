@@ -54,7 +54,6 @@ namespace L05_Tasks_MSSQL.Controllers
         [HttpPost("Redistration")]
         public IActionResult Register([FromBody] RegistrationRequest model)
         {
-
             if (!_userRepo.IsUniqueUser(model.Username))
             {
                 return BadRequest(new { mesage = "Username already exists" });

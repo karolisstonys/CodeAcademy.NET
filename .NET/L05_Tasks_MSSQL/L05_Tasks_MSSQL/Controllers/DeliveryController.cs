@@ -33,29 +33,29 @@ namespace L05_Tasks_MSSQL.Controllers
             {
                 var deliveryCoordinates = await _deliveryService.GetCityLocation(city);
                 if (deliveryCoordinates == "") {
-                    _logger.LogInformation("City ({0}) entered by user not found!", city);
-                    return NotFound(); 
+                    _logger.LogWarning("Miesto pavadinimu - {0}, rasti nepavyko!", city);
+                    return NotFound($"Miesto pavadinimu - {city}, rasti nepavyko!"); 
                 }
 
                 var distanceInKm = await _deliveryService.GetDistanceForDelivery(deliveryCoordinates);
                 if (distanceInKm == null)
                 {
-                    _logger.LogInformation("Distance calculation is not posible with coordinates - {0}", deliveryCoordinates);
-                    return NotFound();
+                    _logger.LogWarning("Nepavyko apskaičiuoti atstumo iki koordinačių - {0}", deliveryCoordinates);
+                    return NotFound($"Nepavyko apskaičiuoti atstumo iki koordinačių - {deliveryCoordinates}");
                 }
 
                 var deliveryPrice = _deliveryService.CalculateDeliveryPrice(distanceInKm);
                 if (deliveryPrice == null)
                 {
-                    _logger.LogInformation("Del atstumo ({0}km) iki pasirinkto miesto, pristatymas negalimas", distanceInKm);
-                    return NotFound();
+                    _logger.LogWarning("Del atstumo ({0}km) iki pasirinkto miesto, pristatymas negalimas", distanceInKm);
+                    return Ok($"Viršytas maksimalus pristatymo atstumas. Iki pasirinkto miesto yra {distanceInKm}km.");
                 }
 
                 DeliveryDataDto deliveryDataDto = _deliveryService.BuildDeliveryInfo(city, deliveryCoordinates, distanceInKm, deliveryPrice);
                 if (deliveryDataDto == null)
                 {
-                    _logger.LogInformation("DeliveryDto sukurti nepavyko");
-                    return NotFound();
+                    _logger.LogWarning("DeliveryDto sukurti nepavyko");
+                    return NotFound("DeliveryDto sukurti nepavyko");
                 }
 
                 return Ok(deliveryDataDto);
@@ -66,11 +66,5 @@ namespace L05_Tasks_MSSQL.Controllers
                 throw;
             }
         }
-
-
-
-
-
-
     }
 }

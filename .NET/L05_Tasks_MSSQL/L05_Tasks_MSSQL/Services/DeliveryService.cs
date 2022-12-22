@@ -31,6 +31,8 @@ namespace L05_Tasks_MSSQL.Services
         private string GetCoordinatesFromResponseString(string content)
         {
             string text = "type\":\"Point\",\"coordinates\":[";
+            if (!content.Contains(text)) return "";
+
             var start = content.IndexOf(text) + text.Length;
             var end = content.IndexOf("]", start);
             return content.Substring(start, end-start);

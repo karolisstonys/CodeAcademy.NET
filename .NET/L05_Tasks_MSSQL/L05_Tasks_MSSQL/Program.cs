@@ -34,12 +34,14 @@ namespace L05_Tasks_MSSQL
             builder.Services.AddTransient<ILibraryHelper, LibraryHelper>();
             builder.Services.AddTransient<IStatsHelper, StatsHelper>();
             builder.Services.AddTransient<IDeliveryService, DeliveryService>();
-            builder.Services.AddTransient<IPointsService, PointsService>(); 
+            builder.Services.AddTransient<IPointsService, PointsService>();
+            builder.Services.AddTransient<IPaymentService, PaymentService>(); 
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IBookRepository, BookRepository>();
             builder.Services.AddScoped<ILibraryBookRepository, LibraryBookRepository>();
             builder.Services.AddScoped<IUserBookRepository, UserBookRepository>();
+            builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 
             builder.Services.AddDbContext<BookStoreContext>(option =>
             {
