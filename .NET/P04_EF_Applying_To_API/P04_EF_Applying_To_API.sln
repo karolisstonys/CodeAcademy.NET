@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P04_EF_Applying_To_API", "P04_EF_Applying_To_API\P04_EF_Applying_To_API.csproj", "{02B65BC5-1791-447F-A0DA-91641DE41FC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P04_EF_Applying_To_API", "P04_EF_Applying_To_API\P04_EF_Applying_To_API.csproj", "{02B65BC5-1791-447F-A0DA-91641DE41FC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P04_EF_Applying_To_API_Tests", "P04_EF_Applying_To_API_Tests\P04_EF_Applying_To_API_Tests.csproj", "{810EF426-B76C-4AD7-A544-2DBB9483A1D9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1E930200-69DD-40A8-936B-892BC6257D43}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +19,16 @@ Global
 		{02B65BC5-1791-447F-A0DA-91641DE41FC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02B65BC5-1791-447F-A0DA-91641DE41FC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02B65BC5-1791-447F-A0DA-91641DE41FC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{810EF426-B76C-4AD7-A544-2DBB9483A1D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{810EF426-B76C-4AD7-A544-2DBB9483A1D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{810EF426-B76C-4AD7-A544-2DBB9483A1D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{810EF426-B76C-4AD7-A544-2DBB9483A1D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{810EF426-B76C-4AD7-A544-2DBB9483A1D9} = {1E930200-69DD-40A8-936B-892BC6257D43}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {376DCD2E-8EA2-431F-8DA1-F481983C3CA1}
