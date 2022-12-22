@@ -14,21 +14,16 @@ namespace L04_EF_Applying_To_API.Controllers
     [ApiController]
     public class DishOrdersController : ControllerBase
     {
-        private readonly IDishOrderRepository _dishOrderRepo;
-        private readonly IUserRepository _userRepo;
+        private readonly IUnitOfWork _db;
         private readonly IDishRepository _dishRepo;
         private readonly IDishOrderAdapter _dishOrderAdapter;
         private readonly ICookingService _cookingService;
 
-        public DishOrdersController(IDishOrderRepository dishOrderRepo, 
-                                    IUserRepository userRepo, 
-                                    IDishRepository dishRepo, 
+        public DishOrdersController(IUnitOfWork db, 
                                     IDishOrderAdapter dishOrderAdapter,
                                     ICookingService cookingService)
         {
-            _dishOrderRepo = dishOrderRepo;
-            _userRepo=userRepo;
-            _dishRepo = dishRepo;
+            _db = db;
             _dishOrderAdapter = dishOrderAdapter;
             _cookingService = cookingService;
         }
@@ -42,10 +37,10 @@ namespace L04_EF_Applying_To_API.Controllers
         {
             if (req.UserId == 0 || req.DishId == 0) return BadRequest();
 
-            var isDishOrdered = await _dishOrderRepo.ExistsAsync(o => o.LocalUserId == req.UserId && o.DishId == req.DishId);
+            var isDishOrdered = await _db.DishOrder.ExistsAsync(o => o.LocalUserId == req.UserId && o.DishId == req.DishId);
             if (isDishOrdered) return BadRequest();
             
-            var dishOrder = await _dishOrderRepo.GetAsync(o => o.LocalUserId == req.UserId && o.DishId == req.DishId);
+            var dishOrder = await _db.DishOrder.GetAsync(o => o.LocalUserId == req.UserId && o.DishId == req.DishId);
 
             return Ok(_dishOrderAdapter.Bind(dishOrder));
         }
@@ -60,18 +55,18 @@ namespace L04_EF_Applying_To_API.Controllers
         {
             if (req == null || req.DishId == 0 || req.UserId == 0) return BadRequest();
 
-            var isRegistered = await _userRepo.IsRegisteredAsync(req.UserId);
-            if (isRegistered) return NotFound();
+            var isRegistered = await _db.User.IsRegisteredAsync(req.UserId);
+            if (!isRegistered) return NotFound("A");
 
-            var dishExists = await _dishRepo.ExistsAsync(d => d.DishId == req.DishId);
-            if (isRegistered) return NotFound();
+            var dishExists = await _db.Dish.ExistsAsync(d => d.DishId == req.DishId);
+            if (!dishExists) return NotFound("B");
 
-            var orderedDish = await _dishOrderRepo.GetAsync(d => d.DishId == req.DishId);
+            var orderedDish = await _db.DishOrder.GetAsync(d => d.DishId == req.DishId);
 
             var newDishOrder = _dishOrderAdapter.Bind(req);
             var response = _dishOrderAdapter.Bind(orderedDish);
 
-            await _dishOrderRepo.CreateAsync(newDishOrder);
+            await _db.DishOrder.CreateAsync(newDishOrder);
 
             await _cookingService.CookAsync(newDishOrder);
 

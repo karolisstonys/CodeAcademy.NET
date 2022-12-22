@@ -28,10 +28,12 @@ namespace L04_EF_Applying_To_API
 
             builder.Services.AddTransient<IDishOrderAdapter, DishOrderAdapter>();
             builder.Services.AddTransient<IDishAdapter, DishAdapter>();
+            builder.Services.AddTransient<ICookingService, CookingService>();
 
             builder.Services.AddScoped<IPasswordService, PasswordService>();
             builder.Services.AddScoped<IJwtService, JwtService>();
-            builder.Services.AddTransient<ICookingService, CookingService>(); 
+
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             builder.Services.AddDbContext<RestaurantContext>(option =>
             {
