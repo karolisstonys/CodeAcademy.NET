@@ -53,6 +53,7 @@ namespace L05_Tasks_MSSQL.Controllers
         {
             var getUserDto = _userRepo.Get(b => b.Id == userId);
             if (getUserDto == null) return NotFound("getUserDto == null");
+            if (getUserDto.TotalDebt == 0) return NotFound("Vartotojas neturi skolos.");
             if (getUserDto.TotalDebt > amount) return NotFound("Mokama suma viršija skolą!");
             if (getUserDto.Points < pointsUsed) return NotFound("Vartotojas neturi tiek \"Taškų\"!");
 
@@ -62,7 +63,6 @@ namespace L05_Tasks_MSSQL.Controllers
             getUserDto.Points -= pointsUsed;
             getUserDto.TotalDebt -= amount;
             await _userRepo.Update(getUserDto);
-
 
             var payment = new Payment()
             {

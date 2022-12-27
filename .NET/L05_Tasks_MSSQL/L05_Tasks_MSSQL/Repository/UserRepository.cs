@@ -108,21 +108,32 @@ namespace L05_Tasks_MSSQL.Repository
             return userDto;
         }
 
-        public GetUserDto Get(Expression<Func<User, bool>> filter)
+        public GetUserDto? Get(Expression<Func<User, bool>> filter)
         {
-            User user = _db.Users.Where(filter).FirstOrDefault();
-            var userDto = new GetUserDto()
+            try
             {
-                UserId = user.Id,
-                FullName = user.FullName,
-                Role = user.Role,
-                TakenLibraryBooks = user.TakenLibraryBooks,
-                BooksNotReturnedInTime = user.BooksNotReturnedInTime,
-                TotalDebt = user.TotalDebt,
-                LastLogin = user.LastLogin,
-                Points = user.Points
-            };
-            return userDto;
+                User user = _db.Users.Where(filter).FirstOrDefault();
+                if (user != null)
+                {
+                    var userDto = new GetUserDto()
+                    {
+                        UserId = user.Id,
+                        FullName = user.FullName,
+                        Role = user.Role,
+                        TakenLibraryBooks = user.TakenLibraryBooks,
+                        BooksNotReturnedInTime = user.BooksNotReturnedInTime,
+                        TotalDebt = user.TotalDebt,
+                        LastLogin = user.LastLogin,
+                        Points = user.Points
+                    };
+                    return userDto;
+                }
+                return null;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public void UpdateTakenLibraryBooks(int userId, int modifier)

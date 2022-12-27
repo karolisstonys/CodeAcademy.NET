@@ -11,7 +11,7 @@ namespace L05_Tasks_MSSQL.Repository.IRepository
         LoginResponse Login(LoginRequest loginRequest);
         RegistrationResponse Register(RegistrationRequest registrationRequest);
         List<GetUserDto> GetAll(Expression<Func<User, bool>>? filter = null);
-        GetUserDto Get(Expression<Func<User, bool>> filter = null);
+        GetUserDto? Get(Expression<Func<User, bool>> filter = null);
         void UpdateTakenLibraryBooks(int userId, int modifier);
         void UpdateBooksNotReturnedInTimeAndTotalDebt(int userId, int booksNotReturnedInTime, double totalDebt);
         Task Update(GetUserDto userDto);
